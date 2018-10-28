@@ -1,0 +1,10 @@
+* https://www.geeksforgeeks.org/a-linked-list-with-next-and-arbit-pointer/
+* https://www.geeksforgeeks.org/shortest-distance-two-cells-matrix-grid/
+* https://www.geeksforgeeks.org/stock-buy-sell/
+* https://www.geeksforgeeks.org/delete-a-node-in-a-doubly-linked-list/
+* https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/
+* https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
+* https://www.geeksforgeeks.org/print-nodes-distance-k-given-node-binary-tree/
+* https://www.geeksforgeeks.org/topological-sorting/
+* https://www.geeksforgeeks.org/trapping-rain-water/
+* https://www.geeksforgeeks.org/diameter-of-a-binary-tree/
