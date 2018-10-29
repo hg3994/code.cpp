@@ -1,5 +1,4 @@
 * https://www.geeksforgeeks.org/a-linked-list-with-next-and-arbit-pointer/
-* https://www.geeksforgeeks.org/shortest-distance-two-cells-matrix-grid/
 * https://www.geeksforgeeks.org/stock-buy-sell/
 * https://www.geeksforgeeks.org/delete-a-node-in-a-doubly-linked-list/
 * https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/
@@ -8,3 +7,8 @@
 * https://www.geeksforgeeks.org/topological-sorting/
 * https://www.geeksforgeeks.org/trapping-rain-water/
 * https://www.geeksforgeeks.org/diameter-of-a-binary-tree/
+* https://www.geeksforgeeks.org/find-a-peak-in-a-given-array/
+* https://www.geeksforgeeks.org/merge-one-array-of-size-n-into-another-one-of-size-mn/
+* https://www.geeksforgeeks.org/find-maximum-path-sum-in-a-binary-tree/
+* https://www.geeksforgeeks.org/maximum-size-sub-matrix-with-all-1s-in-a-binary-matrix/
+* https://leetcode.com/problems/max-area-of-island/description/
