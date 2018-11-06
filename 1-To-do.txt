@@ -6,7 +6,6 @@
 * https://www.geeksforgeeks.org/print-nodes-distance-k-given-node-binary-tree/
 * https://www.geeksforgeeks.org/topological-sorting/
 * https://www.geeksforgeeks.org/trapping-rain-water/
-* https://www.geeksforgeeks.org/merge-one-array-of-size-n-into-another-one-of-size-mn/
 * https://www.geeksforgeeks.org/find-maximum-path-sum-in-a-binary-tree/
 * https://www.geeksforgeeks.org/maximum-size-sub-matrix-with-all-1s-in-a-binary-matrix/
 * https://leetcode.com/problems/max-area-of-island/description/
