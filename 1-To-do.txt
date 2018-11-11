@@ -1,19 +1,15 @@
 * https://www.geeksforgeeks.org/a-linked-list-with-next-and-arbit-pointer/
-* https://www.geeksforgeeks.org/stock-buy-sell/
-* https://www.geeksforgeeks.org/delete-a-node-in-a-doubly-linked-list/
 * https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/
 * https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
 * https://www.geeksforgeeks.org/print-nodes-distance-k-given-node-binary-tree/
 * https://www.geeksforgeeks.org/topological-sorting/
 * https://www.geeksforgeeks.org/trapping-rain-water/
 * https://www.geeksforgeeks.org/find-maximum-path-sum-in-a-binary-tree/
-* https://www.geeksforgeeks.org/maximum-size-sub-matrix-with-all-1s-in-a-binary-matrix/
-* https://leetcode.com/problems/max-area-of-island/description/
 * https://www.geeksforgeeks.org/travelling-salesman-problem-set-1/
 * https://www.geeksforgeeks.org/tiling-problem/
 * https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
 * https://www.geeksforgeeks.org/lexicographic-rank-of-a-string/ https://www.geeksforgeeks.org/lexicographic-rank-string-duplicate-characters/ https://www.geeksforgeeks.org/lexicographic-rank-string-using-stl/
 * Y - linked list
 * Median in a stream of integers
-*
+* https://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-1/ https://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-2/
 *
