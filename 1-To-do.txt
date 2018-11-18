@@ -10,6 +10,5 @@
 * https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
 * https://www.geeksforgeeks.org/lexicographic-rank-of-a-string/ https://www.geeksforgeeks.org/lexicographic-rank-string-duplicate-characters/ https://www.geeksforgeeks.org/lexicographic-rank-string-using-stl/
 * Y - linked list
-* Median in a stream of integers
 * https://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-1/ https://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-2/
 *

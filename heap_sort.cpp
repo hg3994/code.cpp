@@ -1,5 +1,5 @@
 /* 
-Harshit Gupta | 21th October, 2018
+Harshit Gupta | 21st October, 2018
 
 https://ide.geeksforgeeks.org/5XQ0YmZYhp
 https://www.geeksforgeeks.org/binary-heap/
@@ -33,12 +33,12 @@ void heapify(int *arr, int n, int i){
     int largest = i;
     
     // set largest to the left child's index if that is greater.
-    if(arr[left_child] > arr[largest] && left_child<n){
+    if(left_child<n && arr[left_child] > arr[largest]){
         largest = left_child;
     }
     
     // set largest to the right child's index if that is greater.
-    if(arr[right_child] > arr[largest] && right_child<n){
+    if(right_child<n && arr[right_child] > arr[largest]){
         largest = right_child;
     }
     
@@ -69,7 +69,12 @@ void heapSort(int *arr, int n){
     //   downstream to its perfect position in the maxHeap.
     // - Again we would have max at a[0] for the next loop and thus it continues..
     for(int i=n-1;i>=1;i--){
+
+        // Swap the first and ith character since 0th number is the max.
         swap(arr[0], arr[i]);
+
+        // Sending i here even if arr[i] is fixed, the reason is that in the 
+        // heapify() function, <n is used and not <=n, so i is fine.
         heapify(arr,i,0);
     }
     
