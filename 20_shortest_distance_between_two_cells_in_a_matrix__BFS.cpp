@@ -21,7 +21,7 @@ Solution:   1. Store each cell as a tuple with their row, column values and dist
                 and would help us by not solving the same problem again and again.
             4. while the queue is not empty, keep popping the front 
                 If the popped cell is the destination, print the distance and return
-                Else if its adjacent cells has '*', then 
+                Else if its adjacent cells has '*' and they are not visited, then 
                     add it in the queue (since it is reachable) with distance+1
 
 Paradigm: Graphs, BFS
@@ -57,7 +57,7 @@ void findMinDistance(char grid[N][M], pair<int,int> source, pair<int,int> destin
     // A queue defined as 'x','y' and 'dist of the cell with source'
     queue<tuple<int,int,int>> q;
     
-    // Push the source into the queue and its distance with itsefl would be 0.
+    // Push the source into the queue and its distance with itself would be 0.
     q.push(make_tuple(source.first, source.second, 0));
     
     // Till the queue is empty, traverse (BFS)
@@ -78,7 +78,7 @@ void findMinDistance(char grid[N][M], pair<int,int> source, pair<int,int> destin
             
             // If the accessed cell is within the range and is the destination cell
             // then print its distance and return. Note: distance is dist+1
-            if(x+row[i]<N && y+col[i]<M && x+row[i] == destination.first && y+col[i] == destination.second){
+            if(x+row[i]<N && x+row[i]>=0 && y+col[i]<M && y+col[i]>=0 && x+row[i] == destination.first && y+col[i] == destination.second){
                 cout<<"Destination reached with shortest path: "<<dist+1<<endl;
                 return;
             }

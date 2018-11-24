@@ -1,0 +1,43 @@
+* https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/
+* https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
+* https://www.geeksforgeeks.org/print-nodes-distance-k-given-node-binary-tree/
+* https://www.geeksforgeeks.org/topological-sorting/
+* https://www.geeksforgeeks.org/trapping-rain-water/
+* https://www.geeksforgeeks.org/find-maximum-path-sum-in-a-binary-tree/
+* https://www.geeksforgeeks.org/travelling-salesman-problem-set-1/
+* https://www.geeksforgeeks.org/tiling-problem/
+* https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
+* https://www.geeksforgeeks.org/lexicographic-rank-of-a-string/ https://www.geeksforgeeks.org/lexicographic-rank-string-duplicate-characters/ https://www.geeksforgeeks.org/lexicographic-rank-string-using-stl/
+* Y - linked list
+* https://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-1/ https://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-2/
+* Splitwise problem
+* Sliding Window
+* All sorting Algorithms
+* https://www.geeksforgeeks.org/painters-partition-problem/ https://www.geeksforgeeks.org/painters-partition-problem-set-2/
+
+* Process vs Thread
+* SQL vs NOSQL
+* Virtual Memory
+* Memory view of C program
+* https://www.geeksforgeeks.org/hashing-set-1-introduction/ 
+	https://www.geeksforgeeks.org/direct-address-table/
+	https://www.geeksforgeeks.org/hashing-set-2-separate-chaining/ 
+	https://www.geeksforgeeks.org/hashing-set-3-open-addressing/ 
+	https://www.geeksforgeeks.org/double-hashing/ 
+* Polymorphism (Runtime and compile time), INheritance, Encapsulation
+* Overloading(Function and Operator)
+* Virtual Functions, VPTR, VTABLE.
+* Difference between a pointer and a reference. Why is pointer used in all traditional data structures (like linked list and trees) and not reference?
+* Dangling Pointer, Void Pointer, Out of memory Error (Don’t confuse it with array out of bound exception), What is core dumped in Segmentation Fault?
+* Mutex, Semaphores
+* Static and Dynamic Linking. Advantages, differences between them? When to use which one.
+* Static variables and functions in C++. Use and differences between static and global variables.
+* What are cin and cout in C++. They are objects of which class. Namespaces in C++.
+* What happens when we press www.google.com
+* Explain all the Protocols starting from ARP, RARP, BOOTP, DHCP.
+* what is memory leak?how to handle it.
+* Does c++ contains automatic garbage collection?what is the use of free and del function in c++.
+
+Puzzles
+* 29x + 30y + 31z = 366 Solve it. This is a really good puzzle. 366 is the no of days in a leap year so no of months with 29 days is 1 (February) and no of months with 30 days is 4 and no of months with 31 days is 7. x=1, y=4, z=7.
+* 
