@@ -12,6 +12,8 @@ Solution: If root is equal to any of the nodes, then LCA is the root.
     If both node lies in the left subtree, then LCA must be present in the left subtree.
     If both node lies in the right subtree, then LCA must be present in the right subtree.
     This code assumes that both the nodes are present in the binary tree.
+
+Time Complexity: O(n) since each node is visited once.
 */
 
 #include <bits/stdc++.h>
@@ -48,6 +50,12 @@ node* lowestCommonAncestor(node *root, node *node1, node *node2){
     if(left_lca && right_lca){
         return root;
     }
+
+    // This would propagate the asnwer till the root.
+    // If it gets the answer (root from above 'if'), then it is propagated till the actual root with these statements
+    // Else for leaf nodes when node was not found, it will propagate NULL upward.
+    // In this example, when 20 is the answer, it is propagated to root "10" with this statement
+
     // If node is found in the left subtree only, then left_lca is LCA.
     else if (left_lca){
         return left_lca;

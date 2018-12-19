@@ -7,7 +7,7 @@ https://www.youtube.com/watch?v=CE2b_-XfVDk
 https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/
 
 Solution: We will use very basic dynamic Programming to solve this.
-    * At every point, if a number arr[i] is greateer than the number arr[j], j<i, 
+    * At every point, if a number arr[i] is greater than the number arr[j], j<i, 
         then L[i] is maximum of L[j]+1 or L[i]. j iterates from 0 to i (for all elements less than it)
         This is how we will keep track of all the numbers lesser than i and will choose the max L[] and save it in L[i].
 

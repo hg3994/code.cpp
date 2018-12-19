@@ -8,7 +8,7 @@ https://ide.geeksforgeeks.org/Wb4h6KCvgy
 C++ program for finding the largest sum contiguous subarray.
 
 Solution: We have to calculate the max so far now in the array. 
-        current_max stores the maximum sum subarray at ith poition.
+        current_max stores the maximum sum subarray at ith position.
         current_max is the max of arr[i] and current_max+arr[i];
         We update the max_so_far if it is lesser than the current_max.
     

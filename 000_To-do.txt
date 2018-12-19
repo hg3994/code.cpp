@@ -13,18 +13,13 @@
 * Splitwise problem
 * Sliding Window
 * All sorting Algorithms
+* inroder, postorder and preorder
 * https://www.geeksforgeeks.org/painters-partition-problem/ https://www.geeksforgeeks.org/painters-partition-problem-set-2/
+* LRU
+* https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/
 
-* Process vs Thread
-* SQL vs NOSQL
-* Virtual Memory
-* Memory view of C program
-* https://www.geeksforgeeks.org/hashing-set-1-introduction/ 
-	https://www.geeksforgeeks.org/direct-address-table/
-	https://www.geeksforgeeks.org/hashing-set-2-separate-chaining/ 
-	https://www.geeksforgeeks.org/hashing-set-3-open-addressing/ 
-	https://www.geeksforgeeks.org/double-hashing/ 
-* Polymorphism (Runtime and compile time), INheritance, Encapsulation
+
+* Polymorphism (Runtime and compile time), Inheritance, Encapsulation
 * Overloading(Function and Operator)
 * Virtual Functions, VPTR, VTABLE.
 * Difference between a pointer and a reference. Why is pointer used in all traditional data structures (like linked list and trees) and not reference?
@@ -37,8 +32,10 @@
 * Explain all the Protocols starting from ARP, RARP, BOOTP, DHCP.
 * what is memory leak?how to handle it.
 * Does c++ contains automatic garbage collection?what is the use of free and del function in c++.
-* HTTP vs HTTPS
+* kafka, factory pattern, synchronous & asnchronous, redis, memcache, etc.
+* Why is redis so fast?
+* redis vs memcache.
 
 Puzzles
 * 29x + 30y + 31z = 366 Solve it. This is a really good puzzle. 366 is the no of days in a leap year so no of months with 29 days is 1 (February) and no of months with 30 days is 4 and no of months with 31 days is 7. x=1, y=4, z=7.
-* 
+* How many people must be there in a room to make the probability 100% that at-least two people in the room have same birthday? https://www.geeksforgeeks.org/birthday-paradox/

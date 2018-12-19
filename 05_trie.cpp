@@ -1,7 +1,7 @@
 /* 
 Harshit Gupta | 28th October, 2018
 
-https://ide.geeksforgeeks.org/JWhG9dczqy
+https://ide.geeksforgeeks.org/J84FBLsV86
 https://www.geeksforgeeks.org/trie-insert-and-search/
 https://www.geeksforgeeks.org/trie-display-content/
 https://www.geeksforgeeks.org/trie-delete/
@@ -22,6 +22,13 @@ Solution: We make a trie node as root. For both the operation we use a current p
         * For auto complete feature of a trie, we traverse till the word already given.
             If the given word doesn't exist, then no suggestion.
             Else, we need to print all the words inside this. We can use the printTrie function for this.
+
+Time Complexity: If you want to insert/search a key of size 'key_length'
+    Insert: O(key_length)
+    Search: O(key_length)
+
+Space Complexity: O(ALPHABET_SIZE * key_length * N)
+
 */
 
 #include <bits/stdc++.h>
@@ -100,21 +107,13 @@ void printTrie(TrieNode *current, vector<char> arr){
                 for(int i=0;i<arr.size();i++)
                     cout<<arr[i];
                 cout<<endl;
-                
-                // Recur for its children
-                printTrie(current->children[i], arr);
-
-                // Backtracking
-                arr.pop_back();
             }
-            else{
 
-                // Recur for its children
-                printTrie(current->children[i], arr);
-                
-                // Backtracking
-                arr.pop_back();
-            }
+            // Recur for its children
+            printTrie(current->children[i], arr);
+            
+            // Backtracking
+            arr.pop_back();
         }
     }
 }

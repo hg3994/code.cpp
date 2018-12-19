@@ -17,7 +17,7 @@ Solution: We will divided the array into 4 parts with help of three pointers.
         mid: points to the starting of UNKNONWS (NOT ENDING OF 1s)
         high: points to the ending of UNKNONWS (NOT STARTING OF 2s)
 
-    *   We will start with all in the UNKNONWS bracket and then gradully move pointers
+    *   We will start with all in the UNKNOWNS bracket and then gradually move pointers
         so that this UNKNOWN window reduces to 0. We swap values and move pointers to do it.
 
 Time Complexity: O(n)

@@ -9,8 +9,9 @@ https://www.geeksforgeeks.org/next-greater-element/
 Solution:   We will use Stack to solve this in O(n) time.
     * Iterate over all the elements of the array
     * While stack isn't empty and stack's top is less than the arr[i],
-        then it means that arr[i] is the NGE of s.top()
+        then it means that arr[i] is the NGE of s.top(), so print it and pop() from the stack.
     * Push arr[i] in the stack to find it's NGE.
+    * If some elements remains in the stack, they don't have a NGE.
 */
 
 #include <bits/stdc++.h>

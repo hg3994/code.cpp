@@ -2,7 +2,8 @@
 Harshit Gupta | 20th October, 2018
 
 C++ program for Minimum Number of Platforms Required for a Railway/Bus Station
-    Given arrival and departure times of all trains that reach a railway station, find the minimum number of platforms required for the railway station so that no train waits.
+    Given arrival and departure times of all trains that reach a railway station, find the minimum number of platforms 
+    required for the railway station so that no train waits.
     We are given two arrays which represent arrival and departure times of trains that stop
 
 Solution: We can use direct addresss table to solve this. 

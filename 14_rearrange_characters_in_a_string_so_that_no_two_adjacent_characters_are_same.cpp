@@ -4,7 +4,19 @@ Harshit Gupta | 20th October, 2018
 https://www.geeksforgeeks.org/rearrange-characters-string-no-two-adjacent/
 https://ide.geeksforgeeks.org/tqd1ushUdK
 
-C++ program for Rearranging characters in a string such that no two adjacent characters are same.
+C++ program for Rearranging characters in a string such that no two adjacent characters are same. 
+
+Input: aaabc 
+Output: abaca 
+
+Input: aaabb
+Output: ababa 
+
+Input: aa 
+Output: Not Possible
+
+Input: aaaabc 
+Output: Not Possible
 
 Solution: The idea is to put highest frequency character first (a greedy approach). 
     We use a priority queue (Or Binary Max Heap) and put all characters 

@@ -54,6 +54,9 @@ void heapify(int *arr, int n, int i){
 void heapSort(int *arr, int n){
     
     // Heapify the array so that it becomes a maxHeap first.
+    // NOTE that we are starting from the middle element, heapifying it and then moving towards the first element
+    // This is done so that we get maximum element at first index and make a MAX HEAP.
+    // We can't start from first index and then move towards middle since that won't result in the MAX HEAP (think about it)
     for(int i=(n/2)-1;i>=0;i--){
         heapify(arr,n,i);
     }
