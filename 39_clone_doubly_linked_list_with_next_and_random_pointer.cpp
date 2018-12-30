@@ -9,7 +9,7 @@ C++ program for cloning a doubly linked list with a next and random pointer
 Solution: 
     a. Create the copy of node 1 and insert it between node 1 & node 2 in 
         original Linked List, create the copy of 2 and insert it between 2 & 3.. 
-        Continue in this fashion, add the copy of N afte the Nth node
+        Continue in this fashion, add the copy of N after the Nth node
     b. Now fix the random pointers of the duplicate nodes like this:
         original->next->random = original->random->next; (more detail in implementation)
         (This works because original->next is nothing but copy of original and 

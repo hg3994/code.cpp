@@ -12,13 +12,16 @@
 * https://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-1/ https://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-2/
 * Splitwise problem
 * Sliding Window
-* All sorting Algorithms
+* All sorting Algorithms including topological sorting.
 * inroder, postorder and preorder
 * https://www.geeksforgeeks.org/painters-partition-problem/ https://www.geeksforgeeks.org/painters-partition-problem-set-2/
 * LRU
 * https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/
+* https://www.geeksforgeeks.org/in-place-convert-a-given-binary-tree-to-doubly-linked-list/
+* Sort a stack.
 
-
+Theory
+======
 * Polymorphism (Runtime and compile time), Inheritance, Encapsulation
 * Overloading(Function and Operator)
 * Virtual Functions, VPTR, VTABLE.
@@ -35,7 +38,15 @@
 * kafka, factory pattern, synchronous & asnchronous, redis, memcache, etc.
 * Why is redis so fast?
 * redis vs memcache.
+* Agile
 
 Puzzles
+=======
 * 29x + 30y + 31z = 366 Solve it. This is a really good puzzle. 366 is the no of days in a leap year so no of months with 29 days is 1 (February) and no of months with 30 days is 4 and no of months with 31 days is 7. x=1, y=4, z=7.
 * How many people must be there in a room to make the probability 100% that at-least two people in the room have same birthday? https://www.geeksforgeeks.org/birthday-paradox/
+
+
+Things to do in the checklist
+=============================
+- Design Patterns
+- C++ Essential Training

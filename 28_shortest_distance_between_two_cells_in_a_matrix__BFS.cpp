@@ -86,7 +86,7 @@ void findMinDistance(char grid[N][M], pair<int,int> source, pair<int,int> destin
             // If the accessed cell is not destination and not yet visited and 
             // can be traversed( has a '*'), then push it in the queue with dist+1
             // Also, mark this place as visited[][].
-            else if(x+row[i]<N && y+col[i]<M && visited[x+row[i]][y+col[i]] == false && grid[x+row[i]][y+col[i]] == '*'){
+            else if(x+row[i]<N && x+row[i]>=0 && y+col[i]<M && y+col[i]>=0 && visited[x+row[i]][y+col[i]] == false && grid[x+row[i]][y+col[i]] == '*'){
                 q.push(make_tuple(x+row[i],y+col[i],dist+1));
                 visited[x+row[i]][y+col[i]] = true;
             }

@@ -6,7 +6,7 @@ https://www.geeksforgeeks.org/count-number-of-occurrences-or-frequency-in-a-sort
 
 C++ program for counting the frequency of an element in a sorted array.
 
-Solution: We use Binary search to find the satrting index of the element.
+Solution: We use Binary search to find the starting index of the element.
     We use Binary Search again to find the ending index of the element.
     We get the number of times the element is present by just subtracting.
 

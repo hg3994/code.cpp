@@ -67,7 +67,7 @@ void printMedians(double arr[], int n){
             // so the maximum(top) of max heap(s) is moved to the min heap(g)
             // and then the element is inserted to the max heap.
             if(arr[i] < med){
-                // Insert the eop of max heap to min heap
+                // Insert the top of max heap to min heap
                 g.push(s.top());
                 // Remove the top element of the max heap.
                 s.pop();

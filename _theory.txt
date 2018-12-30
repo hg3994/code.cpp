@@ -86,15 +86,16 @@ Server & Infrastructure
 				  1. Aggregation queries are supported easily (Min, Max, Avg, Sum of a specific column)
 				Cons:
 				 	1. It becomes difficult to support a new query which requires columns from both the shards.
-				 	2. Extra space is required to keep the primary key. 
+				 	2. Extra space is required to keep the primary key across shards.
 
 11. Difference between Partitioning and Sharding
 	The difference between Partitioning and Sharding is mostly semantic. With Partitioning, your tables will still be in the same database instance whereas with Sharding, your tables are split across multiple database servers.
 
 12. Scaling
 		Scaling of an application is termed as increasing the capacity to handle multiple request without compromising the availability of the application.
+		If incoming request is huge, then the application server has ability to handle limited number of requests, so we have to scale the application server in some way so that it is able to handle more requests.
 		It's of two types:
-			a. Horizontal: Adding new components to the application.
+			a. Horizontal: Adding new components (application server, DB, etc) to the application. For example, We take a new machine and start another application server there. We now need a load balancer on top of both the machines so that the load is distributed across these machines/servers.
 				Pros: 
 					1. Highly scalable. As new component can be added at any point of time. 
 					2. New components can be added incrementally. No downtime required.
@@ -129,10 +130,12 @@ Server & Infrastructure
 
 	When we do point b (Horizontal Scaling), then our task is divided across multiple servers. These servers/set of machines can together be called as Distributed Systems. So, whenever we talk about Distributed Systems, think of it as a system which is scaled horizontally.
 
-15. Distributed Data Stores: We have two types of DBs till now. RDBMS and NoSQL. For both of them, we have different strategies on how to scale them.
+15. Distributed Data Stores / Replication in DB : We can replicate the DB server with multiple DB servers so that load is distributed across them.
 	
 	a. Master-Slave Strategy: We will have multiple database servers in which there will be one master and different slave database servers. Any write operation would happen in the master database. The read operations would happen from the slave databases. The synchronization between the slaves and master after master writes something new happens asynchronously. Since one may access data from slaves before this sync, the data in slaves for this delta time is inconsistent.
-	b. Sharding
+		The disadvantage of this is the fact that: For larger DBs, the sync delay between master-slave is there.
+	
+	b. Sharding: Written above (10)
 
 
 16. CAP Theorem: Consistency - Availability - Partitioning
@@ -146,11 +149,111 @@ Server & Infrastructure
 
 		IRCTC, Banking systems, etc where the data has to be correct at all point of time should use 'RDBMS' which ensures consistency over everything.
 
+
 17. My website is slow. How should I proceed with this problem?
-	- Schema
-	- Hardware
-	- Scaling
-	- DB
+
+	- Optimize my query:
+			Maybe by solving n+1 problem. If certain frequently accessed columns are not indexed, we have to index them for faster access. If needed, in the worst case, we can tweak with the DB schema as well.
+	- Replication/Sharding DB Server: 
+			If DB queries are huge, then we can replicate the DB server with multiple DB servers so that load is distributed across them. We will have to handle the sync delay between master-slave if Master-slave strategy is chose.
+	- Scaling:
+			If incoming request is huge, then the application server has ability to handle limited number of requests, so we have to scale the application server in some way so that it is able to handle more requests. It can either be vertical scaling or horizontal scaling.
+
+
+18. Monolithic Design vs. Microservices Design
+
+		The following may look large to you but when you read it, it's so simple and interesting!
+
+		Disadvantages of Monolithic design:
+
+			a. Huge Code base: Successful applications have a habit of growing over time and eventually becoming huge. During each sprint, your development team implements a few more user stories, which, of course, means adding many lines of code. After a few years, your small, simple application will have grown into a monstrous monolith
+
+			b. Complexity: One major problem is that the application is overwhelmingly complex. It’s simply too large for any single developer to fully understand. As a result, fixing bugs and implementing new features correctly becomes difficult and time consuming. 
+
+			c. Startup time: The larger the application, the longer the start-up time is. 
+
+			d. Deployment: Another problem with a large, complex monolithic application is that it is an obstacle to continuous deployment. Today, the state of the art for SaaS applications is to push changes into production many times a day. This is extremely difficult to do with a complex monolith, since you must redeploy the entire application in order to update any one part of it. 
+
+			e. Scaling: Monolithic applications can also be difficult to scale when different modules have conflicting resource requirements. For example, one module might implement CPU-intensive image processing logic and would ideally be deployed in Amazon EC2 Compute Optimized instances. Another module might be an in-memory database and best suited for EC2 Memory-optimized instances. However, because these modules are deployed together, you have to compromise on the choice of hardware.
+
+			f. Reliability: Another problem with monolithic applications is reliability. Because all modules are running within the same process, a bug in any module, such as a memory leak, can potentially bring down the entire process. Moreover, since all instances of the application are identical, that bug will impact the availability of the entire application.
+
+			g. Constant Tech Stack: Last but not least, monolithic applications make it extremely difficult to adopt new frameworks and languages. For example, let’s imagine that you have 2 million lines of code written using the XYZ framework. It would be extremely expensive (in both time and cost) to rewrite the entire application to use the newer ABC framework, even if that framework was considerably better. As a result, there is a huge barrier to adopting new technologies. You are stuck with whatever technology choices you made at the start of the project.
+
+
+		Advantages of Microservices design:
+
+			a. First, it tackles the problem of complexity. It decomposes what would otherwise be a monstrous monolithic application into a set of services. While the total amount of functionality is unchanged, the application has been broken up into manageable chunks or services. Each service has a well-defined boundary in the form of a remote procedure call (RPC)-driven or message-driven API. The Microservices Architecture pattern enforces a level of modularity that in practice is extremely difficult to achieve with a monolithic code base. Consequently, individual services are much faster to develop, and much easier to understand and maintain.
+
+			b. Second, this architecture enables each service to be developed independently by a team that is focused on that service. The developers are free to choose whatever technologies make sense, provided that the service honors the API contract. Of course, most organizations would want to avoid complete anarchy by limiting technology options. However, this freedom means that developers are no longer obligated to use the possibly obsolete technologies that existed at the start of a new project. When writing a new service, they have the option of using current technology. Moreover, since services are relatively small, it becomes more feasible to rewrite an old service using current technology.
+
+			c. Third, the Microservices Architecture pattern enables each microservice to be deployed independently. Developers never need to coordinate the deployment of changes that are local to their service. These kinds of changes can be deployed as soon as they have been tested. The UI team can, for example, perform A|B testing and rapidly iterate on UI changes. The Microservices Architecture pattern makes continuous deployment possible.
+
+			d. Finally, the Microservices Architecture pattern enables each service to be scaled independently. You can deploy just the number of instances of each service that satisfy its capacity and availability constraints. Moreover, you can use the hardware that best matches a service’s resource requirements. For example, you can deploy a CPU-intensive image processing service on EC2 Compute Optimized instances and deploy an in-memory database service on EC2 Memory-optimized instances.
+
+
+19. Drawbacks of Microservice design:
+		a. Service Size: One drawback is the name itself. The term microservice places excessive emphasis on service size. In fact, there are some developers who advocate for building extremely fine-grained 10-100 LOC services. While small services are preferable, it’s important to remember that small services are a means to an end, and not the primary goal. The goal of microservices is to sufficiently decompose the application in order to facilitate agile application development and deployment.
+
+		b. Another major drawback of microservices is the complexity that arises from the fact that a microservices application is a distributed system. Developers need to choose and implement an inter-process communication mechanism based on either messaging or RPC. Moreover, they must also write code to handle partial failure, since the destination of a request might be slow or unavailable. While none of this is rocket science, it’s much more complex than in a monolithic application, where modules invoke one another via language-level method/procedure calls.
+
+		c. Another challenge with microservices is the partitioned database architecture. Business transactions that update multiple business entities are fairly common. These kinds of transactions are trivial to implement in a monolithic application because there is a single database. In a microservices-based application, however, you need to update multiple databases owned by different services.  Using distributed transactions is usually not an option, and not only because of the CAP theorem. They simply are not supported by many of today’s highly scalable NoSQL databases and messaging brokers. You end up having to use an eventual consistency-based approach, which is more challenging for developers.
+
+		d. Testing a microservices application is also much more complex. For example, with a modern framework such as Spring Boot, it is trivial to write a test class that starts up a monolithic web application and tests its REST API. In contrast, a similar test class for a service would need to launch that service and any services that it depends upon, or at least configure stubs for those services. Once again, this is not rocket science, but it’s important to not underestimate the complexity of doing this.
+
+		e. Multi-service Change: Another major challenge with the Microservices Architecture pattern is implementing changes that span multiple services. For example, let’s imagine that you are implementing a story that requires changes to services A, B, and C, where A depends upon B and B depends upon C. In a monolithic application you could simply change the corresponding modules, integrate the changes, and deploy them in one go. In contrast, in a Microservices Architecture pattern you need to carefully plan and coordinate the rollout of changes to each of the services. For example, you would need to update service C, followed by service B, and then finally service A. Fortunately, most changes typically impact only one service; multi-service changes that require coordination are relatively rare.
+
+		f. Deployment: Deploying a microservices-based application is also much more complex. A monolithic application is simply deployed on a set of identical servers behind a traditional load balancer. Each application instance is configured with the locations (host and ports) of infrastructure services such as the database and a message broker. In contrast, a microservice application typically consists of a large number of services. For example, Hailo has 160 different services and Netflix has more than 600, according to Adrian Cockcroft.
+
+		g. Each service will have multiple runtime instances. That’s many more moving parts that need to be configured, deployed, scaled, and monitored. In addition, you will also need to implement a service discovery mechanism that enables a service to discover the locations (hosts and ports) of any other services it needs to communicate with.
+
+
+20. Scale Cube: 
+		X-axis: Scale by Cloning -> Horizontal duplication
+		Y-axis: Scale by splitting different things ->Functional decomposition (Microservice design)
+		Z-axis: Scale by splitting similar things -> Data Partitioning
+
+
+21. A|B Testing: 
+		A/B testing (sometimes called split testing) is comparing two versions of a web page to see which one performs better. You compare two web pages by showing the two variants (let's call them A and B) to similar visitors at the same time. The one that gives a better conversion rate, wins!
+
+
+22. IPC (Inter-Process Communication):
+		When selecting an IPC mechanism for a service, it is useful to think first about how services interact. There are a variety of client <-> service interaction styles. They can be categorized along two dimensions. The first dimension is whether the interaction is one-to-one or one-to-many:
+			• One-to-one – Each client request is processed by exactly one service instance.
+			• One-to-many – Each request is processed by multiple service instances.
+		The second dimension is whether the interaction is synchronous or asynchronous:
+			• Synchronous – The client expects a timely response from the service and might even block while it waits.
+			• Asynchronous – The client doesn’t block while waiting for a response, and the response, if any, isn’t necessarily sent immediately.
+		The following table shows the various interaction styles:
+									----------------------------------------------------|
+									|	ONE-TO-ONE 							|	ONE-TO-MANY 						|
+		----------------------------------------|-------------------------|
+		SYNCHRONOUS 	|	Request/response 				|				—									|
+		--------------|-------------------------|-------------------------|
+		ASYNCHRONOUS 	|	Notification 						|	Publish/subscribe 			|
+									|	Request/async response 	|	Publish/async responses |
+		------------------------------------------------------------------|
+
+23. Event-Driven Architecture:
+
+		In a microservices architecture, each microservice has its own private datastore. Different microservices might use different SQL and NoSQL databases. While this database architecture has significant benefits, it creates some distributed data management challenges. The first challenge is how to implement business transactions that maintain consistency across multiple services. The second challenge is how to implement queries that retrieve data from multiple services. 
+
+		For many applications, the solution is to use an event-driven architecture. One challenge with implementing an event-driven architecture is how to atomically update state and how to publish events. There are a few ways to accomplish this, including using the database as a message queue, transaction log mining, and event sourcing.
+
+	 	In this architecture, a microservice publishes an event when something notable happens, such as when it updates a business entity. Other microservices subscribe to those events. When a microservice receives an event it can update its own business entities, which might lead to more events being published.
+
+		Benefits:
+	 		- It enables the implementation of transactions that span multiple services and provide eventual consistency. 
+	 		- Another benefit is that it also enables an application to maintain materialized views.
+
+		Drawbacks:
+	 		- One drawback is that the programming model is more complex than when using ACID transactions. Often you must implement compensating transactions to recover from application-level failures; for example, you must cancel an order if the credit check fails. Also, applications must deal with inconsistent data. That is because changes made by in-flight transactions are visible. 
+	 		- The application can also see inconsistencies if it reads from a materialized view that is not yet updated. 
+	 		- Another drawback is that subscribers must detect and ignore duplicate events.
+
+
+
 
 Ruby and Rails
 ==============
@@ -194,6 +297,47 @@ Operating Systems
 Databases
 =========
 
+1. ACID Properties:
+
+	A transaction is a single logical unit of work which accesses and possibly modifies the contents of a database. Transactions access data using read and write operations.
+	In order to maintain consistency in a database, before and after transaction, certain properties are followed. These are called ACID properties.
+
+	Atomicity
+		By this, we mean that either the entire transaction takes place at once or doesn’t happen at all. There is no midway i.e. transactions do not occur partially. Each transaction is considered as one unit and either runs to completion or is not executed at all. It involves following two operations.
+		—Abort: If a transaction aborts, changes made to database are not visible.
+		—Commit: If a transaction commits, changes made are visible.
+		Atomicity is also known as the ‘All or nothing rule’.
+
+	Consistency
+		This means that integrity constraints must be maintained so that the database is consistent before and after the transaction. It refers to correctness of a database. 
+
+	Isolation
+		This property ensures that multiple transactions can occur concurrently without leading to inconsistency of database state. Transactions occur independently without interference. Changes occurring in a particular transaction will not be visible to any other transaction until that particular change in that transaction is written to memory or has been committed. This property ensures that the execution of transactions concurrently will result in a state that is equivalent to a state achieved these were executed serially in some order.
+
+	Durability
+		This property ensures that once the transaction has completed execution, the updates and modifications to the database are stored in and written to disk and they persist even is system failure occurs. These updates now become permanent and are stored in a non-volatile memory. The effects of the transaction, thus, are never lost.
+
+	The ACID properties, in totality, provide a mechanism to ensure correctness and consistency of a database in a way such that each transaction is a group of operations that acts a single unit, produces consistent results, acts in isolation from other operations and updates that it makes are durably stored.
+
+
+2. 2-Phase Commit / 2PC:
+		Database vendors long ago recognized the need for partitioning databases and introduced a technique known as 2PC (two-phase commit) for providing ACID guarantees across multiple database instances. The protocol is broken into two phases:
+			* First, the transaction coordinator asks each database involved to precommit the operation and indicate whether commit is possible. If all databases agree the commit can proceed, then phase 2 begins.
+			* The transaction coordinator asks each database to commit the data.
+		
+		If any database vetoes the commit, then all databases are asked to roll back their portions of the transaction. What is the shortcoming? We are getting consistency across partitions and partitioning as well. So, we are obviously sacrificing availability (CAP theorem)
+
+
+3. BASE (basically available, soft state, eventually consistent): An ACID Alternative
+		In partitioned databases, trading some consistency for availability can lead to dramatic improvements in scalability.
+
+		If ACID provides the consistency choice for partitioned databases, then how do you achieve availability instead? One answer is BASE (basically available, soft state, eventually consistent).
+
+		BASE is diametrically opposed to ACID. Where ACID is pessimistic and forces consistency at the end of every operation, BASE is optimistic and accepts that the database consistency will be in a state of flux. Although this sounds impossible to cope with, in reality it is quite manageable and leads to levels of scalability that cannot be obtained with ACID.
+
+		The availability of BASE is achieved through supporting partial failures without total system failure. Here is a simple example: if users are partitioned across five database servers, BASE design encourages crafting operations in such a way that a user database failure impacts only the 20 percent of the users on that particular host. There is no magic involved, but this does lead to higher perceived availability of the system.
+
+4. 
 
 Object Oriented Programming / C++
 =================================
@@ -272,7 +416,7 @@ General Programming / C
 				Read https://www.geeksforgeeks.org/hashing-set-3-open-addressing/ for more details. 
 
 					Double hashing is a collision resolving technique in Open Addressed Hash tables. Double hashing uses the idea of applying a second hash function to key when a collision occurs.
-					
+
 	Applications of hashing here: https://www.geeksforgeeks.org/applications-of-hashing/
 
 4. If we are using separate chaining and we have a linked list of records mapped to a cell in the hash table, then how do I figure out what is the value of the key I asked for? Ex: cat and dog both give 123 as the output from the has function. { cat=>1 , dog=> 2}. If I search for cat, how will I get 1?
@@ -285,6 +429,20 @@ General Programming / C
 
 Design Patterns
 ===============
+
+1. Agile Model Manifesto:
+		a. Highest priority is satisfy the customer.
+		b. Welcome changing requirements, even late in development.
+		c. Deliver working software frequently every specific time period.
+		d. Build projects around motivated individuals.
+		e. Promotes sustainable development. Deliver same x% of software in every time period.
+		f. Business people and developers must work together daily.
+		g. Working software is the primary measure of progress.
+		h. Communicate through face-to-face conversation.
+		i. Continuous attention to technical excellence and good design enhances
+		j. Simplicity
+		k. Self-organizing teams.
+		l. At regular intervals, teams reflects on how to become more, then tunes and adjusts its behavior.
 
 
 
