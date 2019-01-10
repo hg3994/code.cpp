@@ -8,17 +8,15 @@
 * https://www.geeksforgeeks.org/tiling-problem/
 * https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
 * https://www.geeksforgeeks.org/lexicographic-rank-of-a-string/ https://www.geeksforgeeks.org/lexicographic-rank-string-duplicate-characters/ https://www.geeksforgeeks.org/lexicographic-rank-string-using-stl/
-* Y - linked list
 * https://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-1/ https://www.geeksforgeeks.org/xor-linked-list-a-memory-efficient-doubly-linked-list-set-2/
+* https://www.geeksforgeeks.org/painters-partition-problem/ https://www.geeksforgeeks.org/painters-partition-problem-set-2/
+* https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/
+* https://www.geeksforgeeks.org/in-place-convert-a-given-binary-tree-to-doubly-linked-list/
+* LRU
+* Sort a stack.
 * Splitwise problem
 * Sliding Window
 * All sorting Algorithms including topological sorting.
-* inroder, postorder and preorder
-* https://www.geeksforgeeks.org/painters-partition-problem/ https://www.geeksforgeeks.org/painters-partition-problem-set-2/
-* LRU
-* https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/
-* https://www.geeksforgeeks.org/in-place-convert-a-given-binary-tree-to-doubly-linked-list/
-* Sort a stack.
 
 Theory
 ======
@@ -37,8 +35,14 @@ Theory
 * Does c++ contains automatic garbage collection?what is the use of free and del function in c++.
 * kafka, factory pattern, synchronous & asnchronous, redis, memcache, etc.
 * Why is redis so fast?
-* redis vs memcache.
-* Agile
+* redis vs memcache: Caching: Why is it used? (Read more and write less kind of scenario)
+* Load banlacing
+* Denormalization.
+* Distributed state management
+* Data Fragmentation
+* Rate Limiting ALgorithm
+* Content Delivery Networks (CDN)
+* Use of auto in C++
 
 Puzzles
 =======

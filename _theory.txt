@@ -341,7 +341,16 @@ Databases
 
 Object Oriented Programming / C++
 =================================
+1. What is the difference between C and C++ ?
+		The data members/attributes of a struct by default are public while the data members/attributes of a class are private by default. It is a good practice to use struct when you have only data members. When you have function members as well, then it is better to use classes. 
 
+2. What is the best practice to declare, define and use functions in C++?
+		Declarations, Definitions and using functions all together in one file is not considered a good practice.
+		It is best practice to write down the function declarations within the classes in one file, Then function definitions in another file. Then, use those functions in another file.
+
+3. What is difference between struct and union?
+		'struct' reserves memory all its data types/members defined underneath it. 'union' reserves memory for only the maximum data type/members defined in it.
+		'struct' is used when we want to access all the members/attributes in it. 'union' is used when we want to access only one out of many data type/members defined in it. E.g., You would define gender as a union since only one out of male, female would be true and we would need only one of them to be set.So, reserving space for any one of them would make sense.
 
 General Programming / C
 =======================
@@ -452,3 +461,4 @@ MISC
 1. Why doesn't stack's pop() method return anything?
 2. If indexing is faster, then why don't we index the whole table?
 3. What is combined indexing?
+4. extern keyword - C++
