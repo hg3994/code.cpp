@@ -15,7 +15,6 @@
 * LRU
 * Sort a stack.
 * Splitwise problem
-* Sliding Window
 * All sorting Algorithms including topological sorting.
 
 Theory
