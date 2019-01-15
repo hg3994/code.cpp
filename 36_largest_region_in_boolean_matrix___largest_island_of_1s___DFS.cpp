@@ -44,8 +44,7 @@ int isSafe(int M[][COL], int row, int col,
 // A utility function to do DFS for a 2D boolean 
 // matrix. It only considers the 8 neighbours as 
 // adjacent vertices 
-void DFS(int M[][COL], int row, int col, 
-         bool visited[][COL], int &count) 
+void DFS(int M[][COL], int row, int col, bool visited[][COL], int &count) 
 { 
     // These arrays are used to get row and column 
     // numbers of 8 neighbours of a given cell 
@@ -58,13 +57,11 @@ void DFS(int M[][COL], int row, int col,
     // Recur for all connected neighbours 
     for (int k = 0; k < 8; ++k) 
     { 
-        if (isSafe(M, row + rowNbr[k], col + colNbr[k], 
-                                              visited)) 
+        if (isSafe(M, row + rowNbr[k], col + colNbr[k], visited)) 
         { 
             // increment region length by one 
             count++; 
-            DFS(M, row + rowNbr[k], col + colNbr[k], 
-                                    visited, count); 
+            DFS(M, row + rowNbr[k], col + colNbr[k], visited, count); 
         } 
     } 
 } 

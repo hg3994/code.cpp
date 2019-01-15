@@ -68,6 +68,7 @@ void findMinDistance(char grid[N][M], pair<int,int> source, pair<int,int> destin
         q.pop();
         
         // Get the x,y and dist of the popped element.
+        // tie(x,y,dist) = f; can also be used instead of below three lines.
         int x = get<0>(f);
         int y = get<1>(f);
         int dist = get<2>(f);

@@ -1,7 +1,7 @@
 /* 
 Harshit Gupta | 22nd October, 2018
 
-cpp.sh/6mize
+http://www.cpp.sh/6mize
 https://www.geeksforgeeks.org/subset-sum-problem-dp-25/
 
 C++ program for " There a n coins present. We want to make a sum s from these coins. Can we make it?"
@@ -16,6 +16,12 @@ Solution: We will use DP to solve this. At every stage, we have two choices:
         This is different from the the coin changing problem because here we DO NOT have infinte supply of coins. 
         The only coins that we have are the ones in the array
         
+        This question can also be framed as "There is an array of numbers given with a sum. Can you choose 
+            some elements from the array which will add up to 'sum'." You can think of these numbers as coins
+            and then make 'sum' amount from the coins.
+
+        
+
 Time Complexity: O(n2)
 
 Paradigm: Dynamic Programming

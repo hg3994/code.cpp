@@ -22,7 +22,11 @@ Solution: We will use Deque to solve this:
     2. If if current_index - k >= q.front() that means we are going out of window 
         so we need to delete the element from front of queue. 
 
-NOTE: We are storing the index in queue not the element itself.
+NOTE: We are storing the index in queue not the element itself because of condition 2 above. 
+    How will we keep track if 20 has passed out from the current window or not? No right?
+    But we can surely keep track if an index 3 has passed from the window or not. How?
+        If our current element is 7 and window is 3, then we know that 7-3 is 4. 
+        So, elements which have index lesser than 4, can be popped from the dequeue.
 ---
 
 Another solution would be to use a priority queue(max Heap). 

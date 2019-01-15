@@ -11,7 +11,7 @@ Solution: * To detect a loop, we take two pointers: a fast and a slower one,
     the fast moves 2 nodes a time and the slower one moves one node a time.
     If they meet, we have a loop, else not.
     * To remove the loop, we will have to reach the last node of the loop and make it point to NULL.
-        - Find the number of nodes in the loop.
+        - Find the number of nodes in the loop. Let it be 'k'
         - Take a pointer at head and another at a dist of 'k' from head.
         - Move both one node a time and they will meet at the starting node of loop.
         - Get to the ending node of the loop from there.

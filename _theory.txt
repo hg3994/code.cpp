@@ -253,12 +253,6 @@ Server & Infrastructure
 	 		- Another drawback is that subscribers must detect and ignore duplicate events.
 
 
-
-
-Ruby and Rails
-==============
-
-
 Operating Systems
 =================
 
@@ -292,6 +286,36 @@ Operating Systems
 
 	Virtual memory is a combination of RAM and disk space that running processes can use.
 	Swap space is the portion of virtual memory that is on the hard disk, used when RAM is full.
+
+
+4. Difference between Semaphores and Mutex:
+	
+	- Critical Section= User object used for allowing the execution of just one active thread from many others within one process. The other non selected threads (@ acquiring this object) are put to sleep.
+		[No interprocess capability, very primitive object].
+
+	- Mutex can be released only by thread that had acquired it, while you can signal semaphore from any other thread (or process), so semaphores are more suitable for some synchronization problems like producer-consumer.
+
+	- A mutex is really a semaphore with value 1.
+
+	Mutex:
+		Is a key to a toilet. One person can have the key - occupy the toilet - at the time. When finished, the person gives (frees) the key to the next person in the queue.
+
+		Officially: "Mutexes are typically used to serialise access to a section of re-entrant code that cannot be executed concurrently by more than one thread. A mutex object only allows one thread into a controlled section, forcing other threads which attempt to gain access to that section to wait until the first thread has exited from that section." Ref: Symbian Developer Library
+		(A mutex is really a semaphore with value 1.)
+
+		Mutex Semaphore (aka Mutex)= Kernel object used for allowing the execution of just one active thread from many others, among different processes. The other non selected threads (@ acquiring this object) are put to sleep. This object supports thread ownership, thread termination notification, recursion (multiple 'acquire' calls from same thread) and 'priority inversion avoidance'.
+
+		[Interprocess capability, very safe to use, a kind of 'high level' synchronization object].
+
+
+	Semaphore:
+		Is the number of free identical toilet keys. Example, say we have four toilets with identical locks and keys. The semaphore count - the count of keys - is set to 4 at beginning (all four toilets are free), then the count value is decremented as people are coming in. If all toilets are full, ie. there are no free keys left, the semaphore count is 0. Now, when eq. one person leaves the toilet, semaphore is increased to 1 (one free key), and given to the next person in the queue.
+
+		Officially: "A semaphore restricts the number of simultaneous users of a shared resource up to a maximum number. Threads can request access to the resource (decrementing the semaphore), and can signal that they have finished using the resource (incrementing the semaphore)."
+
+		Counting Semaphore (aka Semaphore)= Kernel object used for allowing the execution of a group of active threads from many others. The other non selected threads (@ acquiring this object) are put to sleep.
+
+		[Interprocess capability however not very safe to use because it lacks following 'mutex' attributes: thread termination notification, recursion?, 'priority inversion avoidance'?, etc].
 
 
 Databases
@@ -341,16 +365,160 @@ Databases
 
 Object Oriented Programming / C++
 =================================
-1. What is the difference between C and C++ ?
+
+1. Inheritance:
+	The capability of a class to derive properties and characteristics from another class is called Inheritance. Inheritance is one of the most important feature of Object Oriented Programming.
+		Sub Class: The class that inherits properties from another class is called Sub class or Derived Class.
+		Super Class:The class whose properties are inherited by sub class is called Base Class or Super class.
+
+			class subclass_name : access_mode base_class_name
+			{
+			  //body of subclass
+			};
+		
+		Here, subclass_name is the name of the sub class, access_mode is the mode in which you want to inherit this sub class for example: public, private etc. and base_class_name is the name of the base class from which you want to inherit the sub class.
+
+		Note: A derived class doesn’t inherit access to private data members. However, it does inherit a full parent object, which contains any private members which that class declares
+
+		Modes of Inheritance
+		--------------------
+		- Public mode: If we derive a sub class from a public base class. Then the public member of the base class will become public in the derived class and protected members of the base class will become protected in derived class.
+		- Protected mode: If we derive a sub class from a Protected base class. Then both public member and protected members of the base class will become protected in derived class.
+		- Private mode: If we derive a sub class from a Private base class. Then both public member and protected members of the base class will become Private in derived class.
+
+
+		Multiple Inheritance
+		--------------------
+		Multiple Inheritance is a feature of C++ where a class can inherit from more than one classes. i.e one sub class is inherited from more than one base classes.
+
+		Syntax:
+				class subclass_name : access_mode base_class1, access_mode base_class2, ....
+				{
+				  //body of subclass
+				};
+
+2. Polymorphism:
+		The word polymorphism means having many forms. In simple words, we can define polymorphism as the ability of a message to be displayed in more than one form.
+		Real life example of polymorphism, a person at a same time can have different characteristic. Like a man at a same time is a father, a husband, a employee. So a same person posses have different behavior in different situations. This is called polymorphism.
+
+		In C++ polymorphism is mainly divided into two types:
+
+		* Compile time Polymorphism:
+			
+			This type of polymorphism is achieved by function overloading or operator overloading. 
+			
+			  - Function Overloading: 
+					When there are multiple functions with same name but different parameters then these functions are said to be overloaded. Functions can be overloaded by change in number of arguments or/and change in type of arguments.
+
+			  - Operator Overloading: 
+					C++ also provide option to overload operators. For example, we can make the operator (‘+’) for string class to concatenate two strings. We know that this is the addition operator whose task is to add to operands. So a single operator ‘+’ when placed between integer operands , adds them and when placed between string operands, concatenates them.	
+
+		* Runtime Polymorphism / Virtual Functions:
+			https://www.geeksforgeeks.org/virtual-functions-and-runtime-polymorphism-in-c-set-1-introduction/
+			This type of polymorphism is achieved by Function Overriding.
+			Function overriding on the other hand occurs when a derived class has a definition for one of the member functions of the base class. That base function is said to be overridden.
+
+			The idea is, virtual functions are called according to the type of object pointed or referred, not according to the type of pointer or reference. In other words, virtual functions are resolved late, at runtime.
+
+					class Base 
+					{ 
+					public: 
+					    virtual void show() { cout<<" In Base \n"; } 
+					}; 
+				
+					class Derived: public Base 
+					{ 
+					public: 
+					    void show() { cout<<"In Derived \n"; } 
+					}; 
+					   
+					int main(void) 
+					{ 
+					    Base *bp = new Derived; 
+					    bp->show();  // RUN-TIME POLYMORPHISM 
+					    return 0; 
+					} 
+
+				This will call show() in derived class and not base class. So, this depends on the object pointed and not on the type of object pointer. This is the reason it is not resolved while compilation but in runtime since anything can be present in place of derived.
+
+				Virtual functions are so useful that later languages like Java keep all methods as virtual by default.
+
+
+			How does Polymorphism work at runtime?
+				MUST WATCH: https://www.youtube.com/watch?v=Z_FiER8aAqM
+
+				Compiler maintains two things to this:
+					vtable: A table of function pointers. It is maintained per class. 
+						(Base -> show(),.. Derived->show(),..)
+					vptr: A pointer to vtable. It is maintained per object.
+						vptr is made for all objects like bp which are of class Derived.
+
+				Compiler adds additional code at two places to maintain and use vptr.
+					- Code in every constructor. This code sets vptr of the object being created. This code sets vptr to point to vtable of the class.
+					- Code with polymorphic function call (e.g. bp->show() in above code). Wherever a polymorphic call is made, compiler inserts code to first look for vptr using base class pointer or reference (In the above example, since pointed or referred object is of derived type, vptr of derived class is accessed). Once vptr is fetched, vtable of derived class can be accessed. Using vtable, address of derived derived class function show() is accessed and called.
+
+3. Pure Virtual Function:
+		A pure virtual function (or abstract function) in C++ is a virtual function for which we don’t have implementation, we only declare it. A pure virtual function is declared by assigning 0 in declaration. 
+
+				// An abstract class 
+				class Test 
+				{    
+				    // Data members of class 
+				public: 
+				    // Pure Virtual Function 
+				    virtual void show() = 0; 
+				    
+				   /* Other members */
+				}; 
+
+4. Abstract Classes:
+		Sometimes implementation of all function cannot be provided in a base class because we don’t know the implementation. Such a class is called abstract class. For example, let Shape be a base class. We cannot provide implementation of function draw() in Shape, but we know every derived class must have implementation of draw(). Similarly an Animal class doesn’t have implementation of move() (assuming that all animals move), but all animals must know how to move. We cannot create objects of abstract classes.
+
+		- A class is abstract if it has at least one pure virtual function.
+		- We can have pointers and references of abstract class type.
+		- If we do not override the pure virtual function in derived class, then derived class also becomes abstract class.
+
+5. Encapsulation:
+		Encapsulation is defined as wrapping up of data and information under a single unit. In Object Oriented Programming, Encapsulation is defined as binding together the data and the functions that manipulates them.
+
+		There are 3 types of access modifiers available in C++:
+
+		- Public: All the class members declared under public will be available to everyone. The data members and member functions declared public can be accessed by other classes too. The public members of a class can be accessed from anywhere in the program using the direct member access operator (.) with the object of that class.
+
+		- Private: The class members declared as private can be accessed only by the functions inside the class. They are not allowed to be accessed directly by any object or function outside the class. Only the member functions or the friend functions are allowed to access the private data members of a class.
+
+		- Protected: Protected access modifier is similar to that of private access modifiers, the difference is that the class member declared as Protected are inaccessible outside the class but they can be accessed by any subclass(derived class) of that class.
+
+		Note: If we do not specify any access modifiers for the members inside the class then by default the access modifier for the members will be Private.
+
+6. Data Abstraction:
+		Data abstraction is one of the most essential and important feature of object oriented programming in C++. Abstraction means displaying only essential information and hiding the details. Data abstraction refers to providing only essential information about the data to the outside world, hiding the background details or implementation.
+
+		Consider a real life example of a man driving a car. The man only knows that pressing the accelerators will increase the speed of car or applying brakes will stop the car but he does not know about how on pressing accelerator the speed is actually increasing, he does not know about the inner mechanism of the car or the implementation of accelerator, brakes etc in the car. This is what abstraction is.
+		
+		In C++, it can be implemented using:
+		- Abstraction using Classes
+		- Abstraction in Header files
+		- Abstraction using access specifiers: public, private and protected
+
+7. Friend Class / Friend Function:
+		A friend class can access private and protected members of other class in which it is declared as friend. It is sometimes useful to allow a particular class to access private members of other class. 
+
+		Friend Function Like friend class, a friend function can be given special grant to access private and protected members.
+
+
+8. What is the difference between struct and class?
 		The data members/attributes of a struct by default are public while the data members/attributes of a class are private by default. It is a good practice to use struct when you have only data members. When you have function members as well, then it is better to use classes. 
 
-2. What is the best practice to declare, define and use functions in C++?
+9. What is the best practice to declare, define and use functions in C++?
 		Declarations, Definitions and using functions all together in one file is not considered a good practice.
 		It is best practice to write down the function declarations within the classes in one file, Then function definitions in another file. Then, use those functions in another file.
 
-3. What is difference between struct and union?
+10. What is difference between struct and union?
 		'struct' reserves memory all its data types/members defined underneath it. 'union' reserves memory for only the maximum data type/members defined in it.
 		'struct' is used when we want to access all the members/attributes in it. 'union' is used when we want to access only one out of many data type/members defined in it. E.g., You would define gender as a union since only one out of male, female would be true and we would need only one of them to be set.So, reserving space for any one of them would make sense.
+
+
 
 General Programming / C
 =======================
@@ -433,7 +601,140 @@ General Programming / C
 	> In linked list we don't just save the value, but also save the key.  So, when we look for "cat" and the hashing function gives me "123", then in the linked list, I will search for a value whose key is "cat". Hashing helps here since the search space reduced to just the linked list attached with the address "123"
 
 
-5. 
+5. Compiling a C program:
+		There are four phases for a C program to become an executable:
+
+		* Pre-processing: This is the first phase through which source code is passed. This phase include:
+				+ Removal of Comments
+				+ Expansion of Macros
+				+ Expansion of the included files.
+
+				The preprocessed output is stored in the filename.i.
+
+		* Compilation: The next step is to compile filename.i and produce an; intermediate compiled output file filename.s. This file is in assembly level instructions.
+
+		* Assembly: In this phase the filename.s is taken as input and turned into filename.o by assembler. This file contain machine level instructions. At this phase, only existing code is converted into machine language, the function calls like printf() are not resolved.
+
+		* Linking: This is the final phase in which all the linking of function calls with their definitions are done. Linker knows where all these functions are implemented. Linker does some extra work also, it adds some extra code to our program which is required when the program starts and ends. For example, there is a code which is required for setting up the environment like passing command line arguments. 
+
+			A linker can accomplish this task in two ways, by copying the code of library function to your object code, or by making some arrangements so that the complete code of library functions is not copied, but made available at run-time.
+
+			+ Static Linking:
+				Static Linking and Static Libraries is the result of the linker making copy of all used library functions to the executable file. Static Linking creates larger binary files, and need more space on disk and main memory. Examples of static libraries (libraries which are statically linked) are, .a files in Linux and .lib files in Windows.
+
+					- For a static library, the actual code is extracted from the library by the linker and used to build the final executable at the point you compile/build your application.
+					- One major advantage of static libraries being preferred even now “is speed”. There will be no dynamic querying of symbols in static libraries. Many production line software use static libraries even today.
+					-  One drawback of static libraries is, for any change(up-gradation) in the static libraries, you have to recompile the main program every time.
+					- Each process gets its own copy of the code and data. Where as in case of dynamic libraries it is only code shared, data is specific to each process. 
+
+			+ Dynamic Linking:
+				Dynamic linking and Dynamic Libraries Dynamic Linking doesn’t require the code to be copied, it is done by just placing name of the library in the binary file. The actual linking happens when the program is run, when both the binary file and the library are in memory. Examples of Dynamic libraries (libraries which are linked at run-time) are, .so in Linux and .dll in Windows.
+
+
+		Q. Whether stdio.h is linked statically or dynamically?
+
+				stdio.h is not library, it just a header file which contains the declaration. For example printf's only declaration is present in stdio.h but its definition is in the libc.so.(shared object file) so by default it is dynamically linked.
+				
+				If you want it to be static, then do  ..$ gcc -static filename.c
+
+		Q. Difference between header files and library files?
+			
+				Header contains the function signature, but library stores much more information about a function. It stores function definition also. Also the path of the linked other libraries are stored  in libraries.
+
+6. Dangling Pointers / Void Pointers / NULL Pointers / Wild Pointers:
+		a. Dangling Pointers:
+				A pointer pointing to a memory location that has been deleted (or freed) is called dangling pointer. There are three different ways where a pointer acts as dangling pointer:
+					* De-allocation of memory:
+								int *ptr = (int *)malloc(sizeof(int)); 
+								  
+						    // After below free call, ptr becomes a dangling pointer 
+						    free(ptr);  
+						      
+						    // No more a dangling pointer 
+						    ptr = NULL; 
+
+					* Function Call: If a function returns the address of a local variable, then that address would garbage value and the pointer in the main function would be a dangling pointer.
+
+					* Variable goes out of scope: In another scope, the variable is reachable and is assigned something which isn't visible in the outer scope.
+
+								int *ptr;
+						    .....
+						    {
+							      int ch;
+							      ptr = &ch;
+							  } 
+							  .....   
+							  // Here ptr is dangling pointer
+
+
+		b. Void Pointers:
+				Void pointer is a specific pointer type – void * – a pointer that points to some data location in storage, which doesn’t have any specific type. Void refers to the type. Basically the type of data that it points to is can be any. If we assign address of char data type to void pointer it will become char Pointer, if int data type then int pointer and so on. Any pointer type is convertible to a void pointer hence it can point to any value.
+
+
+		c. NULL Pointers:
+				NULL Pointer is a pointer which is pointing to nothing. In case, if we don’t have address to be assigned to a pointer, then we can simply use NULL.
+						// Null Pointer 
+						int *ptr = NULL; 
+						  
+						printf("The value of ptr is %u", ptr);
+
+				- NULL vs Uninitialized pointer – An uninitialized pointer stores an undefined value. A null pointer stores a defined value, but one that is defined by the environment to not be a valid address for any member or object.
+
+		d. WILD Pointers:
+				A pointer which has not been initialized to anything (not even NULL) is known as wild pointer. The pointer may be initialized to a non-NULL garbage value that may not be a valid address.
+
+
+7. What is core dump/ Segmentation Fault?
+
+		A core dump is a file of a computer’s documented memory of when a program or computer crashed. The file consists of the recorded status of the working memory at an explicit time, usually close to when the system crashed or when the program ended atypically. 
+
+		Aside from the entire system memory or just part of the program that aborted, a core dump file may include additional information.
+
+		Core Dump/Segmentation fault is a specific kind of error caused by accessing memory that “does not belong to you.”
+		- When a piece of code tries to do read and write operation in a read only location in memory or freed block of memory, it is known as core dump.
+		- It is an error indicating memory corruption.
+
+
+8. Static Variables vs Global Variables:
+
+				static int i;   // static variable
+				int j;					// global variable
+				int main(){
+					..
+				}
+
+		A global variable has external linkage by default. Its scope can be extended to files other than containing it by giving a matching extern declaration in the other file.
+
+		The scope of a global variable can be restricted to the file containing its declaration by prefixing the declaration with the keyword static. Such variables are said to have internal linkage.
+
+
+		NOTE: The keyword static plays a double role. When used in the definitions of global variables, it specifies internal linkage. When used in the definitions of the local variables, it specifies that the lifetime of the variable is going to be the duration of the program instead of being the duration of the function.
+
+9. extern variables / extern functions in C:
+		
+		Extern functions:
+			By default, the declaration and definition of a C function have “extern” prepended with them. It means even though we don’t use extern with the declaration/definition of C functions, it is present there. 
+			extern extends the visibility to the whole program, the functions can be used (called) anywhere in any of the files of the whole program provided the declaration of the function is known. (By knowing the declaration of the function, C compiler knows that the definition of the function exists and it goes ahead to compile the program). 
+
+		Extern Variables:
+
+			The extern extends the visibility of the variable to the whole program. By using the extern keyword with a variable we can use the variables anywhere in the program provided we know the declaration of them and the variable is defined somewhere in some other file as a global variable.
+
+			There's another important thing associated with extern variables: When extern is used with a variable, it’s only declared not defined.
+
+			How would you declare a C variable without defining it? 
+					extern int x;
+
+				Here, an integer type variable called var has been declared (remember no definition i.e. no memory allocation for var so far). And we can do this declaration as many times as needed. (remember that declaration can be done any number of times)
+
+			Now how would you define a variable?
+    			int var; 
+
+    		Here, an integer type variable called var has been declared as well as defined. (remember that definition is the superset of declaration). Here the memory for var is also allocated.
+
+		
+			- As an exception, when an extern variable is declared with initialization, it is taken as the definition of the variable as well.
+					extern int var = 0;
 
 
 Design Patterns
@@ -452,6 +753,12 @@ Design Patterns
 		j. Simplicity
 		k. Self-organizing teams.
 		l. At regular intervals, teams reflects on how to become more, then tunes and adjusts its behavior.
+
+
+
+
+Ruby and Rails
+==============
 
 
 

@@ -36,7 +36,8 @@ Implementation:
         - Push the previous element back into the priority_queue if it’s frequency > ‘0’
         - Make the current element as previous element for the next iteration.
     4. If length of resultant string and original, print “not possible”. Else print result.
-
+        (A character would remain with more freqency in the temporary 'previous' variable 
+        and the loop will exit. The ans variable would thus have length less than the original string.)
 
 */
 
