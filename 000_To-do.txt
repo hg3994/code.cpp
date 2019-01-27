@@ -1,10 +1,7 @@
 TO-DO-NEXT
 ==========
 * https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
-* https://www.geeksforgeeks.org/topological-sorting/
 * LRU
-* Sort a stack.
-* All sorting Algorithms including topological sorting.
 * AVL Tree: Given a linked list make an AVL tree. I gave a solution in which I sort a linked list and then went to middle element make it as root and now I am left with right subtree and left subtree and same process is repeated recursively. He seamed pretty satisfied with the solution and then told me to write a code for the recursive part.
 	https://www.youtube.com/watch?v=rbg7Qf8GkQ4  https://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/
 * https://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/ : How are left boundary and right boundary different fron left view and right view of a tree?
@@ -16,6 +13,7 @@ TO-DO-NEXT
 Theory
 ======
 * Static Function
+* Singleton Class: When it is used? DOes it mean only one instance at a time or all in all one instance? Logic of constructor ?
 * What are cin and cout in C++. They are objects of which class. Namespaces in C++.
 * What happens when we press www.google.com
 * Explain all the Protocols starting from ARP, RARP, BOOTP, DHCP.
@@ -67,4 +65,8 @@ Behavioural
 - What are some negative things your teammates would say about you?
 - Why are you leaving this XYZ company?
 - Why are you willing to join our company?
-- 
+
+
+I can ask:
+	- How is life at your company?
+	- 
