@@ -4,16 +4,18 @@ TO-DO-NEXT
 * LRU
 * AVL Tree: Given a linked list make an AVL tree. I gave a solution in which I sort a linked list and then went to middle element make it as root and now I am left with right subtree and left subtree and same process is repeated recursively. He seamed pretty satisfied with the solution and then told me to write a code for the recursive part.
 	https://www.youtube.com/watch?v=rbg7Qf8GkQ4  https://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/
-* https://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/ : How are left boundary and right boundary different fron left view and right view of a tree?
 * https://www.geeksforgeeks.org/water-drop-problem/
 * Fractional Knapsack Problem https://www.geeksforgeeks.org/fractional-knapsack-problem/
 * https://www.geeksforgeeks.org/inorder-predecessor-successor-given-key-bst/
+* https://www.geeksforgeeks.org/counting-sort/
+* https://www.geeksforgeeks.org/radix-sort/
+* https://www.geeksforgeeks.org/bucket-sort-2/
 
 
 Theory
 ======
 * Static Function
-* Singleton Class: When it is used? DOes it mean only one instance at a time or all in all one instance? Logic of constructor ?
+* Singleton Class: When it is used? Does it mean only one instance at a time or all in all one instance? Logic of constructor ?
 * What are cin and cout in C++. They are objects of which class. Namespaces in C++.
 * What happens when we press www.google.com
 * Explain all the Protocols starting from ARP, RARP, BOOTP, DHCP.
@@ -27,7 +29,6 @@ Theory
 * Data Fragmentation
 * Rate Limiting ALgorithm
 * Content Delivery Networks (CDN)
-* Difference between GET and POST? Why do we have two types of requests when we can actually send data in a GET request.
 * Login/Authentication in RoR?
 
 
@@ -51,6 +52,7 @@ TRACKING
 * https://www.geeksforgeeks.org/painters-partition-problem/ https://www.geeksforgeeks.org/painters-partition-problem-set-2/
 * https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/
 * https://www.geeksforgeeks.org/in-place-convert-a-given-binary-tree-to-doubly-linked-list/
+* https://www.geeksforgeeks.org/timsort/
 
 
 Things to do in the checklist
