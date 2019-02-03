@@ -1,12 +1,11 @@
 TO-DO-NEXT
 ==========
 * https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
-* LRU
 * AVL Tree: Given a linked list make an AVL tree. I gave a solution in which I sort a linked list and then went to middle element make it as root and now I am left with right subtree and left subtree and same process is repeated recursively. He seamed pretty satisfied with the solution and then told me to write a code for the recursive part.
-	https://www.youtube.com/watch?v=rbg7Qf8GkQ4  https://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/
+	https://www.youtube.com/watch?v=rbg7Qf8GkQ4  
+	https://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/
 * https://www.geeksforgeeks.org/water-drop-problem/
 * Fractional Knapsack Problem https://www.geeksforgeeks.org/fractional-knapsack-problem/
-* https://www.geeksforgeeks.org/inorder-predecessor-successor-given-key-bst/
 * https://www.geeksforgeeks.org/counting-sort/
 * https://www.geeksforgeeks.org/radix-sort/
 * https://www.geeksforgeeks.org/bucket-sort-2/
@@ -65,10 +64,10 @@ Behavioural
 ===========
 - What are some positive things your teammates would say about you?
 - What are some negative things your teammates would say about you?
-- Why are you leaving this XYZ company?
+- Why are you leaving this company?
 - Why are you willing to join our company?
 
 
 I can ask:
 	- How is life at your company?
-	- 
+	- How is the work-life balance in your company?
