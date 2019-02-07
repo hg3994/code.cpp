@@ -1,8 +1,11 @@
 /* 
 Harshit Gupta | 3rd February, 2019
 
+https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+https://www.geeksforgeeks.org/fractional-knapsack-problem/
+https://ide.geeksforgeeks.org/knFDdW0dyh
 
-C++ program for 
+C++ program
 
 0-1 Knapsack Problem
 ====================
@@ -13,20 +16,51 @@ knapsack capacity, find out the maximum value subset of val[] such that sum of t
 is smaller than or equal to W. You cannot break an item, either pick the complete item, 
 or don’t pick it (0-1 property)."
 
+> To consider all subsets of items, there can be two cases for every item: 
+		(1) the item is included in the optimal subset, 
+		(2) not included in the optimal set.
+	Therefore, the maximum value that can be obtained from n items is max of following two values.
+			1) Maximum value obtained by n-1 items and W weight (excluding nth item).
+			2) Value of nth item + maximum value obtained by n-1 items and W minus weight of the nth item (including nth item).
+
+		If weight of nth item is greater than W, then the nth item cannot be included and case 1 is the only possibility.
+
+
 Fractional Knapsack Problem
 ===========================
+"Given weights and values of n items, we need to put these items in a knapsack of capacity W to
+get the MAXIMUM total value in the knapsack. We can break an item into smaller pieces if we want 
+since this is not a constraint for this problem"
+
+>	An efficient solution is to use Greedy approach. The basic idea of the greedy approach is to calculate 
+	the ratio value/weight for each item and sort the item on basis of this ratio. Then take the item with 
+	the highest ratio and add them until we can’t add the next item as a whole and at the end add the next 
+	item as much as we can. Which will always be the optimal solution to this problem.
 
 
-Solution: 
-
-Paradigm: 
-
-Time Complexity: 
+Paradigm: Dynamic Programming, Greedy
 
 */
 
 #include <bits/stdc++.h>
 using namespace std; 
+
+// Structure for an item which stores weight and corresponding value of Item for Fractional Knapsack.
+struct Item{
+	int value, weight;
+	Item(int value, int weight){
+		this->value = value;
+		this->weight = weight;
+	}
+};
+
+// Comparison function to sort Item according to val/weight ratio 
+bool cmp(struct Item a, struct Item b) 
+{ 
+    double r1 = (double)a.value / a.weight; 
+    double r2 = (double)b.value / b.weight; 
+    return r1 > r2; 
+} 
 
 int knapsack_01(int W, vector<int> wt, vector<int> val, int n){
 	// Recursive Solution
@@ -35,6 +69,7 @@ int knapsack_01(int W, vector<int> wt, vector<int> val, int n){
 	// 	return 0;
 	// }
 	// else{
+	//  select the nth weight or don't select. Then choose what gives you the maximum out of these two.
 	// 	return max(knapsack_01(W-wt[n-1],wt,val,n-1) + val[n-1], knapsack_01(W,wt,val,n-1));
 	// }
 
@@ -62,6 +97,30 @@ int knapsack_01(int W, vector<int> wt, vector<int> val, int n){
 	return dp[n][W];
 }
 
+int fractionalKnapsack(int W, struct Item arr[], int n){
+	// sorting Item on basis of ratio 
+	sort(arr, arr+n, cmp);
+
+	int curWeight = 0;  // Current weight in knapsack
+  double finalvalue = 0.0; // Result (value in knapsack)
+
+  for (int i = 0; i < n; i++){ 
+		// If adding Item won't overflow, add it completely 
+		if (curWeight + arr[i].weight <= W){ 
+		    curWeight += arr[i].weight;
+		    finalvalue += arr[i].value;
+		}
+		// If we can't add current Item, add fractional part of it 
+		else { 
+		    int remain = W - curWeight; 
+		    finalvalue += arr[i].value * ((double) remain / arr[i].weight); 
+		    break; 
+		}
+  }
+  // Returning final value 
+  return finalvalue;
+}
+
 int main() 
 { 
     vector<int>val = {60, 100, 120}; 
@@ -69,5 +128,9 @@ int main()
     int W = 50;
     int n = val.size();
     cout<<knapsack_01(W, wt, val, n)<<endl;
+
+    Item arr[] = {{60, 10}, {100, 20}, {120, 30}}; 
+    cout<<fractionalKnapsack(W, arr, n)<<endl;
+
     return 0; 
 } 

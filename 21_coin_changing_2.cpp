@@ -15,10 +15,11 @@ Solution: We will use DP to solve this. At every stage, we have two choices:
         
         This is different from the the coin changing problem because here we DO NOT have infinte supply of coins. 
         The only coins that we have are the ones in the array
-        
-        This question can also be framed as "There is an array of numbers given with a sum. Can you choose 
-            some elements from the array which will add up to 'sum'." You can think of these numbers as coins
-            and then make 'sum' amount from the coins.
+
+IMPORTANT:        
+This question can also be framed as "There is an array of numbers given with a sum. Can you choose 
+    some elements from the array which will add up to 'sum'." You can think of these numbers as coins
+    and then make 'sum' amount from the coins.
 
         
 
