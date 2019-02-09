@@ -2,9 +2,10 @@
 Harshit Gupta | 31st October, 2018
 
 http://cpp.sh/8npdt
+https://www.geeksforgeeks.org/reverse-a-linked-list/
 
-C++ program for inserting(front,end) an element, searching an element, 
-    and deleting (key,index) in a Linked List.
+C++ program for inserting(front,end) an element, searching an element, and deleting (key,index) in a Linked List.
+    Reverse a LL.
 
 Solution: 
     To add new element to the front, point new node to the head's node. 
@@ -166,6 +167,36 @@ void deleteNodeWithKey(node **head, int key){
     }
 }
 
+void reverseLL(node **head){
+    // We need three pointers to reverse a LL namely: previous, current and following.
+    node *previous = NULL; // This will store the previous node. By default it should be one behind the current node.
+    node *current = (*head); // This will store the current node.
+    node *following = (*head); // This will store the next node.
+
+    // Till my current node becomes NULL, I got to keep reversing the arrows.
+    while((current) != NULL){
+
+        // Store the address of the actual next node in the 'following' variable 
+        // since we will change the actual next and make it point to the previous node.
+        following = current->next;
+        
+        // Reverse the arrow from front to behind. Make it point to the previous node.
+        current->next = previous;
+
+        // Move the previous to current since the operation on previous node is done.
+        previous = current;
+
+        // Thank God we stored the next node in the 'following' variable. 
+        // I know how to move the current variable forward now by making it point to current.
+        current = following;
+    }
+
+    // After the current points to NULL, we know the list is over. All we have to do is make head point to the
+    // last node. The last node is pointed by prev since current becomes NULL and previous is the node before
+    // it.. which should be the last node.
+    (*head) = previous;
+}
+
 
 void printLL(node **head){
     node *current = *head;
@@ -216,6 +247,34 @@ int main()
     printLL(&head);
     
     cout<<"----------------------"<<endl;
+
+    reverseLL(&head);
+    printLL(&head);
+
+    // OUTPUT:
+
+    // No LL found with head!
+    // Linked List is Empty, couldn't find an element!
+    // ----------------------
+    // Added the node with data: 10 in the end.
+    // Added the node with data: 20 in the end.
+    // Added the node with data: 30 in the end.
+    // HEAD->10->20->30->NULL
+    // ----------------------
+    // Added the node with data: 5 in the front.
+    // Added the node with data: 2 in the front.
+    // HEAD->2->5->10->20->30->NULL
+    // ----------------------
+    // Found 20 at index: 4
+    // Found 5 at index: 2
+    // ----------------------
+    // Deleted element: 2 at index: 0
+    // HEAD->5->10->20->30->NULL
+    // Deleted node with key: 10
+    // HEAD->5->20->30->NULL
+    // Key 29 not found in the Linked List
+    // HEAD->5->20->30->NULL
+    // ----------------------
     
     return 0; 
 } 

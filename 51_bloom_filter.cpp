@@ -33,7 +33,7 @@ BLOOM FILTERS
 
 	Working of Bloom Filter
 	-----------------------
-	A empty bloom filter is a bit array of m bits, all set to zero, like this:
+	An empty bloom filter is a bit array of m bits, all set to zero, like this:
 		[0 0 0 0 0 0 0 0 0 0]
 
 	We need k number of hash functions to calculate the hashes for a given input. When we want to add an item in the 

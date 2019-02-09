@@ -1,20 +1,17 @@
 TO-DO-NEXT
 ==========
 * https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
-* AVL Tree: Given a linked list make an AVL tree. I gave a solution in which I sort a linked list and then went to middle element make it as root and now I am left with right subtree and left subtree and same process is repeated recursively. He seamed pretty satisfied with the solution and then told me to write a code for the recursive part.
-	https://www.youtube.com/watch?v=rbg7Qf8GkQ4  
+*	AVL TO LINKED LIST: https://www.youtube.com/watch?v=rbg7Qf8GkQ4  
 *	https://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/
 * https://www.geeksforgeeks.org/water-drop-problem/
 * https://www.geeksforgeeks.org/counting-sort/
 * https://www.geeksforgeeks.org/radix-sort/
 * https://www.geeksforgeeks.org/bucket-sort-2/
 * https://www.geeksforgeeks.org/trapping-rain-water/
-* reverse a LL
 * https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
 * https://www.geeksforgeeks.org/iterative-postorder-traversal/
-* https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/ and Count-Min sketch
+* Count-Min sketch: https://www.youtube.com/watch?v=ibxXO-b14j4&t=419s
 * Median of Two sorted arrays of different sizes.
-
 
 Theory
 ======
@@ -38,6 +35,7 @@ Theory
 * Login/Authentication in RoR?
 * Why doesn't stack's pop() method return anything?: https://stackoverflow.com/questions/25035691/why-doesnt-stdqueuepop-return-value
 * Peer-to-Peer file sharing
+* How is indexing applied in DBs?
 * Consistent Hashing
 * Optimistic Locking vs Pessimistic Locking
 * HTTP vs HTTP2 (multiple request over a single connection) vs Websockets
