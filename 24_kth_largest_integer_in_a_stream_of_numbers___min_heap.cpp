@@ -6,7 +6,8 @@ https://www.geeksforgeeks.org/kth-largest-element-in-a-stream/
 
 C++ program for finding the Kth largest number from a stream of numbers
 
-Solution: We have implemented the solution using MinHeap. The k’th largest element is always at root and can be found in O(1) time.
+Solution: We have implemented the solution using MinHeap of size k. The k’th largest element is always at 
+        root and can be found in O(1) time.
     How to process a new element of stream?
         Compare the new element with root of heap. If new element is smaller, then ignore it. 
         Otherwise replace root with new element and call heapify for the root of modified heap. 
@@ -35,11 +36,11 @@ void heapify(int *heap, int k, int i){
     int smallest = i;
     
     // set smallest to the left child's index if that is smaller.
-    if(heap[left_child] < heap[smallest] && left_child < k)
+    if(left_child < k && heap[left_child] < heap[smallest])
         smallest = left_child;
     
     // set smallest to the right child's index if that is smaller.
-    if(heap[right_child] < heap[smallest] && right_child < k)
+    if(right_child < k && heap[right_child] < heap[smallest])
         smallest = right_child;
         
     // If parent is not smaller than the children, then we swap the parent and children.

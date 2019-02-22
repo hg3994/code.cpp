@@ -67,6 +67,7 @@ void MirrorNodes(node *root1, node *root2){
     }
 }
 
+
 void makeMirrorTree(node *root1){
     
     // Make the root2 node with the same data as root1
@@ -80,6 +81,32 @@ void makeMirrorTree(node *root1){
     cout<<"Mirror Tree: "<<endl;printTree(root2);
 }
 
+
+void InPlaceMirrorTree(node* root){
+    // This will modify the existing tree to its mirror tree
+
+    // If the root is not NULL
+    if(root != NULL){
+        // swap the left and right pointers
+        node* temp = root->left;
+        root->left = root->right;
+        root->right = temp;
+
+        // If left child exists and its left or right child exists, then recur
+        if(root->left && (root->left->left != NULL || root->left->right != NULL))
+            InPlaceMirrorTree(root->left);
+
+        // If right child exists and its left or right child exists, then recur
+        if(root->right && (root->right->left != NULL || root->right->right != NULL))
+            InPlaceMirrorTree(root->right);
+        
+    }
+
+    // NOTE: This method uses Pre-Order kind of traversal but it is equally good to use Post order traversal here
+}
+
+
+
 int main(){
     
     node *root = new node(10);
@@ -90,6 +117,12 @@ int main(){
     // root->right->left = new node(60);
     root->right->right = new node(70);
     
+    // To make a new mirror tree from a Binary Tree.
     makeMirrorTree(root);
+
+    // To modify the existing Binary Tree to its own Mirror Tree.
+    InPlaceMirrorTree(root);
+    cout<<"Normal Tree: "<<endl;printTree(root);
+
     return 0;
 }

@@ -8,10 +8,10 @@ https://ide.geeksforgeeks.org/fEZHX0McCw
 C++ program for Sorting ana array of 0s, 1s and 2s.
 
 Solution: We will divided the array into 4 parts with help of three pointers.
-    - [0..low]: Will contain 0s.
-    - [low..mid]: Will contain 1s.
+    - [0..low-1]: Will contain 0s.
+    - [low..mid-1]: Will contain 1s.
     - [mid..high]: Will contain UNKNONWS.
-    - [high..n]: Will contain 2s.
+    - [high+1..n]: Will contain 2s.
     
     *   low: points to the starting of 1s. (NOT STARTING OF 0s)
         mid: points to the starting of UNKNONWS (NOT ENDING OF 1s)
@@ -46,7 +46,7 @@ void sort0s1s2s(vector<int> arr){
         
         // If arr[mid] is 0, then throw it in the front. Move so that 
         // low points to the starting of 1s
-        // mid points to the ending of 1s.
+        // mid-1 points to the ending of 1s.
         if(arr[mid]==0){
             swap(&arr[mid],&arr[low]);
             low++;

@@ -10,7 +10,7 @@ https://www.geeksforgeeks.org/auto-complete-feature-using-trie/
 C++ program for Inserting, Searching and Displaying in a Trie.
     Also, implementation of Auto complete feature of a dictionary using Trie.
 
-Solution: We make a trie node as root. For both the operation we use a current pointer starting from root.
+Solution: We make a trie node pointer root. For both the operation we use a current pointer starting from root.
         * To insert into a trie, we keep on traversing if the node is already present. 
             If not, then we make the node and traverse forward. 
             We mark the last character node with isEndOfWord=true

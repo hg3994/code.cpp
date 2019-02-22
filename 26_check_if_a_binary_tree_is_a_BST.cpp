@@ -8,13 +8,13 @@ C++ program for checking if a given tree is a BST or not.
 
 Solution: For a binary tree to be a BST, we know that all the node values 
     on its left subtree must be smaller than the root node, all the values in the right
-    subtree must be larger than the root node. This must be recurseively true for all the nodes.
+    subtree must be larger than the root node. This must be recursively true for all the nodes.
     
     We are assigning a minimum and maximum value to each node in which its value must lie.
     For root node, it can be between INT_MIN and INT_MAX.
-    Fot its left node, it can be between INT_MIN and root-1
-    Fot its right node, it can be between root+1 and INT_MAX.
-    This will be true for all the nodes cosidering them as root.
+    For its left node, it can be between INT_MIN and root-1
+    For its right node, it can be between root+1 and INT_MAX.
+    This will be true for all the nodes considering them as root.
 
 Time complexity: O(n)
 

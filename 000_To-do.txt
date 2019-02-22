@@ -7,14 +7,17 @@ TO-DO-NEXT
 * https://www.geeksforgeeks.org/counting-sort/
 * https://www.geeksforgeeks.org/radix-sort/
 * https://www.geeksforgeeks.org/bucket-sort-2/
-* https://www.geeksforgeeks.org/trapping-rain-water/
 * https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
 * https://www.geeksforgeeks.org/iterative-postorder-traversal/
-* Count-Min sketch: https://www.youtube.com/watch?v=ibxXO-b14j4&t=419s
 * Median of Two sorted arrays of different sizes.
+* Convex Hull
+* Distributed Merge and Distributed Quick Sort.
 
 Theory
 ======
+* inheritance vs object creation.
+* Replication Factor, Read, Write in Cassandra.
+* Full Text Search
 * Static Function
 * Singleton Class: When it is used? Does it mean only one instance at a time or all in all one instance? Logic of constructor ?
 * What are cin and cout in C++. They are objects of which class. Namespaces in C++.
@@ -31,17 +34,15 @@ Theory
 * Distributed state management.
 * Data Fragmentation
 * Rate Limiting ALgorithm
-* Content Delivery Networks (CDN) & Edge
 * Login/Authentication in RoR?
 * Why doesn't stack's pop() method return anything?: https://stackoverflow.com/questions/25035691/why-doesnt-stdqueuepop-return-value
 * Peer-to-Peer file sharing
-* How is indexing applied in DBs?
+* How is indexing applied in DBs? How is it beneficial in query time reduction? Time Complexity is reduced from ON to OlogN
 * Consistent Hashing
 * Optimistic Locking vs Pessimistic Locking
 * HTTP vs HTTP2 (multiple request over a single connection) vs Websockets
 * TCP/IP vs UDP
 * IPv4 vs IPv6
-* DNS Lookup
 * HTTPs and Transport Layer Security
 * Public Key Infrastructure and Cerificate Authority
 * Factory and Singleton
@@ -85,7 +86,6 @@ TRACKING
 Things to do in the checklist
 =============================
 - Design Patterns
-- C++ Essential Training
 
 
 Behavioural

@@ -46,7 +46,7 @@ node* lowestCommonAncestor(node *root, node *n1, node *n2){
     
     // If we get a node where we found something in the left subtree and 
     // something in the right subtree, then return 'ROOT' since this will 
-    // be the LCA of the two ndoes n1 and n2.
+    // be the LCA of the two nodes n1 and n2.
     if(left_subtree!=NULL && right_subtree!=NULL)
         return root;
         

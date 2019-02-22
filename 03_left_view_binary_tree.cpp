@@ -8,7 +8,7 @@ C++ program for Left View of a Binary Tree.
 Solution: Maintain a maximum height of whatever depth you have reached. 
     Recur for left and right subtrees.
     Since left is recurred first, we will cover left view and set maximum 
-    so that the right ones get ignored.
+    so that the right ones at the same level get ignored.
 
 */
 

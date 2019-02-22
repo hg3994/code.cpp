@@ -20,13 +20,17 @@ using namespace std;
 
 void heapify(int *arr, int n, int i){
     // n is the number of elements to be considered for the list. \
-        Will get short as array keeps on getting sorted \
-        Present in this function, just to check if the childs range \
-        isn't getting out of bound.
+        List will get short as array keeps on getting sorted and fixing the later values. \
+        Present in this function, just to check if the childs' range \
+        isn't getting out of bound (greater than n) and reaching the fixed part.
         
     // i is the starting node of the heapification process. \
         The affected nodes from i are the ones where we would \
         want to call heapify() recursively.
+    // heapify is firstly called for making array a maxheap and there we stared with middle, so i is important \
+        for the function. But, after it, when we actually sort, we always call heapify with 0.
+    // Obviously, during the recursions, we would change this 'i' from 0 .. so this needed in the function.
+
     
     int left_child = 2*i+1;
     int right_child = 2*i+2;
