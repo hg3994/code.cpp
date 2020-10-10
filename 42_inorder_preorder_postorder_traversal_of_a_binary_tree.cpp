@@ -61,8 +61,8 @@ void preOrder(node *root){
     if(root==NULL)
         return;
     cout<<root->data<<" ";
-    inOrder(root->left);
-    inOrder(root->right);
+    preOrder(root->left);
+    preOrder(root->right);
 }
 
 void preOrderIterative(node *root){
