@@ -1,10 +1,14 @@
 /* 
 Harshit Gupta | 17th October, 2018
 
-C++ program for calculating longest increasing subsequence in O(n2) time
+C++ program for calculating longest increasing subsequence length in O(n2) time
 
 https://www.youtube.com/watch?v=CE2b_-XfVDk
 https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/
+
+This problem can also be modified to ask "Sum" of all elements forming the longest increasing subsequence.
+https://leetcode.com/problems/best-team-with-no-conflicts/
+
 
 Solution: We will use very basic dynamic Programming to solve this.
     * At every point, if a number arr[i] is greater than the number arr[j], j<i, 
@@ -19,7 +23,7 @@ using namespace std;
 void longestIncreasingSubsequence(vector<int> arr){
     int n = arr.size();
     
-    // This vector stores the longest increasing subsequence.
+    // This vector stores the LENGTH of longest increasing subsequence till 'i'
     vector<int> L(n);
     int maximum_increasing_sub=0;
     
