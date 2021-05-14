@@ -3,6 +3,7 @@ Harshit Gupta | 10th February, 2019
 
 https://www.geeksforgeeks.org/trapping-rain-water/
 https://ide.geeksforgeeks.org/Laz3IOrHaD
+https://leetcode.com/problems/trapping-rain-water/
 
 C++ program for Trapping Rain Water Problem
 

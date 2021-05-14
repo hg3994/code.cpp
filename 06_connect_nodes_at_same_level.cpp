@@ -3,6 +3,8 @@ Harshit Gupta | 17th October, 2018
 
 C++ program for Connecting Nodes at same level
 
+https://leetcode.com/problems/populating-next-right-pointers-in-each-node
+
 Solution: We will use Level Order Traversal to connect nodes at the same level.
     * The strategy is to enqueue NULL in the queue after end of each level.
     * We keep enquing left and right nodes of a tree.

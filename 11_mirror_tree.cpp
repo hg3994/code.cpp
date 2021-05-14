@@ -1,10 +1,15 @@
 /* 
 Harshit Gupta | 19th October, 2018
 
-C++ program for finding the mirror tree of a given binary tree.
+C++ program for 
+    1. Finding the mirror tree of a given binary tree.
+        a. Create a new Mirror Tree
+        b. Modify the given tree inplace
+    2. Is a given Binary tree a symmetric/mirror Tree?
 
-https://ide.geeksforgeeks.org/mNSyzs8gDP
+https://ide.geeksforgeeks.org/ZLqeqL8WyO
 https://www.geeksforgeeks.org/write-an-efficient-c-function-to-convert-a-tree-into-its-mirror-tree/
+https://leetcode.com/problems/symmetric-tree/
 
 Solution:   We will use recursion to solve our problem.
     * Copy the root node since that is always same.
@@ -105,7 +110,12 @@ void InPlaceMirrorTree(node* root){
     // NOTE: This method uses Pre-Order kind of traversal but it is equally good to use Post order traversal here
 }
 
-
+// Is the given binary tree a mirror tree?
+bool isMirror(node *t1, node* t2){
+    if(t1 == NULL && t2 == NULL) return true;
+    if(t1 == NULL || t2 == NULL) return false;
+    return (t1->data == t2->data) && isMirror(t1->left, t2->right) && isMirror(t1->right, t2->left);
+}
 
 int main(){
     
@@ -123,6 +133,9 @@ int main(){
     // To modify the existing Binary Tree to its own Mirror Tree.
     InPlaceMirrorTree(root);
     cout<<"Normal Tree: "<<endl;printTree(root);
+    
+    // Check if it is a mirror tree by sending two args
+    cout<<"Is Mirror Tree?: "<<isMirror(root, root)<<endl;
 
     return 0;
 }

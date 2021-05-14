@@ -12,8 +12,8 @@ Solution:
     So, combination[3] will store the number of ways in which a sum of 3 can be formed from all the coins.
 
 * Iterate over all the coins one by one and try to fill the array. In the first loop, it will be like: I have infinite supply of coins[0]
-    so, each of combination[j] would be the number of ways in which the sum can be made from only coins[0] denomination of coins.
-    In the second iteration, it will mean that we have infinite amt. of coins[0] and coins[1] and 
+    so, each of combination[j] would be the number of ways in which the sum 'j' can be made from infinite supplies of 
+    only coins[0] denomination of coins. In the second iteration, it will mean that we have infinite amt. of coins[0] and coins[1] and 
     so we will add the answer to this in the prev. array itself.
     
 * A coin of value 5 won't make any difference to the number of ways in which a sum of 2 or 3 is formed. So, we take the condition as: j>=coins[i]
@@ -60,6 +60,12 @@ void coinChanging(int *coins, int n, int sum){
 // Driver program to test above functions 
 int main() 
 { 
+    // - | 0  1  2  3  4  5  6  7  8  9  10  11  12
+    // -------------------------------------------
+    // 1 | 1  1  1  1  1  1  1  1  1  1   1   1  1 
+    // 2 | 1  1  2  2  3  3  4  4  5  5   6   6  7 
+    // 5 | 1  1  2  2  3  4  5  6  7  8  10  11 13
+
     int coins[3] = {1,2,5};
     int num_of_coins = sizeof(coins)/sizeof(coins[0]);
     int sum = 12;
