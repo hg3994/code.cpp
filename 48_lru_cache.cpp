@@ -7,6 +7,8 @@ C++ program for How to implement LRU caching scheme? What data structures should
 	(Number of page frames that cache can hold at a time). The LRU caching scheme is to remove the 
 	least recently used frame when the cache is full and a new page is referenced which is not there in cache.
 
+https://leetcode.com/problems/lru-cache/
+
 Solution: We want to have two APIs, one is InsertIntoCache() and another showCache();
 		We want to implement the LRU algorithm in the InsertIntoCache() method.
 		We want to see the contents of the cache at any point of time through the showCache() method.
@@ -38,7 +40,7 @@ Solution: We want to have two APIs, one is InsertIntoCache() and another showCac
 		---		
 
 		We can use Hash and DLL as the data structures used for LRUCache implementation.
-		Hash will store the key as the input number and the value would be the addredd of the node in the DLL.
+		Hash will store the key as the input number and the value would be the address of the node in the DLL.
 		The DLL would also contain the same input in its data part. Now when we get a new element, 
 		the algo would be:
 

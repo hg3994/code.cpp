@@ -10,7 +10,7 @@ C++ program for ""
 Solution: 
 
 Time Complexity: 
-Space Complexity: =
+Space Complexity:
 ---
   NOTE: 
 
@@ -45,11 +45,14 @@ typedef struct LLNode LLNode;
 
 
 // Sort one array according to another array. Modifies the array a and b.
-// Input : 2 1 5 4 9 3 6 7 10 8
-//         A B C D E F G H I J
+//  Can be used to sort an array with increasing size of elements (string)
+//  Array with String length -> a, Array with strings -> b
+// Input : 2 1 5 4 9 3 6 7 10 8 <- "a"
+//         A B C D E F G H I J  <- "b"
 // Output : 1 2 3 4 5 6 7 8 9 10 
 //          B A F D C G H J E I 
-void pairsort(vector<int>& a, vector<int>& b, int n) { 
+void pairsort(vector<int>& a, vector<int>& b) { 
+  int n = a.size();
   vector<pair<int, int>> pairt;
   for (int i = 0; i < n; i++) pairt.push_back(make_pair(a[i], b[i]));
   sort(pairt.begin(), pairt.end());
@@ -77,6 +80,14 @@ string shift_right_arr(string s, int x) {
   reverse(s.begin(), s.begin()+x);
   reverse(s.begin()+x, s.end());
   return s;
+}
+
+void print_arr(string message, vector<int> a){
+    cout<<message<<" ";
+    for(auto e: a){
+        cout<<e<<" ";
+    }
+    cout<<endl;
 }
 
 // Set the array to value 0 / -1 (Not for other values)
@@ -114,3 +125,17 @@ string shift_right_arr(string s, int x) {
 // Declare: pair<int, int> p
 // Create:  make_pair(1, 2)
 // Values:  p.first, p.second
+
+
+// map.find(): O(logN)
+//  Use it if you want to store all the key, values in sorted order. Internally it is implemented using BST.
+
+// set.find(): O(logN)
+//  Use it if you want to have a sorted set. Internally it is implemented using BST.
+
+// unordered_map.find(): O(1)
+//  Use it if you want to have a hash map having key value pairs. It is unordered.
+
+// unordered_set.find(): O(1)
+//  Use it if you want to have a set with faster retrival. Consider this as a hashmap
+//  with element as keys and values as true. It is simpler to use this then that hashmap.

@@ -180,16 +180,16 @@ void merge(vector<int> &arr, int l, int m, int r){
 
 	// Copy data to temp arrays L[] and R[]
 	for(int i=0;i<n1;i++)
-		L[i] = arr[l+i];
+		L[i] = arr[l+i];   // arr[l...]
 	for(int i=0;i<n2;i++)
-		R[i] = arr[m+i+1];
+		R[i] = arr[m+1+i]; // arr[m+1...]
 
 	// Merge the temp arrays back into arr[l..r]
 	int i=0; // Initial index of first sub-array L[]
 	int j=0; // Initial index of second sub-array R[]
 	int k=l; // Initial index of merged sub-array arr[]
 
-	// Compare the two sorted temp array and then update the 
+	// Compare the two sorted temp array and then update the arr[]
 	while (i<n1 && j<n2){
 		if(L[i] <= R[j]){
 			arr[k] = L[i];
@@ -361,7 +361,7 @@ int main()
 	quickSort(arr);
 
 	// A⟶B⟶C
-	//	 	⤷D⤴ 
+	//	   ⤷D⤴ 
 	vector <vector<int>> grid = { {0,1,0,0}, {0,0,1,1}, {0,0,0,0}, {0,0,1,0}};
 	topologicalSort(grid);
 
