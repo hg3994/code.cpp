@@ -18,6 +18,12 @@ How is Sliding Window Algorithm different from Kadane's Algorithm?
 >> Sliding Window Algorithm calculates the maximum sum subarray for a specific window of size 'k'.
     Kadane's Algorithm calculates the maximum sum subarray for all the subarrays of all possible lengths (1 to n).
 
+
+
+// Array:          -2,  -3,  4, -1, -2,  1,  5, -3
+// current_max:    -2,  -3,  4,  3,  1,  2,  7,  4
+// max_so_far:     -2,  -2,  4,  4,  4,  4,  7,  7 
+
 */
 
 #include <bits/stdc++.h>
@@ -55,3 +61,4 @@ int main(){
     maxSumSubarray(arr);
     return 0;
 }
+

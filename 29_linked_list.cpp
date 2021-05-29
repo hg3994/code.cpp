@@ -6,6 +6,9 @@ http://cpp.sh/6sdt3
 C++ program for inserting(front,end) an element, searching an element, 
     and deleting (key,index) in a Linked List.
 
+    https://leetcode.com/problems/reverse-linked-list/
+    https://leetcode.com/problems/reverse-linked-list-ii/
+
 Solution: 
     To add new element to the front, point new node to the head's node. 
         Then make head point to the new node.
@@ -19,6 +22,9 @@ Solution:
         and then prev->next = current->next
     To delete the n'th node from the last, we take two pointers i and j, move j ahead by 'n' nodes, then move both together till j reaches last node.
         and then i->next = i->next->next
+    To reverse a Linked List, we can do it in two ways:
+        - Iterative: Keep reversing the arrows one at a time and traverse till the end
+        - Recursive: Traverse till the end and then while we backtrack, reverse the arrows
 
 NOTE: We need to handle the cases of 1st node deletion separately.
 
@@ -258,3 +264,79 @@ int main()
     cout<<"----------------------"<<endl;
     return 0; 
 } 
+
+
+
+// -----------------------------------------
+// REVERSE LINKED LIST IMPLEMENTATION BELOW:
+// -----------------------------------------
+
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        // return reverseListIterative(head);
+        return reverseListRecursive(head);
+    
+    }
+    
+    // ITERATIVE
+    ListNode* reverseListIterative(ListNode* head) {
+        // If no node, return NULL
+        if (head == NULL)
+            return head;
+        
+        // Define the nodes needed 
+        // we want to keep changing the current->nextNode direction to nextNode->current
+        // Since we would lose the nextNode's next, we also want to store that, we use nextNextNode to store it before we lose it.
+        ListNode* current = head;
+        ListNode* nextNode = current->next;
+        ListNode* nextNextNode;
+        
+        // The current node after reversal would point to NULL since this will be the last node.
+        current->next = NULL;
+        
+        // Till we reach the last node(current would be last node)
+        while(nextNode != NULL){
+            nextNextNode = nextNode->next;  // Save the nextnextNode address since while we reverse the direction, we would lose it.
+            nextNode->next = current;       // Reverse the arrow
+            current = nextNode;             // Move current ahead
+            nextNode = nextNextNode;        // Move next Node ahead
+        }
+        // Finally point head to the last node (which is 'current' now after the loop)
+        head = current;
+        
+        return head;
+    }
+    
+    // RECURSIVE
+    ListNode* reverseListRecursive(ListNode* head) {
+        // Make sure that the list is atleast 2 nodes
+        if(head == NULL || head->next==NULL)
+            return head;
+        
+        // Get the lastNode after traversing everything
+        ListNode* lastNode = traverse(head, head->next);
+        // head's next (first node of the old list) should be NULL. This has to be done here since if we do it before or after, then we lose the old LL's first node
+        head->next = NULL;
+        // make head point to the last node.
+        head = lastNode;
+        
+        return head;
+    }
+    
+    // Function to traverse the list till the end
+    ListNode* traverse(ListNode* current, ListNode* nextNode){
+        // If we reach the last node, current is one behind, we reverse the arrows/direction and return the last node since it has to be attached to the head
+        if(nextNode->next == NULL){
+            nextNode->next = current;
+            return nextNode;
+        }
+        // Get the lastNode and keep returning it so that it reaches the main function.
+        // Traverse the next set of nodes (basically move ahead in the list towards the end)
+        ListNode* lastNode = traverse(nextNode, nextNode->next);
+        // REVERSE THE DIRECTION (Most important)
+        nextNode->next = current;
+        
+        return lastNode;
+    }
+};

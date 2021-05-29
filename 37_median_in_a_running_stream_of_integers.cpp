@@ -7,12 +7,14 @@ https://www.geeksforgeeks.org/median-of-stream-of-integers-running-integers/
 
 C++ program for finding median in a running stream of integers.
 
+https://leetcode.com/problems/find-median-from-data-stream/
+
 Solution: 
     a.  Create two heaps. One max heap to maintain elements of lower half 
         and one min heap to maintain elements of higher half at any point of time.
     b.  Take initial value of median as 0.
     c.  For every newly read element, insert it into either max heap or min heap 
-        and calulate the median based on the following conditions:
+        and then calulate the median based on the following conditions:
         - If the size of max heap is greater than size of min heap and the 
             element is less than previous median then pop the top element from 
             max heap and insert into min heap and insert the new element to max 

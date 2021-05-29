@@ -11,10 +11,22 @@ Solution:
 
 Time Complexity: 
 Space Complexity:
+
+Paradigm:
 ---
   NOTE: 
 
 */
+
+
+// Approaches
+// -----------
+// - Two Pointers
+// - Sliding Window
+// - DP
+// - Segment Trees
+// - Expand from middle (Paindrome, Geometric Figures)
+// - Prefix Sum
 
 
 #include<bits/stdc++.h>
@@ -93,6 +105,14 @@ void print_arr(string message, vector<int> a){
 // Set the array to value 0 / -1 (Not for other values)
 // int combination[sum+1];
 // memset(combination,0, sizeof(combination));
+
+// Resize a vector
+// v.resize(5, 10); // 5 elements , init to 10
+// Append two vectors
+// first.insert(first.end(), second.begin(), second.end());
+// Convert set to a vector
+// vector<int> v(s.begin(), s.end());
+// copy(s.begin(), s.end(), v.begin());
 
 // Convert an integer to a string
 // string s = to_string(num)

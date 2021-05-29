@@ -6,6 +6,8 @@ Harshit Gupta | 22nd May, 2021
 C++ program for "Given an array of points where points[i] = [xi, yi] represents a point on the 
     X-Y plane and an integer k, return the k closest points to the origin (0, 0)."
 
+https://leetcode.com/problems/k-closest-points-to-origin
+
     Input: points = [[1,3],[-2,2]], k = 1
     Output: [[-2,2]]
     Explanation:
@@ -16,7 +18,7 @@ C++ program for "Given an array of points where points[i] = [xi, yi] represents 
 ------
 
 Solution: 
-    1. Calculate the distance of all points from origina and then sort them to find the minimum K points.
+    1. Calculate the distance of all points from origin and then sort them to find the minimum K points.
 
 Time Complexity: O(nlogk)
 Space Complexity: O(n)
@@ -69,7 +71,7 @@ public:
     
     // PRIORITY QUEUE SOLUTION: O(nlogk)
     // Since the size of the queue is k and we always have to maintain a max heap of size K
-    // MAX HEAP coz the lement greater would be evicted and K min elements are stored
+    // MAX HEAP coz the element greater would be evicted and K min elements are stored
     struct comp {
         bool operator() (pair<int, int>& p1, pair<int, int>& p2) {
             int x1 = p1.first;
