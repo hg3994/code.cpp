@@ -16,6 +16,8 @@ Paradigm:
 
 Time Complexity: O(K)
 
+NOTE: Related Problem: https://leetcode.com/problems/kth-largest-element-in-an-array/
+
 */
 
 #include <bits/stdc++.h>

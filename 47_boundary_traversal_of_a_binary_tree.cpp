@@ -3,6 +3,7 @@ Harshit Gupta | 27th January, 2019
 
 https://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/
 https://ide.geeksforgeeks.org/j1ubcwKifD
+https://leetcode.com/problems/boundary-of-binary-tree/submissions/
 
 C++ program for "Given a binary tree, print boundary nodes of the binary tree Anti-Clockwise 
 	starting from the root."
@@ -12,11 +13,12 @@ Solution: We break the problem in 3 parts:
 						2. Print all leaf nodes from left to right,
 						3. Print the right boundary in bottom-up manner.
 
-					We need to take care of one thing that nodes are not printed again. e.g. The left most node is also the leaf node of the tree.
+			We need to take care of one thing that nodes are not printed again. 
+			e.g. The left most node is also the leaf node of the tree.
 
-Paradigm: 
+Paradigm: DFS
 
-Time Complexity: 
+Time Complexity: O(n)
 
 */
 
@@ -47,7 +49,7 @@ void leftBoundary(node *root){
 		cout<<root->data<<" "<<endl;
 		leftBoundary(root->left);
 	}
-	// If we have right node, then print and recurse on the right child
+	// If we do not have a left child but have a right child node, then print and recurse on the right child
 	else if(root->right){
 		cout<<root->data<<" "<<endl;
 		leftBoundary(root->right);
@@ -59,14 +61,14 @@ void rightBoundary(node *root){
 	if(root==NULL){
 		return;
 	}
-	// If we have right node, then print and recurse on the right child
+	// If we have right node, then  recurse on the right child and then print it
 		// NOTE: remember to print the node data inside if/elsif because if kept outside it will print
 		// the leaf nodes as well which we don't want (it will cause repetitive printing of leaf nodes) 
 	if (root->right){
 		rightBoundary(root->right);
 		cout<<root->data<<endl;
 	}
-	// If we have left node, then print and recurse on the left child
+	// If we do not have tight node, then recurse on the left child and then print it
 	else if(root->left){
 		rightBoundary(root->left);
 		cout<<root->data<<endl;

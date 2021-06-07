@@ -61,27 +61,27 @@ public:
         
         // BFS SOLUTION
         // ------------
-        queue<pair<int,int>> q;
-        vector<int>visited(n, 0);
-        q.push(make_pair(0,nums[0]));
-        visited[0] =1;
-        while(!q.empty()){
-            int size=q.size();
-            for(int i=0;i<size;i++){
-                pair<int, int> f = q.front();
-                q.pop();
-                for(int i=f.first+1;i<=f.first+f.second; i++){
-                    if(i==n-1)
-                        return jump+1;
-                    if (visited[i] == 0){
-                        q.push(make_pair(i, nums[i]));
-                        visited[i] = 1;
-                    }
-                }
-            }
-            jump++;
-        }
-        return jump;
+        // queue<pair<int,int>> q;
+        // vector<int>visited(n, 0);
+        // q.push(make_pair(0,nums[0]));
+        // visited[0] =1;
+        // while(!q.empty()){
+        //     int size=q.size();
+        //     for(int i=0;i<size;i++){
+        //         pair<int, int> f = q.front();
+        //         q.pop();
+        //         for(int i=f.first+1;i<=f.first+f.second; i++){
+        //             if(i==n-1)
+        //                 return jump+1;
+        //             if (visited[i] == 0){
+        //                 q.push(make_pair(i, nums[i]));
+        //                 visited[i] = 1;
+        //             }
+        //         }
+        //     }
+        //     jump++;
+        // }
+        // return jump;
      
 
      	// DP SOLUTION

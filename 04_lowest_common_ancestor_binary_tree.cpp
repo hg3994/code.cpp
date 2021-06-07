@@ -5,6 +5,7 @@ C++ program for Lowest Common Ancestor of a Binary Tree.
 
 https://ide.geeksforgeeks.org/jCVqREBwEa
 https://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 
 Solution: If root is equal to any of the nodes, then LCA is the root.
     If one node is present in the left subtree and one node is present in the right subtree,

@@ -3,6 +3,7 @@ Harshit Gupta | 22nd October, 2018
 
 http://cpp.sh/2m7x4
 https://www.geeksforgeeks.org/kth-largest-element-in-a-stream/
+https://leetcode.com/problems/kth-largest-element-in-an-array/
 
 C++ program for finding the Kth largest number from a stream of numbers
 

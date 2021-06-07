@@ -75,14 +75,21 @@ void pairsort(vector<int>& a, vector<int>& b) {
 }
 
 // Sorting vector of vectors on some element of the inner vector.
+
+// Sort on "endtimes" of intervals can be done like this:, 
 void v_of_v_sort( vector<vector<int>>& p){
   sort(p.begin(), p.end(),
     [](const std::vector<int>& a, const std::vector<int>& b) {
-    if(a[0]==b[0]) 
-      return a[1] < b[1];
-    else
+    if(a[1]==b[1]) 
       return a[0] < b[0];
+    else
+      return a[1] < b[1];
   });
+}
+
+// Sort on start times can simply be done like this
+void v_of_v_sort( vector<vector<int>>& p){
+  sort(p.begin(), p.end());
 }
 
 // Shifting a vector by 'x' times
@@ -113,6 +120,11 @@ void print_arr(string message, vector<int> a){
 // Convert set to a vector
 // vector<int> v(s.begin(), s.end());
 // copy(s.begin(), s.end(), v.begin());
+
+// Convert a character to a string
+// string s; s += 'a';
+// String s has a character 'a' now.
+// XXXX string s = 'a'; // FAIL XXXX
 
 // Convert an integer to a string
 // string s = to_string(num)
