@@ -4,6 +4,7 @@ Harshit Gupta | 17th October, 2018
 C++ program for Connecting Nodes at same level
 
 https://leetcode.com/problems/populating-next-right-pointers-in-each-node
+https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
 
 Solution: We will use Level Order Traversal to connect nodes at the same level.
     * The strategy is to enqueue NULL in the queue after end of each level.
@@ -13,6 +14,9 @@ Solution: We will use Level Order Traversal to connect nodes at the same level.
         then we know that we have enqueued left and right nodes for the previous level, 
         so we will add another NULL which will signify end of this level.
     * We print the COnnected Graph with help of Level Order Traversal on it.
+
+
+    Solution 2 without NULLs also written below which depends on the size of elements in queue
 */
 
 #include <bits/stdc++.h>
@@ -102,3 +106,38 @@ int main()
     
     return 0; 
 } 
+
+
+// Another BFS based solution without insertion of NULLS
+
+
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(root == NULL)
+            return root;
+        queue<Node*> q;
+        q.push(root);
+        
+        while(!q.empty()){
+            int size = q.size();
+            
+            for(int i=0;i<size;i++) {
+                Node* front = q.front();
+                q.pop();
+                
+                if(i == size-1)
+                    front->next = NULL;
+                else
+                    front->next = q.front();
+                
+                if(front->left)
+                    q.push(front->left);
+                if(front->right)
+                    q.push(front->right);
+            }
+        }
+        return root;
+           
+    }
+};

@@ -9,8 +9,8 @@ C++ program for ""
 
 Solution: 
 
-Time Complexity: 
-Space Complexity:
+TC: 
+SC:
 
 Paradigm:
 ---
@@ -27,6 +27,9 @@ Paradigm:
 // - Segment Trees
 // - Expand from middle (Paindrome, Geometric Figures)
 // - Prefix Sum
+// - Priority Queue
+// - Stack
+// - Making value Negative at some index
 
 
 #include<bits/stdc++.h>
@@ -117,6 +120,7 @@ void print_arr(string message, vector<int> a){
 // v.resize(5, 10); // 5 elements , init to 10
 // Append two vectors
 // first.insert(first.end(), second.begin(), second.end());
+
 // Convert set to a vector
 // vector<int> v(s.begin(), s.end());
 // copy(s.begin(), s.end(), v.begin());

@@ -15,8 +15,13 @@ Output: 1->1->2->3->4->4
 
 Solution: https://leetcode.com/problems/merge-two-sorted-lists/solution/
 
-Time Complexity: O(n)
-Space Complexity: O(1)
+For itertive solution:
+  Time Complexity: O(n)
+  Space Complexity: O(1)
+
+For recursive solution:
+  TC: O(n+m)
+  SC: O(n+m)
 
 NOTE: 
   1. This program can not be compiled since I didn't have time to write the LL creation methods.
@@ -78,6 +83,8 @@ class Solution {
 
 
 // Recursive Solution
+// TC: O(n+m)
+// SC: O(n+m)
 class Solution {
 public:
   ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
