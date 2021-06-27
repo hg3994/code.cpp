@@ -36,6 +36,10 @@ struct node{
 typedef struct node node;
 
 void connectNodesAtSameLevel(node *root){
+
+    if(root == NULL)
+        return;
+
     queue <node *> q;
     
     // Enqueuing the root

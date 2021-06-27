@@ -9,7 +9,7 @@ C++ program for inserting, searching and deleting an element in a doubly linked 
 Solution: 
     To insert new node in the end, traverse till the last node and then 
         make its next point to the newNode. Make newnode's prev point to the last node.
-    To insert new node in the front, detact the 1st node and attach the new node.
+    To insert new node in the front, detect the 1st node and attach the new node.
     To insert a new node after the Nth node, traverse till the Nth node and then
         plug in the node between two nodes. current->next, current->next->prev would point 
         to the new node now. Similarly newnode->next and newnode->prev would point to the nodes.

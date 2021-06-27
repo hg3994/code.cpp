@@ -21,11 +21,15 @@ https://ideone.com/TS5YkJ
 
 Solution: 1. By Brute Force it will take you O(n3) time using 3 for loops.
   2. We can decrease the complexity of the code by using a hash map
-    - Convert the arrays to sore square of the numbers
+    - Convert the arrays to store square of the numbers
     - Store all these numbers in a map with values as index so that we know if a number X is present in O(1) time.
     - Iterate and fix the first number arr[i]
       - Iterate and get the second number arr[j]
         - If map contains arr[i]+arr[j], then it means that there exists a triplet
+
+  [1,3,2,5,4]
+  [1,9,4,25,16] -> store all in a map
+  [  |      | ] -> When it adds 9 and 16 and see 25 is there in the map, it knows that there is a triplet.
 
   NOTE: A tricky situation is example 2 where the update array after squaring would be [1,0,4]. 
     When i=1, j=0, 1+0=1 would be present in the map, so we need to check whether the sum of arr[i]+arr[j] is 

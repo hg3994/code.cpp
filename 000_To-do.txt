@@ -2,7 +2,7 @@
 Google
 ======
 1. https://leetcode.com/discuss/interview-question/1111646/google-onsite-software-engineer
-
+2. https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/
 
 TO-DO-NEXT
 ==========
@@ -19,6 +19,29 @@ TO-DO-NEXT
 * Convex Hull
 * Distributed Merge and Distributed Quick Sort.
 
+* https://leetcode.com/problems/sum-of-two-integers/
+* https://leetcode.com/problems/add-to-array-form-of-integer/
+* https://leetcode.com/problems/design-in-memory-file-system/
+* https://leetcode.com/problems/jump-game-vi/
+* https://leetcode.com/problems/paint-house-ii/
+* https://leetcode.com/problems/binary-tree-maximum-path-sum/
+* https://leetcode.com/problems/subsets/
+* 
+* 
+* Bit manipulation:
+* https://leetcode.com/problems/single-number-ii/
+* https://leetcode.com/problems/single-number-iii/
+* https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/
+* https://leetcode.com/problems/repeated-dna-sequences/
+* https://leetcode.com/problems/maximum-product-of-word-lengths/
+* given a list of email, convert it to list of gmail lables
+* 
+* 
+* https://leetcode.com/problems/strobogrammatic-number-ii/
+* https://leetcode.com/problems/reorganize-string/
+* https://leetcode.com/problems/binary-tree-maximum-path-sum/
+* https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
+* https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/
 
 Theory
 ======

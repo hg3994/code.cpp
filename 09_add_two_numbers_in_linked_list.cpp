@@ -3,6 +3,10 @@ Harshit Gupta | 18th October, 2018
 
 C++ program for adding two numbers in a L.L and show the result in another L.L.
 
+
+NOTE: A very beautiful trick is to have multiply each time by 10 and we do not need to worry wheather the first digit needs to be multiplied by 10 how many times.
+Till the LL exists, we keep multiplying the number till now by 10 and keep adding the num in the current node.
+
 */
 
 #include <bits/stdc++.h>

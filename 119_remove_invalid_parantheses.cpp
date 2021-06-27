@@ -66,7 +66,7 @@ public:
                 recurse(s, index+1, leftCount, rightCount, leftRem, rightRem, expression);
             else if(currentCharacter == '(')
                 recurse(s, index+1, leftCount+1, rightCount, leftRem, rightRem, expression);
-            else if (rightCount < leftCount)
+            else if (rightCount < leftCount) // Just for this condition, we have been sending the leftCount and rightCount variables, so that we dont waste time in bad recursions.
                 recurse(s, index+1, leftCount, rightCount+1, leftRem, rightRem, expression);
             expression.pop_back();
         }

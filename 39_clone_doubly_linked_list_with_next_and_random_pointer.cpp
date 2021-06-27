@@ -3,6 +3,7 @@ Harshit Gupta | 24th November, 2018
 
 https://ide.geeksforgeeks.org/wmqcpaFPzD
 https://www.geeksforgeeks.org/clone-linked-list-next-random-pointer-o1-space/
+https://leetcode.com/problems/copy-list-with-random-pointer/
 
 C++ program for cloning a doubly linked list with a next and random pointer
 
@@ -80,7 +81,8 @@ Node *clone(Node *start){
         // Why current->random->next and not current->random?
         //    because current->random will point to the original node and its next will point to another duplicate node.
         //    we want the duplicate node's random to point to the correct duplicate node (not the original node)
-        current->next->random = current->random->next;
+        if(current->random != NULL)
+            current->next->random = current->random->next;
         
         // Move ahead two nodes.
         current = current->next->next;

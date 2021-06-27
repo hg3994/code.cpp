@@ -12,6 +12,9 @@ Solution:   We will use Stack to solve this in O(n) time.
         then it means that arr[i] is the NGE of s.top(), so print it and pop() from the stack.
     * Push arr[i] in the stack to find it's NGE.
     * If some elements remains in the stack, they don't have a NGE.
+
+Paradigm: Stack
+
 */
 
 #include <bits/stdc++.h>
@@ -44,8 +47,8 @@ void nextGreaterElement(vector <int> arr){
 }
 
 int main(){
-    // vector<int> arr = {13, 7, 6, 12};
-    vector<int> arr = {11, 13, 21, 3};
+    // vector<int> arr = {13, 7, 6, 12}; // 6->!2, 7->12, 13->-1, 12->-1
+    vector<int> arr = {11, 13, 21, 3}; // 11->13, 13->21, 21->-1, 3->-1
     nextGreaterElement(arr);
     return 0;
 }

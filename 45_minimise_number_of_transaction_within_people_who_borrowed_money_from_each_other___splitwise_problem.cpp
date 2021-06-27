@@ -8,9 +8,11 @@ https://www.geeksforgeeks.org/minimize-cash-flow-among-given-set-friends-borrowe
 C++ program for "Minimize Cash Flow among a given set of friends who have borrowed money from each other"
 
 Solution: 
-    1) Compute the net amount for every person. The net amount for person ‘i’ can be computed be subtracting sum of all debts from sum of all credits.
+    1) Compute the net amount for every person. The net amount for person ‘i’ can be computed be subtracting sum of all debts 
+        from sum of all credits.
 
-    2) Find the two persons that are maximum creditor and maximum debtor. Let the maximum amount to be credited maximum creditor be maxCredit and maximum amount to be debited from maximum debtor be maxDebit. Let the maximum debtor be Pd and maximum creditor be Pc.
+    2) Find the two persons that are maximum creditor(Pc) and maximum debtor(Pd). Let the maximum amount to be credited maximum creditor 
+        be maxCredit and maximum amount to be debited from maximum debtor be maxDebit.
 
     3) Find the minimum of maxDebit and maxCredit. Let minimum of two be x. Debit ‘x’ from Pd and credit this amount to Pc
 
@@ -23,15 +25,17 @@ Solution:
 Why are we using multi_set and not a priority_queue?
 
 > For this problem, we want some DS where we can traverse and which contains our elements in sorted order.
-
   In a priority queue, we can only do operations like push, pop, top, etc.. We can't iterate over it
     since internally it is implemented using Heap.
   We can iterate over different elements of a multiset because they are ordered and 
     we can traverse over it as well.
 
+Why are we using multi_set and not a set?
+> The only difference between a set and a multiset is that multiset can have duplicate values.
 
 */
 
+//Given the list of M transacations b/w N people, find out the minimum number of transactions required to settle it up!
 #include <bits/stdc++.h>
 using namespace std;
 const int N = 1e6;

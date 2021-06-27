@@ -3,7 +3,7 @@
 Harshit Gupta | 22nd September, 2020
 -------------------------------------
 
-Ruby program for "Length of the longest substring with no repeating characters."
+Program for "Length of the longest substring with no repeating characters."
 
 https://leetcode.com/problems/longest-substring-without-repeating-characters/
 

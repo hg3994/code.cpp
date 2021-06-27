@@ -3,6 +3,7 @@ Harshit Gupta | 22nd October, 2018
 
 cpp.sh/9us6
 https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-search-tree/
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 
 C++ program for finding the lowest common ancestor for two nodes of a Binary Search Tree.
 

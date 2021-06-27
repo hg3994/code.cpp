@@ -3,6 +3,8 @@ Harshit Gupta | 24th October, 2018
 
 https://ide.geeksforgeeks.org/1LS3B9dAfC
 https://www.geeksforgeeks.org/a-program-to-check-if-a-binary-tree-is-bst-or-not/
+https://leetcode.com/problems/validate-binary-search-tree/
+
 
 C++ program for checking if a given tree is a BST or not.
 

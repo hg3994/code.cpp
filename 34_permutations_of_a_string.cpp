@@ -3,7 +3,8 @@ Harshit Gupta | 7th November, 2018
 
 https://ide.geeksforgeeks.org/L3hCgN7v7j
 https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
-
+https://leetcode.com/problems/permutations/
+https://leetcode.com/problems/permutations-ii/
 C++ program for printing all the permutations of a string
 
 Solution: This is the Backtracking question with an approach of choose, Explore, and Un-choose.
@@ -16,6 +17,37 @@ Paradigm: Backtracking
 Time Complexity: O(n*n!)
 
 */
+
+// Initially we have N choices, and in each choice we have (N - 1) choices, and so on. Notice that at the end when adding the list to the result list, it takes O(N).
+// Second, the space complexity should also be N x N! since we have N! solutions and each of them requires N space to store elements.
+
+class Solution {
+private:
+    vector<vector<int>> result;
+public:
+    
+    void permuteHelper(vector<int> nums, int l){
+        int n = nums.size()-1;
+        if(l == n){
+            result.push_back(nums);
+            return;
+        }
+        for(int i=l; i<=n; i++) {
+            swap(nums[i], nums[l]);
+            permuteHelper(nums, l+1);
+            swap(nums[i], nums[l]);
+        }
+    }
+    
+    vector<vector<int>> permute(vector<int>& nums) {
+        permuteHelper(nums, 0);
+        return result;
+    }
+};
+
+
+
+// ----------------------------------------------------------------------------------
 
 #include <bits/stdc++.h>
 using namespace std; 

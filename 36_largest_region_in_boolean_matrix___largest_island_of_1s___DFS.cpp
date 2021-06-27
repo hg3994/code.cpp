@@ -3,6 +3,7 @@ Harshit Gupta | 11th November, 2018
 
 https://ide.geeksforgeeks.org/hkBrrpegWh
 https://www.geeksforgeeks.org/find-length-largest-region-boolean-matrix/
+https://leetcode.com/problems/max-area-of-island/
 
 C++ program for area of the largest island. An island would be an area 
     where the whole area is made up with 1s.
@@ -23,6 +24,40 @@ Paradigm: DFS, Traversal
 Time Complexity: O(ROWxCOL)
 
 */
+
+
+
+// LEETCODE SOLTUION
+
+class Solution {
+    
+    int dfs (vector<vector<int>>& grid, vector<vector<int>>& visited, int i, int j) {
+        if(i<0 || i==grid.size() || j<0 || j==grid[0].size() || visited[i][j] == 1 || grid[i][j] == 0)
+            return 0;
+        visited[i][j] = 1;
+        return 1+dfs(grid, visited, i+1, j)+dfs(grid, visited, i-1, j)+dfs(grid, visited, i, j+1)+dfs(grid, visited, i, j-1);
+    }
+    
+public:
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<int> tmp(n, 0);
+        vector<vector<int>> visited (m, tmp);
+        int maxArea = 0;
+        int area;
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if (grid[i][j] == 1 && visited[i][j]==0){
+                    area = dfs (grid, visited, i, j);
+                    maxArea = max(area, maxArea);
+                }
+            }
+        }
+        return maxArea;
+    }
+};
+
 
 #include<bits/stdc++.h> 
 using namespace std; 

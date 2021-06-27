@@ -40,7 +40,7 @@ Solution:
 Time Complexity: 
 Space Complexity:
 
-Paradigm: Flood Fill
+Paradigm: Flood Fill, DFS
 ---
   NOTE: 
 

@@ -50,6 +50,8 @@ Solution: Very good question! Keep minimum number of intervals required in the a
   Time Complexity: O(NlogN) since we used sort.
   Space Complexity: 
 
+  Paradigm: Intervals
+
 */
 
 class Solution {

@@ -36,6 +36,7 @@ Solution: We solve this using a stack.
 Time Complexity: O(n)
 Space Complexity: O(n) for stack
 
+Paradigm: Intervals
 
 =end
 

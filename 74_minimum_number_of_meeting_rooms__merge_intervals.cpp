@@ -7,7 +7,18 @@ Harshit Gupta | 17th October, 2020
 C++ program for "Given an array of meeting time intervals consisting of start and end times 
   [[s1,e1],[s2,e2],...] (si < ei), find the minimum number of conference rooms required."
 
+Same: Given there is a 1D plane,  With line segments as [[s1,e1],[s2,e2],...] (si < ei). Calculate max number of overlapping lines.
+  - The max number of overlapping lines is the minimum number of meeting rooms required.
+(asked in GRAB)
+
+https://leetcode.com/problems/meeting-rooms/
 https://leetcode.com/problems/meeting-rooms-ii/
+
+  Input: intervals = [[0,30],[5,10],[15,20]]
+  Output: 2
+
+  Input: intervals = [[7,10],[2,4]]
+  Output: 1
 
 ------
 Very well written solution: https://leetcode.com/problems/meeting-rooms-ii/solution/
@@ -44,9 +55,38 @@ Solution 2: In the previous solution, we iterate over all the present rooms to c
     - If our meeting time is later than the latest meeting completing time, we remove that meeting from the list.
   4. We push the new meeting in the PQ and check if this is the maximum.
 
+
+x=(0,6),(1,4),(2,5),(3,8),(7,9)
+
+0----1---2----3----4----5---6---7---8---9
+-----------------------------                   6
+     ---------------                            4,6
+         ----------------                       4,5,6
+              ----------------------            4,5,6,8
+                                ---------       5,6,8,9
+
+
+x=(0,6),(1,2),(3,4),(3,8),(5,6),(7,9),(7,9),(7,9),(7,9),(7,9)
+
+0----1---2----3----4----5---6---7---8---9       PQ
+-----------------------------                   6
+     ----------                                 3,6
+              ------                            3,4,6
+              -----------------------           3,4,6,8
+                        -----                   4,6,6,8
+                        -----                   6,6,6,8
+                        -----                   6,6,6,6,8
+                                ---------       6,6,6,8,9
+                                ---------       6,6,8,9,9
+                                ---------       6,8,9,9,9
+                                ---------       8,9,9,9,9
+                                ---------       8,9,9,9,9,9
+
+
 Time Complexity: O(nlogn)
 Space Complexity: O(n) to keep the rooms.
 
+Paradigm: Merge Interval, Priority Queue
 ---
   NOTE: 
 
@@ -108,8 +148,6 @@ public:
     // Sort the intervals on their starting time
     sort(intervals.begin(), intervals.end());
 
-    int max_cnt = 0;
-
     // We track the end time of each meeting room to know when the meeting would be over.
     // This PQ would store the end time of each meeting room required. Insert the first one. 
     // PQ would help us search for a vacant meeting room in O(logN) time instead of a vector in O(n) time.
@@ -127,10 +165,10 @@ public:
       // We push the new meeting in the PQ (so it's removing+inserting when above cond satified or just inserting since a new meeting room is reqd.) 
       pq.push(intervals[i][1]);
 
-      // Check for the maximum num of rooms required.
-      max_cnt = max(max_cnt, (int)pq.size());
     }
-    return max_cnt;
+    // Returning pq.size() will be fine instead of counting the max everytime since it remains the max size till the end.
+    // We only pop iff there is a meeting room required in next interval, otherwise even vacant rooms lies in the queue which will happen in the end.
+    return pq.size(); 
   }
 };
 

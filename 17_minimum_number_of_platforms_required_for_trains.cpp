@@ -5,13 +5,27 @@ C++ program for Minimum Number of Platforms Required for a Railway/Bus Station
     Given arrival and departure times of all trains that reach a railway station, find the minimum number of platforms 
     required for the railway station so that no train waits.
     We are given two arrays which represent arrival and departure times of trains that stop
+    
+    https://leetcode.com/problems/meeting-rooms/
+    https://leetcode.com/problems/meeting-rooms-ii/
+
+    This is similar to 74_minimum_number_of_meeting_rooms and that has a better solution.
+    This one doesn't handle the "same time" thing since there is just one place and hash cant store more than one value there.
+    So, we can not do it this way and this can never be a solution in real life.
+
+    Read the following just as an idea but do not use it.
+
 
 Solution: We can use direct addresss table to solve this. 
     Just keep on marking the arrival and departure. The number of consecutive arrivals 
     would be the minimum number of platforms required. 
     NOTE: This doesn't handle the case when both the train arrives and depart at the same time.
 
+
+
 Time Complexity: O(n)
+
+Paradigm: Interval
 
 */
 

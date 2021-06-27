@@ -4,10 +4,10 @@ Harshit Gupta | 18th November, 2018
 https://ide.geeksforgeeks.org/jsT83OWEYa
 https://www.geeksforgeeks.org/median-of-stream-of-running-integers-using-stl/
 https://www.geeksforgeeks.org/median-of-stream-of-integers-running-integers/
+https://leetcode.com/problems/find-median-from-data-stream/
 
 C++ program for finding median in a running stream of integers.
 
-https://leetcode.com/problems/find-median-from-data-stream/
 
 Solution: 
     a.  Create two heaps. One max heap to maintain elements of lower half 
@@ -37,6 +37,127 @@ Paradigm: Priority Queues, Heaps.
 Time Complexity: O(nlogn) to balance the heaps/heapify.
 
 */
+
+
+
+// -----------------
+// LEETCODE SOLUTION
+// -----------------
+
+class MedianFinder {
+public:
+    // max heap to store the smaller half elements
+    priority_queue<int> max_heap;
+    
+    // min heap to store the greater half elements 
+    priority_queue<int, vector<int>, greater<int>> min_heap;
+    
+    // Variable which will contain the median value at all instance of time.
+    // We can return it in O(1) time.
+    double median;
+    
+    MedianFinder() {
+        // initializing the median to 0
+        median = 0;
+    }
+    
+    void addNum(int num) {
+        
+        // Case 1: Left side heap has more elements
+        // Pushing an element would have EVEN number of elements in total, 
+        // so median is average of top of min and max heaps
+        
+        // If the size of max heap(s) is greater than the min heap(g)
+        if(max_heap.size() > min_heap.size()) {
+            
+            // And the element is lesser than the median, then it has to be inserted in the max heap
+            // But if directly inserted it will create imbalance in both heaps, 
+            // so the maximum(top) of max heap(s) is moved to the min heap(g)
+            // and then the element is inserted to the max heap.
+            if(num < median) {
+                // Insert the top of max heap to min heap
+                min_heap.push(max_heap.top());
+                // Remove the top element of the max heap.
+                max_heap.pop();
+                // Insert the new element in the min heap
+                max_heap.push(num);
+            }
+            // And the element is greater OR EQUAL then the current median
+            else{
+                // Push it in the min heap. Now both heaps has equal elements.
+                min_heap.push(num);
+            }
+            
+            median = (double)(min_heap.top() + max_heap.top()) / 2.0;
+        }
+        
+        // Case 2: Right side heap has more elements.
+        // Pushing an element would have EVEN number of elements in total, 
+        // so median is average of top of min and max heaps
+        
+        // If the size of max heap(s) is lesser than the min heap(g). 
+        else if (max_heap.size() < min_heap.size()){
+            
+            // And the element is greater than the median, then it has to be inserted in the min heap
+            // But if directly inserted it will create imbalance in both heaps, 
+            // so the minimum(top) of min heap(g) is moved to the max heap(s)
+            // and then the element is inserted to the min heap.
+            if(num > median){
+                // Insert the top of min heap to the max heap.
+                max_heap.push(min_heap.top());
+                // Remove the top element of min heap since it is already inserted in the max heap
+                min_heap.pop();
+                // Insert the new element in the max heap.
+                min_heap.push(num);
+            }
+            // And the element is less OR EQUAL than the current median
+            else{
+                // Push it in the max heap. Now both heaps has equal elements.
+                max_heap.push(num);
+            }
+            
+            median = (double)(min_heap.top() + max_heap.top()) / 2.0;
+        }
+        
+        // Case 3: Both heaps have equal elements and are balanced.
+        // If both the heaps has equal elements, then inserting this element 
+        // would make the heaps have 'ODD' number of elements and thus the median now
+        // would be only one number and not average of two numbers.
+        else {
+            // If the element is less than the current median, it is inserted in the max heap
+            // and now since max heap has more elements, the top of max heap would be the median.
+            if( num < median){
+                max_heap.push(num);
+                median = (double)max_heap.top();
+            }
+            // If the element is greater than the current median, it is inserted in the min heap
+            // and now since min heap has more elements, the top of min heap would be the median.
+            else{
+                min_heap.push(num);
+                median = (double)min_heap.top();
+            }
+        }
+        
+    }
+    
+    double findMedian() {
+        return median;
+    }
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
+
+// -----------------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
 #include <bits/stdc++.h>
 using namespace std; 
@@ -149,3 +270,4 @@ int main()
     printMedians(arr, n); 
     return 0; 
 } 
+

@@ -3,6 +3,8 @@ Harshit Gupta | 2nd November, 2018
 
 https://ide.geeksforgeeks.org/rbmr5e2qf8
 https://www.geeksforgeeks.org/find-a-peak-in-a-given-array/
+https://leetcode.com/problems/find-peak-element/
+https://leetcode.com/problems/find-a-peak-element-ii/
 
 C++ program for Finding a peak element in an array. 
     An array element is peak if it is NOT smaller than its neighbors. 
@@ -35,9 +37,8 @@ int findPeakElement(int *arr, int l, int h){
     // cond1 satisfies when the element is first or is greater than the left
     // cond2 satisfies when the element is last or is greater than the right
     // If the peak element is somewhere in between a[m-1]<=a[m]>=a[m+1] is satisfied.
-    // If the peak element is at corners, 
-        // first:  m==0 && arr[m]>=a[m+1]
-        // last: a[m] >= a[m-1] && m==h-1
+    // If the peak element is at first:  m==0 && arr[m]>=a[m+1] , last: a[m] >= a[m-1] && m==h-1
+
     if((m==0 || arr[m]>=arr[m-1]) && (m==h-1 || arr[m]>=arr[m+1])){
         return arr[m];
     }

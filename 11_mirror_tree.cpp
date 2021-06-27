@@ -2,9 +2,9 @@
 Harshit Gupta | 19th October, 2018
 
 C++ program for 
-    1. Finding the mirror tree of a given binary tree.
+    1. Create the mirror tree of a given binary tree.
         a. Create a new Mirror Tree
-        b. Modify the given tree inplace
+        b. Modify the given tree inplace (can use recursion)
     2. Is a given Binary tree a symmetric/mirror Tree?
 
 https://ide.geeksforgeeks.org/ZLqeqL8WyO
@@ -108,6 +108,7 @@ void InPlaceMirrorTree(node* root){
     }
 
     // NOTE: This method uses Pre-Order kind of traversal but it is equally good to use Post order traversal here
+    // PreOrder is Top-Bottom while PostOrder would be Bottom-Top.
 }
 
 // Is the given binary tree a mirror tree?

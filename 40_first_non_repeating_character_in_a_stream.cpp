@@ -39,7 +39,7 @@ void firstNonRepeatingCharacter(string s){
         // Increase the freq of the character in the hash.
         freq[s[i]-'a']++;
         
-        // If it's freq is <= 1, this means that this has appeared only once till now,
+        // If its freq is <= 1, this means that this has appeared only once till now,
         // so we insert it in the queue.
         if(freq[s[i]-'a'] <= 1){
             q.push(s[i]);

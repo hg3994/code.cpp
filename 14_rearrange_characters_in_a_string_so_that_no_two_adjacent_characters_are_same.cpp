@@ -108,7 +108,7 @@ void reArrangeString(string s){
     }
     
     // If its not a valid string, then their lengths won't match since 
-    // a character would remain with more freqency and the loop will exit.
+    // a character would remain (as prev) with more freqency and the loop will exit since q.empty()
     // The ans variable would thus have length less than the original string.
     if(s.size() != ans.size())
         cout<<"Not a valid string: "<<ans<<endl;

@@ -30,6 +30,7 @@ Paradigm:
 // - Priority Queue
 // - Stack
 // - Making value Negative at some index
+// - Intervals: Priority Queue, Stack, DP
 
 
 #include<bits/stdc++.h>
@@ -175,3 +176,7 @@ void print_arr(string message, vector<int> a){
 // unordered_set.find(): O(1)
 //  Use it if you want to have a set with faster retrival. Consider this as a hashmap
 //  with element as keys and values as true. It is simpler to use this then that hashmap.
+
+
+// BST Examples: set, multiset
+// HashTable Example: unordered_set, unordered_multiset

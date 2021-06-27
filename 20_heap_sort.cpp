@@ -61,9 +61,9 @@ void heapSort(int *arr, int n){
     // NOTE that we are starting from the middle element, heapifying it and then moving towards the first element
     // This is done so that we get maximum element at first index and make a MAX HEAP.
     // We can't start from first index and then move towards middle since that won't result in the MAX HEAP (think about it)
-    for(int i=(n/2)-1;i>=0;i--){
+    // i: STARTING INDEX of HEAPIFICATION (for everything!), n: NUM OF ELEMENTS CONSIDERED FOR HEAPIFICATION (just for range check)
+    for(int i=(n/2)-1;i>=0;i--)
         heapify(arr,n,i);
-    }
     
     // - Here the actual sorting happens.
     // - We move the first node of the maxHeap to the last one and 
@@ -82,6 +82,7 @@ void heapSort(int *arr, int n){
 
         // Sending i here even if arr[i] is fixed, the reason is that in the 
         // heapify() function, <n is used and not <=n, so i is fine.
+        // i: NUM OF ELEMENTS CONSIDERED FOR HEAPIFICATION (just for range check), 0: ALWAYS FROM THE STARTING INDEX
         heapify(arr,i,0);
     }
     

@@ -37,7 +37,7 @@ struct node{
 
 bool checkLeavesSameLevel(node *root, int level, int *leaf_level){
     
-    // If root is NULL, return NULL.
+    // If root is NULL, return true.
     // This case comes when lets say a node has only left child, no right.
     // Then on the call checkLeavesSameLevel(root->right...), we return true.
     if(root==NULL)

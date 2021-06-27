@@ -24,11 +24,18 @@ https://leetcode.com/problems/merge-intervals/
 ------
 
 Solution: 
+    1. Sort the intervals on start time.
+    2. For every interval, we can only have two cases:
+        a. If they dont overlap (merged.back()[1] < interval[0]), then we push the interval as a separate thing.
+            [ ]  {    }
+        b. If they overlap ,then we update the back of the last merged to the max of this interval's end and the already existing one.
+            [ { ]     }
+            [ {}   ]
 
 Time Complexity: O(nlogn)
 Space Complexity: O(n)
 
-Paradigm: Merge
+Paradigm: Merge, Intervals
 ---
   NOTE: 
 

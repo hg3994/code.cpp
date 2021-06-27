@@ -4,9 +4,25 @@ Harshit Gupta | 10th January, 2019
 https://www.geeksforgeeks.org/sliding-window-maximum-maximum-of-all-subarrays-of-size-k/
 https://stackoverflow.com/a/31061015
 https://ide.geeksforgeeks.org/oJQvit2ylo
+https://leetcode.com/problems/sliding-window-maximum/
 
 C++ program for "Given an array and an integer k, 
     find the maximum for each and every contiguous subarray of size k."
+
+    Example 1:
+
+    Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+    Output: [3,3,5,5,6,7]
+    Explanation: 
+    Window position                Max
+    ---------------               -----
+    [1  3  -1] -3  5  3  6  7       3
+     1 [3  -1  -3] 5  3  6  7       3
+     1  3 [-1  -3  5] 3  6  7       5
+     1  3  -1 [-3  5  3] 6  7       5
+     1  3  -1  -3 [5  3  6] 7       6
+     1  3  -1  -3  5 [3  6  7]      7
+     
 
 Solution: We will use Deque to solve this:
 
@@ -50,6 +66,7 @@ NOTE: We are storing the index in queue not the element itself because of condit
 Another solution would be to use a priority queue(max Heap). 
 Keep a window of K and keep it sorted. Keep inserting the arr[i] and popping out the element 
 which are left. Keep showing the maxHeap[0] to get the largest of all subarrays. 
+The difficulty with this is deleting the elements which are passed from the window from the maxHeap.
 But this will take O(n*logK) time compared to O(n) using Dequeue.
 
 There is another DP solution which doesnt require additional space, mentioned here: 

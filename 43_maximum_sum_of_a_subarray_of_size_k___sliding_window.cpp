@@ -4,12 +4,11 @@ Harshit Gupta | 10th January, 2019
 https://www.geeksforgeeks.org/window-sliding-technique/
 https://ide.geeksforgeeks.org/7udmhL4VRH
 
-C++ program for maximum sum of a subarray out of all subarrays of size 'k' of an array.
-    OR,
-    Given an array of integers of size ‘n’,
-    Calculate the maximum sum of ‘k’ consecutive elements in the array.
+Find maximum sum of a subarray out of all subarrays of size 'k' of an array.
+OR,
+Given an array of integers of size 'n'. Calculate the maximum sum of ‘k’ consecutive elements in the array.
 
-    Sliding Window Algorithm
+Sliding Window Algorithm
     
 Solution: 
     1. We compute the sum of first k elements out of n terms using a linear loop 
@@ -69,4 +68,27 @@ int main(){
     int max_subarray_sum = sliding_window_maximum_subarray(array, subarray_size);
     
     cout<<max_subarray_sum<<endl;
+}
+
+// Another implementation of the same algo
+// ---------------------------------------
+
+int sliding_window_maximum_subarray2 (vector<int> arr, int k){
+    if (arr.size() < k){
+        return -1;
+    }
+
+    int currentSum = 0;
+    int maxSum = INT_MIN;
+    int startingIndex = 0;
+
+    for(int i=0; i<arr.size() ; i++){
+        currentSum += arr[i];
+        int lengthOfWindow = i-startingIndex+1;
+        if(lengthOfWindow == k){
+            maxSum = max(maxSum, currentSum);
+            currentSum -= arr[startingIndex++];
+        }
+    }
+    return maxSum;
 }

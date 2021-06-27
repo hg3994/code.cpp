@@ -36,7 +36,7 @@ using namespace std;
 #define M 4
 
 
-void findMinDistance(char grid[N][M], pair<int,int> source, pair<int,int> destination){
+int findMinDistance(char grid[N][M], pair<int,int> source, pair<int,int> destination){
     bool visited[N][M];
     
     // Filling up the visited[][] array with false. We will assume 
@@ -81,7 +81,7 @@ void findMinDistance(char grid[N][M], pair<int,int> source, pair<int,int> destin
             // then print its distance and return. Note: distance is dist+1
             if(x+row[i]<N && x+row[i]>=0 && y+col[i]<M && y+col[i]>=0 && x+row[i] == destination.first && y+col[i] == destination.second){
                 cout<<"Destination reached with shortest path: "<<dist+1<<endl;
-                return;
+                return dist+1;
             }
             
             // If the accessed cell is not destination and not yet visited and 
@@ -96,8 +96,8 @@ void findMinDistance(char grid[N][M], pair<int,int> source, pair<int,int> destin
     
     // If the queue becomes empty at some point and reaches here. 
     // destination 'd' can't be reached
-    cout<<"Can't reach destination!"<<endl;
-    return;
+    cout<<"Can't reach destination so return -1"<<endl;
+    return -1;
 }
 
 int main() 

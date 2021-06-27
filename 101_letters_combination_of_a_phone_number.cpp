@@ -20,7 +20,7 @@ Solution:
 	Take the current answer set and then multiply it with the set of characters 
 		to get the new answer set
 
-Time Complexity: 
+Time Complexity: O(4^N)
 Space Complexity:
 
 Paradigm:
@@ -43,7 +43,7 @@ public:
             string letters = map[digits[i]];
             // If the ans vector is empty
             if(ans.empty()) {
-                // Get all the characters and put it into the ans vector
+                // Get all the characters and put it into the ans vector as a STRING(since we would be appending more there..) and NOT a char.
                 for(int j=0;j<letters.size();j++){
                     string s; s += letters[j];
                     ans.push_back(s);
