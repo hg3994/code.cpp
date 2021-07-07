@@ -20,7 +20,21 @@ Solution:
 	Take the current answer set and then multiply it with the set of characters 
 		to get the new answer set
 
-Time Complexity: O(4^N)
+Time Complexity: O(4^N * N)
+    Each number will max have 4 letters. so, for each number, it will explore 4 paths.
+        
+        1 number = 4 paths = 4
+        2 numbers = 16 paths = 4x4
+        3 numbers = 64 paths = 4x4x4
+        4 numbers = 4x4x4x4
+        .....
+        N numbers = 4^N
+        so, 4^N.
+
+    In join operation, python goes through all your letters to join them. They are stored in lists. 
+        Each letter in this list must have come from each number. so, N.
+    Together: 4^N.N
+
 Space Complexity:
 
 Paradigm:

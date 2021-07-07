@@ -30,6 +30,7 @@ BLOOM FILTERS
 	registered username. The price we pay for efficiency is that it is probabilistic in nature that means, 
 	there might be some False Positive results. False positive means, it might tell that given username is 
 	already taken but actually it’s not.
+	But, it will never tell us that a username is available but actually it is not. And this is what that matters.
 
 	Working of Bloom Filter
 	-----------------------

@@ -61,6 +61,105 @@ Paradigm: Hash, Doubly Linked List, DLL
 
 */
 
+// --------
+// LEETCODE
+// --------
+
+class LRUCache {
+public:
+    
+    int cache_size;
+    
+    // DLL to store the Least Recently Used Cache
+    // Front -> Most Recently Used
+    // Back -> Least recently used / Last Element in Cache
+    // Adding directly in front will be O(1) time.
+	list<pair<int, int>> dll; 
+    
+    // Map to store the key and address of the node of the DLL.
+    // This will help us retrieve the node in O(1) time.
+	unordered_map<int, list<pair<int, int>>::iterator> map;
+    
+    // Size of the Cache is fixed, we evict the least recently used if required.
+    LRUCache(int capacity) {
+        cache_size = capacity;
+    }
+    
+    int get(int key) {
+        // If the key is present in the map, we find the value and return it
+        // We must also bring that node to the "front" since it is USED now!!
+        // To bring it to the front, 
+        //      we delete the old node, 
+        //      add a new node in front with same key,val
+        //      update the map with address of new node
+        
+        if(map.find(key) == map.end()){
+            return -1;
+        }
+        else{
+            list<pair<int, int>>::iterator it0 = map[key];
+            pair<int, int> node = *it0;
+            
+            dll.erase(map[key]);
+            dll.push_front(make_pair(key, node.second));
+            map[key] = dll.begin();
+            
+            return node.second;
+        }
+    }
+    
+    
+    void put(int key, int value) {
+        // If the key is NOT present in the map (it is NOT present in cache)
+        //      If the cache is full
+        //          We delete the last element from cache and map
+        //          We add new element in front and its address in the map
+        //      If the cache is vacant
+        //          We add new element in front and its address in the map
+        // If node is present in the map (it is present in the cache)
+        //      Erase the node which was already present
+        //          We add new element in front and its address in the map
+
+        if(map.find(key) == map.end()){
+            pair<int, int> last_element = dll.back();
+            if(dll.size() == cache_size){
+                dll.pop_back();
+                map.erase(last_element.first); // THIS IS VERY IMPORTANT !!! DONT FORGET !!!
+            }
+        }
+        else {
+            dll.erase(map[key]);
+        }
+        
+        dll.push_front(make_pair(key, value));
+        map[key] = dll.begin();
+        // show();
+    }
+    
+    
+    // void show(){
+    //     cout<<"DLL: ";
+    //     for(auto l : dll){
+    //         cout<<l.first<<","<<l.second<<" -> ";
+    //     }
+    //     cout<<endl;
+    //     cout<<"Map: ";
+    //     for(auto m: map){
+    //         cout<<m.first<<" ";
+    //     }
+    //     cout<<endl<<"***"<<endl;
+    // }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */
+
+// ---------------------------------------------------------------------------------
+
 #include <bits/stdc++.h>
 using namespace std; 
 

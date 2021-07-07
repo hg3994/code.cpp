@@ -5,19 +5,38 @@ C++ program for
     1. Create the mirror tree of a given binary tree.
         a. Create a new Mirror Tree
         b. Modify the given tree inplace (can use recursion)
-    2. Is a given Binary tree a symmetric/mirror Tree?
+    2. Are two given Binary trees symmetric/mirror Trees?
+    3. Are two given Binary trees Flip Trees?
 
 https://ide.geeksforgeeks.org/ZLqeqL8WyO
 https://www.geeksforgeeks.org/write-an-efficient-c-function-to-convert-a-tree-into-its-mirror-tree/
 https://leetcode.com/problems/symmetric-tree/
+https://leetcode.com/problems/flip-equivalent-binary-trees/
 
-Solution:   We will use recursion to solve our problem.
-    * Copy the root node since that is always same.
-    * Recur on the left and right subtree of root and then keep making nodes.
-        Make a left subnode in the mirror tree for a right subnode in the normal tree.
-        Make a right subnode in the mirror tree for a left subnode in the normal tree.
-        Recur again on the nodes so that their subtree is also a mirror subtree.
-    * Use Level Order Traversal to print the Trees.
+Solution:   
+
+    Mirror Trees: A binary tree X is mirror of binary tree Y if and only if
+        - left child val for a node in X = - right child val for a node in Y 
+        - This is true for all nodes
+
+    Mirror Tree: One binary tree X can be a mirror tree if all it is symmetric around its center.
+
+    Flip Trees: A binary tree X is flip equivalent to a binary tree Y if and only 
+        if we can make X equal to Y after some number of flip operations.
+        - It is just a mirror tree but only mirrored some nodes and not all nodes.
+    
+    ---
+
+    To create a MIRROR tree:
+        We will use recursion to solve our problem.
+        * Copy the root node since that is always same.
+        * Recur on the left and right subtree of root and then keep making nodes.
+            Make a left subnode in the mirror tree for a right subnode in the normal tree.
+            Make a right subnode in the mirror tree for a left subnode in the normal tree.
+            Recur again on the nodes so that their subtree is also a mirror subtree.
+        * Use Level Order Traversal to print the Trees.
+
+
 */
 
 #include <bits/stdc++.h>
@@ -111,12 +130,16 @@ void InPlaceMirrorTree(node* root){
     // PreOrder is Top-Bottom while PostOrder would be Bottom-Top.
 }
 
-// Is the given binary tree a mirror tree?
+// Are two given Binary trees symmetric/mirror Trees?
+// We can even check if a tree is a mirror tree alone with this function by passing same root node twice
 bool isMirror(node *t1, node* t2){
     if(t1 == NULL && t2 == NULL) return true;
     if(t1 == NULL || t2 == NULL) return false;
     return (t1->data == t2->data) && isMirror(t1->left, t2->right) && isMirror(t1->right, t2->left);
 }
+
+
+// Are two given Binary trees Flip Trees?
 
 int main(){
     
@@ -140,3 +163,22 @@ int main(){
 
     return 0;
 }
+
+
+
+// -----------------------------------------------
+// LEEETCODE FLIP EQUIVALENT NODES IN BINARY TREES
+// -----------------------------------------------
+
+class Solution {
+public:
+    bool flipEquiv(TreeNode* root1, TreeNode* root2) {
+        if(root1 == NULL && root2 == NULL)
+            return true;
+        if(root1 == NULL || root2 == NULL)
+            return false;
+        return  (root1->val == root2->val) && 
+                ( (flipEquiv(root1->left, root2->left) && flipEquiv(root1->right, root2->right) ) || 
+                 (flipEquiv(root1->left, root2->right) && flipEquiv(root1->right, root2->left) ) );
+    }
+};

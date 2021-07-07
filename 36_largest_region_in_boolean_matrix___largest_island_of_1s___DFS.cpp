@@ -19,7 +19,7 @@ Solution: We will check for each of the elements of the matrix and see if it is 
     We will also maintain a visited[][] array with help of which we will know what we have
         already traversed and thus ignore it we see it for the second time.
 
-Paradigm: DFS, Traversal
+Paradigm: DFS, Traversal, Union Find
 
 Time Complexity: O(ROWxCOL)
 
@@ -29,10 +29,143 @@ Time Complexity: O(ROWxCOL)
 
 // LEETCODE SOLTUION
 
+// UNION FIND SOLUTION
+// -------------------
+// We start with a size[] array as well apart from parent and rank. This will help us figure out the max size os island.
+// Updating size in the Union function will do trick, because we are updating the parent at all point of time as well.
+// So, when we compare two nums, we are actually comparing the parents and then updating the size! Think about it.
+// [1,1]
+// [1,1]
+// parent: [0,1,2,3]
+// size:   [1,1,1,1]
+// We are at (0,0)=>0 , we mark grid[0][0] = 0 now
+//      union(0,1) called and it will update parent[1] = 0 and size[0] = 2
+//      union(0,2) called and it will update parent[2] = 0 and size[0] = 3
+
+// [0,1]
+// [1,1]
+// parent: [0,0,0,3]
+// size:   [3,1,1,1]
+// We are at (0,1)=>1 , we mark grid[0][1] = 0 now
+//      union(1,3) called and it will update parent[3] = 0 (since parent[1] = 0) and size[0] = 4
+
+// [0,0]
+// [1,1]
+// parent: [0,0,0,0]
+// size:   [4,1,1,1]
+// We are at (1,0)=>2 , we mark grid[1][0] = 0 now
+//      union(2,3) called and both belong to the same parent 0 so just return the size.
+
+// [0,0]
+// [0,1]
+// parent: [0,0,0,0]
+// size:   [4,1,1,1]
+// We are at (1,1)=>3 , we mark grid[1][1] = 0 now
+
+class DSU {
+public:
+    // size will help us figure out the size of the components.
+    // Initially, all the fields will have a size 1, we will add them up in union fn.
+    vector<int> parent, rank, size;
+    
+    DSU(vector<vector<int>> grid){
+        int m = grid.size();
+        int n = grid[0].size();
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                parent.push_back(i*n + j);
+                rank.push_back(0);
+                size.push_back(1);
+            }
+        }
+    }
+    
+    int find (int x){
+        if(x != parent[x])
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+
+    int Union(int x, int y){
+        int px = find(x);
+        int py = find(y);
+        if(px != py){
+            // When rank of px is greater, we update the parent of py to be px & update add size of py to sizeof px
+            if(rank[px] > rank[py]){
+                parent[py] = px;
+                size[px] += size[py];
+                return size[px];
+            }
+            else if(rank[py] > rank[px]){
+                parent[px] = py;
+                size[py] += size[px];
+                return size[py];
+            }
+            else {
+                parent[py] = px;
+                rank[px]++;
+                size[px] += size[py];
+                return size[px];
+            }
+        }
+        else{
+            // doesnt matter since both x and y belong to the same parent
+            return size[px]; // return anything!
+        }
+    }
+    
+    int getSize(int x){
+        return size[find(x)];
+    }
+    
+};
+
 class Solution {
     
+public:
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        if (grid.size() == 0 || grid[0].size() == 0)
+            return 0;  
+        int m = grid.size();
+        int n = grid[0].size();
+        
+        int res = 0;
+        DSU uf(grid);
+        
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j] == 1){
+                    grid[i][j] = 0;
+                    // Compare the sizes of this field and the adjacent field
+                    res = max(res,uf.getSize(i*n + j));
+                    if(i-1 >=0 && grid[i-1][j] == 1)
+                        res = max(res, uf.Union(i*n + j, (i-1)*n + j));
+                    if(i+1 < m && grid[i+1][j] == 1)
+                        res = max(res, uf.Union(i*n + j, (i+1)*n + j));
+                    if(j-1 >=0 && grid[i][j-1] == 1)
+                        res = max(res, uf.Union(i*n + j, i*n + j-1));
+                    if(j+1 < n && grid[i][j+1] == 1)
+                        res = max(res, uf.Union(i*n + j, i*n + j+1));
+                }
+            }
+        }
+        return res;
+    }
+};
+
+
+// ------------------------
+// DFS SOLUTION ON LEETCODE 
+// ------------------------
+
+class Solution {
+    
+    int isSafe(vector<vector<int>>& grid, vector<vector<int>>& visited, int i, int j){
+        return (i<0 || i==grid.size() || j<0 || j==grid[0].size() || visited[i][j] == 1 || grid[i][j] == 0);
+    }
+    
     int dfs (vector<vector<int>>& grid, vector<vector<int>>& visited, int i, int j) {
-        if(i<0 || i==grid.size() || j<0 || j==grid[0].size() || visited[i][j] == 1 || grid[i][j] == 0)
+        if(isSafe(grid,visited,i,j))
             return 0;
         visited[i][j] = 1;
         return 1+dfs(grid, visited, i+1, j)+dfs(grid, visited, i-1, j)+dfs(grid, visited, i, j+1)+dfs(grid, visited, i, j-1);
@@ -48,7 +181,7 @@ public:
         int area;
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
-                if (grid[i][j] == 1 && visited[i][j]==0){
+                if (grid[i][j] == 1 &&  visited[i][j]==0){
                     area = dfs (grid, visited, i, j);
                     maxArea = max(area, maxArea);
                 }
@@ -58,6 +191,15 @@ public:
     }
 };
 
+
+
+
+
+
+
+// ------------
+// MY GFG CODE
+// ------------
 
 #include<bits/stdc++.h> 
 using namespace std; 

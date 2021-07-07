@@ -22,6 +22,7 @@ Time Complexity: O(n)
 Space Complexity:
 ---
   NOTE: 
+  Similar Problem: https://leetcode.com/problems/binary-subarrays-with-sum
 
 */
 

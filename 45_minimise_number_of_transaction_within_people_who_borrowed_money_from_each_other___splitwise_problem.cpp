@@ -52,6 +52,7 @@ int main()
     }
     
     // multiset of a tuple so that we are also able to keep track of "who" is associated with the transaction.
+    // ONLY insert in the multiset IFF balance[i] != 0
     multiset<tuple<int,int>> S;
     for(i=0; i<n; i++) 
         if(balance[i] != 0) S.insert(make_tuple(balance[i], i));

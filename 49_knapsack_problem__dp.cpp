@@ -5,6 +5,8 @@ https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
 https://www.geeksforgeeks.org/fractional-knapsack-problem/
 https://ide.geeksforgeeks.org/knFDdW0dyh
 
+MUST SEE: https://leetcode.com/discuss/study-guide/1200320/Thief-with-a-knapsack-a-series-of-crimes.
+
 C++ program
 
 0-1 Knapsack Problem
@@ -24,6 +26,16 @@ or don’t pick it (0-1 property)."
 			2) Value of nth item + maximum value obtained by n-1 items and W minus weight of the nth item (including nth item).
 
 		If weight of nth item is greater than W, then the nth item cannot be included and case 1 is the only possibility.
+
+
+	Capacity of Knapsack: W (given)
+	Objective: Maximize profit.
+
+	int dp[W + 1] = {0};
+	for (int i=0; i<n; ++i)
+	    for (int j=W; j>=weight[i]; --j)
+	        dp[j] = max(dp[j], value[i]+ dp[j - weight[i]]);
+	return dp[W];
 
 
 Fractional Knapsack Problem
@@ -102,9 +114,9 @@ int fractionalKnapsack(int W, struct Item arr[], int n){
 	sort(arr, arr+n, cmp);
 
 	int curWeight = 0;  // Current weight in knapsack
-  double finalvalue = 0.0; // Result (value in knapsack)
+  	double finalvalue = 0.0; // Result (value in knapsack)
 
-  for (int i = 0; i < n; i++){ 
+	for (int i = 0; i < n; i++){ 
 		// If adding Item won't overflow, add it completely 
 		if (curWeight + arr[i].weight <= W){ 
 		    curWeight += arr[i].weight;
@@ -116,9 +128,9 @@ int fractionalKnapsack(int W, struct Item arr[], int n){
 		    finalvalue += arr[i].value * ((double) remain / arr[i].weight); 
 		    break; 
 		}
-  }
-  // Returning final value 
-  return finalvalue;
+	}
+	// Returning final value 
+	return finalvalue;
 }
 
 int main() 

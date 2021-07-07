@@ -49,6 +49,7 @@ void leftBoundary(node *root){
 		cout<<root->data<<" "<<endl;
 		leftBoundary(root->left);
 	}
+	// ELSE IF (ELSE must be there since if there's no left, only then you want it to check right)
 	// If we do not have a left child but have a right child node, then print and recurse on the right child
 	else if(root->right){
 		cout<<root->data<<" "<<endl;
@@ -68,6 +69,7 @@ void rightBoundary(node *root){
 		rightBoundary(root->right);
 		cout<<root->data<<endl;
 	}
+	// ELSE IF (ELSE must be there since if there's no right, only then you want it to check left)
 	// If we do not have tight node, then recurse on the left child and then print it
 	else if(root->left){
 		rightBoundary(root->left);

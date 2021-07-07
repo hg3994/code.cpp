@@ -3,6 +3,7 @@ Harshit Gupta | 20th October, 2018
 
 https://ide.geeksforgeeks.org/YZEyle1e1V
 https://www.geeksforgeeks.org/wildcard-pattern-matching/
+https://leetcode.com/problems/wildcard-matching/
 
 C++ program for "Given a text and a wildcard pattern, implement wildcard pattern matching 
     algorithm that finds if wildcard pattern is matched with text. 
@@ -21,21 +22,24 @@ C++ program for "Given a text and a wildcard pattern, implement wildcard pattern
     
     Solution: Explained in detail in this link: https://www.geeksforgeeks.org/wildcard-pattern-matching/
 
-        1. dp[i][j] is true if first i characters of pattern  matches the first j characters in given text
-        2. If pattern is nothing, but we have text, then it will not match(false) (dp[0][i] = 0)
-        3. If text is nothing, but we have pattern, then it will not match(false) (dp[i][0] = 0) (except *)
-        4. If pattern is *, then whatever was valid for pattern[i-1] is true for this as well. (Basically it will become true if pattern starts with * else no, see ex below)
+    1. dp[i][j] is true if first i characters of pattern  matches the first j characters in given text
+    2. If pattern is nothing, but we have text, then it will not match(false) (dp[0][i] = 0)
+    3. If text is nothing, but we have pattern, then it will not match(false) (dp[i][0] = 0) (except *)
+    4. If pattern is *, then whatever was valid for pattern[i-1] is true for this as well. 
+        (Basically it will become true if pattern starts with * else no, see ex below)
 
-            //   0 a b c  |    0 a b c      
-            // 0 1 0 0 0  |  0 1 0 0 0        
-            // a 0        |  * 1
-            // * 0        |  * 1          
-            // c 0        |  c 0  
-            
-        5. Now to fill the matrix:
-            a. If the character in text and pattern matches OR pattern has a ?, then result is same as result for len-1 (dp[i-1][j-1])
-            b. If pattern is a *, then we can choose to ignore it(dp[i-1][j]) basically using it as empty seq or make it match with the ith character in pattern (dp[i][j-1])
-            c. Else dp[i][j] = 0
+        //   0 a b c  |    0 a b c      
+        // 0 1 0 0 0  |  0 1 0 0 0        
+        // a 0        |  * 1
+        // * 0        |  * 1          
+        // c 0        |  c 0  
+        
+    5. Now to fill the matrix:
+        a. If the character in text and pattern matches OR pattern has a ?, then result is same as result 
+            for len-1 (dp[i-1][j-1])
+        b. If pattern is a *, then we can choose to ignore it(dp[i-1][j]) basically using it as empty seq 
+            or make it match with the ith character in pattern (dp[i][j-1])
+        c. Else dp[i][j] = 0
 
 
     Time Complexity: O(n2)

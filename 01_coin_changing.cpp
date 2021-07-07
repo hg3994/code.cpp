@@ -3,6 +3,7 @@ Harshit Gupta | 12th October, 2018
 
 https://www.geeksforgeeks.org/coin-change-dp-7/
 https://www.youtube.com/watch?v=jaNZ83Q3QGc
+https://leetcode.com/problems/coin-change-2/
 
 C++ program to print the number of ways in which we can make a specific sum from 
 from infinite supplies of some specific coins.
@@ -62,6 +63,7 @@ int main()
 { 
     // - | 0  1  2  3  4  5  6  7  8  9  10  11  12
     // -------------------------------------------
+    // 0 | 1  0  0  0  0  0  0  0  0  0   0   0  0 
     // 1 | 1  1  1  1  1  1  1  1  1  1   1   1  1 
     // 2 | 1  1  2  2  3  3  4  4  5  5   6   6  7 
     // 5 | 1  1  2  2  3  4  5  6  7  8  10  11 13
@@ -72,3 +74,33 @@ int main()
     coinChanging(coins, num_of_coins, sum);
 	return 0; 
 } 
+
+
+// Solution with 2D array:
+
+class Solution {
+public:
+    int change(long long int sum, vector<int>& coins) {
+        int n= coins.size();
+        long long int dp[n+1][sum+1];
+        
+        for(int i=0;i<sum+1; i++)
+            dp[0][i] = 0;
+        
+        for(int i=0;i<n+1; i++)
+            dp[i][0] = 1;
+        
+        for(long int i=1; i<n+1; i++){
+            for(long int j=1; j<sum+1; j++){
+                if(j>=coins[i-1]){
+                    dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
+                }
+                else {
+                    dp[i][j] = dp[i-1][j];
+                }
+            }
+            
+        }
+        return dp[n][sum];
+    }
+};

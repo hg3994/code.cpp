@@ -31,6 +31,8 @@ Paradigm:
 // - Stack
 // - Making value Negative at some index
 // - Intervals: Priority Queue, Stack, DP
+// - Backtracking
+// - Union Find
 
 
 #include<bits/stdc++.h>
@@ -114,17 +116,17 @@ void print_arr(string message, vector<int> a){
 }
 
 // Set the array to value 0 / -1 (Not for other values)
-// int combination[sum+1];
-// memset(combination,0, sizeof(combination));
+int combination[sum+1];
+memset(combination,0, sizeof(combination));
 
 // Resize a vector
-// v.resize(5, 10); // 5 elements , init to 10
+v.resize(5, 10); // 5 elements , init to 10
 // Append two vectors
-// first.insert(first.end(), second.begin(), second.end());
+first.insert(first.end(), second.begin(), second.end());
 
 // Convert set to a vector
-// vector<int> v(s.begin(), s.end());
-// copy(s.begin(), s.end(), v.begin());
+vector<int> v(s.begin(), s.end());
+copy(s.begin(), s.end(), v.begin());
 
 // Convert a character to a string
 // string s; s += 'a';
@@ -132,17 +134,17 @@ void print_arr(string message, vector<int> a){
 // XXXX string s = 'a'; // FAIL XXXX
 
 // Convert an integer to a string
-// string s = to_string(num)
+string s = to_string(num)
 
 // Convert a string to an integer
-// int n = stoi(s);
+int n = stoi(s);
 
 // Create 2D vector with size mxn initialized with 0.
-// vector<int> tmp(n, 0);
-// vector<vector<int>> dp (m, tmp);
+vector<int> tmp(n, 0);
+vector<vector<int>> visited (m, tmp);
 
 // Passing a vector(or anything) by reference
-// void myfunc(vector<int>& res)
+void myfunc(vector<int>& res)
 
 // Creating a hash map
 // unordered_map <int, int> parents;
@@ -180,3 +182,15 @@ void print_arr(string message, vector<int> a){
 
 // BST Examples: set, multiset
 // HashTable Example: unordered_set, unordered_multiset
+
+
+// GOOGLE
+// ------
+// Time Management - 20 mins
+// 2 questions - 45mins.
+// Practice - Talk to your self.
+// 1st round: HashMap, Array, Trie, DFS, BFS.
+// Revision - DP & Graph
+// Can you sort 1 million numbers?
+// Don't get nervous.
+// Go with Hints - Last Resort!

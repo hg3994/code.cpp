@@ -35,6 +35,29 @@ Solution:
 		Average Case Time Complexity: O(nlogn)
 		Best Case Time Complexity: 		O(nlogn)
 
+
+
+================================================================================
+Algorithm	|				Time Complexity					|	Space Complexity
+================================================================================				
+			|	Best			Average			Worst		|	Worst
+================================================================================				
+Quicksort		Ω(n log(n))		Θ(n log(n))		O(n^2)			O(log(n))
+Mergesort		Ω(n log(n))		Θ(n log(n))		O(n log(n))		O(n)
+Heapsort		Ω(n log(n))		Θ(n log(n))		O(n log(n))		O(1)
+Bubble Sort		Ω(n)			Θ(n^2)			O(n^2)			O(1)
+Insertion Sort	Ω(n)			Θ(n^2)			O(n^2)			O(1)
+Selection Sort	Ω(n^2)			Θ(n^2)			O(n^2)			O(1)
+
+
+Timsort			Ω(n)			Θ(n log(n))		O(n log(n))		O(n)
+Tree Sort		Ω(n log(n))		Θ(n log(n))		O(n^2)			O(n)
+Shell Sort		Ω(n log(n))		Θ(n(log(n))^2)	O(n(log(n))^2)	O(1)
+Bucket Sort		Ω(n+k)			Θ(n+k)			O(n^2)			O(n)
+Radix Sort		Ω(nk)			Θ(nk)			O(nk)			O(n+k)
+Counting Sort	Ω(n+k)			Θ(n+k)			O(n+k)			O(k)
+Cubesort		Ω(n)			Θ(n log(n))		O(n log(n))		O(n)
+
 Paradigm: Sorting
 
 */
@@ -110,12 +133,12 @@ void topologicalSort(vector <vector<int>> grid){
 
 int partitionQuickSort(vector<int> &arr, int low, int high){
 	// This function takes last element as pivot, places the pivot element at its correct position in sorted
-  // array, and places all smaller (smaller than pivot) to left of pivot and all greater elements to right of pivot
+  	// array, and places all smaller (smaller than pivot) to left of pivot and all greater elements to right of pivot
 	
 	// Choose the last element as the pivot.
 	int pivot = arr[high];
 
-	// Take a variable which will store the index of the array before 
+	// Take a variable which will store the index of the array before & equal to 
 	// which all elements will be lesser than the pivot element
 	int smaller_index = low-1;
 	
@@ -127,10 +150,10 @@ int partitionQuickSort(vector<int> &arr, int low, int high){
 			// since this index means all the elements before it are lesser than the pivot.
 			// Automatically, the index greater than the pivot would go after the 'smaller_index'
 			// We also swap the arr[i] and arr[smaller_index] in case when we have a greater element than the pivot
-			// in between two smaller elements. Pivot = last element = 70. Arr = [30, 80, 10, 70]. 
-			// Then, 10 is less than 70 so, smaller_index=0. Now, 80 is greater than pivot, so don't do anything. 
-			// Now, 30 is smaller than 70, so we swap 30 and 80 so, smaller_index=1 now and we know 10 and 30 are lesser than 70.
-			// The array looks like [30, 10, 80, 70], smaller_index=1.
+			// in between two smaller elements. Pivot = last element = 70. Arr = [30, 80, 10, 70]. SmallIndex=-1
+			// 30 < 70, smaller_index=0, swap 30 with arr[0] => Arr = [30, 80, 10, 70]
+			// 80 > 70, so do nothing => Arr = [30, 80, 10, 70].
+			// 10 < 70, smaller_index=1, swap 10 with arr[1] => Arr = [30, 10, 80, 70]
 		if(arr[i]<=pivot){
 			smaller_index++;
 			swap(&arr[i], &arr[smaller_index]);
@@ -227,13 +250,13 @@ void mergeSortUtil(vector<int> &arr, int l, int r){
 	}
 }
 
-void mergeSort(vector<int> a, int l, int r){
+void mergeSort(vector<int> a){
 	// Merge Sort is Divide and Conquer algorithm. 
 	// It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves.
 	// The merge() function is used for merging two halves. The merge(arr, l, m, r) is key process that assumes 
 	// that arr[l..m] and arr[m+1..r] are sorted and merges the two sorted sub-arrays into one.
 	vector<int> arr = a;
-	mergeSortUtil(arr, l, r);
+	mergeSortUtil(arr, 0, arr.size()-1);
 	printArr(arr);
 }
 
@@ -341,10 +364,9 @@ void selectionSort(vector<int> a){
 		}
 
 		// Swap the minimum element from the unsorted list to the sorted list.
-    swap(arr[min_index], arr[i]);
+    	swap(arr[min_index], arr[i]);
     
-    // Uncomment to see how the array changes after every iteration.    
-		// printArr(arr);
+	// printArr(arr);
 	}
 
 	printArr(arr);
@@ -357,7 +379,7 @@ int main()
 	selectionSort(arr);
 	insertionSort(arr);
 	bubbleSort(arr);
-	mergeSort(arr, 0, arr.size()-1);
+	mergeSort(arr);
 	quickSort(arr);
 
 	// A⟶B⟶C
