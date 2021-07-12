@@ -43,6 +43,14 @@ TO-DO-NEXT
 * https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
 * https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/
 
+Intervals
+=========
+* 
+* https://leetcode.com/problems/insert-interval/
+* https://leetcode.com/problems/employee-free-time/
+
+
+
 Theory
 ======
 * inheritance vs object creation.

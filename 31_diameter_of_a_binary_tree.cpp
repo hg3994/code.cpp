@@ -41,9 +41,8 @@ Notes:
  2. The leftPath and rightPath are calculated by the max path of their child+1
  3. Basically we are iterating over the whole tree calculating the longestPath, diameter is just calculated amidst all that.
 
-Definition for a binary tree node.
-*/
 
+Definition for a binary tree node.
  struct TreeNode {
      int val;
      TreeNode *left;
@@ -52,6 +51,8 @@ Definition for a binary tree node.
      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  };
+
+*/ 
 
 class Solution {
 private:

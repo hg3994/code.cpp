@@ -9,6 +9,8 @@ C++ program for the problem:
         2 -> Your position inside the maze
     You can move in top, down, left and right direction.
     What is the smallest number of moves in which you can exit the maze?
+https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/
+
 
 Solution: 1. Store each cell as a tuple with their row, column values and distance from source cell.
           2. Start BFS traversal from the source cell(where you are standing, position of 2) by pushing it in a queue.
@@ -115,3 +117,67 @@ int main(){
 	
 	return 0;
 }
+
+// -----------------------
+// LEETCODE QUESTION BELOW
+// -----------------------
+
+class Solution {
+public:
+    int nearestExit(vector<vector<char>>& maze, vector<int>& entrance) {
+        int m = maze.size();
+        int n = maze[0].size();
+        
+        vector<int> t(n, 0);
+        vector<vector<int>> visited(m, t);
+        
+        // Filling up the visited[][] array with false. We will assume 
+        // that '0's as visited since we can't visit them as given in the question.
+        for(int i=0;i<m; i++){
+            for(int j=0; j<n; j++){
+                if(maze[i][j] == '+')
+                    visited[i][j] = 1;
+            }
+        }
+        
+        int moves = 0;
+        queue<pair<int, int>> q;
+        // Pushing the enterance and marking it visited
+        q.push({entrance[0], entrance[1]});
+        visited[entrance[0]][entrance[1]] = 1;
+        
+        while(!q.empty()){
+            int size = q.size();
+            for(int k=0; k<size; k++) {
+                pair<int, int> f = q.front();
+                q.pop();
+                
+                // If it is an edge && not the starting place, return moves
+                if((f.first == 0 || f.first == m-1 || f.second == 0 || f.second == n-1) && (moves!=0)){
+                    return moves;
+                }
+                
+                // To iterate over the left, right, up and down cells.
+                vector<int> row = {1,-1,0,0};
+                vector<int> col = {0,0,1,-1};
+                
+                // Check for 4 adjacent plces and push them in queue if it satisfies the condns.
+                for(int i=0; i<4; i++){
+                    if(f.first+row[i] >=0  && f.first+row[i] < m &&
+                       f.second+col[i] >=0 && f.second+col[i] <n &&
+                       visited[f.first+row[i]][f.second+col[i]] == 0 &&
+                       maze[f.first+row[i]][f.second+col[i]] == '.'
+                      ) {
+                        visited[f.first+row[i]][f.second+col[i]] = 1;
+                        q.push({f.first+row[i], f.second+col[i]});
+                    }
+                }
+            }
+            // Increment the moves after every iteration.
+            moves++;
+        }
+        
+        // If it reaches here, it means that an edge is not reachable
+        return -1;
+    }
+};

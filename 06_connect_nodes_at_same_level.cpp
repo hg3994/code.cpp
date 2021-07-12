@@ -4,7 +4,6 @@ Harshit Gupta | 17th October, 2018
 C++ program for Connecting Nodes at same level
 
 https://leetcode.com/problems/populating-next-right-pointers-in-each-node
-https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
 
 Solution: We will use Level Order Traversal to connect nodes at the same level.
     * The strategy is to enqueue NULL in the queue after end of each level.
@@ -15,8 +14,15 @@ Solution: We will use Level Order Traversal to connect nodes at the same level.
         so we will add another NULL which will signify end of this level.
     * We print the COnnected Graph with help of Level Order Traversal on it.
 
-
     Solution 2 without NULLs also written below which depends on the size of elements in queue
+    - This is simpler and easier to understand.
+
+
+Similar Question:
+    1. https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
+        - The prior problem deals only with Perfect Binary Tree but this deals with 
+            any Binary tree
+        - Solution is same since it for generalized tree.
 */
 
 #include <bits/stdc++.h>
@@ -111,9 +117,8 @@ int main()
     return 0; 
 } 
 
-
+// Approach 2: 
 // Another BFS based solution without insertion of NULLS
-
 
 class Solution {
 public:
@@ -145,3 +150,22 @@ public:
            
     }
 };
+
+
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+*/

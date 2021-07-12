@@ -3,8 +3,6 @@ Harshit Gupta | 28th October, 2018
 
 https://ide.geeksforgeeks.org/93EfY5xl77
 https://www.geeksforgeeks.org/n-queen-problem-backtracking-3/
-https://leetcode.com/problems/n-queens/
-https://leetcode.com/problems/n-queens-ii/
 
 C++ program for the N-Queen Problem. The N Queen is the problem of placing N chess queens 
     on an N×N chessboard so that no two queens attack each other. 
@@ -30,9 +28,12 @@ Solution: We will start with an empty matrix and then start placing queens one-b
 
 
 
-Variations: 
-    1. For a given N, try to print all the valid board positions. (See leetcode link for solution)
-    2. For a given N, try to print the number of nvalid board positions. (See leetcode link for solution)
+Similar Problems: 
+    1. https://leetcode.com/problems/n-queens/
+        - For a given N, try to print all the valid board positions.
+
+    2. https://leetcode.com/problems/n-queens-ii/
+        - For a given N, try to print the number of valid board positions. (See leetcode link for solution)
 
 Paradigm: Backtracking, Recursion.
 
@@ -138,3 +139,113 @@ int main()
 
     return 0; 
 } 
+
+
+// -------------------------------------------------------
+// LEETCODE N-QUEEN PROBLEM PRINTING THE BOARD WITH QUEENS
+// -------------------------------------------------------
+
+class Solution {
+public:
+    
+    bool isValid(vector<vector<int>> board, int row, int col){
+        int n= board.size();
+        for(int i=0;i<row; i++)                             if(board[i][col] == 1)  return false;
+        for(int i=0;i<col; i++)                             if(board[row][i] == 1)  return false;
+        for(int i=row-1, j=col-1; i>=0 && j>=0; i--, j--)   if(board[i][j] == 1)    return false;
+        for(int i=row+1, j=col-1; i<n && j>=0; i++, j--)    if(board[i][j] == 1)    return false;
+        return true;
+    }
+    
+    vector<string> convertAns(vector<vector<int>> board){
+        int n=board.size();
+        vector<string> ans;
+        for(int i=0;i<n;i++){
+            string s;
+            for(int j=0;j<n;j++){
+                if(board[i][j] == 1) s+= "Q";
+                else s+= ".";
+            }
+            ans.push_back(s);
+        }
+        return ans;
+    }
+    
+    void solve(vector<vector<int>>& board, vector<vector<string>>& res, int col){
+        int n = board.size();
+        if(col == n) {
+            vector<string> s = convertAns(board);
+            res.push_back(s);
+            return;
+        }
+        
+        for(int i=0; i<n; i++){
+            if(board[i][col] == 0 && isValid(board, i, col)) {
+                board[i][col] = 1;
+                solve(board, res, col+1);
+                board[i][col] = 0;
+            }
+        }
+    }
+    
+    vector<vector<string>> solveNQueens(int n) {
+        vector<int> t(n,0);
+        vector<vector<int>> board(n,t);
+        
+        vector<vector<string>> res;
+        solve(board, res, 0);
+        
+        return res;
+    }
+};
+
+// void printBoard(vector<vector<string>> res){
+//     int n=res[0].size();
+//     for(int i=0;i<2;i++){
+//         for(int j=0;j<n;j++){
+//             cout<<res[i][j]<<" ";
+//         }
+//         cout<<endl;
+//     }
+// }
+
+// ---------------------------------------------------------------------------
+// LEETCODE SOLUTION FOR FINDING NUMBER OF WAYS TO SOLVE N-QUEEN FOR A GIVEN N
+// ---------------------------------------------------------------------------
+
+class Solution {
+public:
+    
+    bool isValidMove(vector<vector<int>> board, int row, int col){
+        int n = board.size();
+        for(int i=0; i<row; i++) if(board[i][col] == 1) return false;
+        for(int i=0; i<col; i++) if(board[row][i] == 1) return false;
+        for(int i=row-1, j=col-1; i>=0 && j>=0; i--, j--) if(board[i][j] == 1) return false;
+        for(int i=row+1, j=col-1; i<n  && j>=0; i++, j--) if(board[i][j] == 1) return false;
+        return true;
+    }
+    
+    void solve(vector<vector<int>>board, int& res, int col){
+        int n = board.size();
+        if(col ==n){
+            res++;
+            return;
+        }
+        for(int i=0;i<n;i++){
+            if(board[i][col] == 0 && isValidMove(board, i, col)){
+                board[i][col] = 1;
+                solve(board, res, col+1);
+                board[i][col] = 0;
+            }
+        }
+    }
+    
+    int totalNQueens(int n) {
+        vector<int> t(n,0);
+        vector<vector<int>> board(n,t);
+        int res = 0;
+        solve(board, res, 0);
+        
+        return res;
+    }
+};

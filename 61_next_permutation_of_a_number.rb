@@ -28,6 +28,8 @@ Solution: The solution to the problem comes in 4 steps:
 Time Complexity: O(n)
 Space Complexity: O(1)
 
+Similar Question:
+  1. https://leetcode.com/problems/next-greater-element-iii/
 
 =end
 

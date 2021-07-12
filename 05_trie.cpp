@@ -6,6 +6,8 @@ https://www.geeksforgeeks.org/trie-insert-and-search/
 https://www.geeksforgeeks.org/trie-display-content/
 https://www.geeksforgeeks.org/trie-delete/
 https://www.geeksforgeeks.org/auto-complete-feature-using-trie/
+https://leetcode.com/problems/implement-trie-prefix-tree/
+
 
 C++ program for Inserting, Searching and Displaying in a Trie.
     Also, implementation of Auto complete feature of a dictionary using Trie.
@@ -28,6 +30,12 @@ Time Complexity: If you want to insert/search a key of size 'key_length'
     Search: O(key_length)
 
 Space Complexity: O(ALPHABET_SIZE * key_length * N)
+---
+    Similar Questions: 
+        1. https://leetcode.com/problems/implement-trie-ii-prefix-tree/
+            - Implement "countWordsEqualTo" & "countWordsStartingWith" & "erase" APIs.
+            - We change the TrieNode class to store the words going through it & words ending on this node.
+
 
 */
 
@@ -177,3 +185,175 @@ int main()
 
     return 0; 
 } 
+
+
+// -------------------------------------
+// LC IMPLEMENTATION BELOW
+// -------------------------------------
+
+#define ALPHABETSIZE 26
+
+class TrieNode {
+public: 
+    TrieNode* children[ALPHABETSIZE];
+    bool isEndOfWord;
+    TrieNode(){
+        for(int i=0; i<ALPHABETSIZE; i++)
+            this->children[i] = NULL;
+        this->isEndOfWord = false;
+    }
+};
+
+
+class Trie {
+public:
+    TrieNode* root;
+    Trie() {
+        root = new TrieNode();
+    }
+    
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+        TrieNode* current = root;
+        
+        for(int i=0; i<word.size(); i++){
+            int index = word[i] - 'a';
+            if(current->children[index] == NULL){
+                TrieNode* newNode = new TrieNode;
+                current->children[index] = newNode;
+            }
+            current = current->children[index];
+        }
+        current->isEndOfWord = true;
+    }
+    
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+        TrieNode* current = root;
+        
+        for(int i=0; i<word.size(); i++){
+            int index = word[i] - 'a';
+            
+            if(current->children[index] == NULL)
+                return false;
+            current = current->children[index];
+        }
+        return current->isEndOfWord == true;
+    }
+    
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        TrieNode* current = root;
+        for(int i=0; i<prefix.size(); i++){
+            int index = prefix[i]-'a';
+            if(current->children[index] == NULL)
+                return false;
+            current = current->children[index];
+        }
+        return true;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
+
+
+// --------------------------------------------
+// LC 2nd Question BELOW:
+// --------------------------------------------
+#define ALPHABET_SIZE 26
+class TrieNode {
+public:
+    TrieNode* children[ALPHABET_SIZE];
+    int end;
+    int start;
+    TrieNode() {
+        for(int i=0;i<ALPHABET_SIZE; i++){
+            this->children[i] = NULL;
+        }
+        this->end = 0; // to store the words ending at this node.
+        this->start = 0; // to store the words going through this node.
+    }
+};
+
+class Trie {
+public:
+    TrieNode* root;
+    Trie() {
+        root = new TrieNode();
+    }
+    
+    // Update the start at every node insertion & end at the last node.
+    void insert(string word) {
+        TrieNode* current = root;
+        for(int i=0; i<word.size(); i++){
+            int index = word[i]-'a';
+            if(current->children[index]){
+                current = current->children[index];
+                current->start = current->start+1;
+            }
+            else{
+                current->children[index] = new TrieNode;
+                current = current->children[index];
+                current->start = current->start+1;
+            }
+        }
+        current->end = current->end+1;
+    }
+    
+    // Return the "end" by just traversing the word
+    int countWordsEqualTo(string word) {
+        TrieNode* current = root;
+        for(int i=0; i<word.size(); i++){
+            int index = word[i]-'a';
+            if(current->children[index]){
+                current = current->children[index];
+            }
+            else{
+                return 0;
+            }
+        }
+        return current->end;
+    }
+    
+    // Return the "start" after traversing the word.
+    int countWordsStartingWith(string prefix) {
+        TrieNode* current = root;
+        for(int i=0; i<prefix.size(); i++){
+            int index = prefix[i]-'a';
+            if(current->children[index]){
+                current = current->children[index];
+            }
+            else{
+                return 0;
+            }
+        }
+        return current->start;
+    }
+    
+    // Keep decreasing the 'start' at every node and 'end' for the final node.
+    // TODO: Delete the node if start=0 & end=0 for the final node.
+    void erase(string word) {
+        TrieNode* current = root;
+        for(int i=0; i<word.size(); i++){
+            int index = word[i]-'a';
+            current = current->children[index];
+            current->start = current->start - 1;
+        }
+        current->end -= 1;
+    }
+};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * int param_2 = obj->countWordsEqualTo(word);
+ * int param_3 = obj->countWordsStartingWith(prefix);
+ * obj->erase(word);
+ */

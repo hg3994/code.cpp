@@ -19,6 +19,9 @@ Solution: We will use the property of BST to get the solution faster.
             
 Time Complexity: O(height) = O(logn) on average(usually) = O(n) in worst case(skewed).
 
+NOTE:
+    Interesting fact about BST is that inorder traversal of a BST will give you a sorted list of nums in BST
+
 */
 
 

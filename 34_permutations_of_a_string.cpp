@@ -4,7 +4,6 @@ Harshit Gupta | 7th November, 2018
 https://ide.geeksforgeeks.org/L3hCgN7v7j
 https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
 https://leetcode.com/problems/permutations/
-https://leetcode.com/problems/permutations-ii/
 C++ program for printing all the permutations of a string
 
 Solution: This is the Backtracking question with an approach of choose, Explore, and Un-choose.
@@ -15,6 +14,11 @@ Solution: This is the Backtracking question with an approach of choose, Explore,
 Paradigm: Backtracking
 
 Time Complexity: O(n*n!)
+
+Similar Problems:
+    1. https://leetcode.com/problems/permutations-ii/
+        - Input may contain duplicate elements but the output should be unique.
+        - We use a set<vector<int>> instead of v of v and then convert it into v of v to return.
 
 */
 

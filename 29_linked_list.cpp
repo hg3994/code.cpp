@@ -347,6 +347,8 @@ public:
 // ------------------------------------------------------------------
 // REVERSE LINKED LIST BETWEEN ith AND jth INDEX IMPLEMENTATION BELOW:
 // ------------------------------------------------------------------
+// Consider 1->2->3->4->5 as example, we need to reverse index 2 to 5
+// Reversed List: 1->4->3->2->5
 
 class Solution {
 public:
@@ -360,6 +362,7 @@ public:
         
         // This node will always point to the node before the "reversed" set of nodes. 
         // This node is important because this has to be pointed to the last node after reversal
+        // prev = 1 for the example considered.
         ListNode* prev = head;      
         
         // This node will point to the first current from where we start the reversal. 
@@ -385,9 +388,12 @@ public:
         
         // Now current would point to the last node which has been reversed
         // nextNode would point to the node ahead of it OR NULL if current if the last node (right == last node)
-        
-        // We need first current node to point to the nextNode so that after reversal of nodes, we connect with the later part of the nodes (which are after the reversal part) to the first node (which after reversal became the last node)
+        // 2->3->4 has now been converted to 4->3->2, now we need to stich it into the list
+
+        // We need first current node to point to the nextNode so that after reversal of nodes, we connect with the later part of the nodes 
+        // (which are after the reversal part) to the first node (which after reversal became the last node)
         first_current->next = nextNode;            
+        // 4->3->2->5
         
         // THIS IS VERY IMPORTANT AND TRICKY. THIS IS THE ONLY TRICK IN THIS PROBLEM
         // The issue is how do we identify if we have to update the head to current OR prev->next to current ??
@@ -399,6 +405,7 @@ public:
         else{
             prev->next = current;
         }
+        // 1->4->3->2->5
         
         return head;
     }

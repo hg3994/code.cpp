@@ -26,8 +26,13 @@ Solution:   1. Store each cell as a tuple with their row, column values and dist
 
 Paradigm: Graphs, BFS
 
-NOTE: We can always use BFS to find shortest path if graph is unweighted.
 
+Similar Questions:
+    1. https://leetcode.com/problems/shortest-path-in-binary-matrix/
+        - Find the shortest distance between 0,0 and n-1,n-1 in a binary matrix
+        - You can travel through 0s and cant travel through 1s.
+
+NOTE: We can always use BFS to find shortest path if graph is unweighted.
 */
 
 #include <bits/stdc++.h>
@@ -125,3 +130,51 @@ int main()
     findMinDistance(grid, source, destination);
     return 0; 
 } 
+
+// ----------------------------------------------
+// LEETCODE SHORTEST DISTANCE BETWEEN 0,0 and 1,1
+// ----------------------------------------------
+
+class Solution {
+public:
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        int n = grid.size();
+        
+        if(grid[0][0] == 1)
+            return -1;
+        
+        queue<pair<int, int>> q;
+        vector<int> a(n, 0);
+        vector<vector<int>> visited(n, a);
+        int moves = 1;
+        q.push(make_pair(0, 0));
+        visited[0][0] = 1;
+        
+        while(!q.empty()){
+            int size = q.size();
+            for(int i=0;i<size; i++){
+                pair<int, int> f = q.front(); q.pop();
+                
+                if (f.first == n-1 && f.second == n-1){
+                    return moves;
+                }
+                
+                vector<int> x = {0, 1, 1,  1,  0, -1, -1, -1};
+                vector<int> y = {1, 1, 0, -1, -1, -1,  0,  1};
+                
+                for(int i=0;i<8;i++){
+                    if ( f.first+x[i] >= 0 && f.first+x[i] < n 
+                       && f.second+y[i] >=0 && f.second+y[i] < n
+                       && grid[f.first+x[i]][f.second+y[i]] == 0
+                       && visited[f.first+x[i]][f.second+y[i]] == 0){
+                        
+                        q.push(make_pair(f.first+x[i],f.second+y[i]));
+                        visited[f.first+x[i]][f.second+y[i]] = 1;
+                    }
+                }   
+            }
+            moves++;
+        }
+        return -1;
+    }
+};

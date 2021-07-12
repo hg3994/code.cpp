@@ -5,6 +5,7 @@ C++ program for finding next greater element in an array.
 
 https://ide.geeksforgeeks.org/3w3dWfvIXz
 https://www.geeksforgeeks.org/next-greater-element/
+https://leetcode.com/problems/next-greater-element-i/
 
 Solution:   We will use Stack to solve this in O(n) time.
     * Iterate over all the elements of the array
@@ -14,6 +15,18 @@ Solution:   We will use Stack to solve this in O(n) time.
     * If some elements remains in the stack, they don't have a NGE.
 
 Paradigm: Stack
+
+Similar Questions:
+    1. https://leetcode.com/problems/next-greater-element-ii/
+        - Assume the given arr is a circular arr which means you could search circularly 
+            to find its next greater number.
+        - Elements can be duplicate so we will store the index of the elements
+        - For elements that remain in the stack, iterate over the array and find the NGE
+        - Check for other solution here: https://leetcode.com/problems/next-greater-element-ii/solution/
+
+    2. https://leetcode.com/problems/next-greater-element-iii/
+        - Find NGE with the same digits.
+        - Yet to implement.
 
 */
 
@@ -28,6 +41,9 @@ void nextGreaterElement(vector <int> arr){
 
         // While stack isn't empty and stack's top is less than the arr[i],
         // then it means that arr[i] is the NGE of s.top()
+        // THIS IS THE MOST IMPORTANT PART OF IT:
+        //      1. while to be used and not IF
+        //      2. Checking stack empty should be before the other cond.
         while(!s.empty() && arr[i]>s.top()){
             cout<<s.top()<<"-->"<<arr[i]<<endl;
             s.pop();

@@ -4,7 +4,6 @@ Harshit Gupta | 2nd November, 2018
 https://ide.geeksforgeeks.org/rbmr5e2qf8
 https://www.geeksforgeeks.org/find-a-peak-in-a-given-array/
 https://leetcode.com/problems/find-peak-element/
-https://leetcode.com/problems/find-a-peak-element-ii/
 
 C++ program for Finding a peak element in an array. 
     An array element is peak if it is NOT smaller than its neighbors. 
@@ -25,6 +24,9 @@ Paradigm: Divide and Conquer
 
 Time Complexity: O(logn)
 
+Similar Question:
+    1. https://leetcode.com/problems/find-a-peak-element-ii/
+        - Finding peak element in a 2D matrix.
 */
 
 #include <bits/stdc++.h>

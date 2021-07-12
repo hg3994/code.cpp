@@ -15,6 +15,10 @@ Output: 7 -> 0 -> 8
 ------
 Explanation: 342 + 465 = 807.
 
+********************************
+SOLUTION IN C++ ALSO GIVEN BELOW
+********************************
+
 Solution: 
 
   We calculate the numbers in the given Linked lists with help of recursion. 
@@ -38,6 +42,7 @@ Solution:
 https://repl.it/repls/PoisedVisibleApplicationpackage#main.rb
 
 #Agoda
+
 
 =end
 
@@ -115,3 +120,56 @@ l2 = create_list 465, nil
 r1 = add_two_numbers l1,l2
 
 puts r1.inspect # #<ListNode:0x0000555e8972fb90 @val=7, @next=#<ListNode:0x0000555e8972fb40 @val=0, @next=#<ListNode:0x0000555e8972fac8 @val=8, @next=nil>>>
+
+# --------------------------------------
+# // SOLUTION IN C++
+# --------------------------------------
+=begin
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+// carry will never be > 1 since at max 9+9 = 18 which is 1 carry.
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* c1=l1, c2=l2;
+        ListNode* l3head = new ListNode(0); //create this fake node 0 and in the end return l3head->next;
+        ListNode* c3 = l3head;
+        int carry = 0;
+        while(c1!= NULL || c2!=NULL){
+            int x = (c1 != NULL) ? c1->val : 0;
+            int y = (c2 != NULL) ? c2->val : 0;
+            int sum = x+y+carry;
+            int v;
+            if(sum > 9){
+                v = sum%10;
+                carry = 1;
+            }
+            else{
+                v = sum;
+                carry = 0;
+            }
+            c3->next = new ListNode(v);
+            c3 = c3->next;
+            if (c1!=NULL) 
+                c1 = c1->next;
+            if (c2!=NULL)
+                c2 = c2->next;
+        }
+        if(carry > 0)
+            c3->next = new ListNode(carry);
+        return l3head->next;
+    }
+};
+
+=end

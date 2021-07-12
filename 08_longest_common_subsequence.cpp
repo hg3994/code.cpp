@@ -3,6 +3,9 @@ Harshit Gupta | 18th October, 2018
 
 C++ program for calculating longest common subsequence in O(n2) time
 
+SubSequence:    Non-Continous/Continous elements.
+Subarray:       Continous elements.
+
 https://www.youtube.com/watch?v=NnD96abizww
 https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/
 
@@ -18,6 +21,25 @@ Solution: We will use very basic dynamic Programming to solve this.
 
     When both are not same "ab" and "ac", then we take the best of what we have:
         max (("ab", "a"),("a", "ac"))
+
+Similar Problem: 
+    1. https://leetcode.com/problems/maximum-length-of-repeated-subarray/
+        - Same Question for Subarray
+        - This is Bottom Up DP.
+        - Solution is not exactly similar to Subsequence problem because the DP array 
+            in that problem when s1[i] == s2[j] it is dp[i][j] = 1+dp[i-1][j-1];
+        - This will not work here because our subarray must be continous.
+        - Ex: 
+            For Subsequence:    For Subarray:
+                      a b x             a b x
+                    b 0 1 1           b 0 1 1
+                    a 1 1 1           a 1 1 1
+                    x 1 1 2           x 1 1 1
+
+        - You see that 2nd letters were not equal, but still we wrote 1.
+        - Third letter was equal and now subsequence becomes 2 but subarray is still 1.
+        - If you look closely, we can traverse both strings from back and then use DP
+            dp[i][j] = dp[i+1][j+1]+1
 
 */
 
@@ -68,3 +90,32 @@ int main(){
     longestCommonSubsequence(s1, s2);
     return 0;
 }
+
+
+// -----------------------
+// Longest Common Subarray
+// -----------------------
+
+
+class Solution {
+public:
+    int findLength(vector<int>& nums1, vector<int>& nums2) {
+        int m =nums1.size();
+        int n =nums2.size();
+        
+        vector<int> tmp(n+1, 0);
+        vector<vector<int>> dp(m+1, tmp);
+        int maxLen = 0;
+        
+        // Bottom UP DP.
+        for(int i=m-1; i>=0; i--){
+            for(int j=n-1; j>=0; j--){
+                if(nums1[i] == nums2[j]){
+                    dp[i][j] = dp[i+1][j+1]+1;
+                    maxLen = max(maxLen, dp[i][j]);
+                }
+            }
+        }
+        return maxLen;
+    }
+};

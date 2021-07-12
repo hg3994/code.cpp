@@ -17,16 +17,20 @@ Solution: We will use DP to solve this. At every stage, we have two choices:
         This is different from the the coin changing problem because here we DO NOT have infinte supply of coins. 
         The only coins that we have are the ones in the array
 
-IMPORTANT:        
-This question can also be framed as 
+
+Similar Questions: This question can also be framed as 
+
     1. There is an array of numbers given with a sum. Can you choose some elements from the array 
         which will add up to 'sum'." You can think of these numbers as coins
         and then make 'sum' amount from the coins.
 
     2. Given a non-empty array nums containing only positive integers, find if the array can be 
         partitioned into two subsets such that the sum of elements in both subsets is equal.
-        >> The sum for this question would be sum of array / 2 and the rest remains the same.
-        >> If the sum is odd, we can never do it.
+        - The sum for this question would be sum of array / 2 and the rest remains the same.
+        - If the sum is odd, we can never do it.
+        - If we can choose some numbers and have their sum = sumOfArray/2, then it means that the remaining
+            array will have the sum= sumOfArray/2 as well so we just need to check some of the numbers can
+            be added to form sumOfArray/2 and the rest would be fine.
         
 
 Time Complexity: O(n2)
@@ -168,16 +172,15 @@ public:
 
 
 // Approach 1: Recursive Solution: Gives TLE.
+bool helper(vector<int> nums, int i, int s1, int s2){
+    if(i == nums.size()) {
+        if(s1 == s2) return true;
+        else return false;
+    }
 
-// bool helper(vector<int> nums, int i, int s1, int s2){
-//     if(i == nums.size()) {
-//         if(s1 == s2) return true;
-//         else return false;
-//     }
+    return helper(nums, i+1, s1+nums[i], s2) || helper(nums, i+1, s1, s2+nums[i]);
+}
 
-//     return helper(nums, i+1, s1+nums[i], s2) || helper(nums, i+1, s1, s2+nums[i]);
-// }
-
-// bool canPartition(vector<int>& nums) {
-//     return helper(nums, 0, 0, 0);
-// }
+bool canPartition(vector<int>& nums) {
+    return helper(nums, 0, 0, 0);
+}

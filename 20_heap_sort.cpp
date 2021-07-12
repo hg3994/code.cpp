@@ -4,6 +4,7 @@ Harshit Gupta | 21st October, 2018
 https://ide.geeksforgeeks.org/5XQ0YmZYhp
 https://www.geeksforgeeks.org/binary-heap/
 https://www.geeksforgeeks.org/heap-sort/
+https://leetcode.com/problems/sort-an-array/
 
 C++ program for Heap Sort
 

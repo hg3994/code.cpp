@@ -4,13 +4,14 @@
 Harshit Gupta | .........., 2021
 ---------------------------------
 
-C++ program for ""
+Problem Statement:
+  
 ------
 
 Solution: 
 
-TC: 
-SC:
+  TC: 
+  SC:
 
 Paradigm:
 ---
@@ -22,6 +23,7 @@ Paradigm:
 // Approaches
 // -----------
 // - Two Pointers
+// - Binary Search (if input in sorted)
 // - Sliding Window
 // - DP
 // - Segment Trees
@@ -33,6 +35,7 @@ Paradigm:
 // - Intervals: Priority Queue, Stack, DP
 // - Backtracking
 // - Union Find
+// - Left to Right and Right to Left Parsing (Rain Water)
 
 
 #include<bits/stdc++.h>

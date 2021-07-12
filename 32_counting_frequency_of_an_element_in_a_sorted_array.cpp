@@ -10,7 +10,6 @@ Solution: We use Binary search to find the starting index of the element.
     We use Binary Search again to find the ending index of the element.
     We get the number of times the element is present by just subtracting.
 
-
 Examples: 
 
   Input: arr[] = {1, 1, 2, 2, 2, 2, 3,},   x = 2
@@ -30,7 +29,25 @@ Paradigm: Binary Search
 
 Time Complexity: O(logn)
 
+Similar Questions:
+    1. https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+        - Find the starting and ending position of a given target value.
+        - If element is not found, return [-1,-1]
+
+#GOOGLE
+
 */
+
+// ---------------------
+// Approach 1: USING STL
+// ---------------------
+int frequencyOfKey(vector<int> A, int K){
+ return upper_bound(A.begin(),A.end(),K)-lower_bound(A.begin(),A.end(),K); //O(log(n))
+}
+
+// -----------------------------------------------
+// Approach 2: Total Implementation
+// -----------------------------------------------
 
 #include <bits/stdc++.h>
 using namespace std; 
@@ -107,3 +124,80 @@ int main()
     cout<<ans<<endl;
     return 0; 
 } 
+
+
+// --------------------------------------------------------------
+// Similar Prob 1: Finding the start and ending index of element
+// --------------------------------------------------------------
+// Approach 1:
+// Will Find make it O(n) solution?
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int>ans;
+        vector<int>::iterator it, lower, upper;
+        it = find(nums.begin(), nums.end(), target);
+        if(it != nums.end()){
+            lower = lower_bound(nums.begin(), nums.end(), target);
+            upper = upper_bound(nums.begin(), nums.end(), target);
+            ans.push_back(lower - nums.begin());
+            ans.push_back(upper - nums.begin() - 1);
+            return ans;
+        }
+        else{
+            return {-1, -1};
+        }
+    }
+};
+
+// Approach 2:
+class Solution {
+public:
+    
+    int searchForEnd(vector<int> nums, int target, int low, int  high){
+        if(low > high)
+            return -1;
+        
+        int mid = low + (high-low)/2;
+        if(nums[mid] == target && (mid+1 == nums.size() || nums[mid+1]!=target) ) {
+            return mid;
+        }
+        else if (nums[mid] > target){
+            return searchForEnd(nums, target, low, mid-1);
+        }
+        else{
+            return searchForEnd(nums, target, mid+1, high);
+        }
+        
+    }
+    
+    int searchForStart(vector<int> nums, int target, int low, int  high){
+        if(low > high)
+            return -1;
+        
+        int mid = low + (high-low)/2;
+        if(nums[mid] == target && (mid-1 == -1 || nums[mid-1]!=target) ) {
+            return mid;
+        }
+        else if (nums[mid] < target){
+            return searchForStart(nums, target, mid+1, high);
+        }
+        else{
+            return searchForStart(nums, target, low, mid-1);
+        }
+    }
+    
+    vector<int> searchRange(vector<int>& nums, int target) {
+        if(nums.size() == 0)
+            return {-1,-1};
+        vector<int>ans;
+        int start = searchForStart(nums, target, 0, nums.size()-1);
+        if(start != -1){
+            int end = searchForEnd(nums, target, 0, nums.size()-1);
+            return {start, end};
+        }
+        else{
+            return {-1, -1};
+        }
+    }
+};

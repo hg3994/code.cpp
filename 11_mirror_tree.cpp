@@ -16,7 +16,8 @@ https://leetcode.com/problems/flip-equivalent-binary-trees/
 Solution:   
 
     Mirror Trees: A binary tree X is mirror of binary tree Y if and only if
-        - left child val for a node in X = - right child val for a node in Y 
+        - X = Y for the same level
+        - left child val for a node in X = right child val for a node in Y 
         - This is true for all nodes
 
     Mirror Tree: One binary tree X can be a mirror tree if all it is symmetric around its center.
@@ -139,7 +140,6 @@ bool isMirror(node *t1, node* t2){
 }
 
 
-// Are two given Binary trees Flip Trees?
 
 int main(){
     
@@ -170,6 +170,7 @@ int main(){
 // LEEETCODE FLIP EQUIVALENT NODES IN BINARY TREES
 // -----------------------------------------------
 
+// Are two given Binary trees Flip Trees?
 class Solution {
 public:
     bool flipEquiv(TreeNode* root1, TreeNode* root2) {
@@ -178,7 +179,7 @@ public:
         if(root1 == NULL || root2 == NULL)
             return false;
         return  (root1->val == root2->val) && 
-                ( (flipEquiv(root1->left, root2->left) && flipEquiv(root1->right, root2->right) ) || 
-                 (flipEquiv(root1->left, root2->right) && flipEquiv(root1->right, root2->left) ) );
+                ( (flipEquiv(root1->left, root2->left) && flipEquiv(root1->right, root2->right) ) || // nodes are not mirror
+                 (flipEquiv(root1->left, root2->right) && flipEquiv(root1->right, root2->left) ) ); // nodes are mirror
     }
 };
