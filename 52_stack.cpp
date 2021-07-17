@@ -79,7 +79,19 @@ void printStack(stack<int> dup){
   cout<<endl;
 }
 
+// ---------------------------------
+// SORT STACK WITH A TEMPORARY STACK
+// ---------------------------------
 
+// s1: [2,1,4,3] 	sortedSt: []
+// s1: [2,1,4] 		sortedSt: [3]
+// s1: [2,1]   		sortedSt: [3,4]
+// s1: [2,4,3] 		sortedSt: [1]
+// s1: [2,4] 		sortedSt: [1,3]
+// s1: [2]   		sortedSt: [1,3,4]
+// s1: [4,3]   		sortedSt: [1,2]
+// s1: [4]   		sortedSt: [1,2,3]
+// s1: []   		sortedSt: [1,2,3,4]
 void sortStackUsingTemporaryStack(){
 	
 	stack<int> tempStack; // This stack would have the sorted values. (SORTED STACK)
@@ -109,52 +121,9 @@ void sortStackUsingTemporaryStack(){
 
 }
 
-void pushAtBottom(int t){
-	// Here, we want to pop whatever is already in the stack and move 't' to the bottommost part. then restore/push
-	// everything back.
-
-	// We keep on popping till stack is empty and if the stack is empty, then push the element 't', 
-	// This is done because whatever be the stack, we want 't' to be at the bottommost part.
-	if(s.empty()){
-		s.push(t);
-	}
-	else{
-		// Keep on popping the elements till we make it empty and then push 't'
-		int a = s.top();
-		s.pop();
-
-		// Recursion which ensures that stack becomes empty at some point and I push 't'
-		pushAtBottom(t);
-
-		// Push the popped element 'a' since we have already pushed 't' at the bottommost part now.
-		s.push(a);
-	}
-}
-
-// Function to reverse the stack
-void reverseStack(){
-
-	// Till the stack is empty, we loop
-	if(!s.empty()){
-
-		// Get the top element and pop it.
-		int t = s.top();
-		s.pop();
-
-		// Call it again so that all the elements get popped and then we insert the top element 't' at the bottom.
-		reverseStack();
-
-		// Inserting the element 't' at the bottom. If we ensure this happens in every instance of recursion, 
-		// we know that the top element 't' is going to get inserted at the bottom of stack.
-		// Since the top element of stack is called first, its recursion instance comes last and so it will be 
-		// at the bottommost part of the stack. With me?
-
-		// Example: in the given stack 40 is at top, so it is popped first but due to recursion, the that instance where
-		// t is 40 comes at the last and so 40 is inserted at the 'last' in the bottommost part of stack.
-		pushAtBottom(t);
-	}
-}
-
+// --------------------
+// SORT STACK RECURSION
+// --------------------
 void pushInSortedOrder(int t){
 	// We want to move the element 't' to its correct place in the stack through this function.
 
@@ -200,6 +169,56 @@ void sortStackRecursion(){
 		// [40 30 20 10] and we want to insert 25, then it will pop 40 and 30. Then, push 25, then push 30 and 40 back
 		// The resultant stack would look like: [40 30 25 20 10]
 		pushInSortedOrder(t);
+	}
+}
+
+// ---------------
+// REVERSE A STACK
+// ---------------
+
+void pushAtBottom(int t){
+	// Here, we want to pop whatever is already in the stack and move 't' to the bottommost part. then restore/push
+	// everything back.
+
+	// We keep on popping till stack is empty and if the stack is empty, then push the element 't', 
+	// This is done because whatever be the stack, we want 't' to be at the bottommost part.
+	if(s.empty()){
+		s.push(t);
+	}
+	else{
+		// Keep on popping the elements till we make it empty and then push 't'
+		int a = s.top();
+		s.pop();
+
+		// Recursion which ensures that stack becomes empty at some point and I push 't'
+		pushAtBottom(t);
+
+		// Push the popped element 'a' since we have already pushed 't' at the bottommost part now.
+		s.push(a);
+	}
+}
+
+// Function to reverse the stack
+void reverseStack(){
+
+	// Till the stack is empty, we loop
+	if(!s.empty()){
+
+		// Get the top element and pop it.
+		int t = s.top();
+		s.pop();
+
+		// Call it again so that all the elements get popped and then we insert the top element 't' at the bottom.
+		reverseStack();
+
+		// Inserting the element 't' at the bottom. If we ensure this happens in every instance of recursion, 
+		// we know that the top element 't' is going to get inserted at the bottom of stack.
+		// Since the top element of stack is called first, its recursion instance comes last and so it will be 
+		// at the bottommost part of the stack. With me?
+
+		// Example: in the given stack 40 is at top, so it is popped first but due to recursion, the that instance where
+		// t is 40 comes at the last and so 40 is inserted at the 'last' in the bottommost part of stack.
+		pushAtBottom(t);
 	}
 }
 

@@ -26,11 +26,10 @@ Time Complexity: O(ROWxCOL)
 */
 
 
+// ----------------------------
+// LEETCODE UNION FIND SOLUTION
+// ----------------------------
 
-// LEETCODE SOLTUION
-
-// UNION FIND SOLUTION
-// -------------------
 // We start with a size[] array as well apart from parent and rank. This will help us figure out the max size os island.
 // Updating size in the Union function will do trick, because we are updating the parent at all point of time as well.
 // So, when we compare two nums, we are actually comparing the parents and then updating the size! Think about it.
@@ -190,10 +189,6 @@ public:
         return maxArea;
     }
 };
-
-
-
-
 
 
 

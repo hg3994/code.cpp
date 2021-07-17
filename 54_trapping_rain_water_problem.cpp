@@ -7,43 +7,50 @@ https://leetcode.com/problems/trapping-rain-water/
 
 C++ program for Trapping Rain Water Problem
 
-	Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
+	Given n non-negative integers representing an elevation map where the width of each bar is 1, 
+	compute how much water it is able to trap after raining.
 
 Solution: 
 
-	An element of array can store water if there are higher bars on left and right. We can find amount of water to be stored in every element by finding the heights of bars on left and right sides. The idea is to compute amount of water that can be stored in every element of array. For example, consider the array {3, 0, 0, 2, 0, 4}
+	An element of array can store water if there are higher bars on left and right. We can find amount of water 
+		to be stored in every element by finding the heights of bars on left and right sides. The idea is to compute 
+		amount of water that can be stored in every element of array.
 
-		Input: arr[]   = {3, 0, 0, 2, 0, 4}
-		Output: 10
-		Structure is like below
-		     |
-		|    |
-		|  | |
-		|__|_| 
-		We can trap "3*2 units" of water between 3 an 2,
-		"1 unit" on top of bar 2 and "3 units" between 2 
-		and 4.  See below diagram also.
+	Input: arr[]   = {3, 0, 0, 2, 0, 4}
+	Output: 10
+	Structure is like below
+	     |
+	|    |
+	|  | |
+	|__|_| 
+	We can trap "3*2 units" of water between 3 an 2,
+	"1 unit" on top of bar 2 and "3 units" between 2 and 4.
 
-		An Efficient Solution is to pre-compute highest bar on left and right of every bar in O(n) time. Then use these pre-computed values to find the amount of water in every array element. 
+	An Efficient Solution is to pre-compute highest bar on left and right of every bar in O(n) time. 
+		Then use these pre-computed values to find the amount of water in every array element. 
 
-		arr[]   = {3, 0, 0, 2, 0, 4}
-		left[]  = {3, 3, 3, 3, 3, 4} -> max(left[i-1], arr[i])
-		right[] = {4, 4, 4, 4, 4, 4} -> max(right[i+1], arr[i])
+	arr[]   = {3, 0, 0, 2, 0, 4}
+	left[]  = {3, 3, 3, 3, 3, 4} -> max(left[i-1], arr[i])
+	right[] = {4, 4, 4, 4, 4, 4} -> max(right[i+1], arr[i])
 
-		water[] = min(left[i], right[i]) - arr[i]
-							{3-3, 3-0, 3-0, 3-2, 3-0, 4-4}
-							{0, 3, 3, 1, 3, 0}
+	water[] = min(left[i], right[i]) - arr[i]
+						{3-3, 3-0, 3-0, 3-2, 3-0, 4-4}
+						{0, 3, 3, 1, 3, 0}
 
-		sum of water = 10
+	sum of water = 10
+
+Time Complexity: O(n)
+Space Complexity: O(n)
 
 
 	Space Optimization:
-		Instead of maintaing two arrays of size n for storing left and right max of each element, we will just maintain two variables to store the maximum till that point. Since water trapped at any element = min( max_left, max_right) – arr[i] we will calculate water trapped on smaller element out of A[lo] and A[hi] first and move the pointers till lo doesn’t cross hi.
+		Instead of maintaing two arrays of size n for storing left and right max of each element, 
+		we will just maintain two variables to store the maximum till that point. Since water trapped 
+		at any element = min( max_left, max_right) – arr[i] we will calculate water trapped on smaller element 
+		out of A[lo] and A[hi] first and move the pointers till lo doesn’t cross hi.
 
 
 Paradigm: Arrays
-
-Time Complexity: O(n)
 
 */
 
@@ -62,23 +69,11 @@ int findWater(vector<int> arr){
 	right[n-1] = arr[n-1];
 	for(int i=n-2;i>=0;i--)
 		right[i] = max(right[i+1], arr[i]);
-
-    // Uncomment to see left and right arrays.		
-    // for(int i=0;i<n;i++){
-    //     cout<<left[i]<<" ";
-    // }
-    // cout<<endl;
-    // for(int i=0;i<n;i++){
-    //     cout<<right[i]<<" ";
-    // }
-    // cout<<endl;
     
-    
-	for(int i=0;i<n;i++){
+	for(int i=0;i<n;i++)
 		water += (min({left[i],right[i]}) - arr[i]);
-	}
-	return water;
 
+	return water;
 }
 
 int main() 
@@ -87,3 +82,44 @@ int main()
   cout << "Maximum water that can be accumulated is: "<< findWater(arr);  
   return 0; 
 } 
+
+// -----------------------------------------
+// LEETCODE SOLUTION WITH SPACE OPTIMIZATION
+// -----------------------------------------
+// TC: O(n), SC: O(1)
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int water = 0;
+        if(height.size()==0) 
+            return water;
+        
+        //find the peak
+        int peak = 0;
+        for (int i = 1; i < height.size();i++){
+            if(height[peak]< height[i]) 
+                peak = i;
+        }
+        
+        // calc water on the left side of peak
+        // Water filling up at index i would be Ht of Max in Left - My height
+        int left_max = 0;
+        for (int i = 0; i < peak; i++){
+            if(height[left_max]<= height[i])
+                left_max = i;
+            else
+                water+= height[left_max]-height[i];
+        }
+        
+        //calc water on the right side of peak
+        // Water filling up at index i would be Ht of Max in Right - My height
+        int right_max = height.size()-1;
+        for (int i = right_max; i >peak; i--){
+            if(height[right_max]<= height[i])
+                right_max = i;
+            else
+                water+= height[right_max]-height[i];
+        }
+        return water;
+    }
+};

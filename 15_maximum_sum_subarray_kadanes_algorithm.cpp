@@ -19,11 +19,19 @@ How is Sliding Window Algorithm different from Kadane's Algorithm?
 >> Sliding Window Algorithm calculates the maximum sum subarray for a specific window of size 'k'.
     Kadane's Algorithm calculates the maximum sum subarray for all the subarrays of all possible lengths (1 to n).
 
-
 // Array:          -2,  -3,  4, -1, -2,  1,  5, -3
 // current_max:    -2,  -3,  4,  3,  1,  2,  7,  4
 // max_so_far:     -2,  -2,  4,  4,  4,  4,  7,  7 
+// Max Subarray:            [4, -1, -2,  1,  5]
 
+
+Similar Questions:
+    1. Similar to this question, it can have "Minimum sum Contiguous Array"
+        - Just change the logic from Max to Min
+
+    2. https://leetcode.com/problems/maximum-absolute-sum-of-any-subarray
+        - For this, we need both maximum and minimum and the greatest one them is ans
+        - Solution below
 */
 
 #include <bits/stdc++.h>
@@ -62,3 +70,43 @@ int main(){
     return 0;
 }
 
+// -----------------
+// LEETCODE SOLUTION
+// -----------------
+
+// KADANES ALGORITHM
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n = nums.size();
+        int currentMax = nums[0];
+        int maxSoFar = nums[0];
+        
+        for(int i=1;i<n;i++){
+            currentMax = max(nums[i], currentMax+nums[i]);
+            maxSoFar = max(maxSoFar, currentMax);
+        }
+        return maxSoFar;
+    }
+};
+
+// ----------------------------
+// Simialar Question 2 Solution
+// ----------------------------
+
+class Solution {
+public:
+    int maxAbsoluteSum(vector<int>& nums) {
+        if(nums.size()==1)
+            return abs(nums[0]);
+        int maxSoFar = 0;
+        int currentMax = 0;
+        int currentMin = 0;
+        for(int i=0; i<nums.size(); i++){
+            currentMax = max(nums[i], nums[i]+currentMax);
+            currentMin = min(nums[i], nums[i]+currentMin);
+            maxSoFar = max({currentMax, -currentMin, maxSoFar});
+        }
+        return maxSoFar;
+    }
+};

@@ -9,32 +9,19 @@ https://www.geeksforgeeks.org/topological-sorting/
 Solution: 
 
 	Selection Sort: We 'select' the minimum element after every iteration and make an array of that.
-		Worst Case Time Complexity: 	O(n2)
-		Average Case Time Complexity: O(n2)
-		Best Case Time Complexity: 		O(n2)
 
-	Insertion Sort: Pick elements one by one and 'insert' them at their correct place in the already sorted sequence.
-		Worst Case Time Complexity: 	O(n2)
-		Average Case Time Complexity: O(n2)
-		Best Case Time Complexity: 		O(n)
+	Insertion Sort: Pick elements one by one and 'insert' them at their correct place in the already
+		sorted sequence.
 	
 	Bubble Sort: This works by repeatedly swapping the adjacent elements if they are in wrong order.
-		Worst Case Time Complexity: 	O(n2)
-		Average Case Time Complexity: O(n2)
-		Best Case Time Complexity: 		O(n)
 
-	Merge Sort: divides input array in two halves, calls itself for the two halves and then merges the two sorted halves.
-		Merge Sort is useful for sorting linked lists in O(nLogn) time.
-		Worst Case Time Complexity: 	O(nlogn)
-		Average Case Time Complexity: O(nlogn)
-		Best Case Time Complexity: 		O(nlogn)
-
-	Quick Sort: picks an element as pivot and partitions the given array around the picked pivot such that all the 
-	elements lesser than the pivot element are placed to its left and all the elements greater than it are placed to its right.
-		Worst Case Time Complexity: 	O(n2)
-		Average Case Time Complexity: O(nlogn)
-		Best Case Time Complexity: 		O(nlogn)
-
+	Merge Sort: divides input array in two halves, calls itself for the two halves and then merges 
+		the two sorted halves. Merge Sort is useful for sorting linked lists in O(nLogn) time.
+		
+	Quick Sort: picks an element as pivot and partitions the given array around the picked pivot 
+		such that all the elements lesser than the pivot element are placed to its left and all the 
+		elements greater than it are placed to its right.
+		
 
 
 ================================================================================
@@ -80,8 +67,9 @@ void swap(int *xp, int *yp) {
 }
 
 void topologicalSort(vector <vector<int>> grid){
-  // Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for 
-  // every directed edge uv, vertex u comes before v in the ordering	int size = grid.size();
+	// Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for 
+	// every directed edge uv, vertex u comes before v in the ordering	
+	int size = grid.size();
 
 	// Visited array to keep track of what has already been discovered. 
 	// If we don't use this, we'll get into an infinite loop.

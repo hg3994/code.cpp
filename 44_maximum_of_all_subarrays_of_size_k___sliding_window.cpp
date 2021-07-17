@@ -26,31 +26,36 @@ C++ program for "Given an array and an integer k,
 
 Solution: We will use Deque to solve this:
 
-    The key is to maintain the max element at the top of the queue(for a window) 
+    The key is to maintain the max element at the FRONT of the queue(for a window) 
     and discarding:
-    * the elements that are out of index of current window.
-    * the useless elements where useless elements = If Current element is greater 
+
+    1 The elements that are out of index of current window.
+        - If current_index - k >= q.front() that means we are going out of window 
+            so we need to delete the element from front of queue. 
+
+    2 The useless elements where useless elements = If Current element is greater 
         than the last element of queue than the last element of queue is useless. 
+        - If current element is greater than the last element of queue than the last element 
+            of queue is useless. We need to delete that last element (and keep deleting 
+            until Current element is greater than the last element).
+        - We can do this because if the current element is greater then them, then in the windows ahead
+        current_element will be the maximum & they will be just useless elements sitting in deque.
+        - If those elements were important for the prev windows, then we have already processed them
+        - Eg: In below example: when 5 comes, 5>-3,-1,3, so we delete all of them.
 
-    1. If Current element is greater than the last element of queue than the last element 
-        of queue is useless . We need to delete that last element. (and keep deleting 
-        until Current element is greater than the last element).
-    2. If if current_index - k >= q.front() that means we are going out of window 
-        so we need to delete the element from front of queue. 
 
-
-    // Elements:    [1,3,-1,-3,5,3,6,7]
-    // Indexes:     [0,1, 2, 3,4,5,6,7]
-    // The deque will be made of indexes but here for example, I am creating deque of nums[i]
+    Elements:    [1,3,-1,-3,5,3,6,7]
+    Indexes:     [0,1, 2, 3,4,5,6,7]
+    The deque will be made of indexes but here for example, I am creating deque of nums[i]
     
-    // i = 0 -> {1}                 => 
-    // i = 1 -> {3}                 => 3>1 so we remove 1 and insert 3's index
-    // i = 2 -> {3, -1}     => 3    => -1<3 so we insert its index at back
-    // i = 3 -> {3, -1, -3} => 3    => -3<3 so we insert its index at back
-    // i = 4 -> {5}         => 5    => 5>-3,-1,3 so we pop all of these out from back and insert index of 5
-    // i = 5 -> {5,3}       => 5    => 3<5 so we insert its index at back
-    // i = 6 -> {6}         => 6    => 6>3,5 so we pop both out and insert 6s index
-    // i = 7 -> {7}         => 7    => 7>6 so we pop out 6 and insert index of 7
+    i = 0 -> {1}                 => 1 inserted in deque
+    i = 1 -> {3}                 => 3>1 so we remove 1 and insert 3's index
+    i = 2 -> {3, -1}     => 3    => -1<3 so we insert its index at back
+    i = 3 -> {3, -1, -3} => 3    => -3<-1 so we insert its index at back
+    i = 4 -> {5}         => 5    => 5>-3,-1,3 so we pop all of these out from back and insert index of 5
+    i = 5 -> {5,3}       => 5    => 3<5 so we insert its index at back
+    i = 6 -> {6}         => 6    => 6>3,5 so we pop both out and insert 6s index
+    i = 7 -> {7}         => 7    => 7>6 so we pop out 6 and insert index of 7
     
 
 NOTE: We are storing the index in queue not the element itself because of condition 2 above. 
@@ -61,6 +66,9 @@ NOTE: We are storing the index in queue not the element itself because of condit
         WHY pop() from front in this case?
         >> If an element at index i-1 < index i , then it is automatically deleted by cond#1
             So an element at front has to be greatest and of lowest index
+
+Time Complexity: O(n)
+
 ---
 
 Another solution would be to use a priority queue(max Heap). 
@@ -72,10 +80,13 @@ But this will take O(n*logK) time compared to O(n) using Dequeue.
 There is another DP solution which doesnt require additional space, mentioned here: 
     https://leetcode.com/problems/sliding-window-maximum/solution/
 
----
-Paradigm: Dequeue.
 
-Time Complexity: O(n)
+Similar Questions:
+    1. Same questions where you have to find Minimum.
+
+---
+Paradigm: Deque.
+
 
 */
 
@@ -136,3 +147,32 @@ int main()
     sliding_window_maximum_all_subarrays(arr, window_size);
     return 0; 
 } 
+
+// -----------------
+// LEETCODE SOLUTION
+// -----------------
+
+class Solution {
+
+public:
+    vector<int> maxSlidingWindow(vector<int>& arr, int k) {
+        vector<int> ans;
+        deque<int> d;
+        
+        for(int i=0; i<arr.size();i++){
+            
+            while(!d.empty() && arr[i]>arr[d.back()])
+                d.pop_back();
+            
+            if(i>=k) {
+                ans.push_back(arr[d.front()]);
+                while(!d.empty() && d.front() <= i-k)
+                    d.pop_front();
+            }
+            
+            d.push_back(i);
+        }
+        ans.push_back(arr[d.front()]);
+        return ans;
+    }
+};

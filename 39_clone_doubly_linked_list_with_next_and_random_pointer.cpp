@@ -157,3 +157,74 @@ int main()
     
     return 0; 
 } 
+
+// -----------------
+// LEETCODE SOLUTION
+// -----------------
+
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    
+    
+    Node* copyRandomList(Node* head) {
+        if(head == NULL)
+            return NULL;
+        
+        // 1. start and insert duplicate nodes in between
+        Node* current = head;
+        Node* temp;
+        while(current != NULL){
+            temp = current->next;
+            current->next = new Node(current->val);
+            current->next->next = temp;
+            
+            current = temp;
+        }
+        
+        // 2. Fix random pointers in added nodes
+        current = head;
+        while(current!= NULL){
+            if(current->random != NULL)
+                current->next->random = current->random->next;
+            current = current->next->next;
+        }
+        
+        // 3. Detach the original and copied nodes
+        current = head;
+        Node* clone_current = current->next;
+        Node* copied_cloned_start = clone_current;
+        while(current!=NULL){
+            current->next = current->next->next;
+            clone_current->next = clone_current->next ? clone_current->next->next : clone_current->next;
+            current = current->next;
+            clone_current = clone_current->next;
+        }
+        return copied_cloned_start;
+    }
+};
+
+// void printDLL (Node *start){
+//     Node *current = start;
+//     cout<<"  HEAD -->";
+//     while(current!=NULL) {
+//         cout<<" Node's Data: "<<current->val; // " Random's Data: "<<current->random->val<<" -->";
+//         current = current->next;
+//     }
+//     cout<<" NULL"<<endl;
+// }

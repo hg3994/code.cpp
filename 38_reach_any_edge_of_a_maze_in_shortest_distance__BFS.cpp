@@ -9,7 +9,6 @@ C++ program for the problem:
         2 -> Your position inside the maze
     You can move in top, down, left and right direction.
     What is the smallest number of moves in which you can exit the maze?
-https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/
 
 
 Solution: 1. Store each cell as a tuple with their row, column values and distance from source cell.
@@ -29,6 +28,11 @@ Paradigm: Graphs, BFS, Queues.
 Time Complexity: O(n)
 
 NOTE: We can always use BFS to find shortest path if graph is unweighted.
+
+Similar Question: 
+    1. https://leetcode.com/problems/nearest-exit-from-entrance-in-maze/
+        - The only difference here is that if the person is already standing at the 
+            exit, he must exit from some other exit
 
 */
 

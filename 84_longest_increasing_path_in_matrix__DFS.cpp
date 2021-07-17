@@ -17,7 +17,7 @@ Explanation: The longest increasing path is [1, 2, 6, 9].
 ------
 
 Solution: We will use DFS to traverse the matrix and whenever an element is smaller 
-	than the element itself, then the llongestIncreasingPath would be the 
+	than the element itself, then the longestIncreasingPath would be the 
 	LIP(this element) = LIP(the smaller element)+1 
 	- We also used a cache[][] which is initialized with all 1's.
 	- If cache already contains a result, we dont compute it and get the result straightaway.

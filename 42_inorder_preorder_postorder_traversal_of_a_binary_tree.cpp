@@ -57,6 +57,41 @@ void inOrder(node *root){
     inOrder(root->right);
 }
 
+// Approach 2: Stack
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        if(root == NULL)
+            return {};
+        vector<int> ans;
+        stack<TreeNode*> st;
+        TreeNode* current = root;
+        
+        // While current is NOT NULL OR st is not empty
+        // THIS IS THE MOST IMPORTANT CONDITION
+        // 1. current will become NULL for the leaves but then st will not be empty
+        // 2. St will become empty when half of tree is done @root but then 
+        //      current will be the right child of root
+        while(current!=NULL || !st.empty()){
+            
+            // Keep pushing the left nodes
+            while(current!=NULL){
+                st.push(current);
+                current=current->left;
+            }
+            // Push the left most node (which is at top of stack in ans) 
+            // & assign it to current, then push the right of the current
+            ans.push_back(st.top()->val);
+            current = st.top();
+            st.pop();
+            current= current->right;
+        }
+        return ans;
+    }
+};
+
+
+
 // VLR for in-order traversal
 void preOrder(node *root){
     if(root==NULL)

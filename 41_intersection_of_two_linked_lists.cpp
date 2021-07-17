@@ -18,6 +18,18 @@ Paradigm: Linked Lists
 Time Complexity: O(n+m)
 Space Complexity: O(1)
 
+
+Similar Question:
+    1. https://leetcode.com/problems/intersection-of-two-linked-lists/solution/
+        - This question is the same + there can be no intersection in between the lists.
+        - Approach 1: As discussed above.
+        - Approach 2: Start the pointer to other list when meet NULL, they reach intersecting 
+            point by travelling the same common+x+y distance
+        - Approach 3: Because all the elements in the lists are positive, first go through list a and 
+            negate all the element in it, then traverse through list b, check the first negative element 
+            in the list, this element is the intersection between two lists, then traverse through list 
+            a again to convert a back to positive list
+
 */
 
 #include <bits/stdc++.h>
@@ -107,3 +119,90 @@ int main()
     
     return 0; 
 } 
+
+
+// -------------------------
+// LEETCODE SIMILAR SOLUTION
+// -------------------------
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(headA == NULL || headB == 0)
+            return NULL;
+        ListNode* origA = headA;
+        ListNode* origB = headB;
+        int m=1, n=1;
+        while(headA->next){
+            headA = headA->next;
+            m++;
+        }
+        while(headB->next){
+            headB = headB->next;
+            n++;
+        }
+        if(headA != headB){
+            return NULL;
+        }
+        else {
+            if(m>n){
+                int diff = m-n;
+                ListNode* currA = origA;
+                ListNode* currB = origB;
+                while(diff--)
+                    currA = currA->next;
+                while(currA != currB){
+                    currA = currA->next;
+                    currB = currB->next;
+                }
+                return currA;
+            }
+            else{
+                int diff = n-m;
+                ListNode* currA = origA;
+                ListNode* currB = origB;
+                while(diff--)
+                    currB = currB->next;
+                while(currA != currB){
+                    currA = currA->next;
+                    currB = currB->next;
+                }
+                return currA;
+            }
+        }
+        
+    }
+};
+
+// -----------------------
+// LEETCODE SMART SOLUTION
+// -----------------------
+// Approach 2:
+// Each list starts from the other one when it meets NULL
+// Since both will travel common+x+y distance, they meet at intersection
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(headA == NULL || headB == 0)
+            return NULL;
+        ListNode *cA = headA;
+        ListNode *cB = headB;
+        while (cA != cB){
+            cA = (cA == NULL) ? headB : cA->next;
+            cB = (cB == NULL) ? headA : cB->next;
+        }
+        return cA;
+        // Note: In the case lists do not intersect, the pointers for A and B
+        // will still line up in the 2nd iteration, just that here won't be
+        // a common node down the list and both will reach their respective ends
+        // at the same time. So pA will be NULL in that case.
+    }
+};

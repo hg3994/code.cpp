@@ -3,15 +3,15 @@ Harshit Gupta | 27th January, 2019
 
 https://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/
 https://ide.geeksforgeeks.org/j1ubcwKifD
-https://leetcode.com/problems/boundary-of-binary-tree/submissions/
+https://leetcode.com/problems/boundary-of-binary-tree
 
 C++ program for "Given a binary tree, print boundary nodes of the binary tree Anti-Clockwise 
 	starting from the root."
 
 Solution: We break the problem in 3 parts:
-						1. Print the left boundary in top-down manner.
-						2. Print all leaf nodes from left to right,
-						3. Print the right boundary in bottom-up manner.
+			1. Print the left boundary in top-down manner.
+			2. Print all leaf nodes from left to right,
+			3. Print the right boundary in bottom-up manner.
 
 			We need to take care of one thing that nodes are not printed again. 
 			e.g. The left most node is also the leaf node of the tree.
@@ -43,8 +43,8 @@ void leftBoundary(node *root){
 		return;
 	}
 	// If we have left node, then print and recurse on the left child
-		// NOTE: remember to print the node data inside if/elsif because if kept outside it will print
-		// the leaf nodes as well which we don't want (it will cause repetitive printing of leaf nodes) 
+	// NOTE: remember to print the node data inside if/elsif because if kept outside it will print
+	// the leaf nodes as well which we don't want (it will cause repetitive printing of leaf nodes) 
 	if (root->left){
 		cout<<root->data<<" "<<endl;
 		leftBoundary(root->left);
@@ -122,3 +122,60 @@ int main()
   boundaryTraversal(root);
   return 0; 
 } 
+
+// -----------------
+// LEETCODE SOLUTION
+// -----------------
+
+
+class Solution {
+public:
+    
+    void leftBoundary(TreeNode* node, vector<int>& ans){
+        if(node == NULL) return;
+        if(node->left){
+            ans.push_back(node->val);
+            leftBoundary(node->left, ans);
+        }
+        else if (node->right){
+            ans.push_back(node->val);
+            leftBoundary(node->right, ans);
+        }
+    }
+    
+    void leafNodes(TreeNode* node, vector<int>& ans){
+        if(node == NULL) return;
+        if(node->left == NULL && node->right == NULL)
+            ans.push_back(node->val);
+        leafNodes(node->left, ans);
+        leafNodes(node->right, ans);
+    }
+    
+    void rightBoundary(TreeNode* node, vector<int>&ans){
+        if(node == NULL) return;
+	    if(node->right){
+            rightBoundary(node->right, ans);
+            ans.push_back(node->val);
+        }
+        else if(node->left){
+            rightBoundary(node->left, ans);
+            ans.push_back(node->val);
+        }
+    }
+    
+    vector<int> boundaryOfBinaryTree(TreeNode* root) {
+        vector<int> ans;
+        if(root->left == NULL && root->right == NULL) {
+            ans.push_back(root->val);
+            return ans;
+        }
+        
+        if(root) {
+            ans.push_back(root->val);
+            leftBoundary(root->left, ans);
+            leafNodes(root, ans);
+            rightBoundary(root->right, ans);
+        }
+        return ans;
+    }
+};

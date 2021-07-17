@@ -18,7 +18,9 @@ Note: The time complexity is O(1) or O(MAX_CHAR) even when we have a loop in the
     The reason behind this is the fact that the queue size can at most 'MAX_CHAR', so 
     in the worst case we will loop for 26 times which is constant.
 
-First Non Repeating Character in a String: https://leetcode.com/problems/first-unique-character-in-a-string/
+Similar Question:
+    1. https://leetcode.com/problems/first-unique-character-in-a-string/
+        - First Non Repeating Character in a String
 
 #Agoda
 
@@ -94,19 +96,34 @@ int main()
 // Find first non-repeating char in a string
 // -----------------------------------------
 
+// Approach 1: using Maps
 class Solution {
 public:
     int firstUniqChar(string s) {
         unordered_map<char, int> map;
         
         for(int i=0; i<s.size(); i++)
-            if (map.count(s[i]))
-                map[s[i]]++;
-            else
-                map[s[i]] = 1;
-        
+            map[s[i]]++;
+            
         for(int i=0; i<s.size(); i++)
             if (map[s[i]] == 1)
+                return i;
+        
+        return -1;
+    }
+};
+
+// Approach 2: Using vector
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        vector<int> map(26, 0);
+        
+        for(int i=0; i<s.size(); i++)
+            map[s[i]-'a']++;
+        
+        for(int i=0; i<s.size(); i++)
+            if (map[s[i]-'a'] == 1)
                 return i;
         
         return -1;

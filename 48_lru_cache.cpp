@@ -34,7 +34,7 @@ Solution: We want to have two APIs, one is InsertIntoCache() and another showCac
 		Hash & DLL: If we use a hash then we would be able to find the address of the node (if present) in O(1) time.
 				All we have to do is, store a hash of addresses of nodes with their keys and then if we want to know
 				if the key is already in the DLL, then we can check the hash and know it in O(1) time. If the element
-				is present, then we can point to the address if the node, and if it is not present, we can delete
+				is present, then we can point to the address of the node, and if it is not present, we can delete
 				the last node and then create a new node in the front of the DLL.
 
 		---		
@@ -118,7 +118,7 @@ public:
         //          We add new element in front and its address in the map
         // If node is present in the map (it is present in the cache)
         //      Erase the node which was already present
-        //          We add new element in front and its address in the map
+        //      We add new element in front and its address in the map
 
         if(map.find(key) == map.end()){
             pair<int, int> last_element = dll.back();

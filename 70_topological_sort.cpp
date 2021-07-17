@@ -5,6 +5,7 @@ Harshit Gupta | 5th October, 2020
 
 C++ program for "Topological Sorting"
 https://leetcode.com/problems/course-schedule-ii/solution/
+https://leetcode.com/problems/course-schedule/
 ------
 
 Solution: The previous solution for Topological Sort written in "sorting.cpp" is not efficient. 

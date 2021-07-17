@@ -5,7 +5,7 @@ Harshit Gupta | .........., 2021
 ---------------------------------
 
 Problem Statement:
-  
+
 ------
 
 Solution: 
@@ -36,6 +36,7 @@ Paradigm:
 // - Backtracking
 // - Union Find
 // - Left to Right and Right to Left Parsing (Rain Water)
+// - Deque (Sliding Window Maximum)
 
 
 #include<bits/stdc++.h>

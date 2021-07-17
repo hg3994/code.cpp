@@ -27,15 +27,20 @@ or don’t pick it (0-1 property)."
 
 		If weight of nth item is greater than W, then the nth item cannot be included and case 1 is the only possibility.
 
-
-	Capacity of Knapsack: W (given)
-	Objective: Maximize profit.
-
+	// Bottom Up DP
 	int dp[W + 1] = {0};
 	for (int i=0; i<n; ++i)
 	    for (int j=W; j>=weight[i]; --j)
 	        dp[j] = max(dp[j], value[i]+ dp[j - weight[i]]);
 	return dp[W];
+
+
+	// Top Bottom DP
+	dp[n+1][W+1] = {0};
+	for(i=0; i<=n; i++){
+		for(j=0; j<=W; j++)
+			dp[i][j] = max(dp[i-1][j], val[i-1] + dp[i-1][j-wt[i-1]]);
+	return dp[n][W];
 
 
 Fractional Knapsack Problem
@@ -51,6 +56,18 @@ since this is not a constraint for this problem"
 
 
 Paradigm: Dynamic Programming, Greedy
+
+
+Similar Problems:
+	1. https://leetcode.com/problems/partition-equal-subset-sum/
+		- Given a non-empty array nums containing only positive integers, find if the array can be partitioned into two 
+			subsets such that the sum of elements in both subsets is equal.
+			- If sum is odd, it can never be true
+			- Similar to knapsack problem with sum/2 as goal
+	2. https://leetcode.com/problems/coin-change-2/
+		- You are given an integer array coins representing coins of different denominations and an integer amount 
+			representing a total amount of money. Return the number of combinations that make up that amount. 
+			If that amount of money cannot be made up by any combination of the coins, return 0.
 
 */
 
@@ -146,3 +163,48 @@ int main()
 
     return 0; 
 } 
+
+
+// ---------------------------
+// LEETCODE SIMILAR QUESTION 1
+// ---------------------------
+// Approach 2: DP
+class Solution {
+public:
+    
+    bool canPartition(vector<int>& nums) {
+        int sum=0, n=nums.size();
+        for(auto num: nums)
+            sum += num;
+        
+        if(sum%2 == 1)
+            return false;
+        sum /= 2;
+        
+        vector<bool> dp(sum+1, false);
+        
+        dp[0] = true;
+        
+        for(auto num: nums) {
+            for(int j= sum; j>=0; j--){
+                if(j >= num)
+                    dp[j] = dp[j] || dp[j-num];
+            }
+        }
+        return dp[sum];
+    }
+};
+
+// Approach 1: Recursive Solution: Gives TLE.
+bool helper(vector<int> nums, int i, int s1, int s2){
+    if(i == nums.size()) {
+        if(s1 == s2) return true;
+        else return false;
+    }
+
+    return helper(nums, i+1, s1+nums[i], s2) || helper(nums, i+1, s1, s2+nums[i]);
+}
+
+bool canPartition(vector<int>& nums) {
+    return helper(nums, 0, 0, 0);
+}

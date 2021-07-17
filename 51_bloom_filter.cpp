@@ -15,7 +15,7 @@ BLOOM FILTERS
 	are you going to search it?
 
 	- Linear Search? Bad Idea. It taken a hell lot of time O(n)
-	- Binary Search: Keep the array sorted while the set is being made. The insertion takes O(logn) time and 
+	- Binary Search? Keep the array sorted while the set is being made. The insertion takes O(logn) time and 
 			searching takes O(logn) as well.
 	- HashMaps? This takes only O(1) time in terms of access but what if the set is huge? Even for better hash functions
 			collisions will increase and thus the time wouldn't be O(1) but linear O(n). Also, to save the hashmap, the space
@@ -94,7 +94,7 @@ BLOOM FILTERS
 	If we want to store large list of items in a set for purpose of set membership, we can store it in hashmap, 
 	tries or simple array or linked list. All these methods require storing item itself, which is not very memory 
 	efficient. For example, if we want to store “geeks” in hashmap we have to store actual string “ geeks” as a key 
-	value pair {some_key : ”geeks”}.
+	value pair {some_key : "geeks"}.
 	Bloom filters do not store the data item at all. As we have seen they use bit array which allow hash collision. 
 	Without hash collision, it would not be compact.
 
