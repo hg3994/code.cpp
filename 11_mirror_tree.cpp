@@ -12,6 +12,7 @@ https://ide.geeksforgeeks.org/ZLqeqL8WyO
 https://www.geeksforgeeks.org/write-an-efficient-c-function-to-convert-a-tree-into-its-mirror-tree/
 https://leetcode.com/problems/symmetric-tree/
 https://leetcode.com/problems/flip-equivalent-binary-trees/
+https://leetcode.com/problems/invert-binary-tree
 
 Solution:   
 
@@ -130,6 +131,26 @@ void InPlaceMirrorTree(node* root){
     // NOTE: This method uses Pre-Order kind of traversal but it is equally good to use Post order traversal here
     // PreOrder is Top-Bottom while PostOrder would be Bottom-Top.
 }
+
+// OR INVERT BINARY TREE IN LEETCODE. SAME PROBLEM AS InPlaceMirrorTree
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        if(root == NULL)
+            return NULL;
+        
+        TreeNode* right = invertTree(root->right);
+        TreeNode* left = invertTree(root->left);
+        
+        root->left = right;
+        root->right = left;
+        
+        return root;
+    }
+};
+
+
+
 
 // Are two given Binary trees symmetric/mirror Trees?
 // We can even check if a tree is a mirror tree alone with this function by passing same root node twice

@@ -10,7 +10,11 @@ https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
 Given an m x n integers matrix, return the length of the longest increasing path in matrix.
 From each cell, you can either move in four directions: left, right, up, or down.
 
-Input: matrix = [[9,9,4],[6,6,8],[2,1,1]]
+Input: matrix = 
+    [   [9,9,4],
+        [6,6,8],
+        [2,1,1]
+    ]
 Output: 4
 Explanation: The longest increasing path is [1, 2, 6, 9].
 
@@ -22,14 +26,27 @@ Solution: We will use DFS to traverse the matrix and whenever an element is smal
 	- We also used a cache[][] which is initialized with all 1's.
 	- If cache already contains a result, we dont compute it and get the result straightaway.
 
-#DFS, #Memoization
 
 Time Complexity: O(mn)
 Space Complexity: O(mn)
+
+Paradigm: DFS, Memoization
 ---
   NOTE: 
 
 */
+
+
+// matrix:
+//     [9,9,4]
+//     [6,6,8]
+//     [2,1,1]
+
+// cache: 
+//     1 1 2 
+//     2 2 1 
+//     3 4 2 
+
 
 class Solution {
     
@@ -47,7 +64,7 @@ class Solution {
         for(int k = 0; k <4; k++){
             if( i+x[k]>=0 && i+x[k]<m && j+y[k]>=0 && j+y[k]<n && 
                 matrix[i+x[k]][j+y[k]] > matrix[i][j] ){
-                cache[i][j] = max( cache[i][j], dfs(matrix, cache, i+x[k], j+y[k]) + 1);
+                cache[i][j] = max(cache[i][j], dfs(matrix, cache, i+x[k], j+y[k]) + 1);
             }
         }
         return cache[i][j];

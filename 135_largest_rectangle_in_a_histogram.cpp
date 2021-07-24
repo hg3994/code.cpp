@@ -42,9 +42,11 @@ SC: O(n) for stack
 
 https://www.youtube.com/watch?v=ZmnqCZp9bBs
 
-Paradigm:
+Paradigm: Stack
 ---
   NOTE: 
+        1. We must insert the index of the elements in the stack since that will help us as the width of rectangle in calc the area
+        2. i++ is done only for the cases when the slope is increasing and not for the decreasing case.
 
 */
 

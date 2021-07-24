@@ -13,7 +13,10 @@ The word can be constructed from letters of sequentially adjacent cells, where a
 
 
 Example 1:
-    Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
+    Input: board = [
+                    ["A","B","C","E"],
+                    ["S","F","C","S"],
+                    ["A","D","E","E"]], word = "ABCCED"
     Output: true
 
 Example 2:
@@ -64,8 +67,6 @@ public:
         int n = board[0].size();
         if (i<0 || i>=m || j<0 || j>=n || visited[i][j] == true || board[i][j] != word[word_i])
             return false;
-        
-        // cout<<"dfs called for: i: "<<i<<" j: "<<j<<" word_i: "<<word_i<<" board[i][j]: "<<board[i][j]<<" word[word_i]: "<<word[word_i]<<endl;
         
         visited[i][j] = true;
         

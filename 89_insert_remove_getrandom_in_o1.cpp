@@ -5,15 +5,25 @@ Harshit Gupta | 24th May, 2021
 ---------------------------------
 
 C++ program for "Inserting, Deleting and Getting Random Element in O(1) time"
+
+1. RandomizedSet() 
+    Initializes the RandomizedSet object.
+2. bool insert(int val) 
+    Inserts an item val into the set if not present. Returns true if the item was not present, false otherwise.
+3. bool remove(int val) 
+    Removes an item val from the set if present. Returns true if the item was present, false otherwise.
+4. int getRandom() 
+    Returns a random element from the current set of elements (it's guaranteed that at least one element exists 
+    when this method is called). Each element must have the same probability of being returned.
+
 https://leetcode.com/problems/insert-delete-getrandom-o1/
 ------
 
 Solution: The data structure that comes to our mind with O(1) are:
     - HashMaps: Insert, Delete in O(1) but getting any random value would need an iterator and that 
         iteration in hashmap to a random index would be O(n).
-        It  doesn't have support for [] operator.
-    - DLL: Insert,, Delete in O(1) time but again to traverse to a specific index will take O(n) time. 
-        It  doesn't have support for [] operator
+    - DLL: Insert in O(1), Delete in O(1) time but to traverse to a specific index will take O(n) time for deletion.
+        It doesn't have support for [] operator for randomly accessing the index.
     - Set: Insert and Remove in O(1) time for unordered_set but it doesnt have the [] operator to access any index.
         To acccess a random index, you must traverse the set in O(n) time.
     - Vectors/Arrays: Insert is O(1) but to know if an element is already present will take O(n) time if done at end. 
@@ -23,8 +33,8 @@ Solution: The data structure that comes to our mind with O(1) are:
         
     - Vectors/Arrays+HashMaps: Hashmaps store indexes of elements and solve the problem above, vector stores the elements.
         Insert: To know if already inserted, we use Hashmap and get it in O(1) time.
-            If not inserted, we insert in vector in O(1) time
-        Remove: TO know if present or not, we use Hashmap and get it in O(1) time.
+            If not inserted, we push_back in vector in O(1) time & put the val->index in map
+        Remove: To know if present or not, we use Hashmap and get it in O(1) time.
             If present, we remove it from vector like this:
                 Copy element of last index to the element to be removed index
                 Pop the last index in O(1) time.

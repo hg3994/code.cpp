@@ -22,10 +22,12 @@ Solution:
                  This is done in the reverseKGroup() with the line (lastNodeInPrevKNodeSet->next = newCurrentNode)
 
         We need both lastNodeInPrevKNodeSet, lastNodeInThisKNodeSet and current
-        current:     This node should always point to the first node in the set which is going to be reversed so we can call reverseKNodes()
+        current:     This node should always point to the first node in the set which is going to be reversed 
+                        so we can call reverseKNodes()
         lastNodeInThisKNodeSet: After reverseKNodes(), this node will become the last node of THIS reversed set of nodes
-        lastNodeInPrevKNodeSet: This node should always point to the last node of the old reversed set of nodes so that we can connect 
-                                it to the first node of the new reversed set              
+                                    and we have to connect it with next set of nodes.
+        lastNodeInPrevKNodeSet: This node should always point to the last node of the old reversed set of nodes so that 
+                                    we can connect it to the first node of the new reversed set              
 
 
 Time Complexity: O(n)

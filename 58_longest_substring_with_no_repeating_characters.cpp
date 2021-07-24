@@ -27,7 +27,7 @@ NOTE: This type of Sliding Window solution can be used in a lot of these types o
 
   - Find the longest substring with at max 2 distinct characters.
       https://leetcode.com/problems/fruit-into-baskets/
-      https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/
+      https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/ (67_...)
 
   - Find the longest substring with at most K distinct characters
       https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/

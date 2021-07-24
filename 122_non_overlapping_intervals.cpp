@@ -26,8 +26,8 @@ Example 3:
 
 ------
 
-Solution: 1. Greedy
-    2. DP
+Solution:   1. Greedy
+            2. DP
 
 Paradigm:
 ---
@@ -41,7 +41,9 @@ Paradigm:
 1. Sort the intervals on start time.
 2. There can be only 3 cases in a prev interval and the next interval
     a. no overlap: we update the prev and nothing is removed
-    b. total overlap: we choose the smaller one since it can accomodate more intervals now. We update prev and since we do not consider the other interval now, we update removedCount.
+    b. total overlap: we choose the smaller one & remove the bigger one since the same area 
+        can accomodate more intervals now. We update prev and since we do not consider the other 
+        interval now, we update removedCount.
     c. partial overlap: we choose the prev over current and update the removeCount.
     
     TC: O(nlogn)
@@ -75,12 +77,15 @@ public:
 
 /*
 
-Solution 1:
+Solution 2:
 
 1. Sort the intervals on start time.
-2. Create a dp[] array such that dp[i] stores the maximum number of valid intervals that can be included in the final list if  the intervals upto the ith interval only are considered, including itself.
-3. While finding dp[i+1], we cant consider the valud of dp[i] only because it could be possible that ith or any prev intercal could be overlapping with the i+1th interval.
-4. We need o consider the max of all dp[j]s such that j<=i and jth interval and ith dont overlap and can basically be taken together in a sense.
+2. Create a dp[] array such that dp[i] stores the maximum number of valid intervals that can be included in the 
+    final list if the intervals upto the ith interval only are considered, including itself.
+3. While finding dp[i+1], we cant consider the valud of dp[i] only because it could be possible that ith 
+    or any prev intercal could be overlapping with the i+1th interval.
+4. We need o consider the max of all dp[j]s such that j<=i and jth interval and ith dont overlap and can 
+    basically be taken together in a sense.
 5. dp[i+1] = max(dp[j]+1) j<=i
 6. Result = interval.size() - dp[n-1] since those many intervals are not in the consecutive sets of intervals
 

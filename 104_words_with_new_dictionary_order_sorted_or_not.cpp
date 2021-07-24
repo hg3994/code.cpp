@@ -26,12 +26,14 @@ Example 2:
 Example 3:
     Input: words = ["apple","app"], order = "abcdefghijklmnopqrstuvwxyz"
     Output: false
-    Explanation: The first three characters "app" match, and the second string is shorter (in size.) According to lexicographical rules "apple" > "app", because 'l' > '∅', where '∅' is defined as the blank character which is less than any other character (More info).
+    Explanation: The first three characters "app" match, and the second string is shorter (in size.) 
+        According to lexicographical rules "apple" > "app", because 'l' > '∅', where '∅' is defined as 
+        the blank character which is less than any other character (More info).
 
 ------
 
 Solution: 
-    - We basically convert the new aplhabets order to 1-27
+    - We basically convert the new alphabets order to 1-26
     - Then we iterate over adjacent words and then keep checking them letter by letter
     - If any two words are not lexographically sorted, return false. Else true.
 
@@ -45,14 +47,12 @@ Time Complexity: O(M).
 
 Space Complexity: O(1)
 
-Paradigm:HashMap
+Paradigm: HashMap
 
 ---
   NOTE: 
 
 */
-
-
 
 class Solution {
 public:

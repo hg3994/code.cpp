@@ -35,10 +35,10 @@ Space Complexity: O(n)
 */
 
 
+// Approach 1: SORTING THE PAIR SOLUTION : O(nlogn)
 class Solution {
 public:
     
-    // SORTING THE PAIR SOLUTION : O(nlogn)
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
         int n = points.size();
         if (n == k){
@@ -67,9 +67,13 @@ public:
         return ans;
     }
     
+};
+
+
+// Approach 2: PRIORITY QUEUE SOLUTION: O(nlogk)
+class Solution {
+public:
     
-    
-    // PRIORITY QUEUE SOLUTION: O(nlogk)
     // Since the size of the queue is k and we always have to maintain a max heap of size K
     // MAX HEAP coz the element greater would be evicted and K min elements are stored
     struct comp {
@@ -91,7 +95,9 @@ public:
         priority_queue<pair<int,int>, vector<pair<int, int>>, comp> pq;
         
         for(auto p: points){
+            // Push the point in the PQ
             pq.push({p[0], p[1]});
+            // If the size of the PQ becomes > k, then pop one of them
             if (pq.size()>k){
                 pq.pop();
             }

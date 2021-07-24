@@ -40,14 +40,24 @@ Solution:
 	- We always keep choosing the maximum money we get from these two choices and continue till the end
 
 Time Complexity: O(n)
-Space Complexity:
+Space Complexity: O(n)
 
 Paradigm: DP
+
+Similar Questions:
+    1. https://leetcode.com/problems/house-robber-ii/
+        - Similar question + houses are arranged in a circle. 1st house is the neighbour of the last one.
+        - Problem becomes to rob either (House[1] to House[n-1]) or (House[2] to House[n])
+        - It reduces to two house-robber problems and max of them would be the ans.
+
+    2. https://leetcode.com/problems/house-robber-iii/
+        - TODO
+        - HARD but very interesting problem
+
 ---
   NOTE: 
 
 */
-
 
 
 class Solution {
@@ -56,23 +66,58 @@ public:
     
     if(nums.size() == 0)
       return 0;
+    else if(nums.size() == 1)
+      return nums[0];
+    else if(nums.size() == 2)
+      return max(nums[0],nums[1]);
+    
+    int n = nums.size();
+    vector<int> dp(n,0);
+    
+    dp[0] = nums[0];
+    dp[1] = max(nums[0], nums[1]);
+    
+    for(int i=2;i<n;i++)
+      dp[i] = max(dp[i-1], dp[i-2]+nums[i]);
+      
+    return dp[n-1];
+  }
+};
+
+
+// -----------------------------------------
+// SIMILAR PROBLEM 1 - CIRCULAR HOUSE ROBBER
+// -----------------------------------------
+class Solution {
+public:
+  int rob(vector<int>& nums) {
+    if(nums.size() == 0)
+      return 0;
     if(nums.size() == 1)
       return nums[0];
     if(nums.size() == 2)
       return max(nums[0],nums[1]);
     
     int n = nums.size();
-    vector<int> dp(n+1,0);
+    vector<int> dp(n,0);
     
+    // Robbing house 0 to n-2
     dp[0] = nums[0];
-    
     dp[1] = max(nums[0], nums[1]);
-    
-    for(int i=2;i<n;i++){
+    for(int i=2;i<n-1;i++){
       dp[i] = max(dp[i-1], dp[i-2]+nums[i]);
     }
     int ans1 = dp[n-2];
-    cout<<ans1<<endl;
-    return ans1;
+    
+    // Robbing house 1 to n-1 (loop is same just accessing nums[i+1] instead of nums[i])
+    dp.clear();
+    dp[0] = nums[1];
+    dp[1] = max(nums[1], nums[2]);
+    for(int i=2;i<n-1;i++){
+      dp[i] = max(dp[i-1], dp[i-2]+nums[i+1]);
+    }
+    int ans2 = dp[n-2];
+    
+    return max(ans1, ans2);
   }
 };

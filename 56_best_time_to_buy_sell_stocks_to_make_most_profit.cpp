@@ -14,8 +14,8 @@ Solution: In formal terms, we need to find max({prices[j]} - {prices[i]}), for e
 	We can obviously use Brute Force to get all combinations of price differences and that would give us the max profit. Time Complexity: O(n2)
 	---
 	A better solution is to loop (for every i from 0:n) and:
-	- Calculate miniumum value of the stock till now (0 to i)
-	- Calculate the maximum profit value of the stock till now (0 to i)
+	- Keep track of miniumum value of the stock till now (0 to i)
+	- Keep track of the maximum profit value of the stock till now (0 to i)
 	
 	Profit each day would be the difference of the stock value and minimum value till now
 	Maximum Profit would be the maximum of all such numbers

@@ -16,22 +16,6 @@ Example 2:
 	Input: nums = [1], k = 1
 	Output: [1]
 
-Similar Question: 
-	1. https://leetcode.com/problems/reduce-array-size-to-the-half/
-		- Reduce the size of array to AT LEAST half by removing min elements.
-		- If you remove an element, you must remove all occurances of it.
-		- Exact Same solution
-
-    2. https://leetcode.com/problems/sort-characters-by-frequency/
-        - Given a string s, sort it in decreasing order based on the frequency 
-            of characters, and return the sorted string.
-
-    3. https://leetcode.com/problems/sort-array-by-increasing-frequency/submissions/
-        - Sort the array in increasing order based on the frequency of the values. 
-        - If multiple values have the same frequency, sort them in decreasing order.
-        - The second point is the trick which requires a custom comparator function since by default
-            it is in increasing order (I guess)
-
 ------
 
 Solution: 
@@ -53,8 +37,26 @@ TC: O(nlogn)
 SC: O(n) for PQ and MAP
 
 Paradigm: Priority Queue
+
+
+Similar Question: 
+	1. https://leetcode.com/problems/reduce-array-size-to-the-half/
+		- Reduce the size of array to AT LEAST half by removing min elements.
+		- If you remove an element, you must remove all occurances of it.
+		- Exact Same solution
+
+    2. https://leetcode.com/problems/sort-characters-by-frequency/
+        - Given a string s, sort it in decreasing order based on the frequency 
+            of characters, and return the sorted string.
+
+    3. https://leetcode.com/problems/sort-array-by-increasing-frequency/submissions/
+        - Sort the array in increasing order based on the frequency of the values. 
+        - If multiple values have the same frequency, sort them in decreasing order.
+        - The second point is the trick which requires a custom comparator function since by default
+            it is in increasing order (I guess)
 ---
-  NOTE: 
+NOTE: 
+    1. Asked in Google.
 
 */
 
@@ -63,17 +65,13 @@ class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         priority_queue<pair<int, int>> pq;
-        unordered_map<int, int> map;
+        unordered_map<int, int> freq;
         vector<int> ans;
         
-        for(int i=0;i<nums.size(); i++){
-            if(map.count(nums[i]))
-                map[nums[i]]++;
-            else
-                map[nums[i]] = 1;
-        }
+        for(int i=0;i<nums.size(); i++)
+            freq[nums[i]]++;
         
-        for(auto k: map){
+        for(auto k: freq){
             pq.push({k.second, k.first}); //freq, element
         }
         
@@ -81,6 +79,35 @@ public:
             pair<int, int> front = pq.top();
             ans.push_back(front.second);
             pq.pop();
+        }
+        return ans;
+    }
+};
+
+// ----------------------------
+// Similar Question 1: Solution
+// ----------------------------
+
+class Solution {
+public:
+    int minSetSize(vector<int>& arr) {
+        int n = arr.size();
+        unordered_map<int, int> freq;
+        priority_queue<pair<int,int>> pq;
+        int ans=0;
+        
+        for(int i=0; i<arr.size(); i++){
+            freq[arr[i]]++;
+        }
+        for(auto e: freq){
+            pq.push({e.second,e.first});
+        }
+        int pq_elements = arr.size();
+        while(pq_elements > arr.size()/2){
+            pair<int, int> f = pq.top();
+            pq.pop();
+            pq_elements -= f.first;
+            ans+=1;
         }
         return ans;
     }

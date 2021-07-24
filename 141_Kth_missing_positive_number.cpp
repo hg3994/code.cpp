@@ -4,7 +4,7 @@
 Harshit Gupta | 12th July, 2021
 ---------------------------------
 
-Given an array arr of positive integers sorted in a strictly increasing order, and an integer k.
+Given an array arr of positive integers "Sorted" in a strictly increasing order, and an integer k.
 Find the kth positive integer that is missing from this array.
 
 Example 1:
@@ -18,6 +18,8 @@ Example 2:
     Output: 6
     Explanation: The missing positive integers are [5,6,7,...]. 
         The 2nd missing positive integer is 6.
+
+https://leetcode.com/problems/kth-missing-positive-number/
 
 ------
 
@@ -40,6 +42,10 @@ Similar Questions:
 
 
 // Approach 1: Linear Search : O(n)
+// The first idea is to solve the problem in a linear time by parsing all array elements. It's easy to say
+// how many positive numbers are missing between two array elements: arr[i + 1] - arr[i] - 1, and we could 
+// use it to solve the problem.
+
 // Ex: [2,3,4,7,11], k=5
 // k -= 2-1, so k=4
 // i=0, currMissing = 3-2-1 = 0, k=4
@@ -74,13 +80,24 @@ public:
 
 
 // Approach 2: Binary Search : O(logn)
+
+// We need a way to check on how many positive integers are missing before the given array element to use binary search. 
+// To do that, let's compare the input array [2, 3, 4, 7, 11] with an array with no missing integers: [1, 2, 3, 4, 5]. 
+// The number of missing integers is a simple difference between the corresponding elements of these two arrays:
+//      Before 2, there is 2 - 1 = 1 missing integer.
+//      Before 3, there is 3 - 2 = 1 missing integer.
+//      Before 4, there is 4 - 3 = 1 missing integer.
+//      Before 7, there are 7 - 4 = 3 missing integers.
+//      Before 11, there are 11 - 5 = 6 missing integers.
+// The number of positive integers which are missing before the arr[idx] is equal to arr[idx] - idx - 1.
+
 // Arr[i]:          [2,3,4,7,11], k=5
 // Index (i):       [0,1,2,3, 4], 
-// arr[i]-(i+1):    [1,1,1,3, 6],
+// arr[i]-i-1:      [1,1,1,3, 6],
 
-// left=0, right=4, mid=2, arr[mid]-(mid+1) = 1 < k so left=mid+1
-// left=3, right=4, mid=3, arr[mid]-(mid+1) = 3 < k so left=mid+1
-// left=4, right=4, mid=4, arr[mid]-(mid+1) = 6 > k so right=mid-1
+// left=0, right=4, mid=2, arr[mid]-mid-1 = 1 < k so left=mid+1
+// left=3, right=4, mid=3, arr[mid]-mid-1 = 3 < k so left=mid+1
+// left=4, right=4, mid=4, arr[mid]-mid-1 = 6 > k so right=mid-1
 // left=4, right=3, loop break.
 // Kth Missing positive is between arr[left]=11 and arr[right]=7
 // The number of integers missing before arr[right] is 

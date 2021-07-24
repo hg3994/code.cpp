@@ -25,7 +25,7 @@ https://leetcode.com/problems/longest-repeating-character-replacement/
 ------
 
 Solution: 
-    Forget about k for a while, how will you find the length of the longest substring containing the same letter?
+    Forget about k for a while, how will you find the length of the longest substring containing the same letter WITH INFINITE K?
     X = (length of the string - freq of maximum occuring character in the string)
     This will give us the number of characters which are "NOT" the maximum freq character, we can replace all of them 
     so that the string becomes the same char which is the max occuring character.
@@ -33,7 +33,7 @@ Solution:
     Now, how to do the same thing given that we can't change all of X chars but only K chars at max
     We iterate over the string like sliding window and for all possible substrings we check for the condition:
         (length of substring - freq of maximum occuring character in THIS substring) <= k 
-    If this condition holds true, then we can replace the OTHER characters to max freq characterto get the same character in the substring,
+    If this condition holds true, then we can replace the OTHER characters to max freq character to get the same character in the substring,
     Then, we increase the window by 1 size and check if this condition still holds true, if yes, then increase the max same character result.
     After some time, the condition will not hold true since the number of OTHER chars > k and then we cant replace all of them to max freq since they are > k
     Then, we shorten the window from the start and keep checking if the cond. holds true now?

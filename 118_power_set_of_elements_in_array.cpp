@@ -48,6 +48,7 @@ Paradigm: BitMask
 
 */
 
+// Approach 2: Bitmasks
 class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
@@ -56,7 +57,6 @@ public:
 
         for(int num=0; num<pow(2,N); num++){
             // A 10-bit bitset mask since nums length can be MAX 10
-
             string bitmask = bitset<10>(num).to_string();
             
             vector<int> curr= {};
@@ -70,8 +70,7 @@ public:
     }
 };
 
-
-
+// -------------------------------------------------------------
 // Approach 1: Iterating over all the nums and at each step one takes new 
 // integer into consideration and generates new subsets from the existing ones. Then push 
 // the new subset into the ans so that the next integer can use it to form new subsets as well

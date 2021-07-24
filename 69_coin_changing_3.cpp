@@ -7,7 +7,7 @@ C++ program for "Given an array of distinct integers candidates and a target int
   return a list of all unique combinations of candidates where the chosen numbers sum to target.
   You may return the combinations in any order."
 
-  This is basically coin_chaining_1 quesiton but here we have to output the different arrays 
+  This is basically coin_chaining_1 question but here we have to output the different arrays 
     which form the sum "target" and not just the number of solutions possible.
 
 https://leetcode.com/problems/combination-sum/
@@ -39,68 +39,72 @@ https://leetcode.com/problems/combination-sum/solution/
 
 
 NOTE: 
-  1. This program can not be compiled since I didn't have time to write the LL creation methods.
-  2. Recursive Solution is so so simple. Just look at it.
+  1. Recursive Solution is so so simple. Just look at it.
 */
 
 // DP Solution #1
 class Solution1 {
 public:
-  vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-    int s = candidates.size();
-    
-    vector<vector<int>> dp(s, vector<int> (target+1, 0));
-    
-    for(int i=0; i<s;i++){
-        dp[i][0] = 1;
-    }
-    
-    for(int i=0; i<s;i++){
-      for(int j=1;j<=target; j++){
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        int s = candidates.size();
         
-        if(j >= candidates[i]){
-          if (i==0)
-            dp[i][j] = dp[i][j-candidates[i]];
-          else  
-            dp[i][j] = dp[i-1][j]+dp[i][j-candidates[i]];
+        vector<vector<int>> dp(s, vector<int> (target+1, 0));
+        
+        for(int i=0; i<s;i++){
+            dp[i][0] = 1;
         }
-        else{
-          if (i!=0)
-            dp[i][j] = dp[i-1][j];
+        
+        for(int i=0; i<s;i++){
+            for(int j=1;j<=target; j++){
+            
+                if(j >= candidates[i]){
+                    if (i==0)
+                        dp[i][j] = dp[i][j-candidates[i]];
+                    else  
+                        dp[i][j] = dp[i-1][j]+dp[i][j-candidates[i]];
+                }
+                else{
+                    if (i!=0)
+                        dp[i][j] = dp[i-1][j];
+                }
+            }
         }
-      }
-    }
-    
-    vector<vector<int>> ans;
-    vector<int> tempAns;
-    calculateCombination(dp, candidates, ans, tempAns, s-1, target);
 
-    
-    return ans;
-  }
+        // - | 0  1  2  3  4  5
+        // --------------------
+        // 1 | 1  1  1  1  1  1
+        // 2 | 1  1  2  2  3  3
+        // 5 | 1  1  2  2  3  4
+        
+        vector<vector<int>> ans;
+        vector<int> tempAns;
+        calculateCombination(dp, candidates, ans, tempAns, s-1, target);
+
+        return ans;
+    }
   
-  void calculateCombination(vector<vector<int>> dp, vector<int> candidates, vector<vector<int>>& ans, vector<int> tempAns, int i, int j) {
-    // cout<<"calculateCombination(): i: "<<i<<" j: "<<j<<endl;
-    if(j==0){
-      ans.push_back(tempAns);
-      tempAns.clear();
-      return;
-    }
+    void calculateCombination(vector<vector<int>> dp, vector<int> candidates, vector<vector<int>>& ans, vector<int> tempAns, int i, int j) {
+        // cout<<"calculateCombination(): i: "<<i<<" j: "<<j<<endl;
+        if(j==0){
+            ans.push_back(tempAns);
+            tempAns.clear();
+            return;
+        }
     
-    else {
-      // if not considering this number.
-      if (i>0 && dp[i-1][j]>=1){
-        calculateCombination(dp, candidates, ans, tempAns, i-1, j);
-      }
+        else {
+            // if not considering this number.
+            if (i>0 && dp[i-1][j]>=1){
+                calculateCombination(dp, candidates, ans, tempAns, i-1, j);
+            }
 
-      // considering this number.
-      if (j>=candidates[i] && dp[i][j-candidates[i]] >= 1){
-        tempAns.push_back(candidates[i]);
-        calculateCombination(dp, candidates, ans, tempAns, i, j-candidates[i]);
-        tempAns.pop_back();
-      }
+            // considering this number.
+            if (j>=candidates[i] && dp[i][j-candidates[i]] >= 1){
+                tempAns.push_back(candidates[i]);
+                calculateCombination(dp, candidates, ans, tempAns, i, j-candidates[i]);
+                tempAns.pop_back();
+            }
+        }
     }
-  }
   
 };
 

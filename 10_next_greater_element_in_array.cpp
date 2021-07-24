@@ -20,13 +20,15 @@ Similar Questions:
     1. https://leetcode.com/problems/next-greater-element-ii/
         - Assume the given arr is a circular arr which means you could search circularly 
             to find its next greater number.
-        - Elements can be duplicate so we will store the index of the elements
-        - For elements that remain in the stack, iterate over the array and find the NGE
+        - Iterate twice for circular array
         - Check for other solution here: https://leetcode.com/problems/next-greater-element-ii/solution/
 
     2. https://leetcode.com/problems/next-greater-element-iii/
         - Find NGE with the same digits.
-        - Yet to implement.
+        - Did it in nextpermutation problem.
+
+    3. https://leetcode.com/problems/number-of-visible-people-in-a-queue/
+        - Read the question.
 
 */
 
@@ -68,3 +70,71 @@ int main(){
     nextGreaterElement(arr);
     return 0;
 }
+
+
+// -------------------
+// SIMILAR QUESTION -1
+// -------------------
+
+vector<int> nextGreaterElements(vector<int>& A) {
+    int n = A.size();
+    vector<int> stack, res(n, -1);
+    for (int i = 0; i < n * 2; ++i) {
+        while (stack.size() && A[stack.back()] < A[i % n]) {
+            res[stack.back()] = A[i % n];
+            stack.pop_back();
+        }
+        stack.push_back(i % n);
+    }
+    return res;
+}
+
+// -------------------
+// SIMILAR QUESTION -3
+// -------------------
+// Approach 1: Using a vector as a stack
+class Solution {
+public:
+    vector<int> canSeePersonsCount(vector<int>& A) {
+        int n= A.size();
+        vector<int> stack, res(n);
+        
+        for(int i=0; i<A.size(); i++){
+            while(!stack.empty() && A[stack.back()] <= A[i]){
+                res[stack.back()]++;
+                stack.pop_back();
+            }
+            
+            if(!stack.empty()){
+                res[stack.back()]++;
+            }
+            
+            stack.push_back(i);
+        }
+        return res;
+    }
+};
+
+// Approach 2: Using a stack
+class Solution {
+public:
+    vector<int> canSeePersonsCount(vector<int>& A) {
+        int n= A.size();
+        vector<int> res(n);
+        stack<int> stack;
+        
+        for(int i=0; i<A.size(); i++){
+            while(!stack.empty() && A[stack.top()] <= A[i]){
+                res[stack.top()]++;
+                stack.pop();
+            }
+            
+            if(!stack.empty()){
+                res[stack.top()]++;
+            }
+            
+            stack.push(i);
+        }
+        return res;
+    }
+};

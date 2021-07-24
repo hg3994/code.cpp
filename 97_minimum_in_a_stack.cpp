@@ -99,9 +99,10 @@ public:
         // Else insert this pair into another temporary stack and pop from this one
         // Keep checking till top's num and top's max become equal
         // Once they become equal, 
-        //      pop tthe max element from the stack
+        //      pop the max element from the stack
         //      keep pushing all the elements from temporary stack to here
-        // NOTE: We use the MaxStack's push method here and not st.push since we need to figure out the MAX elements for all the pushes to st again now.
+        // NOTE: We use the MaxStack's push method here and not st.push since we need to figure out 
+        //    the MAX elements for all the pushes to st again now.
         int x = st.top().first;
         int y = st.top().second;
         while(x!=y){

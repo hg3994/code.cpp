@@ -7,12 +7,8 @@ Harshit Gupta | 17th October, 2020
 C++ program for "Given an array of meeting time intervals consisting of start and end times 
   [[s1,e1],[s2,e2],...] (si < ei), find the minimum number of conference rooms required."
 
-Same: Given there is a 1D plane,  With line segments as [[s1,e1],[s2,e2],...] (si < ei). Calculate max number of overlapping lines.
-  - The max number of overlapping lines is the minimum number of meeting rooms required.
-(asked in GRAB)
-
-https://leetcode.com/problems/meeting-rooms/
 https://leetcode.com/problems/meeting-rooms-ii/
+
 
   Input: intervals = [[0,30],[5,10],[15,20]]
   Output: 2
@@ -20,10 +16,9 @@ https://leetcode.com/problems/meeting-rooms-ii/
   Input: intervals = [[7,10],[2,4]]
   Output: 1
 
+
 ------
 Very well written solution: https://leetcode.com/problems/meeting-rooms-ii/solution/
-https://ideone.com/eMZSll
-
 
 Solution 1: 
   1. Sort the intervals on start time so that we can know the requirement of meeting room allocation.
@@ -37,23 +32,27 @@ Time Complexity: O(nlogn)+O(n2) = O(n2)
 Space Complexity: O(n) to keep the rooms.
 ---
 
-Solution 2: In the previous solution, we iterate over all the present rooms to check whether a room is vacant or not.
-            However, we can do better than this by making use of Priority Queues or the Min-Heap data structure.
-            Instead of manually iterating on every room that's been allocated and checking if the room is available or not, 
-            we can keep all the rooms in a min heap where the key for the min heap would be the ending time of meeting.
-            
-            So, every time we want to check if any room is free or not, simply check the topmost element of the min heap as that 
-            would be the room that would get free the earliest out of all the other rooms currently occupied.
-            (A meeting completing at 10 would be vacated before any meeting which completes at 11 or 12)
-            If the room we extracted from the top of the min heap isn't free, then no other room is. 
-            So, we can save time here and simply allocate a new room.
+Solution 2: 
+    In the previous solution, we iterate over all the present rooms to check whether a room is vacant or not.
+    However, we can do better than this by making use of Priority Queues or the Min-Heap data structure.
+    Instead of manually iterating on every room that's been allocated and checking if the room is available or not, 
+    we can keep all the rooms in a min heap where the key for the min heap would be the ending time of meeting.
+    
+    So, every time we want to check if any room is free or not, simply check the topmost element of the min heap as that 
+    would be the room that would get free the earliest out of all the other rooms currently occupied.
+    (A meeting completing at 10 would be vacated before any meeting which completes at 11 or 12)
+    If the room we extracted from the top of the min heap isn't free, then no other room is. 
+    So, we can save time here and simply allocate a new room.
 
-  1. Sort the intervals on start time so that we can know the requirement of meeting room allocation.
-  2. We keep a PQ where we store the 'end' time of each meeting room. This will tell us when this meeting room would be vacated.
-  3.  For each interval, we want to allocate a meeting room for it. We check whether the top of the queue (latest end time)
-    and the start time of the meeting interval[i][0].
-    - If our meeting time is later than the latest meeting completing time, we remove that meeting from the list.
-  4. We push the new meeting in the PQ and check if this is the maximum.
+    1. Sort the intervals on start time so that we can know the requirement of meeting room allocation.
+    2. We keep a PQ where we store the 'end' time of each meeting room. This will tell us when this meeting room would be vacated.
+    3. For each interval, we want to allocate a meeting room for it. We check whether the top of the queue (latest end time)
+        and the start time of the meeting interval[i][0].
+        - If our meeting time is later than the latest meeting completing time, we remove that meeting from the 
+            list & push ours. We would be able to accomodate this meeting in the older room.
+        - If our meeting time overlaps with the latest meeting completion time, we add out meeting in the queue 
+            since it would require a room of its own.
+    5. Return the size of the PQ since it would contain the rooms required with their end times.  
 
 
 x=(0,6),(1,4),(2,5),(3,8),(7,9)
@@ -62,7 +61,7 @@ x=(0,6),(1,4),(2,5),(3,8),(7,9)
 -----------------------------                   6
      ---------------                            4,6
          ----------------                       4,5,6
-              ----------------------            4,5,6,8
+              -----------------------           4,5,6,8
                                 ---------       5,6,8,9
 
 
@@ -81,12 +80,24 @@ x=(0,6),(1,2),(3,4),(3,8),(5,6),(7,9),(7,9),(7,9),(7,9),(7,9)
                                 ---------       6,8,9,9,9
                                 ---------       8,9,9,9,9
                                 ---------       8,9,9,9,9,9
-
+1   2    2    4    3    5   5   6   6   5       Numbers of meetings in the rooms
+   
 
 Time Complexity: O(nlogn)
 Space Complexity: O(n) to keep the rooms.
 
 Paradigm: Merge Interval, Priority Queue
+
+
+Similar Questions:
+  1.  Given there is a 1D plane with line segments as [[s1,e1],[s2,e2],...] (si < ei). Calculate max 
+        number of overlapping lines.
+        - The max number of overlapping lines is the minimum number of meeting rooms required.
+        - This was asked in GRAB
+  2. https://leetcode.com/problems/meeting-rooms/
+        - Given an array of meeting time intervals, determine if a person could attend all meetings.
+        - If they are overlapping, one can not attend the meetings, otherwise he can
+
 ---
   NOTE: 
     FollowUp: How would you know which meeting room is busiest of all?

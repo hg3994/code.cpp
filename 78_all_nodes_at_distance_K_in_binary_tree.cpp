@@ -8,15 +8,16 @@ C++ program for "Printing all nodes in a Binary Tree which are at a distance K f
 https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
 ------
 
-Solution 1: 
+Solution 1: BFS
 	If we just need to find the nodes at distance K from a target node in child nodes, 
 	then it is pretty easy. But here we need to find all the nodes at distance K which means
 	that we need to search even in the parent nodes.
 	
-	1. We take the help of hash maps to traverse the whole tree and store the child->parent reln.
+	1. We take the help of hash maps to traverse the whole tree from root and store the child->parent reln.
 		This will help us in knowing the parent of every child. This is how we can traverse upward.
 	2. We use BFS to traverse the graph from target node to downwards and upwards for a 
 		distance of K nodes. We can now easily traverse upwards (thanks to the hash above)
+    3. For travelling upwards, we can just refer to the map and whatever node it gives, we can add it to bfs q.
 	3. We keep a visited map as well so that we dont traverse a node more than once.
 
 https://www.youtube.com/watch?v=nPtARJ2cYrg
@@ -25,7 +26,8 @@ Time Complexity: O(n)
 Space Complexity: O(n)
 ---
 
-Solution 2: Instead of BFS, one can also use DFS to traverse the tree and it will be similar.
+Solution 2: DFS
+    Instead of BFS, one can also use DFS to traverse the tree and it will be similar.
 	1. Create the parents hash to get the child->parent relationship.
 	2. Iterate over left child, right child and parent node increasing the distance.
 	3. Keep the "visited" hash which will help you get solution faster.
@@ -113,17 +115,14 @@ public:
 
                 if (front->left && !visited[front->left]){
                     q.push(front->left);
-                    visited[front->left] = true;
                 }
 
                 if (front->right && !visited[front->right]){
                     q.push(front->right);
-                    visited[front->right] = true;
                 }
 
                 if (parents[front] && !visited[parents[front]]){
                     q.push(parents[front]);
-                    visited[parents[front]] = true;
                 }
             }
         }

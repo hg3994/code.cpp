@@ -29,11 +29,11 @@ Output: 5
 
 Solution: https://leetcode.com/problems/longest-string-chain/solution/
 
-1. Initialize a set (wordsPresent) and add all the words in the list to the set. 
-	This set will be used to check if a word is present in the list.
+1. Initialize a map (wordsPresent) and add all the words in the list to the map. 
+	This map will be used to check if a word is present in the listin O(1) time.
 2. Initialize a map (memo) having key type as String and value type as Integer. 
 	This map will store the length of the longest possible word sequence 
-	where the key is the last word in the sequence.
+	"where the key is the last word in the sequence".
 3. Iterate over the list. For each word in the list perform a depth-first search.
 4. In the DFS, consider the current word (currentWord) as the last word in the word sequence.
 5. If currentWord was encountered previously we just return its corresponding value in the map memo.
@@ -41,7 +41,7 @@ Solution: https://leetcode.com/problems/longest-string-chain/solution/
 
 7. Iterate over the entire length of the currentWord.
 	- Create all possible words (newWord) by taking out one character at a time.
-	- If newWord is present in the set perform a DFS with this word 
+	- If newWord is present in the map perform a DFS with this word 
 		and store the intermediate result in a variable currentLength.
 	- Update the maxLength so that it contains the length of the longest sequence 
 		possible where the currentWord is the end word.
@@ -51,12 +51,30 @@ Solution: https://leetcode.com/problems/longest-string-chain/solution/
 
 #DFS
 
-Time Complexity: 
-Space Complexity: 
+Let N be the number of words in the list and L be the maximum possible length of a word.
+
+Time Complexity: O(L2*N). Initially, we iterate over the list to store all the given words in a set (adds N to the 
+    complexity). Next, we perform a DFS for each word O(N). For each word, we iterate over its lengthO(L). At each 
+    index (i) we create a new word by deleting the character at position i from the original word O(L). Therefore, 
+    the overall time complexity is O(N + L2.N) because the N term is insignificant relative to the L2*N term. 
+    Note that because of memoization we can be sure that each word in the list is traversed only once.
+
+Space Complexity: O(N). The extra space is used by the recursion call stack. In worst case all the words are a part 
+    of the longest word sequence which requires a recursion stack size of N. Also, we use a set to store all 
+    distinct words (size N) and a map to store intermediate results (size N). Since the maximum number of distinct 
+    words will be NN (when there is no repetition) the overall space complexity is O(2⋅N).
 ---
   NOTE: 
 
 */
+
+// ["a","b","ba","bca","bda","bdca"]
+// word: "a",       maxLength = 1, memo { "a" -> 1}
+// word: "b",       maxLength = 1, memo { "a" -> 1, "b" -> 1}
+// word: "ba",      maxLength = 2, memo { "a" -> 1, "b" -> 1, "ba"-> 2}
+// word: "bca",     maxLength = 3, memo { "a" -> 1, "b" -> 1, "ba"-> 2, "bca" -> 3}
+// word: "bda",     maxLength = 3, memo { "a" -> 1, "b" -> 1, "ba"-> 2, "bca" -> 3, "bda" -> 3}
+// word: "bdca",    maxLength = 4, memo { "a" -> 1, "b" -> 1, "ba"-> 2, "bca" -> 3, "bda" -> 3, "bdca" -> 4}
 
 class Solution {
     
@@ -88,7 +106,9 @@ class Solution {
 public:
     int longestStrChain(vector<string>& words) {
         
+        // Map to access the words present in O(1) time.
         unordered_map<string, bool> wordsPresent;
+        // Map to store the word -> maxLength with this word
         unordered_map<string, int> memo;
         int ans = 0;
         

@@ -98,3 +98,69 @@ int main(){
   cout<< s.wordBreak(s1, wordDict)<<endl;
   cout<< s.wordBreak(s2, wordDict)<<endl;
 }
+
+// "abcde" , dict: ["a", "abc", "e", "de"]
+// WITHOUT MEMOIZATION
+// -------------------
+// "abcde"
+//    "a" | "bcde"
+//          "bcde" (false)
+//                 "b" | "cde"
+//                       "cde" (false)
+//                              "c" | "de"
+//                                    "de" (true)
+//                                         "d" | "e"
+//                                               "e" (true)
+//                                         "de" (true)
+//                              "cd"| "e"
+//                                    "e" (true)
+//                              "cde" (false)
+//                 "bc"| "de"
+//                       "de"
+//                            "d" | "e" (true)
+//                                  "e" (true)
+//                            "de" (true)
+//                 "bcd"|"e"
+//                       "e" (true)
+//                 "bcde" (false)
+//    "ab" | "cde"
+//           "cde"
+//                  "c" | "de"
+//                        "de"
+//                             "d" | "e"
+//                                   "e" (true)
+//                             "de" (true)
+//                  "cd"| "e"
+//                        "e" (true)
+//                  "cde" (false)
+//    "abc" | "de"                        => This will return TRUE ans
+//            "de" (true)
+//                 "d" | "e" (true)
+//                       "e" (true)
+//                 "de" (true)
+//    "abcd"| "e"
+//            "e" (true)
+//    "abcde" (false)
+
+
+// WITH MEMOIZATION
+// ----------------
+// "abcde"
+//    "a" | "bcde"
+//          "bcde" (false)
+//                 "b" | "cde"
+//                       "cde" (false)
+//                              "c" | "de"
+//                                    "de" (true)
+//                                         "d" | "e"
+//                                               "e" (true)
+//                                         "de" (true)
+//                              "cd"| "e" (true)
+//                              "cde" (false)
+//                 "bc"| "de" (true)
+//                 "bcd"|"e" (true)
+//                 "bcde" (false)
+//    "ab" | "cde" (false)
+//    "abc" | "de" (true)      => This will return TRUE ans
+//    "abcd"| "e" (true)
+//    "abcde" (false)

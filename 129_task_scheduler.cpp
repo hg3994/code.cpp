@@ -53,8 +53,8 @@ Solution:
     ["A","A","A","B","B","B"], n = 2
     freq = (3,3), fmax=3
 
-    A--A--, idle_time=(3-1)*2 = 4
-    AB-AB-, idle_time= 4-min(3-1,3) = 2
+    A--A--A, idle_time=(3-1)*2 = 4
+    AB-AB-AB, idle_time= 4-min(3-1,3) = 2
 
     required Slots: 6+2= 8
     --------------------------------------------------------

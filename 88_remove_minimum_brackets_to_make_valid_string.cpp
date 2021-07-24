@@ -77,7 +77,7 @@ public:
             a += s[i];
         }
         // If the stack i empty, we are sure that we have removed the unwanted ')' from the string and 
-        // there's no unwanted '(' in the string as welll
+        // there's no unwanted '(' in the string as well
         if(st.empty()){
             return a;    
         }

@@ -65,16 +65,21 @@ public:
         for(auto &E: e) {
             fill(begin(vis), end(vis), false);
             graph[E[0]].push_back(E[1]), graph[E[1]].push_back(E[0]);
-            if(dfs(graph, vis, E[0])) return E;
+            if(dfs(graph, vis, E[0])) 
+                return E;
         }
         return { };
     }
     
     bool dfs(vector<vector<int>>& graph, vector<bool>& vis, int cur, int par = -1){
-        if(vis[cur]) return true;
+        if(vis[cur]) 
+            return true;
+
         vis[cur] = true;
+
         for(auto child: graph[cur])
-            if(child != par && dfs(graph, vis, child, cur)) return true;
+            if(child != par && dfs(graph, vis, child, cur)) 
+                return true;
         return false;
     }
 };
@@ -191,6 +196,19 @@ public:
 };
 
 
+class Solution {
+public:
+    vector<int> findRedundantConnection(vector<vector<int>>& e) {
+        DSU ds(e.size() + 1);
+        for (auto& E: e){
+            if(! ds.Union(E[0], E[1]))
+                return E;
+        }
+        return {}; // Will never reach here.
+    }
+};
+
+
 
 // ==================================================================================
 
@@ -205,8 +223,8 @@ public:
 // balanced in size.
 
 // Time Complexity : O(n*α(n)) ≈ O(n), the time complexity of each find call after union-by-rank and path 
-// compression comes out to be O(α(n)), where α(n) is the inverse Ackermann function. It doesn't exceed 4 
-// for any n < 10600 and hence is practically constant. We make O(n) calls in total.
+//      compression comes out to be O(α(n)), where α(n) is the inverse Ackermann function. It doesn't exceed 4 
+//      for any n < 10600 and hence is practically constant. We make O(n) calls in total.
 // Space Complexity : O(n)
 
 class DSU {
@@ -245,3 +263,17 @@ public:
         return true;
     }
 };
+
+
+class Solution {
+public:
+    vector<int> findRedundantConnection(vector<vector<int>>& e) {
+        DSU ds(e.size() + 1);
+        for (auto& E: e){
+            if(! ds.Union(E[0], E[1]))
+                return E;
+        }
+        return {}; // Will never reach here.
+    }
+};
+

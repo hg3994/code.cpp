@@ -88,14 +88,46 @@ public:
 };
 
 
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
+
+// ---------------------------------------------------
+// SOLUTION WITHOUT INVOLVING NULLS - CLEANER SOLUTION
+// ---------------------------------------------------
+
+class Solution {
+public:
+    int maxLevelSum(TreeNode* root) {
+        
+        // If both left and right child are not present, there is just 1 level
+        if(root->left == NULL && root->right == NULL)
+            return 1;
+        
+        int max_sum=INT_MIN, sum_of_this_level=0, max_level=1, level=1;
+        
+        queue<TreeNode*> q;
+        q.push(root);
+        
+        while(!q.empty()){
+            int size = q.size();
+            sum_of_this_level = 0;
+            for(int i=0; i<size; i++){
+                TreeNode* front = q.front();
+                q.pop();
+                
+                sum_of_this_level+=front->val;
+                
+                if (front->left)
+                    q.push(front->left);
+                if (front->right)
+                    q.push(front->right);
+            }
+            if(sum_of_this_level > max_sum){
+                max_sum = sum_of_this_level;
+                max_level = level;
+            }
+            level++;
+        }
+        
+        return max_level;
+        
+    }
+};

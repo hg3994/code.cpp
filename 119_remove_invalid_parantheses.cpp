@@ -28,7 +28,13 @@ SC: O(N)
 
 Paradigm:
 ---
-  NOTE: 
+
+Similar Questions:
+    1. https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
+        - Exact same problem but we need to return just any one answer but here we need all of them.
+        - solved in 88_
+
+NOTE: 
 
 */
 

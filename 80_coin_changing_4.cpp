@@ -33,7 +33,7 @@ Solution: DP.
 	1. To get to an amount X with coin C, we can get number of ways to reach to reach X by
 		"Number of ways to reach (X-C)" + 1 way.
 		- 1 id added since another coin of C denomination can be added to reach X.
-	2. Another way to reach amount X with coin C would be to not selecct the coin C 
+	2. Another way to reach amount X with coin C would be to not select the coin C 
 		and use only the coins before C. This means "Number of ways to reach (X) without C"
 	3. Minimum of these two would be the way in which we require fewest coins to reach X.
 		dp[i][j] = min(dp[i][j-coins[i]]+1, dp[i-1][j]);

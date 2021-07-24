@@ -13,7 +13,7 @@ Solution:
     Read this to find largest rectangle in Histogram : https://leetcode.com/problems/largest-rectangle-in-histogram/discuss/1320113/c-explained-stack-on
 
     1. We just iterate row by row and try to create a histogram like thing in an array
-     - If the value is a 0, we make the height 0, if it is 1, we addit to the prior height
+     - If the value is a 0, we make the height 0, if it is 1, we add it to the prior height
     2. At each point, we find the max Area of rectangle in histogram - in O(n) time.
     3. The max of all areas is the largest rectangle in the matrix.
 

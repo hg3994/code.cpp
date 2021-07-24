@@ -44,7 +44,7 @@ Problem Statements:
     - Approach 2: Inorder Traversal of a BST gives a sorted list, then we apply 2 pointer approach
         mentioned in the 2nd question.
 
-7. https://leetcode.com/problems/count-good-meals/submissions/
+7. https://leetcode.com/problems/count-good-meals/
     - Given an array find the sum of all pair of elements which sum to any power of 2
     - This is the same TwoSum problem but here the target is not one but can be multiple powers of 2
         so we have to test it for all the powers of two as targets.
@@ -87,7 +87,6 @@ public:
 // ---------------------------------------
 // LC Problem 2: Two Sum with Sorted Input
 // ---------------------------------------
-
 
 // Approach 1: Using Hashmaps
 // TC: O(n), SC: O(1)
@@ -134,7 +133,7 @@ public:
 
 
 // -------------------------------
-// Two Sum in a stream of Integers
+// Q3: Two Sum in a stream of Integers
 // -------------------------------
 
 class TwoSum {
@@ -174,7 +173,7 @@ class TwoSum {
 };
 
 // -----------------------
-// Max Two Sum Less than K
+// Q4: Max Two Sum Less than K
 // -----------------------
 
 // Approach 1: Sort the integers and use two pointers to see the maximum sum < k
@@ -231,7 +230,7 @@ public:
 
 
 // -------------------
-// Two Sum in two BSTs
+// Q5: Two Sum in two BSTs
 // -------------------
 // TC: O(n1+n2) n1, n2 nodes in two trees
 // SC: O(n1+n1+n2) n1 for hashset, n1+n2 for recursive stack
@@ -264,7 +263,7 @@ public:
 };
 
 // ------------------------
-// Two Sum - Input is a BST
+// Q6- Two Sum - Input is a BST
 // ------------------------
 // TC: O(n), SC: O(n)
 
@@ -288,7 +287,7 @@ public:
 
 
 // ----------------------------------------------------------------------
-// Count sum of all Pairs of Integers in arr which add up to a power of 2
+// Q7- Count sum of all Pairs of Integers in arr which add up to a power of 2
 // ----------------------------------------------------------------------
 // TC: O(22n)
 class Solution {

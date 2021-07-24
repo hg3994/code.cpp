@@ -31,6 +31,13 @@ Solution: Sliding Window
     2. If at any point, we get the sum is lesser length, update it.
     3. Outer loop expands the window
     4. Inner loop shortens it till the condition sum>=target holds true
+    
+    THIS SOLUTION DEALS ONLY WITH POSITIVE INTEGERS!!!
+
+Similar Questions:
+    1. https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/
+        - Same question with negative integers as well.
+        - TODO
 
 TC: O(n)
 SC: O(1)
@@ -70,6 +77,34 @@ public:
             j++;
         }
         // If there is no change in the minlen then the total sum < target, so return 0
+        return minlen == nums.size()+1 ? 0 : minlen;
+    }
+};
+
+
+// --------------------------------------------
+// SAME SOLUTION WITHOUT CURRENTLENGTH VARIABLE
+// --------------------------------------------
+
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        
+        int i=0; // Start of sliding window (i..j-1)
+        int j=0; // Next char of the sliding window, helps in adding elemens to the window
+        int minlen = nums.size() + 1;
+        int sum = 0;
+
+        while(j!=nums.size()){
+            sum += nums[j];
+
+            while(sum >= target){
+                minlen = min(minlen, j-i+1);
+                sum -= nums[i];
+                i++;
+            }
+            j++;
+        }
         return minlen == nums.size()+1 ? 0 : minlen;
     }
 };

@@ -25,6 +25,8 @@ The input multilevel linked list is as follows:
   |
   3---NULL
 
+The output should look like: 1--3--2--NULL
+
 ------
 
 Solution: Explained Below.
@@ -64,13 +66,13 @@ Node* helper(Node* current){
     // When this condition is met, prev would contain the last node.
     while(current != NULL){
         
-        // If the child pointer is NULL, updated prev and just move ahead
+        // If the child pointer is NULL, update prev and just move ahead
         if(current->child == NULL){
             pre = current;
             current = current->next;
         }
         // If the child pointer is not null, we do:
-        // - connect child's prev to current
+        // - connect child's prev to itself (current)
         // - save the current's next because it will be lost when we connect current's next to current's child
         // - current next will not point to the child
         // - call the same function for the child node recursively so it does all this too. This should return the last node of the child's DLL

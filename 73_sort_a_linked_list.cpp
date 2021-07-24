@@ -21,14 +21,22 @@ Space Complexity: O(logn) , where n is the number of nodes in linked list.
 ---
  
  Difference between pointer and pointer(*) to pointer(**)
-
+1
   ListNode *head  -> A variable called 'head' which will store address of only ListNode types of data.
   ListNode **head -> A variable called 'head' which will store address of a pointer that will store address of only ListNode types of data.
   
-  Suppose head contains 6000 which is the address of the 1st node. Address of the variable head itself is 5000.
+  ListNode* head = new ListNode(10);
   ListNode** headref = *head; 
-  headref  = 5000
-  
+  ---
+  Value of Node = 10
+  Address of Node = 6000
+  --
+  Value at head = 6000
+  Address of head = 5000
+  --
+  Value at headref  = 5000
+  --
+
   We use *head when we want to change something in the node of address(6000), its 'val' or 'next' anything.
   We use **head when we want to change the '6000' itself. When we want to put address of some other node there.
 */
@@ -65,9 +73,14 @@ public:
     if (headref==NULL || headref->next==NULL)
       return headref;
     
-    /* Divide the linked list into two halves from the middle.
-    - We must pass address of a and b since we have GARBAGE present in them initially. They are just pointers which will point to nodes in future. However, they do not have any value in them now so we must pass the address to these 'a' and 'b' pointers so that we are able to change the value present in these pointers and make them point to valid ListNodes.
-     - If we send a only, then we would be able to modify only the the LL and not the pointer which points to the address but here we want to change that from GARBAGE to an actual node address.
+    /* 
+        Divide the linked list into two halves from the middle.
+      - We must pass address of a and b since we have GARBAGE present in them initially. 
+        They are just pointers which will point to nodes in future. However, they do not have any 
+        value in them now so we must pass the address to these 'a' and 'b' pointers so that we are 
+        able to change the value present in these pointers and make them point to valid ListNodes.
+      - If we send a node only, then we would be able to modify only the the LL and not the pointer which 
+      points to the address but here we want to change that from GARBAGE to an actual node address.
     */
     frontBackSplit(headref, &b);
     

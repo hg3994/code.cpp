@@ -9,7 +9,8 @@ C++ program for "Given an array arr containing N positive integers, the task is 
 
 	Input: arr[] = {1, 2, 5, 3, 2} 
 	Output: No 
-	Explanation: The given array is not a permutation of numbers from 1 to N, because it contains 2 twice, and 4 is missing for the array to represent a permutation of length 5. 
+	Explanation: The given array is not a permutation of numbers from 1 to N, because it contains 2 twice, 
+		and 4 is missing for the array to represent a permutation of length 5. 
 
 	Input: arr[] = {1, 2, 5, 3, 4} 
 	Output: Yes 
@@ -20,7 +21,7 @@ https://www.geeksforgeeks.org/check-if-an-array-is-a-permutation-of-numbers-from
 ------
 
 Solution: 
-	1. Can be done in O(nlon) time if we sort.
+	1. Can be done in O(nlogn) time if we sort.
 	2. Can be done in O(n) extra space by pushing everything in a set and then 
 		checking the max of it should be n & the size of set should be n
 	3. [EFFICIENT]: Can be done in O(n) time and O(1) space like below:
@@ -31,11 +32,8 @@ Solution:
 				i=3 [-1,-3, 0,-4, 2] 
 				i=4 [-1,-3, 0,-4,-2] 
 				i=5 [-1,-3,-0,-4,-2] 
-				
-
-
-Time Complexity: 
-Space Complexity:
+Time Complexity: O(n)
+Space Complexity: O(1)
 
 Paradigm:
 ---

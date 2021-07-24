@@ -11,7 +11,8 @@ Must Watch: https://www.youtube.com/watch?v=GSBLe8cKu0s&t=861s
 ------
 
 Solution: 
-    1. The input array of buildings [X,Y,Height] is converted points for starting and ending of each building [X, Height, Start] & [Y, Height, End]
+    1. The input array of buildings [X,Y,Height] is converted into points for starting and ending of each building 
+        [X, Height, Start] & [Y, Height, End]
     2. The array of building points is sorted so that they are in the expected correct input format.
     3. We use a map for storing the height and the frequency of each building
     4. We iterate over each point in the vector

@@ -58,6 +58,7 @@ public:
         return parent[x];
     }
 
+    // After merging x and y, it returns the size of the merged set.
     int Union(int x, int y){
         int px = find(x);
         int py = find(y);
@@ -122,7 +123,7 @@ public:
             }
         }
         
-        // We iterate searching for 0s and the adjacent -1s. If we find an adjacent 1, we will
+        // We iterate searching for 0s and the adjacent -1s. If we find an adjacent -1, we will
         // Check if it belongs to a known parent already (from other adjacent -1s?). If yes, then ignore.
         // If No, then it means this -1 belongs to some other set and if we change this 0 to 1, then 
         // it will join 2 or more sets together.

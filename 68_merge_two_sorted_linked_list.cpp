@@ -15,13 +15,13 @@ Output: 1->1->2->3->4->4
 
 Solution: https://leetcode.com/problems/merge-two-sorted-lists/solution/
 
-For itertive solution:
-  Time Complexity: O(n)
-  Space Complexity: O(1)
+        1. For itertive solution:
+          Time Complexity: O(n)
+          Space Complexity: O(1)
 
-For recursive solution:
-  TC: O(n+m)
-  SC: O(n+m)
+        2. For recursive solution:
+          TC: O(n+m)
+          SC: O(n+m)
 
 NOTE: 
   1. This program can not be compiled since I didn't have time to write the LL creation methods.
@@ -52,39 +52,49 @@ class Solution {
   //   cout<<endl;
   // }
   
-  ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-    if(l1 == NULL) return l2;
-    if(l2 == NULL) return l1;
-    
-    ListNode prehead = ListNode(-1);
-    ListNode *prev = &prehead;
-    
-    while(l1!=NULL && l2!=NULL){
-      
-      if(l1->val <= l2->val){
-        prev->next = l1;
-        l1 = l1->next;
-      }
-      else{
-        prev->next = l2;
-        l2 = l2->next;
-      }
-      prev = prev->next;
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(l1 == NULL) return l2;
+        if(l2 == NULL) return l1;
+
+        ListNode prehead = ListNode(-1);
+        ListNode *prev = &prehead;
+
+        while(l1!=NULL && l2!=NULL){
+          
+          if(l1->val <= l2->val){
+            prev->next = l1;
+            l1 = l1->next;
+          }
+          else{
+            prev->next = l2;
+            l2 = l2->next;
+          }
+          
+          prev = prev->next;
+        }
+
+        if(l1 == NULL)
+          prev->next = l2;
+        else
+          prev->next = l1;
+
+        return prehead.next;
     }
-    
-    if(l1 == NULL)
-      prev->next = l2;
-    else
-      prev->next = l1;
-    
-    return prehead.next;
-  }
 };
 
 
 // Recursive Solution
 // TC: O(n+m)
 // SC: O(n+m)
+
+//  L1  , L2
+// 1->3 , 2->4 | merge(1,2)
+// 1->3 , 2->4 | 1<2,   1-> = merge(3,2)
+// 1->3 , 2->4 | 3>2,      2-> = merge(3,4)
+// 1->3 , 2->4 | 3<4,          3-> = merge(NULL,4)
+// 1->3 , 2->4 | return        3->4
+// 1->3 , 2->4 | return    2->3->4
+// 1->3 , 2->4 | return 1->2->3->4
 class Solution {
 public:
   ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
@@ -102,6 +112,6 @@ public:
       l2->next = mergeTwoLists(l1,l2->next);
       return l2;
     }
-    return l1;
   }
 };
+

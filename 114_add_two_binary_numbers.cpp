@@ -25,7 +25,7 @@ Solution:
         TC: O(n)
         SC: O(1)
     2. Bitmanipulation
-        - AND operation tells me he positions where carry is required. (11 -> 1)
+        - AND operation tells me the positions where carry is required. (11 -> 1)
         - Carry is actually required one position to the left of the where it ws discovered
         - XOR operator is helpful for simulating the addition operator
     3. Bit Manipulation 2
@@ -109,18 +109,17 @@ public:
 //    }
 
 // Approach 3: Here the numbers are in vectors
-
-// vector<int> addBinary(vector<int>& A, vector<int>& B) {
-//     vector<int> res;
-//     int carry = 0, i = A.size() - 1, j = B.size() - 1;
-//     while (i >= 0 || j >= 0 || carry) {
-//         if (i >= 0) 
-//              carry += A[i--];
-//         if (j >= 0) 
-//              carry += B[j--];
-//         res.push_back(carry & 1);
-//         carry = (carry >> 1);
-//     }
-//     reverse(res.begin(), res.end());
-//     return res;
-// }
+vector<int> addBinary(vector<int>& A, vector<int>& B) {
+    vector<int> res;
+    int carry = 0, i = A.size() - 1, j = B.size() - 1;
+    while (i >= 0 || j >= 0 || carry) {
+        if (i >= 0) 
+             carry += A[i--];
+        if (j >= 0) 
+             carry += B[j--];
+        res.push_back(carry & 1);
+        carry = (carry >> 1);
+    }
+    reverse(res.begin(), res.end());
+    return res;
+}

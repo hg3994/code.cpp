@@ -19,6 +19,25 @@ After merging the accounts, return the accounts in the following format: the fir
 each account is the name, and the rest of the elements are emails in sorted order. The 
 accounts themselves can be returned in any order.
 
+
+Example 1:
+    Input: accounts = [ ["John","johnsmith@mail.com","john_newyork@mail.com"],
+                        ["John","johnsmith@mail.com","john00@mail.com"],
+                        ["Mary","mary@mail.com"],
+                        ["John","johnnybravo@mail.com"]]
+    
+    Output: [   ["John","john00@mail.com","john_newyork@mail.com","johnsmith@mail.com"],
+                ["Mary","mary@mail.com"],
+                ["John","johnnybravo@mail.com"]]
+    
+    Explanation:
+        The first and third John's are the same person as they have the common email "johnsmith@mail.com".
+        The second John and Mary are different people as none of their email addresses are used by other accounts.
+        We could return these lists in any order, for example the answer [['Mary', 'mary@mail.com'], ['John', 'johnnybravo@mail.com'], 
+            ['John', 'john00@mail.com', 'john_newyork@mail.com', 'johnsmith@mail.com']] would still be accepted.
+
+
+
 https://leetcode.com/problems/accounts-merge/
 
 ------
@@ -72,15 +91,15 @@ public:
     }
 
     // Print the graph
-    void printGraph(vector<vector<string>>& accounts){
-        for(auto [email, related_emails] : graph) {
-            cout<<email<<"->";
-            for(int i=0;i<related_emails.size(); i++){
-                cout<<related_emails[i]<<" , ";
-            }
-            cout<<endl;
-        }
-    }
+    // void printGraph(vector<vector<string>>& accounts){
+    //     for(auto [email, related_emails] : graph) {
+    //         cout<<email<<"->";
+    //         for(int i=0;i<related_emails.size(); i++){
+    //             cout<<related_emails[i]<<" , ";
+    //         }
+    //         cout<<endl;
+    //     }
+    // }
 
     vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
         vector<vector<string>> res;
@@ -93,10 +112,11 @@ public:
             if(!visited.count(email)) {
                 set<string> email_set; // due to this, the email list remain sorted (its a set)
                 dfs(email, email_set);
+                
                 vector<string> account(email_set.size() + 1);
                 string name = email_to_name[email];
                 account = {email_set.begin(), email_set.end()};
-                account.insert(account.begin(), name);
+                account.insert(account.begin(), name); // insert name at the beginning.
                 res.push_back(account);
             }
         }

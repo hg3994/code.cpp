@@ -37,7 +37,7 @@ Solution:
 			reversing the rotated string. It is already reversed.
 
 	Q2:
-		1. .....
+		1. TODO
 
 TC: 
 SC:

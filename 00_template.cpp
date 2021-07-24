@@ -10,12 +10,15 @@ Problem Statement:
 
 Solution: 
 
-  TC: 
-  SC:
+    TC: 
+    SC:
 
 Paradigm:
 ---
-  NOTE: 
+    NOTE: 
+
+    Similar Questions:
+        1.
 
 */
 
@@ -26,17 +29,72 @@ Paradigm:
 // - Binary Search (if input in sorted)
 // - Sliding Window
 // - DP
-// - Segment Trees
 // - Expand from middle (Paindrome, Geometric Figures)
 // - Prefix Sum
+// - Left to Right and Right to Left Parsing (Rain Water)
 // - Priority Queue
 // - Stack
 // - Making value Negative at some index
 // - Intervals: Priority Queue, Stack, DP
 // - Backtracking
 // - Union Find
-// - Left to Right and Right to Left Parsing (Rain Water)
 // - Deque (Sliding Window Maximum)
+// - Segment Trees
+
+
+// Subarray Problems:
+// -----------------
+//   1. Longest Increasing Subarray                                 (Simple traversal)
+//   2. Longest Common Subarray                                     (DP: dp[i][j] = dp[i-1][j-1]+1)
+//   3. Longest Palindromic Subarray                                (Expand from Middle)
+//   4. Maximum Sum Subarray                                        (Kadane)
+//   5. Maximum Absolute Sum Subarray                               (Kadane)
+//   6. Maximum Product Subarray                                    (Kadane)
+//   7. Maximum Number of each subarray of size K                   (Deque)
+//   8. Maximum Sum of Subarrays of size K                          (Sliding Window)
+//   9. Num of Subarrays with Product < K                           (Sliding Window)
+//  10. Minimum length Subarray with Sum >= K                       (Sliding Window)
+//  11. Num of Subarrays with sum = K                               (Prefix Sum Freq in HashMap)
+//  12. Maximum size of Subarray with sum = K                       (Prefix Sum Index in HashMap)
+//  13. Longest Subarray without repeating chars                    (Sliding Window)
+//  14. Longest Subarray with at most K distinct character          (Sliding Window)
+//  15. Longest Subarray of same char with K replacements           (Sliding Window)
+//  15. Minimum length subarray with all chars from another String  (Sliding Window)
+
+// Coin Changing
+// -------------
+// 1. Number of ways you can create a sum :         dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
+// 2. List the ways you can create a sum :          dp[i][j] = dp[i-1][j] + dp[i][j-coins[i]]; +  Backtracking
+// 3. Can we create a sum? :                        dp[i][j] = dp[i-1][j] || dp[i-1][j-coins[i-1]]; 
+// 4. Fewest number of coins used to create a sum : dp[i][j] = min(dp[i][j-coins[i]]+1, dp[i-1][j]);
+
+
+// Data Structures
+// ---------------
+// 1. LRU:
+// 2. LFU:
+// 3. GetRandom(): Vector + HashMap
+
+// Ways to represent graphs
+// ------------------------
+// Directed Graph:
+//    1. unordered_map<string, vector<string>> graph : A->B, A->C means map[A]=[B,C]
+
+// Graph Problems
+// --------------
+// 1. Number of connected nodes in a graph: DFS, UnionFind
+// 2. Check if there exists a path between two nodes in a weighted directed graph & return product of weights: Backtracking
+// 3. 
+
+// Palindromes
+// -----------
+// These types of questions can be of two types: 
+//  1. Checking if X is a palindrome or not? IF X is palindrome by removing Y chars?
+//      Can be solved by using two pointers i and j and traversing from start and end checking if the letters are same.
+//  2. Count the number of Palinromes in X
+//      Expand from middle
+
+
 
 
 #include<bits/stdc++.h>

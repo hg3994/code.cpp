@@ -41,7 +41,7 @@ Solution: For each element in the array, we have to find the distance with all t
 
     2. LeftToRight + RightToLeft Traversal:
         - For each element, calculate the number of 1s on its left and 1s on its right
-        - For each element, calculate the cost of 1s from the elements on its left & similarly calcualate cost 
+        - For each element, calculate the cost of 1s from the elements on its left & similarly calculate cost 
             of 1s from the elements on its right
         - Add the leftCost & rightCost for each i
     
