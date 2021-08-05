@@ -28,6 +28,7 @@ Time Complexity: O(ROWxCOL)
 
 // ----------------------------
 // LEETCODE UNION FIND SOLUTION
+// TC: O(row*col), SC: O(row*col) for storing parents, rank, size vectors
 // ----------------------------
 
 // We start with a size[] array as well apart from parent and rank. This will help us figure out the max size os island.
@@ -153,9 +154,10 @@ public:
 };
 
 
-// ------------------------
+// ------------------------------
 // DFS SOLUTION ON LEETCODE 
-// ------------------------
+// TC: O(row*col), SC: O(row*col)
+// ------------------------------
 
 class Solution {
     

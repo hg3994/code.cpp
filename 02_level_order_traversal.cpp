@@ -82,6 +82,35 @@ int main()
 	return 0; 
 } 
 
+// ----------------
+// LEETCODE SOLUTION
+// ----------------
+
+vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> ans;
+    if (root == NULL)
+        return ans;
+    queue<TreeNode*> q;
+    q.push(root);
+    while(!q.empty()){
+        int size = q.size();
+        vector<int> levelNodes;
+        for(int i=0; i<size; i++){
+            TreeNode* frontNode = q.front();
+            q.pop();
+            levelNodes.push_back(frontNode->val);
+            if(frontNode->left)
+                q.push(frontNode->left);
+            if(frontNode->right)
+                q.push(frontNode->right);
+        }
+        ans.push_back(levelNodes);
+    }
+    return ans;
+}
+
+
+
 
 // ------------
 // ZigZag Order

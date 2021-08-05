@@ -182,6 +182,75 @@ public:
     }
 };
 
+
+// Solution 3: Graph is represented by vector of vectors.
+// THIS SHOULD BE THE PREFERRED SOLUTION FOR TOPOLOGICAL SORT
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
+        graph g = buildGraph(numCourses, prerequisites);
+        vector<int> degrees = computeIndegrees(g);
+        for (int i = 0; i < numCourses; i++) {
+            int j = 0;
+            for (; j < numCourses; j++) {
+                if (!degrees[j]) {
+                    break;
+                }
+            }
+            if (j == numCourses) {
+                return false;
+            }
+            degrees[j]--;
+            for (int v : g[j]) {
+                degrees[v]--;
+            }
+        }
+        return true;
+    }
+private:
+    typedef vector<vector<int>> graph;
+    
+    graph buildGraph(int numCourses, vector<pair<int, int>>& prerequisites) {
+        graph g(numCourses);
+        for (auto p : prerequisites) {
+            g[p.second].push_back(p.first);
+        }
+        return g;
+    }
+    
+    vector<int> computeIndegrees(graph& g) {
+        vector<int> degrees(g.size(), 0);
+        for (auto adj : g) {
+            for (int v : adj) {
+                degrees[v]++;
+            }
+        }
+        return degrees;
+    }
+};
+
+
+// Solution 4 (by lee215): Concise and Amazing. Similar to above
+bool canFinish(int n, vector<vector<int>>& prerequisites) {
+    vector<vector<int>> G(n);
+    vector<int> degree(n, 0), bfs;
+    for (auto& e : prerequisites) {
+        G[e[1]].push_back(e[0]);
+        degree[e[0]]++;
+    }
+    for (int i = 0; i < n; ++i) 
+        if (!degree[i]) 
+            bfs.push_back(i);
+
+    for (int i = 0; i < bfs.size(); ++i)
+        for (int j: G[bfs[i]])
+            if (--degree[j] == 0) 
+                bfs.push_back(j);
+
+    return bfs.size() == n;
+}
+
+
 // --------------------------------------------------------------------------------
 
 // Solution 1: Stack based.

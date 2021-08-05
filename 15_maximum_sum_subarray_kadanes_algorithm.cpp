@@ -36,7 +36,7 @@ Similar Questions:
 
     3. https://leetcode.com/problems/maximum-product-subarray/
         - This talks about the Maximum Product Subarray, it may not be very simple since 
-            0s, -vs play a very important role in the problem.
+            0s, -ves play a very important role in the problem.
         - 
 */
 
@@ -148,11 +148,12 @@ class Solution {
 public:
     int maxProduct(vector<int>& nums) {
         int n = nums.size();
-        if(n == 0) return 0;
+        if(n == 0) 
+            return 0;
         int maxSoFar=nums[0], minSoFar=nums[0], result=maxSoFar;
         for(int i=1; i<n; i++){
-            int temp_maxSoFar = max(maxSoFar*nums[i], max(minSoFar*nums[i], nums[i]));
-            minSoFar = min(maxSoFar*nums[i], min(minSoFar*nums[i], nums[i]));
+            int temp_maxSoFar   = max(maxSoFar*nums[i], max(minSoFar*nums[i], nums[i]));
+            minSoFar            = min(maxSoFar*nums[i], min(minSoFar*nums[i], nums[i]));
             
             maxSoFar = temp_maxSoFar;
             // cout<<maxSoFar<<" "<<minSoFar<<endl;

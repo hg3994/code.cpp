@@ -117,12 +117,3 @@ BLOOM FILTERS
 Time Complexity: O(K) where K are the number of Hash Function
 
 */
-
-#include <bits/stdc++.h>
-using namespace std; 
-
-int main() 
-{
-    
-    return 0; 
-} 

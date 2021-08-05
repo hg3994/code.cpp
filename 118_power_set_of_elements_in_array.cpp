@@ -44,7 +44,17 @@ Solution:
 
 Paradigm: BitMask
 ---
-  NOTE: 
+    NOTE: 
+        1. How to convert an integer to a binary form in C++?
+            bitset<32> x(23456);
+            cout<<x<<endl;
+
+    Similar Questions:
+        1. https://leetcode.com/problems/subsets-ii/
+            - Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+            - The solution set must not contain duplicate subsets.
+            - 3 approaches: Backtracking, Bitmask and the one I implmented written here:
+                https://leetcode.com/problems/subsets-ii/solution/
 
 */
 
@@ -103,3 +113,67 @@ vector<vector<int>> subsets(vector<int>& nums) {
     }
     return ans;
 }
+
+
+// --------------------------------------------------------
+// SIMILAR QUESTION 1- WHNE SUBSETS HAVE DUPLICATE ELEMENTS
+// --------------------------------------------------------
+// Approach 1: Same logic. But first sorting the input otherwise we'll have 2 vectors [1,4] & [4,1] for
+// an input like [4,1,4]. Sorting it would make it [1,4,4] and then both would turn out to be [1,4],[1,4]
+// We can now convert the vector of vector ans into a set so that similar elements are removed.
+// Then we can create a vector of vector from this set back again.
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        ans.push_back({});
+
+        for(int i=0;i<nums.size(); i++){
+            vector<vector<int>> new_subsets;
+            
+            for(int j=0; j<ans.size(); j++){
+                vector<int> x = ans[j];
+                x.push_back(nums[i]);
+                new_subsets.push_back(x);
+            }
+
+            for(auto subs: new_subsets){
+                ans.push_back(subs);
+            }
+        }
+        
+        set<vector<int>> set(ans.begin(), ans.end());
+        vector<vector<int>> ans1(set.begin(), set.end());
+        
+        return ans1;
+    }
+};
+
+// Approach 2: In the first aproach, we are creating a vector of vector with the similar elements and then
+// we need to create a set to eliminate the sam vectors. For ans, we need to convert it to vector of vectors 
+// back again. What if we could prevent inserting duplicate elements right at front?
+// We can do so by ignoring the similar elements after sorting.
+// TC: O(n*2n)
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> subsets = {{}};
+
+        int subsetSize = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            int startingIndex = (i >= 1 && nums[i] == nums[i - 1]) ? subsetSize : 0;
+            // subsetSize refers to the size of the subset in the previous step. 
+            // This value also indicates the starting index of the subsets generated in this step.
+            subsetSize = subsets.size();
+            for (int j = startingIndex; j < subsetSize; j++) {
+                vector<int> currentSubset = subsets[j];
+                currentSubset.push_back(nums[i]);
+                subsets.push_back(currentSubset);
+            }
+        }
+        return subsets;
+    }
+};

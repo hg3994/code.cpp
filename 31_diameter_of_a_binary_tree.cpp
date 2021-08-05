@@ -6,7 +6,7 @@ https://www.geeksforgeeks.org/diameter-of-a-binary-tree/
 https://leetcode.com/problems/diameter-of-binary-tree/
 
 C++ program for finding diameter of a binary tree. The diameter of a tree 
-(sometimes called the width) is the number of nodes on the longest path between two end nodes.
+(sometimes called the width) is the number of EDGES(not NODES) on the longest path between two end nodes.
 
 Paradigm: Recursions, Binary Trees
 Time Complexity: O(n)

@@ -186,7 +186,7 @@ public:
         if(head == NULL)
             return NULL;
         
-        // 1. start and insert duplicate nodes in between
+        // 1. start traversing and insert duplicate nodes in between
         Node* current = head;
         Node* temp;
         while(current != NULL){

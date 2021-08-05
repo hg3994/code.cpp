@@ -135,6 +135,7 @@ public:
                 Node* front = q.front();
                 q.pop();
                 
+                // Assign the next node as NULL for the last node in the queue.
                 if(i == size-1)
                     front->next = NULL;
                 else

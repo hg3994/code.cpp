@@ -82,14 +82,14 @@ int sliding_window_maximum_subarray2 (vector<int> arr, int k){
 
     int currentSum = 0;
     int maxSum = INT_MIN;
-    int startingIndex = 0;
+    int i = 0;
 
-    for(int i=0; i<arr.size() ; i++){
-        currentSum += arr[i];
-        int lengthOfWindow = i-startingIndex+1;
+    for(int j=0; j<arr.size() ; j++){
+        currentSum += arr[j];
+        int lengthOfWindow = j-i+1;
         if(lengthOfWindow == k){
             maxSum = max(maxSum, currentSum);
-            currentSum -= arr[startingIndex++];
+            currentSum -= arr[i++];
         }
     }
     return maxSum;

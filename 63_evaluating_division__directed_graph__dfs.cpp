@@ -76,7 +76,7 @@ public:
             graph[divisor][dividend] = 1/quotient;
         }
         
-        // 2. Evaludate each query by DFS by checking if there exists a path from dividend to divisor
+        // 2. Evaluate each query by DFS by checking if there exists a path from dividend to divisor
         vector<double> results(queries.size());
         for(int i=0; i<queries.size(); i++){
             vector<string> query = queries[i];

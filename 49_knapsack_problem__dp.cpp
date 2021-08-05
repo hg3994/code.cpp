@@ -39,7 +39,8 @@ or don’t pick it (0-1 property)."
 	dp[n+1][W+1] = {0};
 	for(i=0; i<=n; i++){
 		for(j=0; j<=W; j++)
-			dp[i][j] = max(dp[i-1][j], val[i-1] + dp[i-1][j-wt[i-1]]);
+			if(j>=wt[i-1])
+				dp[i][j] = max(dp[i-1][j], val[i-1] + dp[i-1][j-wt[i-1]]);
 	return dp[n][W];
 
 

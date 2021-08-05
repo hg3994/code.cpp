@@ -38,7 +38,10 @@ Space Complexity: O(1)
 Paradigm:
 ---
   NOTE: 
-
+	Similar Problem: 
+		1. https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/
+			- Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all 
+				the integers in the range [1, n] that do not appear in nums.
 */
 
 #include <bits/stdc++.h>
@@ -73,3 +76,35 @@ int main() {
 		cout<<"Array is NOT a permutation of N"<<endl;
 	return 0;
 }
+
+// ------------------
+// Similar Problem #1
+// ------------------
+
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        int n= nums.size();
+        for(int i=0; i<nums.size(); i++){
+            if(abs(nums[i]) == n){
+                if (nums[0] > 0)
+                    nums[0] = -nums[0];
+            }
+            else if (nums[abs(nums[i])] > 0){
+                nums[abs(nums[i])] = - nums[abs(nums[i])];
+            }
+        }
+        
+        
+        vector<int> ans;
+        for(int i=0; i<nums.size(); i++){
+            if (nums[i] > 0){
+                if(i == 0)
+                    ans.push_back(n);
+                else
+                    ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+};

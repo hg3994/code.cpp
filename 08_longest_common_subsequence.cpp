@@ -12,7 +12,7 @@ https://leetcode.com/problems/longest-common-subsequence/
 
 Solution: We will use very basic dynamic Programming to solve this.
     * The trick is this recurrence relation
-    if s1[i]==2s[j], then 
+    if s1[i]==s2[j], then 
         LCS[i][j] = 1+LCS[i-1][j-1];
     else 
         LCS[i][j] = max( LCS[i-1][j], LCS[i][j-1])

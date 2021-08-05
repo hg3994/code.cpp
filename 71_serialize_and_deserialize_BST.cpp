@@ -12,8 +12,7 @@ Solution:
   Deserialize: We parse the string and convert it into a vector. Then we parse the vector to create the same BST again.
 
 Why PreOrder?
-    Let's use here the fact that BST could be constructed from preorder or postorder traversal only. Please check this 
-        article for the detailed discussion. 
+    Let's use here the fact that BST could be constructed from preorder or postorder traversal only.
     In brief, it's a consequence of two facts:
     - Binary tree could be constructed from preorder/postorder and inorder traversal.
     - Inorder traversal of BST is an array sorted in the ascending order: inorder = sorted(preorder).

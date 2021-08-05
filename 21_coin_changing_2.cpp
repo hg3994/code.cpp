@@ -3,7 +3,6 @@ Harshit Gupta | 22nd October, 2018
 
 http://www.cpp.sh/6mize
 https://www.geeksforgeeks.org/subset-sum-problem-dp-25/
-https://leetcode.com/problems/partition-equal-subset-sum/
 
 C++ program for " There a n coins present. We want to make a sum s from these coins. Can we make it?"
 
@@ -24,8 +23,10 @@ Similar Questions: This question can also be framed as
         which will add up to 'sum'." You can think of these numbers as coins
         and then make 'sum' amount from the coins.
 
-    2. Given a non-empty array nums containing only positive integers, find if the array can be 
-        partitioned into two subsets such that the sum of elements in both subsets is equal.
+        
+    2. https://leetcode.com/problems/partition-equal-subset-sum/
+        - Given a non-empty array nums containing only positive integers, find if the array can be 
+            partitioned into two subsets such that the sum of elements in both subsets is equal.
         - The sum for this question would be sum of array / 2 and the rest remains the same.
         - If the sum is odd, we can never do it.
         - If we can choose some numbers and have their sum = sumOfArray/2, then it means that the remaining
@@ -122,7 +123,7 @@ public:
         
         for(auto num: nums){
             // See that we are iterating from sum till 0 so that we do not take get 
-            // fake 1s which were 0s in the last iteration (we are accessing backwards: dp[j-num])
+            // fake 1s which were 0s in the THIS iteration (we are accessing backwards: dp[j-num])
             for(int j= sum; j>=0; j--){
                 if(j >= num)
                     dp[j] = dp[j] || dp[j-num];

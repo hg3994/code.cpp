@@ -57,6 +57,26 @@ Solution: We want to have two APIs, one is InsertIntoCache() and another showCac
 					insert 'n' in the front
 					update the map
 
+EXAMPLE FROM LEETCODE:
+	Input
+		["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+		[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+	Output
+		[null,null,null,10,null,-1,null,-1,30,40]
+
+	Explanation
+		LRUCache lRUCache = new LRUCache(2);
+		lRUCache.put(1, 10); 	// cache is {1=10}
+		lRUCache.put(2, 20); 	// cache is {1=10, 2=20}
+		lRUCache.get(1);    	// return 10
+		lRUCache.put(3, 30);	// LRU key was 2, evicts key 2, cache is {1=10, 3=30}
+		lRUCache.get(2);    	// returns -1 (not found)
+		lRUCache.put(4, 40); 	// LRU key was 1, evicts key 1, cache is {4=40, 3=30}
+		lRUCache.get(1);    	// return -1 (not found)
+		lRUCache.get(3);    	// return 30
+		lRUCache.get(4);    	// return 40
+
+
 Paradigm: Hash, Doubly Linked List, DLL
 
 */

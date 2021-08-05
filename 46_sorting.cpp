@@ -119,6 +119,8 @@ void topologicalSort(vector <vector<int>> grid){
 	cout<<"END"<<endl;
 }
 
+// ---------------------------------------------------------------------------------------
+
 int partitionQuickSort(vector<int> &arr, int low, int high){
 	// This function takes last element as pivot, places the pivot element at its correct position in sorted
   	// array, and places all smaller (smaller than pivot) to left of pivot and all greater elements to right of pivot
@@ -179,6 +181,8 @@ void quickSort(vector<int> arr){
 	printArr(arr);
 }
 
+// ---------------------------------------------------------------------------------------
+
 void merge(vector<int> &arr, int l, int m, int r){
 	// Merges two sorted sub-arrays of arr[]. 
 	// First sub-array is arr[l..m] 
@@ -201,7 +205,7 @@ void merge(vector<int> &arr, int l, int m, int r){
 	int k=l; // Initial index of merged sub-array arr[]
 
 	// Compare the two sorted temp array and then update the arr[]
-	while (i<n1 && j<n2){
+	while (i<n1 && j<n2){ 
 		if(L[i] <= R[j]){
 			arr[k] = L[i];
 			i++;
@@ -248,6 +252,8 @@ void mergeSort(vector<int> a){
 	printArr(arr);
 }
 
+// ---------------------------------------------------------------------------------------
+
 void bubbleSort(vector<int> a){
 	// This works by repeatedly swapping the adjacent elements if they are in wrong order. After every iteration, we 
 	// push the maximum element of the unsorted part to the sorted part. We start with the unsorted array and 
@@ -280,6 +286,8 @@ void bubbleSort(vector<int> a){
 
 	printArr(arr);
 }
+
+// ---------------------------------------------------------------------------------------
 
 void insertionSort(vector<int> a){
 	// We have to pick elements one by one and 'insert' them at their correct place in the already sorted sequence.
@@ -326,6 +334,8 @@ void insertionSort(vector<int> a){
 	printArr(arr);
 }
 
+// ---------------------------------------------------------------------------------------
+
 void selectionSort(vector<int> a){
 	// The array is divided into two parts sorted and unsorted. We start with the unsorted part
 	// having n elements and sorted part having 0 elements. Then we find the minimum element 
@@ -360,6 +370,7 @@ void selectionSort(vector<int> a){
 	printArr(arr);
 }
 
+// ---------------------------------------------------------------------------------------
 
 int main() 
 {

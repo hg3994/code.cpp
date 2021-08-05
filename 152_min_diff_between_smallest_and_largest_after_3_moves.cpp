@@ -24,7 +24,7 @@ Problem Statement:
 
 Solution: 
 
-    1.  Initially set the disclude window of size 3 to the last 3 elements of A, then slide the disclude window by 3. 
+    1.  Sort the array. Initially set the disclude window of size 3 to the last 3 elements of A, then slide the disclude window by 3. 
         Since A is sorted, we know the element at the ith index is the minimum element under consideration and the 
         element at the jth index is the maximum element under consideration. 
 
@@ -72,6 +72,8 @@ Solution:
     TC: O(nlogn)
     SC: O(1)  
 
+https://leetcode.com/problems/minimum-difference-between-largest-and-smallest-value-in-three-moves/
+
 Paradigm:
 ---
     NOTE: 
@@ -92,7 +94,7 @@ public:
         int i=0, j=n-4, min= INT_MAX;
         
         while(0 <= j && j<=n-1){
-            // just because we have sorted, we can calc min like this.
+            // just because we have sorted & it's for a specific value 3, we can calc min like this.
             min = std::min(min, nums[j]-nums[i]);
             j++;
             i++;
@@ -104,10 +106,10 @@ public:
 
 
 // Solution 2: 
-
-   int minDifference(vector<int>& A) {
-        int n = A.size();
-        if (n < 5) return 0;
-        sort(A.begin(), A.end());
-        return min({A[n - 1] - A[3], A[n - 2] - A[2], A[n - 3] - A[1], A[n - 4] - A[0]});
-    }
+int minDifference(vector<int>& A) {
+    int n = A.size();
+    if (n < 5) 
+        return 0;
+    sort(A.begin(), A.end());
+    return min({A[n - 1] - A[3], A[n - 2] - A[2], A[n - 3] - A[1], A[n - 4] - A[0]});
+}

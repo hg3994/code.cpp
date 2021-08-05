@@ -90,55 +90,54 @@ public:
 
 class Solution {
 public:
-  int findMinArrowShots(vector<vector<int>>& p) {
-    
-    // 0 arrows for 0 balloon, 1 arrow for 1 balloon.
-    if (p.size() <= 1)
-      return p.size();
-    
-    // Sort the intervals on their starting x and then on ending x.
+    int findMinArrowShots(vector<vector<int>>& p) {
+        // 0 arrows for 0 balloon, 1 arrow for 1 balloon.
+        if (p.size() <= 1)
+          return p.size();
+        
+        // Sort the intervals on their starting x and then on ending x.
 
-    // A simple sort will also sort the intervals on start time (if equal, then end time)which we want.
-    sort(p.begin(), p.end());
+        // A simple sort will also sort the intervals on start time (if equal, then end time)which we want.
+        sort(p.begin(), p.end());
 
-    // sort(p.begin(), p.end(),
-    //   [](const std::vector<int>& a, const std::vector<int>& b) {
-    //   if(a[0]==b[0]) 
-    //     return a[1] < b[1];
-    //   else
-    //     return a[0] < b[0];
-    // });
-    
-    int j=1;
-    // This vector of intervals would store the minimum number of intervals which would be hit by an arrow
-    vector<pair<int, int>> ans;
-    // Start with the pushing the first interval in the vector, we will keep updating as required.
-    ans.push_back(make_pair(p[0][0], p[0][1]));
-  
-    while(j<p.size()){
+        // sort(p.begin(), p.end(),
+        //   [](const std::vector<int>& a, const std::vector<int>& b) {
+        //   if(a[0]==b[0]) 
+        //     return a[1] < b[1];
+        //   else
+        //     return a[0] < b[0];
+        // });
+        
+        int j=1;
+        // This vector of intervals would store the minimum number of intervals which would be hit by an arrow
+        vector<pair<int, int>> ans;
+        // Start with the pushing the first interval in the vector, we will keep updating as required.
+        ans.push_back(make_pair(p[0][0], p[0][1]));
       
-      int ans_back = ans.back().second;
-      int j_start = p[j][0];
-      int j_end = p[j][1];
-      
-      // Case 1
-      if(j_start <= ans_back && j_end > ans_back){
-        ans.pop_back();
-        ans.push_back(make_pair(j_start, ans_back));
-      }
-      // Case 2
-      else if (j_start <= ans_back && j_end <= ans_back){
-        ans.pop_back();
-        ans.push_back(make_pair(j_start, j_end));
-      }
-      // Case 3
-      else {
-        ans.push_back(make_pair(j_start, j_end));
-      }
-      
-      j++;
+        while(j<p.size()){
+          
+          int ans_back = ans.back().second;
+          int j_start = p[j][0];
+          int j_end = p[j][1];
+          
+          // Case 1
+          if(j_start <= ans_back && j_end > ans_back){
+            ans.pop_back();
+            ans.push_back(make_pair(j_start, ans_back));
+          }
+          // Case 2
+          else if (j_start <= ans_back && j_end <= ans_back){
+            ans.pop_back();
+            ans.push_back(make_pair(j_start, j_end));
+          }
+          // Case 3
+          else {
+            ans.push_back(make_pair(j_start, j_end));
+          }
+          
+          j++;
+        }
+        
+        return ans.size();
     }
-    
-    return ans.size();
-  }
 };

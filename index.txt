@@ -1,0 +1,609 @@
+
+INDEX
+=====
+
+1. Coin Changing 1: Number of ways to create a sum from infinite supplies of some numbers:	
+	a. dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
+
+2. Level Order Traversal Normal/ZigZag:	BFS/Deque
+
+3. Left/Right View of a Binary Tree: Inorder Traversal (VLR, VRL)
+
+4. Lowest Common Ancestor of a Binary Tree:
+	a. When both nodes always exists: Check for nodes, find left & right LCA, return root, left or right on basis of left and right LCA.
+	b. When both nodes may not exist: Find left & right LCA, Check for nodes & increase count, return root, left or right on basis of left and right LCA.
+	c. When the address of root node is not given: Traverse both nodes till root & start again from one another till they meet at LCA.
+
+5. Trie: 
+	a. Remember the TrieNode() and Trie() class.
+	b. Always move to the current =current->children[index] and then do stuff.
+	c. Don't forget accessing index like this: index = word[i]-'a';
+	d. The first thing to do in a function is to take a current node.
+
+6. Connect Nodes at same Level: BFS
+
+7. Longest Increasing Subsequence/Subarray: 
+	a. Subsequence: 
+		i. Go for i[0:n] and j[0:i] and keep calc LIS for every i. O(n2)
+		ii. if(arr[j]<=arr[i]){
+              L[i] = max(L[i],arr[i]+ L[j]);
+            }
+	b. Subarray: Simply keep iterating till increasing and cal length till it decreases where you start again. O(n)
+
+8. Longest Common Subsequence/Subarray:
+	a. Subsequence: If the letters are same then consider last letter's LCS +1 else consider max by ignoring i or j.
+		i.  if s1[i]==s2[j], then 
+		        LCS[i][j] = 1+LCS[i-1][j-1];
+		    else 
+		        LCS[i][j] = max( LCS[i-1][j], LCS[i][j-1])
+    b. Subarray: If the letters are same, then consider last letter's LCS+1 else let it be 0
+    	i. 	if(nums1[i-1] == nums2[j-1]){
+                dp[i][j] = dp[i-1][j-1]+1;
+                maxLen = max(maxLen, dp[i][j]);
+            }
+
+9. Add two numbers in a Linked List: Calculate sum=x+y+carry and create nodes with sum%10 till both nodes become NULL. 
+	Check for a final carry
+
+10. Next Greater Element: Stack
+
+11. Mirror Tree: Recursion.
+
+12. Connect N ropes with minimum cost: Priority Queue to select 2 minimum and insert their sum
+
+13. Detect and remove loops from Linked List: Take slow, fast pointers and if they meet then there is a cycle.
+
+14. Rearrange characters so no two adjacent characters are same: 
+	Keep adding max freq char in ans and temporarily move it out of PQ adjusting its freq.
+
+15. Largest Sum Subarray: Kadane's Algorithm (At each point, decide whether I am alone greater or with the older sum)
+
+16. Search Element in a sorted matrix: Search from top-right / Binary Search in 2D(row=mid/n, col=mid%n)
+
+17. Minimum Platforms required for Trains: Priority Queue
+
+18. Wildcard Pattern Matching: DP (Similar to Longest Common Subsequence)
+	a. if(text[j-1] == pattern[i-1] || pattern[i-1]=='?'){
+            dp[i][j] = dp[i-1][j-1];
+        }
+        else if(pattern[i-1]=='*'){
+            dp[i][j] = dp[i-1][j] || dp[i][j-1];
+        }
+
+19. Sort an array of 0s, 1s and 2s: Take pointers: 
+	a. low=starting of 1s, mid=starting of UNKNOWNS, high=ending of UNKNOWNS
+	b. Keep putting elements in correct place till mid<=high
+
+20. Heap Sort: heapify() the arrya first and then keep putting the largest element in the end.
+
+21. Coin Changing 2: Number of ways to create a sum from limited supplies of some numbers:	
+	dp[i][j] = dp[i-1][j] || dp[i-1][j-coins[i-1]]; 
+
+22. Lowest Common Ancestor of a Binary Tree with root node not given: Traverse both nodes till root & start again from one 
+	another till they meet at LCA.
+
+23. Lowest Common Ancestor of a BST: Check if one val is at left and one is at right, this is the LCA. Otherwise choose the side.
+
+24. Kth largest integer in a stream of Integers: Min Heap
+	a. If heap size < k, push the element.
+	b. If this element < top of heap, ignore.
+	c. If this element > top && heap size == k, pop the top and insert this one.
+
+25. Check if all leaves are at same level: 
+	a. Set a var to the current level for the 1st leaf. All others should be that, if otherwise, return false.
+
+26. Check if a Binary Tree is a BST or not
+	a. For each node, there's a MAX val and MIN val. If your node doesn't follow that, return false.
+	b. Check isBST for left and right child with proper min and max vals.
+
+27. N-Queen Problem:
+	a. Call the solve function with col=0 
+	b. Iterate over all the rows and try to place a queen at grid[i][col] by checking if this move is valid.
+	c. If is valid, Place the queen and solve for col=col+1
+	e. If you can not place a queen, back track and unplace the queen. Try for other rows.
+	f. If you reach the col=N by placing queen it means you have placed all and (0..N-1) queens so return true.
+	d. If it is not valid/ you tried placing and nothing worked for all the rows(If no row is valid), return false.
+
+28. Shortest Distance between two cells in a matrix: BFS with visited matrix.
+
+29. Reverse a Linked List:
+	a. This is the crux:
+		current->next = NULL;
+		while(nextNode != NULL){
+            nextNextNode = nextNode->next;  // Save the nextnextNode address since while we reverse the direction, we would lose it.
+            nextNode->next = current;       // Reverse the arrow
+            current = nextNode;             // Move current ahead
+            nextNode = nextNextNode;        // Move next Node ahead
+        }
+        head = current;
+    b. If reverse needs to be done from index i till j:
+    	i. Maintain a prev node since we need to connect prev to current now (instead of head)
+    	ii. Maintain the first current since we need to attach it to the end.
+
+30. Peak Element in the array: Binary Search
+
+31. Diameter of a Binary Tree: Number of EDGES(not nodes) in the Longest Path between two nodes.
+	a. Write the code for calculating the max Height of a tree.
+	b. Introduce a variable called diameter which will calculate max(diameter, leftHeight+rightHeight) in all instances of recursion.
+
+32. Count the frequency of an Element in a Sorted Array: Binary Search
+	a. Calculate the Starting Index (Mid is target but mid-1 is not)& Ending Index(Mid is target but mid+1 is not)
+	b. Calculate the difference between them.
+
+33. Merge Two sorted Arrays of size m and n into the first array which has size allocated as m+n
+	a. Start from m-1 and n-1 of both arrays and keep allocating chars to m+n-1
+	b. Put the remaining elements of arr2 into the first array if any.
+
+34. Permutations of a String: Backtracking (O(n*n!))
+	a. Call the permute func with l=0
+	b. Permute would iterate for i=l till n
+		i. Swap arr[i] and arr[l]
+		ii. Call permute for l=l+1
+		iii. Swap arr[i] and arr[l] back
+	c. When l==n, it means one permuation is made, push it in result.
+	d. The third backtrack would swap this instance back and then try for increased i
+
+35. Doubly Linked List: Usual Stuff.
+
+36. Largest Region in Boolean Matrix / Max Area of an Island: Union Find with sizes / DFS with visited array
+
+37. Median in a running Stream of Integers:
+	a. Have a min heap for storing the max half of elements
+	b. Have a max heap for storing the min half of elements
+	c. Keep them balance while inserting the elements
+	d. If num count is even, return average of both heaps. If odd, return the heap having more's top.
+
+38. Reach the edge of the matrix in shortest distance: BFS with visited array
+
+39. Clone Doubly Linked List with random pointer
+	a. start traversing and insert duplicate nodes in between (current->next = new Node(current->val);)
+	b. Fix random pointers in added nodes (current->next->random = current->random->next;)
+	c. Detach the original and copied nodes (clone_current->next = clone_current->next->next)
+
+40. First non-repeating character
+	a. String: Put the freq in map and then iterate again. One having freq 1 is the ans.
+	b. Stream of Integers: HashMap to store the freq of characters and queue to store the order of the characters.
+		i. Insert the char in the map and check if the freq is 1, insert it in queue.
+		ii. Check it in while loop, if this changed the freq of the queue from first character, remove it.
+		iii. Queue's front will tell you the 1st Non-Repeating Character at all instances of time.
+
+41. Intersection of two linked list:
+	a. Travel the current nodes till the end then start from the other LL's head. They will meet at the intersecting index
+
+42. inorder, Pre-Order, Post-Order traversals: DFS, Stack
+
+43. Maximum Sum of a Subarray of size K: Sliding Window of size K
+
+44. Maximum Number of all subarrays of size K: Deque
+	a. Pop the elements from back of deque if arr[i] > arr[d.back()]
+    b. When we've iterated >= k elements, then push the front of deque into ans
+    c. While the front elements are going out of window, remove them.
+    d. Push the current index in deque.
+    	for(int i=0; i<arr.size();i++){
+            while(!d.empty() && arr[i]>arr[d.back()])
+                d.pop_back();
+            if(i>=k) {
+                ans.push_back(arr[d.front()]);
+                while(!d.empty() && d.front() <= i-k)
+                    d.pop_front();
+            }
+            d.push_back(i);
+        }
+
+45. Minimize the number of transactions (Splitwise Problem): 
+	a. For disconnected graphs, we can apply DFS with backtracking to see all possible results and we choose the best fit (min transactions)
+	b. Choose the transactions smartly, When they have opposite signs!
+
+46. Sorting.
+	a. HeapSort gives us O(nlogn) for all cases with O(1) space.
+	b. MergeSort gives us O(nlogn) for all cases with O(n) space.
+	c. Quick Sort gives us O(nlogn) average but worst case O(n2) with O(logn) space.
+
+47. Boundary Traversal of a Binary Tree:
+	a. Print the left boundary in top-down manner without the leaves.
+	b. Print all leaf nodes from left to right,
+	c. Print the right boundary in bottom-up manner without the leaves.
+
+48. LRU Cache: 
+	a. We can use Hash and DLL as the data structures used for LRUCache implementation.
+	b. Hash will store the key as the input number and the value would be the address of the node in the DLL.
+	c. Algo:
+		PUT: 
+			If the element 'k' is in the map:
+				Remove 'k' from its place in the DLL
+				Add a node to the front of dll with {k,v}
+				Update the address of key k in the map to DLL's front node.
+			If the element 'k' is not in the map:
+				If the cache is full:
+					Pop the element from the back of DLL & erase from the map
+					Add a node to the front of dll with {k,v}
+					Update the address of key k in the map to DLL's front node.
+				If the cache is not full:
+					Add a node to the front of dll with {k,v}
+					Update the address of key k in the map to DLL's front node.
+		GET:
+			If the element 'k' is in map
+				Access the node from map value and return the {v} from {k,v} of the dll.
+	d. DS:
+		i. List of pairs: list<pair<int, int>> dll;
+		ii. Map with keys as ints and vals as iterators/pointers of a list of pairs: unordered_map<int, list<pair<int, int>>::iterator> map;
+
+49. Kanpsack Problem: DP / Greedy
+	a. 0-1 Knapsack: Consider 2 cases- When not selecting this item with weight[i] and another When selecting this item with val[i] and wt[i]. 
+					We want to maximize the val in our knapsack. There are n items and total weight Knapsack can hold is W.
+		dp[n+1][W+1] = {0};
+		for(i=0; i<=n; i++){
+			for(j=0; j<=W; j++)
+				if(j>=wt[i-1])
+					dp[i][j] = max(dp[i-1][j], val[i-1] + dp[i-1][j-wt[i-1]]);
+		return dp[n][W];
+
+	b. Fractional Knapsack: Greedy
+		i. Calculate the best val/wt item and sort the array on the max value/wt items criterion.
+		ii. Keep putting the items in knapsak till you can't put a whole item since weight wouldn't allow.
+		ii. Then fill the remaining knapsack with the remaining wt of the next item.
+
+50. AVL Trees: Self Balancing Binary Search Trees, guarentees an upper bound of O(logN) in search, insert, delete, etc operations.
+
+51. Bloom Filters: Probabilistic Data structure to test whether an element is in a set or not.
+	a. Cons: You can not delete an element from Bloom Filters.
+	b. TC: O(K) where K is the number of hash functions.
+
+52. Stack:
+	a. Reverse a Stack (using Recursion): 
+		i. We keep popping the top elements using recursion and then pushing the top element in bottom. 
+		ii. Pushing an element to the bottom is again a recursive function which keeps popping till its empty and then pushes the element. 
+		iii. After that it pushes the other elements
+		iv. O(n2)
+		reverseStack(){
+			if (!s.empty()){
+				int t = s.top();
+				s.pop();
+				reverseStack();
+				pushAtBottom(t);
+			}
+		}
+		pushAtBottom(int t){
+			if(s.empty()) {
+				s.push(t);
+			}
+			else {
+				int a = s.top();
+				s.pop();
+				pushAtBottom(t);
+				s.push(a);
+			}
+		}
+
+	b. Sort a Stack (using Recursion): Similar to reverse but here we push it in sortedOrder.
+		i. We keep popping the top elements using recursion and then pushing the top element in sortedOrder.
+		ii. Pushing an element in sorted order is again a recursive function which keeps popping till its place and then inserts it.
+		iii. We will keep the stack sorted all the time so that step 2 can work.
+		iv. TC: O(n2)
+		sortStackRecursion(){
+			if(!s.empty()){
+				int t = s.top();
+				s.pop();
+				sortStackRecursion();
+				pushInSortedOrder(t);
+			}
+		}
+		pushInSortedOrder(int t){
+			if(s.empty()){
+				s.push(t);
+			}
+			else{
+				if (s.top() < t){
+					s.push(t);
+				}
+				else {
+					int a = s.top();
+					s.pop();
+					pushInSortedOrder(t);
+					s.push(a);
+				}
+			}
+		}
+
+	c. Sort a Stack using Temporary Stack: 
+		while(!s1.empty()){
+			int t = s1.top();
+			s1.pop();
+			while(!sortedStack.empty() && sortedStack.top() > t){
+				s1.push(sortedStack.top());
+				sortedStack.pop();
+			}
+			sortedStack.push(t);
+		}
+
+53. Count-Min-Sketch: Count the frequency of a letter in a stream of Integers.
+
+54. Trapping Rain Water:
+	a. Calculate the max bar to the left of every element: left[i] = max(left[i-1], arr[i])
+	b. Calculate the max bar to the right of every element: right[i] = max(right[i-1], arr[i])
+	c. Water arr[i] can store =min (max bar on left and right) - my own height = water += min(left[i],right[i]) - arr[i]
+	d. Space Optimized Solution is to find the peak bar and calc water on left and right of it
+
+55. Kth largest Integer in a BST: Reverse Inoder Traversal gives Kth largest element in O(k) time.
+
+56. Best time to buy and sell stoack - I in one transaction
+	a. Keep calculating minimum till today(minTillNow) & profit today = arr[i]-minTillNow
+	b. Max Profit = max of all such profits.
+	c. Algo:
+		for(int i=0; i<prices.size(); i++){
+            minTillNow = min(minTillNow, prices[i]);
+            maxProfit = max(maxProfit, prices[i]-minTillNow);
+        }
+
+57. Add two numbers in Linked List: Calculate sum=x+y+carry and create nodes with sum%10 till both nodes become NULL. 
+	Check for a final carry
+
+58. Longest Substring with no repeating Character: Sliding Window & a map to store the contents of window.
+	a. If char is not already present in the map, we include it in map
+	b. If it is present, we shorten the window from back and keep checking till we eliminate the char at j.
+
+59. Longest Palindromic Subarray/Subsequence: 
+	Subarray:
+		a. We check for palindromes with center at i,i and center at i,i+1 and expand around teh center.
+		b. We keep checking if elements are same or not in the string.
+
+	Subsequence:
+		a. It will be the longest common subsequence between S and Reverse(S)
+
+60. Maximum water in a container: Two-Pointer. Keep two indexes left and right and keep calculating the area between them till they meet.
+
+61. Next Permutation of a Number:
+	a. Find the largest index i such that arr[i-1] < arr[i] (0125330 -> 012'5'330, a[i]->5) [Upward Slope]
+	b. If no such i exists, Then the array is already sorted decending. We just need to reverse (321 -> 123)
+	c. Finding the greatest index j such that j>=i and arr[j]>arr[i-1] (01'2'5330 -> 01253'3'0, a[i-1]=2, a[j]=3)
+	d. Swap arr[j] and arr[i-1] (0125330 -> 0135320)
+	e. Reverse the suffix since we want the next perm, so it has to be the smallest (013|5320 -> 013|0235)
+
+
+62. Merge Intervals: Sort and then Keep checking for overlapping. If overlapping, update the end index. if not, then insert
+
+63. Evaluating Division: DFS with Backtracking. Using the visited array as well.
+
+64. Nuumber of subarrays where Product of elements < K
+	a. Algo:
+		while(end<n){
+	        product *= nums[end];
+	        while (start < end && product >= k)  
+	            product /= nums[start++];
+	        result += (end-start)+1;
+	        end++;
+    	}
+
+65. Rotate a matrix clockwise 90*: We can rotate an image by first transposing and then swapping along the leading diagonal.
+	  	
+	a. Algo:
+		for(int i=0;i<n/2;i++)
+      		for(int j=0;j<n;j++)
+        		swap(a[i][j], a[n-1-i][j]);
+    
+	    for(int i=0;i<n;i++)
+	     	for(int j=i+1;j<n;j++)
+	        	swap(a[i][j], a[j][i]);
+	b.
+	  	1 2 3      7 8 9      7 4 1
+		4 5 6  =>  4 5 6  =>  8 5 2
+		7 8 9      1 2 3      9 6 3
+
+66. Word Break Problem: Recursion + Memoization
+	a. If my dictionary contains s[start..end] and s[end..n] can also be solved, return true
+	b. memo[] will contain whether a word 'w' can be solved or not. -1 = UNKNOWN, 0=CANNOT, 1=CAN
+	c. Algo:
+		if (memo[start]!= -1)
+      		return memo[start];
+
+		for(int end=start+1;end<=n;end++){
+	      	if (dictMap.find(s.substr(start,end-start)) != dictMap.end()  && wordBreakHelper(s, dictMap, end, memo)){
+	        	memo[start] = 1;
+	        	return true;
+	      	}
+	    }
+
+	    memo[start] = 0;
+	    return false;
+
+67. Longest Substring with at most 2 distinct characters: Sliding Window
+
+68. Merge Two Sorted Linked Lists:
+	a. Algo:
+		if(l1 == NULL)
+			return l2;
+		if(l2 == NULL)
+			return l1;
+		if(l1->val < l2->val)
+			l1->next = merge(l1->next, l2)
+			return l1;
+		else
+			l2->next = merge(l1, l2->next)
+			return l2;
+
+
+69. Coin Changing 3 : Given infinite coins, print the ways in which we can make a sum s.
+	a. Iterate the DP array and try to calculate it.
+
+70. Topological Sort: BFS on nodes with indegree 0
+	a. Calculate the indegree for all the vertices.
+	b. Push the vertices with indegree 0 in a queue.
+	c. Till the queue is empty, for all the adjacent nodes of the popped node, decrease the indegree & if it is 0, push it in queue
+	d. Keep pushing the popped nodes in the ans. This will be the TOPOLOGICAL SORT of the graph.
+	e. Keep maintaining the number of nodes that are visited & if that is not equal to total vertices, there are cycles.
+
+71. Serialize and Deserialize a BST
+	a. Save it in Pre-Order Traversal
+	b. Construct BST from Pre-Order Traversal with help of MIN and MAX arguments for each node.
+
+72. Minimize arrows to burst balloons.
+	a. Sort them on start time.
+	b. Iterate over the balloons and if they overlap (lastIntervalEndtime > NewIntervalStartTime, then keep only overlapping intervals.
+	c. If they do not overlap, then keep current intervals end time as the last interval end time.
+
+73. Sort a Linked List: Using Merge Sort here.
+
+74. Minimum Number of Meeting Rooms: Priority Queue.
+	a. Sort the meetings on start time.
+	b. Maintain a PQ(min heap) and insert the meeting end times.
+	c. If a meeting is later than the pq top, then pop the last one and insert this one.
+	d. If a meeting overlaps with the pq top, then insert this one.
+	e. Size of pq will be the required meeting rooms.
+	f. ALGO:
+		sort(intervals.begin(), intervals.end());
+        priority_queue<int, vector<int>, std::greater<int>> pq;
+        pq.push(intervals[0][1]);
+        for(int i=1;i<intervals.size();i++){
+            if(intervals[i][0] >= pq.top())
+                pq.pop();
+            pq.push(intervals[i][1]);
+        }
+        return pq.size();
+
+75. Best Time to Buy and Sell Stock 2: Given stock prices and with infinite transactions, maximize the profit.
+	a. We can consider all the small profits on each consecutive day since adding them up will make up a big profit.
+	b. ALGO:
+		for(int i=1;i<prices.size();i++){
+            profit += max(prices[i]-prices[i-1] ,0);
+        }
+
+76. Best Time to Buy and Sell Stock 3: Given stock prices and with K transactions, maximize the profit. DP.
+	a.
+		dp[i][j] = max( 
+	        1. Not transacting on jth day = dp[i][j-1]
+	        2. Selling on jth day and buying on m=0..(j-1) th day + 
+	            profit made till mth day with i-1 transactions
+	                =(price[j]-price[m]+dp[i-1][m])
+	                =(dp[i-1][m]-price[m]+price[j])
+        )
+	b. ALGO:
+		long int dp[k+1][d];
+		for(long int i=0;i<d;i++)
+            dp[0][i] = 0;
+        for(long int i=0;i<k+1;i++)
+            dp[i][0] = 0;
+		for(long int i=1;i<k+1;i++){
+            long int max_diff = dp[i][0] - prices[0];
+            for(long int j=1; j<d; j++){
+                max_diff = max(max_diff, dp[i-1][j]-prices[j]);
+                dp[i][j] = max(dp[i][j-1], max_diff+prices[j]);
+            }
+        }
+		return dp[k][d-1];
+
+77. Clone an Undirected Graph: DFS/BFS
+	a. NULL Check
+	b. Visited Check.
+	c. Create new Node.
+	d. Update visited,
+	e. Iterate over all neighbours and assign the node to the neighbours. Return the cloned Node.
+	f. ALGO:
+		if(node == NULL)
+            return NULL;
+        if(visited.count(node))
+            return visited[node];
+        Node* cloneNode = new Node(node->val);
+        visited[node] = cloneNode;
+        for(auto nbr : node->neighbors)
+            cloneNode->neighbors.push_back(cloneGraph(nbr));
+        return cloneNode;
+
+78. Print all nodes at a distance K from target: BFS with visited since the tree has become some what like a graph
+	a. Create a hashmap for child->parent traversal.
+	b. Write BFS, just we need to insert the parent node as well by checking from the hashmap.
+	c. When you reach K level break, all nodes in the queue will be of level K.
+	d. ALGO:
+		queue<TreeNode*> q;
+        int currentLevel = 0;
+        q.push(target);
+        visited[target] = true;
+        while(!q.empty()){
+        	if (currentLevel == K)
+                break;
+            currentLevel++;
+            int size = q.size();
+            for(int i=0; i<size; i++) {
+                TreeNode* front = q.front();
+                visited[front] = true;
+                q.pop();
+                if (front->left && !visited[front->left])
+                    q.push(front->left);
+                if (front->right && !visited[front->right])
+                    q.push(front->right);
+                if (parents[front] && !visited[parents[front]])
+                    q.push(parents[front]);
+            }
+        }
+        vector<int> res;
+        while(!q.empty()){
+            TreeNode *f = q.front();
+            q.pop();
+            res.push_back(f->val);
+        }
+
+79. Word Ladder: Transform a word from startWord to endWord from a wordlist by making one change at a time. BFS
+	a. Add startWord to queue.
+	b. Try to change all its letters and check if you have it in dict. If you have, insert it in queue.
+	c. Keep doing this till you find endWord
+	d. Keep erasing the words that yu have made form dict since otherwise you may fall in an infinite loop.
+	e. Since it is BFS, it will give you the shortest way to arrive from beginWord to endWord.
+
+80. Coin Changing 4: Minimum number of coins required to create a sum.
+	a. dp[j] = min(dp[j], dp[j-coins[i]]+1);
+
+81. Minimum Number of Jumps to reach the end of array.
+	a. Start from 0 till currentEnd(0 init) and keep calculating the currentFarthest you can reach.
+	b. Once you reach the end, make currentEnd = currentFarthest and increase a jump.
+	c. Algo:
+		for(int i=0; i<n-1;i++) {
+            currFarthest = max(currFarthest, i+nums[i]);
+            if (i == currEnd){
+                jumps++;
+                currEnd = currFarthest;
+                if(currEnd >= n-1)
+                    break;
+            }
+        }
+
+82. Number of palindromic Substrings:
+	a. Use the same logic of expand_from_middle and this time, return the number of strings instea of the boolean.
+
+83. Longest String Chain: DFS + Backtracking
+	a. ALGO:
+		if (memo.find(currentWord) != memo.end())
+            return memo[currentWord];
+        int n = currentWord.size();
+        int maxLength=1;
+        for(int i=0; i<n; i++) {
+            string newWord = currentWord.substr(0, i) + currentWord.substr(i+1, n);
+            if (wordsPresent.find(newWord) != wordsPresent.end()) {
+                int len = dfs(wordsPresent, memo, newWord)+1;
+                maxLength = max(len, maxLength);
+            }
+        }
+        memo[currentWord] = maxLength;
+        return maxLength;
+
+84. Longest Increasing Path in a Matrix: DFS + visited array
+	a. We use DFS with visited cache to solve this.
+	b. ALGO:
+		if(cache[i][j]!=1){
+            return cache[i][j];
+        }
+        
+        vector<int> x = {1, -1, 0, 0};
+        vector<int> y = {0, 0, 1, -1};
+                 
+        for(int k = 0; k <4; k++){
+            if( i+x[k]>=0 && i+x[k]<m && j+y[k]>=0 && j+y[k]<n && 
+                matrix[i+x[k]][j+y[k]] > matrix[i][j] ){
+                cache[i][j] = max(cache[i][j], dfs(matrix, cache, i+x[k], j+y[k]) + 1);
+            }
+        }
+        return cache[i][j];
+
+85. Range Sum Query: Segment Tree.
+
+86. K-Closest points to the origin: Max Heap of size K.
+	
+87. 

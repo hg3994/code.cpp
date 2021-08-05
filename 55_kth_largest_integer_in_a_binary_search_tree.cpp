@@ -15,19 +15,6 @@ Paradigm: Heaps, PQ, Inorder
 
 Time Complexity: O(K)
 
-NOTE: 
-	
-	Similar Problem: 
-		1. https://leetcode.com/problems/kth-smallest-element-in-a-bst/
-			- This is simple plain inorder traversal.
-			- O(k)
-		2. https://leetcode.com/problems/kth-largest-element-in-an-array/
-			- This uses a Min Heap of size K to insert the elements & the top element is Kth Largest.
-			- O(nlogK)
-		3. https://leetcode.com/problems/kth-largest-element-in-a-stream/
-			- This uses the same Min Heap of size K and the top element would be Kth largest.
-			- O(nlogK)
-
 WHY MIN HEAP & NOT MAX HEAP?
 >> Min Heap is better for this question. If it was Kth smallest in Array/Stream, 
 	then Max Heap would have been better.
@@ -42,6 +29,19 @@ WHY MIN HEAP & NOT MAX HEAP?
 	All this would fit in perfectly in a min heap where the Kth largest will be at the top and 
 		remaining K-1 elements (which are greater than K) will remain in the Min Heap.
 
+
+NOTE: 
+	
+	Similar Problem: 
+		1. https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+			- This is simple plain inorder traversal.
+			- O(k)
+		2. https://leetcode.com/problems/kth-largest-element-in-an-array/
+			- This uses a Min Heap of size K to insert the elements & the top element is Kth Largest.
+			- O(nlogK)
+		3. https://leetcode.com/problems/kth-largest-element-in-a-stream/
+			- This uses the same Min Heap of size K and the top element would be Kth largest.
+			- O(nlogK)
 
 */
 

@@ -6,6 +6,8 @@ C++ program for detecting and removing a loop in a linked list
 https://ide.geeksforgeeks.org/3uQAwagHxo
 https://www.geeksforgeeks.org/detect-loop-in-a-linked-list/
 https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/
+https://leetcode.com/problems/linked-list-cycle/
+
 
 Solution: * To detect a loop, we take two pointers: a fast and a slower one, 
     the fast moves 2 nodes a time and the slower one moves one node a time.

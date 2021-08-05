@@ -22,7 +22,7 @@ https://leetcode.com/problems/jump-game-ii/
 
 ------
 
-Solution: This can be solved by BFS or DP
+Solution: This can be solved by Greedy, BFS or DP
 
     1. Greedy: Imagine that you are at index i in the array, the element in your current position 
         defines the maximum distance that you can jump. Therefore, your next step will fall somewhere 

@@ -6,9 +6,6 @@ http://cpp.sh/6sdt3
 C++ program for inserting(front,end) an element, searching an element, 
     and deleting (key,index) in a Linked List.
 
-    https://leetcode.com/problems/reverse-linked-list/
-    https://leetcode.com/problems/reverse-linked-list-ii/ : Reverse Nodes in between i and j index
-    https://leetcode.com/problems/reverse-nodes-in-k-group/ : Reverse Nodes in K groups (Solved in 112_..)
 
 Solution: 
     To add new element to the front, point new node to the head's node. 
@@ -26,6 +23,11 @@ Solution:
     To reverse a Linked List, we can do it in two ways:
         - Iterative: Keep reversing the arrows one at a time and traverse till the end
         - Recursive: Traverse till the end and then while we backtrack, reverse the arrows
+
+Similar Questions:
+    1. https://leetcode.com/problems/reverse-linked-list/
+    2. https://leetcode.com/problems/reverse-linked-list-ii/ : Reverse Nodes in between i and j index
+    3. https://leetcode.com/problems/reverse-nodes-in-k-group/ : Reverse Nodes in K groups (Solved in 112_..)
 
 NOTE: We need to handle the cases of 1st node deletion separately.
 
@@ -275,8 +277,8 @@ int main()
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        // return reverseListIterative(head);
-        return reverseListRecursive(head);
+        return reverseListIterative(head); // O(1) space.
+        // return reverseListRecursive(head); // O(n) space.
     
     }
     

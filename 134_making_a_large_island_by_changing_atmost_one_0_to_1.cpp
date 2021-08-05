@@ -11,7 +11,7 @@ An island is a 4-directionally connected group of 1s.
 https://leetcode.com/problems/making-a-large-island/
 ------
 
-Solution: 
+Solution: Union Find
     1. We want to find the largest area of an island by changing just one element.
     2. We would use Disjoint Set Union to group all the 1s and create a few sets. One of them would be largest.
          - We iterate over the matrix and if find a 1, we will union it with other adjacent 1s. 

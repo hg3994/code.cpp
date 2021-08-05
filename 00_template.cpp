@@ -71,14 +71,30 @@ Paradigm:
 
 // Data Structures
 // ---------------
-// 1. LRU:
+// 1. LRU: A DLL with nodes in the front meaning most recently used and back means least recently used, so we EVICT the keys from back
+     list<pair<int, int>> dll; unordered_map<int, list<pair<int, int>>::iterator> map;
 // 2. LFU:
+    // Map to store the key and value. Also, as a part of the value, we will be storing the address of the DLL node which contains the key.
+    unordered_map<Key_t, Node> m_values;
+    // Map to store the frequency of each key
+    unordered_map<Key_t, Count_t> m_counts;
+    // Map to store the frequencies as keys and a DLL associated to them which are keys for that frequency.
+    // In this DLL, the back is least recently used while the front is the most freshly added node.
+    unordered_map<Count_t, list<Key_t>> m_countKeyMap;
+    
+    // This will contain the lowest frequency so that we can refer the m_countKeyMap hash and get the keys for the lowest freq
+    int m_lowestFrequency;
+    int m_maxCapacity;
 // 3. GetRandom(): Vector + HashMap
+// 4. First Non-repeating Char in Stream: Queue + Hashmap
+// 5. Topological Sort: vector<int> in_degree(g.V, 0); queue<int> q;
+// 6. Rate Logger Limiter: unordered_map <string, int> m;
 
 // Ways to represent graphs
 // ------------------------
 // Directed Graph:
-//    1. unordered_map<string, vector<string>> graph : A->B, A->C means map[A]=[B,C]
+//  1. unordered_map<string, vector<string>> graph                  ||  A->B, A->C means map[A]=[B,C]
+//  2. unordered_map<string, unordered_map<string, double>> graph;  ||  Graph: {a: {b: 2}, b: {a: 0.5, c: 3}, c: {b: 0.33}}
 
 // Graph Problems
 // --------------
@@ -93,6 +109,111 @@ Paradigm:
 //      Can be solved by using two pointers i and j and traversing from start and end checking if the letters are same.
 //  2. Count the number of Palinromes in X
 //      Expand from middle
+
+
+// BFS
+// ---
+// 1. Binary Tree: Simple traight-forward using a queue.
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        if (root == NULL)
+            return ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty()){
+            int size = q.size();
+            vector<int> levelNodes;
+            for(int i=0; i<size; i++){
+                TreeNode* frontNode = q.front();
+                q.pop();
+                levelNodes.push_back(frontNode->val);
+                if(frontNode->left)
+                    q.push(frontNode->left);
+                if(frontNode->right)
+                    q.push(frontNode->right);
+            }
+            ans.push_back(levelNodes);
+        }
+        return ans;
+    }
+
+// 2. Matrix: Must use a visited[] array + queue
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        int n = grid.size();
+        
+        if(grid[0][0] == 1)
+            return -1;
+        
+        queue<pair<int, int>> q;
+        vector<int> a(n, 0);
+        vector<vector<int>> visited(n, a);
+        int moves = 1;
+        q.push(make_pair(0, 0));
+        visited[0][0] = 1;
+        
+        while(!q.empty()){
+            int size = q.size();
+            for(int i=0;i<size; i++){
+                pair<int, int> f = q.front(); q.pop();
+                
+                if (f.first == n-1 && f.second == n-1){
+                    return moves;
+                }
+                
+                vector<int> x = {0, 1, 1,  1,  0, -1, -1, -1};
+                vector<int> y = {1, 1, 0, -1, -1, -1,  0,  1};
+                
+                for(int i=0;i<8;i++){
+                    if ( f.first+x[i] >= 0 && f.first+x[i] < n 
+                       && f.second+y[i] >=0 && f.second+y[i] < n
+                       && grid[f.first+x[i]][f.second+y[i]] == 0
+                       && visited[f.first+x[i]][f.second+y[i]] == 0){
+                        
+                        q.push(make_pair(f.first+x[i],f.second+y[i]));
+                        visited[f.first+x[i]][f.second+y[i]] = 1;
+                    }
+                }   
+            }
+            moves++;
+        }
+        return -1;
+    }
+
+// 3. 
+
+
+// DFS
+// ---
+
+// 1. 4 Way DFS with visited returning the area it covered.
+    class Solution {
+        
+        int dfs (vector<vector<int>>& grid, vector<vector<int>>& visited, int i, int j) {
+            if(i<0 || i==grid.size() || j<0 || j==grid[0].size() || visited[i][j] == 1 || grid[i][j] == 0)
+                return 0;
+            visited[i][j] = 1;
+            return 1+dfs(grid, visited, i+1, j)+dfs(grid, visited, i-1, j)+dfs(grid, visited, i, j+1)+dfs(grid, visited, i, j-1);
+        }
+        
+    public:
+        int maxAreaOfIsland(vector<vector<int>>& grid) {
+            int m = grid.size(), n = grid[0].size();
+            vector<int> tmp(n, 0); vector<vector<int>> visited (m, tmp);
+            int maxArea = 0, area;
+            for(int i=0; i<m; i++) {
+                for(int j=0; j<n; j++) {
+                    if (grid[i][j] == 1 &&  visited[i][j]==0){
+                        area = dfs(grid, visited, i, j);
+                        maxArea = max(area, maxArea);
+                    }
+                }
+            }
+            return maxArea;
+        }
+    };
+
+
+
 
 
 

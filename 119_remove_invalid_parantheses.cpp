@@ -33,6 +33,10 @@ Similar Questions:
     1. https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
         - Exact same problem but we need to return just any one answer but here we need all of them.
         - solved in 88_
+    2. https://leetcode.com/problems/generate-parentheses/
+        - Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+        - Input: n = 3
+        - Output: ["((()))","(()())","(())()","()(())","()()()"]
 
 NOTE: 
 
@@ -157,3 +161,73 @@ public:
         return v;
     }
 };
+
+
+// ---------------------------------------
+// SIMILAR PROBLEM 2: generate-parentheses
+// ---------------------------------------
+
+// Approach: 1 
+class Solution {
+    // n=1
+    //      ()
+    // n=2
+    //      ()(), (()), ()()  ====> ()(), (())
+    // n=3
+    //      ()(()), (()()), ((())), (()()), (())(), ()()(), (())() ====> ((())), (())(), ()(()), (()()), ()()()
+
+    // Generate the brackets for each level from 1 till n
+    // We keep updating the set of brackets. 
+    // We start with 1=() and then we add a pair of braces '()' into every place of every string of the set.
+    // For n=2 () => ()(), (()), ()() => Converting this to a set then it becomes ()(), (())
+    // For n=3, [()(), (())]    => ()(()), (()()), ((())), (()()), (())(), ()()(), (())() 
+    //                          => changing to a set ((())), (())(), ()(()), (()()), ()()()
+    
+public:
+    vector<string> generateParenthesis(int n) {
+        unordered_set<string> s;
+        s.insert("()");
+        for(int i=2; i<=n; i++){
+            unordered_set<string> new_st;
+            for (auto elem: s) {
+                for(int j=0; j<elem.size(); j++){
+                    string new_s = elem.substr(0,j)+"()"+elem.substr(j,elem.size());
+                    new_st.insert(new_s);
+                }
+            }
+            s = new_st;
+        }
+        vector<string> v(s.begin(), s.end());
+        return v;
+    }
+};
+
+
+// Approach 2: 
+// In JAVA
+// TC: https://leetcode.com/problems/generate-parentheses/solution/
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> ans = new ArrayList();
+        backtrack(ans, new StringBuilder(), 0, 0, n);
+        return ans;
+    }
+
+    public void backtrack(List<String> ans, StringBuilder cur, int open, int close, int max){
+        if (cur.length() == max * 2) {
+            ans.add(cur.toString());
+            return;
+        }
+
+        if (open < max) {
+            cur.append("(");
+            backtrack(ans, cur, open+1, close, max);
+            cur.deleteCharAt(cur.length() - 1);
+        }
+        if (close < open) {
+            cur.append(")");
+            backtrack(ans, cur, open, close+1, max);
+            cur.deleteCharAt(cur.length() - 1);
+        }
+    }
+}
