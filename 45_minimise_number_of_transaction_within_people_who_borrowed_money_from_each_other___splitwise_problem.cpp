@@ -33,6 +33,8 @@ Why are we using multi_set and not a priority_queue?
 
 Why are we using multi_set and not a set?
 > The only difference between a set and a multiset is that multiset can have duplicate values.
+> The difference between a vector and a multiset is that is will always remain sorted.
+> The difference between a priority queue and a multiset is that is not a Queue so we can pop from the back as well.
 
 ---
     Similar Problem:
@@ -40,6 +42,7 @@ Why are we using multi_set and not a set?
             - The same problem but test cases also have disconnected graphs so we need to implement different soln.
             - DFS/BACKTRACKING based solution written below
             - TC: O(n!) since T(n) = n*T(n-1)
+            - Asked in Oyo
 */
 
 //Given the list of M transacations b/w N people, find out the minimum number of transactions required to settle it up!
@@ -96,7 +99,7 @@ public:
     vector<int> debt;
     
     int minTransfers(vector<vector<int>>& transactions) {
-        vector<int> balance(21, 0);
+        vector<int> balance(21, 0); // max 21 people involved.
         int ans = 0;
         for(auto t: transactions){
             balance[t[0]] -= t[2];
@@ -110,6 +113,7 @@ public:
         return dfs(0);
     }
     
+    // Returns the minimum number of transactions needed to settle the debt
     int dfs(int s){
         // Skip the debts if they are 0
         while(s < debt.size() && debt[s] == 0)

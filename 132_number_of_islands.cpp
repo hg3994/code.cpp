@@ -51,7 +51,8 @@ Solution:
 Paradigm: DFS, Union Find
 
 ---
-  NOTE: This can also be solved with BFS
+  NOTE: 1. This can also be solved with BFS
+        2. Asked in MindTickle
 
 */
 

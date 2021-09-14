@@ -27,6 +27,7 @@ Solution:
 
 ---
   NOTE: 
+    1. Asked in Goldman Sachs
 
 */
 
@@ -49,14 +50,14 @@ class Solution {
     
     // To find the CUTS:
     // We iterate over the smaller length array and choose the middle as the CUT ((0+x)/2)
-    // Considering the length of it, we find the CUT in nums2[] as well (x+y+1)/2 - CUTX
+    // Considering the length of it, we find the CUT in nums2[] as well ((x+y+1)/2-CUTX)
     //      Total length / 2 - Cut X  -- would make a cutY such that # elements in LEFT ~= # elements RIGHT
     // Now consider the 4 important elements
     //      - For nums1: LEFT Arrays's MAX element : leftX
     //      - For nums1: RIGHT Arrays's MIN element : rightX
     //      - For nums2: LEFT Arrays's MAX element : leftY
     //      - For nums2: RIGHT Arrays's MIN element : rightY
-    // leftX <= RightY && leftY <= RightX and then we are sure that the CUT is PERFECT! (Ex: Above)
+    // leftX <= rightY && leftY <= rightX and then we are sure that the CUT is PERFECT! (Ex: Above)
     
         // If leftX > RightY, it means we are far ahead and the CUT should be a bit before (towards left)
         // Ex: X: [10,20 , 30,40], Y: [1,2 , 3,4]
@@ -64,9 +65,9 @@ class Solution {
         // leftX: 20, RightY: 3 => So we want to move the CUT in X towards left, obviously to maintain the length
         // the CUT in Y will move towards right automatically.
 
-        // If leftY > RIghtX, it means we are far behind and the CUT should be a bit further in X (towards right)
+        // If leftY > RightX, it means we are far behind and the CUT should be a bit further in X (towards right)
         // and obviously the CUT in Y would move towards the left
-        // Ex: X: [1,3 , 8,9,15] , Y: [7,11,18,19 , 21,25], x:length of nums1, y: length of nums2
+        // Ex: X: [1,3 , 8,9,15] , Y: [7,11,18,19 , 21,25]
         //             |                          |
         // RightX: 8, leftY: 19 => So we want to move the CUT in X towards the right.
     

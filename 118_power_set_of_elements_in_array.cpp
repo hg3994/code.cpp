@@ -116,7 +116,7 @@ vector<vector<int>> subsets(vector<int>& nums) {
 
 
 // --------------------------------------------------------
-// SIMILAR QUESTION 1- WHNE SUBSETS HAVE DUPLICATE ELEMENTS
+// SIMILAR QUESTION 1- WHEN SUBSETS HAVE DUPLICATE ELEMENTS
 // --------------------------------------------------------
 // Approach 1: Same logic. But first sorting the input otherwise we'll have 2 vectors [1,4] & [4,1] for
 // an input like [4,1,4]. Sorting it would make it [1,4,4] and then both would turn out to be [1,4],[1,4]

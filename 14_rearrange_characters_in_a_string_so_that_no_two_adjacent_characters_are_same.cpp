@@ -3,6 +3,7 @@ Harshit Gupta | 20th October, 2018
 
 https://www.geeksforgeeks.org/rearrange-characters-string-no-two-adjacent/
 https://ide.geeksforgeeks.org/tqd1ushUdK
+https://leetcode.com/problems/reorganize-string/
 
 C++ program for Rearranging characters in a string such that no two adjacent characters are same. 
 
@@ -39,7 +40,45 @@ Implementation:
         (A character would remain with more freqency in the temporary 'previous' variable 
         and the loop will exit. The ans variable would thus have length less than the original string.)
 
+
+
 */
+
+// -----------------
+// LEETCODE SOLUTION
+// -----------------
+class Solution {
+public:
+    string reorganizeString(string s) {
+        priority_queue<pair<int, char> > pq;
+        unordered_map<char, int> umap;
+        for(int i=0; i<s.size(); i++){
+            umap[s[i]]++;
+        }
+        
+        for(auto &m: umap)
+            pq.push({m.second, m.first});
+        
+        pair<int, char> temp = {-1, '#'};
+        string ans;
+        while(pq.size() > 0){
+            pair<int, char> t = pq.top();
+            pq.pop();
+            ans += t.second;
+            t.first--;
+            
+            if(temp.first > 0)
+                pq.push(temp);
+            
+            // Always assign the current t as temp, if it has freq 0, then temp wont be pushed next time.
+            temp = t;
+        }
+        
+        return ans.size()==s.size() ? ans : "";
+    }
+};       
+
+// -------------------------------------------------------------------
 
 #include <bits/stdc++.h>
 using namespace std; 

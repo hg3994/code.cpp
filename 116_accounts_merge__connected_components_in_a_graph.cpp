@@ -42,7 +42,7 @@ https://leetcode.com/problems/accounts-merge/
 
 ------
 
-Solution: 
+Solution: We create a graph of emails. Draw two edges between the two related emails, if they belong to the same person.
     1. Draw an edge between two emails if they occur in the same account. 
         The problem comes down to finding connected components of this graph.
     2. We'll remember a map from emails to names on the side. 

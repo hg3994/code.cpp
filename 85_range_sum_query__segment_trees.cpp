@@ -34,8 +34,15 @@ Solution:
 
 Time Complexity: Sum: O(logn), Update: O(logn)
 Space Complexity: O(n) for the segment tree
+
 ---
   NOTE: 
+
+  Similar Questions: 
+    1. https://leetcode.com/problems/range-sum-query-immutable/
+        - Calculate the sum of the elements of nums between indices left and right inclusive
+        - No update query, only sum needs to queried.
+        - We can pre-calculate the result since it wont ever change ina  prefix sum.
 
 */
 
@@ -165,3 +172,50 @@ public:
  * obj->update(index,val);
  * int param_2 = obj->sumRange(left,right);
  */
+
+// ------------------------------------------------------------------------
+
+// ------------------
+// SIMILAR QUESTION 1
+// ------------------
+
+// Approach 2: Prefix Sum
+// Time complexity : O(1) time per query, O(n) time pre-computation. Since the cumulative sum is cached, each sumRange query can be calculated in O(1) time.
+// Space complexity : O(n) for prefixSum
+// Runtime: 16ms
+class NumArray {
+public:
+    vector<int> prefixSum;
+    NumArray(vector<int>& nums) {
+        prefixSum.resize(nums.size()+1, 0);
+        for(int i=0; i<nums.size(); i++)
+            prefixSum[i+1] = prefixSum[i]+nums[i];
+    }
+    
+    int sumRange(int left, int right) {
+        return prefixSum[right+1] - prefixSum[left];
+    }
+};
+
+
+/*
+    Approach 1: Normal Addition
+    Time complexity : O(n) time per query. Each sumRange query takes O(n) time.
+    Space complexity : O(1). Note that data is a reference to nums and is not a copy of it.
+    Runtime: 270ms
+*/
+
+class NumArray {
+public:
+    vector<int> v;
+    NumArray(vector<int>& nums) {
+        v = nums;
+    }
+    
+    int sumRange(int left, int right) {
+        int ans=0;
+        for(int i=left; i<=right; i++)
+            ans += v[i];
+        return ans;
+    }
+};

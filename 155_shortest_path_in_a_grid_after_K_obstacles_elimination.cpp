@@ -4,7 +4,7 @@
 Harshit Gupta | 26th July, 2021
 ---------------------------------
 
-Problem Statement:
+Problem Statement: Shortest Path in a Grid with Obstacles Elimination
 
 Given a m * n grid, where each cell is either 0 (empty) or 1 (obstacle). In one step, you can move up, down, left or right 
 from and to an empty cell.
@@ -84,7 +84,7 @@ public:
             if(x<0 || x>=m || y<0 || y>=n)
                 continue;
             
-            // If you're reached the end, great, return the currentLength!
+            // If you've reached the end, great, return the currentLength!
             if(x == m-1 && y == n-1)
                 return t[2]; //currentLength of the path
              

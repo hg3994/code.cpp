@@ -349,7 +349,7 @@ public:
 // ------------------------------------------------------------------
 // REVERSE LINKED LIST BETWEEN ith AND jth INDEX IMPLEMENTATION BELOW:
 // ------------------------------------------------------------------
-// Consider 1->2->3->4->5 as example, we need to reverse index 2 to 5
+// Consider 1->2->3->4->5 as example, we need to reverse index 1 to 3
 // Reversed List: 1->4->3->2->5
 
 class Solution {

@@ -56,11 +56,12 @@ Similar Questions:
     2. https://leetcode.com/problems/course-schedule-ii/
         - We need to return the order (topological ordering) of the DAG.
         - We can use Kahn's Algorithm to get the topological ordering.
+        - Asked in BOLT
 
     3. https://leetcode.com/problems/minimum-height-trees/
         - Amazing explanation given here: https://leetcode.com/problems/minimum-height-trees/solution/
         - The input is a non-directed acyclic graph with some edges and we can choose a 
-        node as root and call the graph as tree.
+            node as root and call the graph as tree.
         - We need to find the minimum height of the tree by choosing any node as root node.
         - We can rephrase the problem as finding out the nodes that are overall 
             close to all other nodes, especially the leaf nodes.
@@ -75,7 +76,12 @@ Similar Questions:
         - We do not use the regular graph DS but used vector of vector to represent the graph.
 
     4. https://leetcode.com/problems/parallel-courses/
-        - TODO
+        - Given a directed graph of courses and the relationship between them. For a courseA which depends
+            on courseB, we need to complete courseB and then we can complete courseA. We need to find the min number
+            of semesters in which we can complete all the courses. 
+        - Take as many courses as you can in first semester, then again the max we can in the next sem and so on..
+        - We consider them as nodes and create a directed graph, then we complete the courses with indegree 0
+            and implement the regular Topological Sort here.
 
 Resources:
     - Stack Solution: https://www.geeksforgeeks.org/topological-sorting/
@@ -187,45 +193,37 @@ public:
 // THIS SHOULD BE THE PREFERRED SOLUTION FOR TOPOLOGICAL SORT
 class Solution {
 public:
-    bool canFinish(int numCourses, vector<pair<int, int>>& prerequisites) {
-        graph g = buildGraph(numCourses, prerequisites);
-        vector<int> degrees = computeIndegrees(g);
-        for (int i = 0; i < numCourses; i++) {
-            int j = 0;
-            for (; j < numCourses; j++) {
-                if (!degrees[j]) {
-                    break;
-                }
-            }
-            if (j == numCourses) {
-                return false;
-            }
-            degrees[j]--;
-            for (int v : g[j]) {
-                degrees[v]--;
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        int n = numCourses;
+        vector<int> ans;
+        queue<int> q;
+        vector<vector<int>> graph(n);
+        vector<int> indegree(n, 0);
+        
+        for(auto& p: prerequisites){
+            graph[p[1]].push_back(p[0]);
+            indegree[p[0]]++;
+        }
+        
+        for(int i=0; i<n; i++){
+            if(indegree[i] == 0)
+                q.push(i);
+        }
+        
+        while(!q.empty()){
+            int top = q.front();
+            ans.push_back(top);
+            q.pop();
+            
+            for(auto &e: graph[top]){
+                if(--indegree[e] == 0)
+                    q.push(e);
             }
         }
-        return true;
-    }
-private:
-    typedef vector<vector<int>> graph;
-    
-    graph buildGraph(int numCourses, vector<pair<int, int>>& prerequisites) {
-        graph g(numCourses);
-        for (auto p : prerequisites) {
-            g[p.second].push_back(p.first);
-        }
-        return g;
-    }
-    
-    vector<int> computeIndegrees(graph& g) {
-        vector<int> degrees(g.size(), 0);
-        for (auto adj : g) {
-            for (int v : adj) {
-                degrees[v]++;
-            }
-        }
-        return degrees;
+        if(n == ans.size())
+            return ans;
+        else
+            return {};
     }
 };
 
@@ -320,7 +318,7 @@ public:
         vector<int> degrees(n, 0);
         vector<vector<int>> adj(n);
         
-        //creating adjacent list & degreees vector
+        //creating adjacent list & degreees vector for the undirected graph
         for(int i=0;i<edges.size();i++) {
             adj[edges[i][0]].push_back(edges[i][1]); 
             adj[edges[i][1]].push_back(edges[i][0]);
@@ -349,6 +347,50 @@ public:
             }
         }
         return res;
+        
+    }
+};
+
+
+// -------------------------------------
+// SIMILAR QUESTION 4 - PARALLEL COURSES
+// -------------------------------------
+
+class Solution {
+public:
+    int minimumSemesters(int n, vector<vector<int>>& relations) {
+        vector<vector<int>> g(n+1);
+        vector<int> indegree(n+1, 0);
+        queue<int> q;
+        int ans=0, visited_nodes=0;
+        
+        for(auto a: relations){
+            g[a[0]].push_back(a[1]);
+            indegree[a[1]]++;
+        }
+        for(int i=1; i<n; i++){
+            if(indegree[i] == 0)
+                q.push(i);
+        }
+        
+        while(!q.empty()){
+            ans++;
+            int size = q.size();
+            for(int i=0; i<size; i++){
+                int top = q.front();
+                q.pop();
+                visited_nodes++;
+                for(auto& a: g[top]){
+                    if(--indegree[a] == 0)
+                        q.push(a);
+                }
+            }
+        }
+        
+        if(visited_nodes == n)
+            return ans;
+        else
+            return -1;
         
     }
 };

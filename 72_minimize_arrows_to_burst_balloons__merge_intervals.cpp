@@ -115,29 +115,27 @@ public:
         ans.push_back(make_pair(p[0][0], p[0][1]));
       
         while(j<p.size()){
+            int ans_back = ans.back().second;
+            int j_start = p[j][0];
+            int j_end = p[j][1];
           
-          int ans_back = ans.back().second;
-          int j_start = p[j][0];
-          int j_end = p[j][1];
+            // Case 1
+            if(j_start <= ans_back && j_end > ans_back){
+              ans.pop_back();
+              ans.push_back(make_pair(j_start, ans_back));
+            }
+            // Case 2
+            else if (j_start <= ans_back && j_end <= ans_back){
+                ans.pop_back();
+                ans.push_back(make_pair(j_start, j_end));
+            }
+            // Case 3
+            else {
+              ans.push_back(make_pair(j_start, j_end));
+            }
           
-          // Case 1
-          if(j_start <= ans_back && j_end > ans_back){
-            ans.pop_back();
-            ans.push_back(make_pair(j_start, ans_back));
-          }
-          // Case 2
-          else if (j_start <= ans_back && j_end <= ans_back){
-            ans.pop_back();
-            ans.push_back(make_pair(j_start, j_end));
-          }
-          // Case 3
-          else {
-            ans.push_back(make_pair(j_start, j_end));
-          }
-          
-          j++;
+            j++;
         }
-        
         return ans.size();
     }
 };

@@ -58,7 +58,9 @@ Solution: We can do this with DFS or BFS.
     Space Complexity: O(N+H) where N is space occupied for visited map. H is the height of the graph
 
 
-    2. BFS: TODO
+    2. BFS: Easier to understand and digest. Just keep a queue and keep adding the nodes there. For the nodes
+        which are not yet created, keep creating the nodes & neighbour nodes and then assign the 'cloned' neighbours to 
+        the cloned nodes.
 ---
   NOTE: 
 
@@ -131,43 +133,37 @@ public:
 };
 
 
-// ---------------------
-// BFS SOLUTION IN JAVA
-// ---------------------
+// ------------
+// BFS SOLUTION
+// ------------
 class Solution {
-    public Node cloneGraph(Node node) {
-        if (node == null) {
-            return node;
-        }
-
-        // Hash map to save the visited node and it's respective clone
-        // as key and value respectively. This helps to avoid cycles.
-        HashMap<Node, Node> visited = new HashMap();
-
-        // Put the first node in the queue
-        LinkedList<Node> queue = new LinkedList<Node> ();
-        queue.add(node);
-        // Clone the node and put it in the visited dictionary.
-        visited.put(node, new Node(node.val, new ArrayList()));
-
-        // Start BFS traversal
-        while (!queue.isEmpty()) {
-            // Pop a node say "n" from the from the front of the queue.
-            Node n = queue.remove();
-            // Iterate through all the neighbors of the node "n"
-            for (Node neighbor: n.neighbors) {
-                if (!visited.containsKey(neighbor)) {
-                    // Clone the neighbor and put in the visited, if not present already
-                    visited.put(neighbor, new Node(neighbor.val, new ArrayList()));
-                    // Add the newly encountered node to the queue.
-                    queue.add(neighbor);
+    unordered_map<Node*, Node*> mp;
+public:
+  
+    Node* cloneGraph(Node* node) {
+        if(node == NULL)
+            return NULL;
+        
+        // Mapping from original to clone Node 
+        unordered_map<Node*, Node*> visited;
+        visited[node] = new Node(node->val); // (1->1*)
+        
+        queue<Node*> q;
+        q.push(node);
+        while(!q.empty()){
+            Node* top = q.front();
+            q.pop();
+            
+            for(auto &nbr: top->neighbors){ // 1->[2,3]
+                if(!visited[nbr]){
+                    // Create Cloned nodes.
+                    visited[nbr] = new Node(nbr->val);
+                    q.push(nbr);
                 }
-                // Add the clone of the neighbor to the neighbors of the clone node "n".
-                visited.get(n).neighbors.add(visited.get(neighbor));
+                // MOST IMPORTANT: Add the neighbours to the cloned nodes.
+                (visited[top]->neighbors).push_back(visited[nbr]); // 1* -> [2*, 3*]
             }
         }
-
-        // Return the clone of the node from visited.
-        return visited.get(node);
+        return visited[node];
     }
-}
+};

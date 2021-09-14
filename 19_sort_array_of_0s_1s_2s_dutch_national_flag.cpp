@@ -43,7 +43,7 @@ void sort0s1s2s(vector<int> arr){
     int high = n-1;
     
     // We need to reduce the unknowns set, and till it becomes 0, we loop
-    while(mid<=high){
+    while(mid<=high){ 
         
         // If arr[mid] is 0, then throw it in the front. Move so that 
         // low points to the starting of 1s

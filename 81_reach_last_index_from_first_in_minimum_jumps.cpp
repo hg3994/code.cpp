@@ -84,6 +84,8 @@ Similar Questions:
             in the form of jumps and then apply the same thing.
         - Here the we may/maynot reach the asnwer, so need the extra condition i <= currFarthest
 
+    3. https://leetcode.com/problems/jump-game/
+        - Same question, but here tell if you can reach the end or not.
 
 ---
   NOTE: 
@@ -307,5 +309,29 @@ public:
             }
         }
         return currFarthest<T ? -1 : jumps;
+    }
+};
+
+//------------------------------------
+// SIMILAR QUESTION 3: JUMP GAME
+//------------------------------------
+
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1) 
+            return true;
+        
+        int currEnd=0, currFarthest=0;
+        for(int i=0; i<n-1; i++){
+            currFarthest = max(currFarthest, i+nums[i]);
+            if(i == currEnd){
+                currEnd = currFarthest;
+                if(currEnd >= n-1)
+                    return true;
+            }
+        }
+        return false;
     }
 };

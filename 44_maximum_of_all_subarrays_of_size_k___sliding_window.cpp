@@ -67,7 +67,8 @@ NOTE: We are storing the index in queue not the element itself because of condit
         >> If an element at index i-1 < index i , then it is automatically deleted by cond#1
             So an element at front has to be greatest and of lowest index
 
-Time Complexity: O(n)
+Time Complexity: O(n) since each element is processed exactly twice - it's index added and then removed from the deque.
+Space Complexity: O(n)
 
 ---
 
@@ -166,7 +167,7 @@ public:
             
             if(i>=k) {
                 ans.push_back(arr[d.front()]);
-                while(!d.empty() && d.front() <= i-k)
+                if(!d.empty() && d.front() <= i-k) // if or while whatever, prev solution says while but an if will do.
                     d.pop_front();
             }
             

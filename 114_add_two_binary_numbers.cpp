@@ -123,3 +123,24 @@ vector<int> addBinary(vector<int>& A, vector<int>& B) {
     reverse(res.begin(), res.end());
     return res;
 }
+
+// Approach 3: Same with strings:
+class Solution {
+public:
+    string addBinary(string A, string B) {
+        string res;
+        int carry = 0, sum, i = A.size() - 1, j = B.size() - 1;
+        while (i >= 0 || j >= 0 || carry) {
+            sum=0;
+            if (i >= 0) 
+                 sum += A[i--]-'0';
+            if (j >= 0) 
+                 sum += B[j--]-'0';
+            sum += carry;
+            res += to_string(sum&1);
+            carry = (sum >> 1);
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }
+};

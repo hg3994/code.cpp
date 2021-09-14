@@ -32,9 +32,9 @@ Solution:
         4. In the above example, for finding a/c we could find a path between them, we can conclude 
             that the result of a/c is 2*3=6 
         5. We can reinterpret the problem as "given two nodes, we are asked to check if there exists a 
-            path between them. If so, we should return the cumulative products along the path as the result.
+            path between them. If so, we should return the cumulative products along the path as the result."
         6. Special Case 1: If the nodes does not exists, then no path exist
-             Special Case 2: If the origin and destination are same node, then a/a=1, so return 1.
+           Special Case 2: If the origin and destination are same node, then a/a=1, so return 1.
 
     TC: O(MN)
         First of all, we iterate through the equations to build a graph. Each equation takes O(1) time 
@@ -82,8 +82,10 @@ public:
             vector<string> query = queries[i];
             string Qdividend = query[0];
             string Qdivisor = query[1];
+            // Special Case 1: No nodes exist
             if(!graph.count(Qdividend) || !graph.count(Qdivisor))
                 results[i] = -1.0;
+            // Special Case 2: Dividend and Divisor are same.
             else if (Qdividend == Qdivisor)
                 results[i] = 1.0;
             else {
@@ -97,7 +99,7 @@ public:
     // This function looks for the targetNode in the neighbours of the currentNode
     // If the targetNode is a neighbour of the currentNode, return the accumulated Product
     // Else for each neighbour, do the same thing by calling this function.
-    double backtrackEvaluate(unordered_map<string, unordered_map<string, double>> graph, string currentNode, string targetNode, double accProduct, unordered_set<string> visited) {
+    double backtrackEvaluate(unordered_map<string, unordered_map<string, double>>& graph, string& currentNode, string& targetNode, double accProduct, unordered_set<string>& visited) {
         
         // Mark the current Node visited
         visited.insert(currentNode);

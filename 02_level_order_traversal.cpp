@@ -21,8 +21,11 @@ Solution: We apply BFS on the tree to obtain its Level Order Traversal.
                 - Push them from front for even levels and from back for odd levels.
                 - Convert the deque to vector and insert it in ans.
         2. https://leetcode.com/problems/binary-tree-level-order-traversal-ii/
-            a. Traverse from end towards top.
+            a. Traverse the tree from end towards top in Level Order fashion.
             b. Use a stack or just reverse the normal Level Order Traversal output.
+
+        3. https://leetcode.com/problems/n-ary-tree-level-order-traversal/
+            a. Given is a N-ary tree. Child Nodes are provided in a vector.
 */
 
 #include <bits/stdc++.h>
@@ -156,6 +159,57 @@ public:
             isEven = !isEven;
             vector<int> levelNodesV = vector(begin(levelNodesDQ), end(levelNodesDQ));
             ans.push_back(levelNodesV);
+        }
+        return ans;
+    }
+};
+
+
+// -----------------------------------------------------
+// SIMILAR QUESTION 3 - N-ary Tree Level Order Traversal
+// -----------------------------------------------------
+
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> children;
+
+    Node() {}
+
+    Node(int _val) {
+        val = _val;
+    }
+
+    Node(int _val, vector<Node*> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(Node* root) {
+        if(root==NULL)
+            return {};
+        vector<vector<int>> ans;
+        queue<Node*> q;
+        q.push(root);
+        
+        while(!q.empty()){
+            int size = q.size();
+            vector<int> levelNodes;
+            for(int i=0; i<size; i++){
+                Node* top = q.front();
+                q.pop();
+                levelNodes.push_back(top->val);
+                
+                for(int i=0; i<top->children.size(); i++)
+                    q.push(top->children[i]);
+            }
+            ans.push_back(levelNodes);
         }
         return ans;
     }

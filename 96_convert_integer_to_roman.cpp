@@ -8,9 +8,9 @@ C++ program for "Convert a Decimal Integer to Roman Form"
 https://leetcode.com/problems/integer-to-roman/
 ------
 
-Solution: Explained below. Using recursion.
+Solution:
 
-Time Complexity: O(n)
+Time Complexity: O(1) As there is a finite set of roman numerals, there is a hard upper limit on how many times the loop can iterate.
 Space Complexity:
 
 Paradigm: Recursion
@@ -19,7 +19,41 @@ Paradigm: Recursion
 
 */
 
+// Approach 1: ULTRA Smart Method - O(1)
+class Solution { 
+    public:
+    vector<string> thousands = {"", "M", "MM", "MMM"};
+    vector<string> hundreds = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"}; 
+    vector<string> tens = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+    vector<string> ones = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+    
+    string intToRoman(int num) { 
+        return thousands[num / 1000] + hundreds[num % 1000 / 100] + tens[num % 100 / 10] + ones[num % 10];
+    }
+};
 
+
+
+// Approach 2: Smart Method: O(1)
+class Solution {
+public:
+    vector<int> values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};    
+    vector<string> symbols = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    
+    string intToRoman(int num) {
+        string ans;
+        for(int i=0; i<values.size() && num > 0; i++){
+            while(values[i] <= num) {
+                num -= values[i];
+                ans += symbols[i];
+            }
+        }
+        return ans;
+    }
+};
+
+
+// Practicing Recursion: BIIIIIIGGGGGG METHOD
 class Solution {
 public:
     // A vector of already known pairs...

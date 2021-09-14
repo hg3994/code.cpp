@@ -77,12 +77,12 @@ void coinsChanging(int *coins, int n, int sum){
     }
     
     // Uncomment to print the 2D matrix
-    for (int i = 0; i <= n; i++) 
-     { 
-      for (int j = 0; j <= sum; j++) 
-          printf ("%4d", dp[i][j]); 
-      printf("\n"); 
-     }
+    // for (int i = 0; i <= n; i++) 
+    //  { 
+    //   for (int j = 0; j <= sum; j++) 
+    //       printf ("%4d", dp[i][j]); 
+    //   printf("\n"); 
+    //  }
     
     if (dp[n][sum]==1)
         cout<<"It is possible to make a sum of these coins"<<endl;

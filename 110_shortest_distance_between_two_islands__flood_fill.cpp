@@ -53,7 +53,8 @@ public:
     
     int dfs(vector<vector<int>>& grid, int i, int j){
         // If it is unreachable index OR is not a 1, then return 0 
-        if (i<0 || j<0 || i==grid.size() || j==grid.size() || grid[i][j]!= 1) return 0;
+        if (i<0 || j<0 || i==grid.size() || j==grid.size() || grid[i][j]!= 1) 
+            return 0;
         // Reaching here means that it is one of the 1s of the 1st island, change it to 2
         grid[i][j] = 2;
         // Get it done for all the other adjoining 1s in the island
@@ -64,7 +65,8 @@ public:
         // If the grid with i,j is unreachable, return false    
         if (i<0 || j<0 || i==grid.size() || j==grid.size()) return false;
         // If the grid[i][j] is 0, it means that it has water here, we can mark it with color cl+1
-        if (grid[i][j] == 0) grid[i][j] = cl+1;
+        if (grid[i][j] == 0) 
+            grid[i][j] = cl+1;
         // return TRUE if the current grid was 1 (meaning that we have reached the other island, time to return the last cl we encountered)
         return grid[i][j] == 1;
     }

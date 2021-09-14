@@ -23,7 +23,10 @@ Space Complexity: O(n)
 
 Paradigm: DFS
 ---
-  NOTE: This can also be done with BFS & Union Find
+  NOTE: 
+    1. This can also be done with Union Find
+    2. This DFS is a bit different from the regulat DFS method since in this graph, there is data 1->2 and 2->1 are both marked 1
+        if they are connected.
 
 */
 
@@ -45,6 +48,8 @@ public:
         int n = grid.size();
         int count = 0;
         // visited init to 0
+        // we need only 1D visited since finally there are only N nodes, the matrix is just N*N
+        // If we visit a node once, it's fine, no need to come back to this node again.
         vector<int> visited(n,0);
         
         for(int i=0; i<n; i++){
@@ -56,5 +61,33 @@ public:
             }
         }
         return count;
+    }
+};
+
+
+// Using BFS
+class Solution {
+public:
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int n = isConnected.size();
+        vector<int> visited(n, 0);
+        queue<int> q;
+        int ans=0;
+        for(int i=0; i<n; i++){
+            if(visited[i] == 0){
+                q.push(i);
+                while(!q.empty()) {
+                    int top = q.front();
+                    q.pop();
+                    visited[top] = 1;
+                    for(int j=0; j<n; j++){
+                        if(isConnected[top][j]==1 && visited[j]==0)
+                            q.push(j);
+                    }
+                }
+                ans++;
+            }
+        }
+        return ans;
     }
 };

@@ -23,97 +23,182 @@ Paradigm:
 */
 
 
-// Approaches
-// -----------
-// - Two Pointers
-// - Binary Search (if input in sorted)
-// - Sliding Window
-// - DP
-// - Expand from middle (Paindrome, Geometric Figures)
-// - Prefix Sum
-// - Left to Right and Right to Left Parsing (Rain Water)
-// - Priority Queue
-// - Stack
-// - Making value Negative at some index
-// - Intervals: Priority Queue, Stack, DP
-// - Backtracking
-// - Union Find
-// - Deque (Sliding Window Maximum)
-// - Segment Trees
+/*
+
+Approaches
+-----------
+    - Two Pointers
+    - Binary Search (if input in sorted)
+    - Sliding Window
+    - DP
+    - Expand from middle (Paindrome, Geometric Figures)
+    - Prefix Sum
+    - Left to Right and Right to Left Parsing (Rain Water, Distnace of 1s from each element in binary array)
+    - Priority Queue
+    - Stack
+    - Making value Negative at some index
+    - Intervals: Priority Queue, Stack, DP
+    - Backtracking
+    - Union Find
+    - Deque (Sliding Window Maximum)
+    - Segment Trees
 
 
-// Subarray Problems:
-// -----------------
-//   1. Longest Increasing Subarray                                 (Simple traversal)
-//   2. Longest Common Subarray                                     (DP: dp[i][j] = dp[i-1][j-1]+1)
-//   3. Longest Palindromic Subarray                                (Expand from Middle)
-//   4. Maximum Sum Subarray                                        (Kadane)
-//   5. Maximum Absolute Sum Subarray                               (Kadane)
-//   6. Maximum Product Subarray                                    (Kadane)
-//   7. Maximum Number of each subarray of size K                   (Deque)
-//   8. Maximum Sum of Subarrays of size K                          (Sliding Window)
-//   9. Num of Subarrays with Product < K                           (Sliding Window)
-//  10. Minimum length Subarray with Sum >= K                       (Sliding Window)
-//  11. Num of Subarrays with sum = K                               (Prefix Sum Freq in HashMap)
-//  12. Maximum size of Subarray with sum = K                       (Prefix Sum Index in HashMap)
-//  13. Longest Subarray without repeating chars                    (Sliding Window)
-//  14. Longest Subarray with at most K distinct character          (Sliding Window)
-//  15. Longest Subarray of same char with K replacements           (Sliding Window)
-//  15. Minimum length subarray with all chars from another String  (Sliding Window)
+Subarray Problems:
+-----------------
+     1. Longest Increasing Subarray                                 (Simple traversal)
+     2. Longest Common Subarray                                     (DP: dp[i][j] = dp[i-1][j-1]+1)
+     3. Longest Palindromic Subarray                                (Expand from Middle)
+     4. Maximum Sum Subarray                                        (Kadane)
+     5. Maximum Absolute Sum Subarray                               (Kadane)
+     6. Maximum Product Subarray                                    (Kadane)
+     7. Maximum Number of each subarray of size K                   (Deque)
+     8. Maximum Sum of Subarrays of size K                          (Sliding Window) (43, 123)
+     9. Num of Subarrays with Product < K                           (Sliding Window)
+    10. Minimum length Subarray with Sum >= K                       (Sliding Window) (125)
+    11. Num of Subarrays with Sum = K                               (Prefix Sum Freq in HashMap) (90)
+    12. Maximum size of Subarray with Sum = K                       (Prefix Sum Index in HashMap) (90)
+    13. Longest Subarray without repeating chars                    (Sliding Window)
+    14. Longest Subarray with at most K distinct character          (Sliding Window)
+    15. Longest Subarray of same char with K replacements           (Sliding Window) (124)
+    15. Minimum length subarray with all chars from another String  (Sliding Window) (128)
 
-// Coin Changing
-// -------------
-// 1. Number of ways you can create a sum :         dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
-// 2. List the ways you can create a sum :          dp[i][j] = dp[i-1][j] + dp[i][j-coins[i]]; +  Backtracking
-// 3. Can we create a sum? :                        dp[i][j] = dp[i-1][j] || dp[i-1][j-coins[i-1]]; 
-// 4. Fewest number of coins used to create a sum : dp[i][j] = min(dp[i][j-coins[i]]+1, dp[i-1][j]);
+Coin Changing
+-------------
+    1. Number of ways you can create a sum :         dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
+    2. List the ways you can create a sum :          dp[i][j] = dp[i-1][j] + dp[i][j-coins[i]]; +  Backtracking
+    3. Can we create a sum? :                        dp[i][j] = dp[i-1][j] || dp[i-1][j-coins[i-1]]; 
+    4. Fewest number of coins used to create a sum : dp[i][j] = min(dp[i][j-coins[i]]+1, dp[i-1][j]);
 
+Palindromes
+-----------
+    These types of questions can be of two types: 
+     1. Checking if X is a palindrome or not? IF X is palindrome by removing Y chars?
+        Can be solved by using two pointers i and j and traversing from start and end checking if the letters are same.
+     2. Count the number of Palinromes in X
+        Expand from middle
 
-// Data Structures
-// ---------------
-// 1. LRU: A DLL with nodes in the front meaning most recently used and back means least recently used, so we EVICT the keys from back
-     list<pair<int, int>> dll; unordered_map<int, list<pair<int, int>>::iterator> map;
-// 2. LFU:
-    // Map to store the key and value. Also, as a part of the value, we will be storing the address of the DLL node which contains the key.
-    unordered_map<Key_t, Node> m_values;
-    // Map to store the frequency of each key
-    unordered_map<Key_t, Count_t> m_counts;
-    // Map to store the frequencies as keys and a DLL associated to them which are keys for that frequency.
-    // In this DLL, the back is least recently used while the front is the most freshly added node.
-    unordered_map<Count_t, list<Key_t>> m_countKeyMap;
-    
-    // This will contain the lowest frequency so that we can refer the m_countKeyMap hash and get the keys for the lowest freq
-    int m_lowestFrequency;
-    int m_maxCapacity;
-// 3. GetRandom(): Vector + HashMap
-// 4. First Non-repeating Char in Stream: Queue + Hashmap
-// 5. Topological Sort: vector<int> in_degree(g.V, 0); queue<int> q;
-// 6. Rate Logger Limiter: unordered_map <string, int> m;
+Data Structures for common problems
+-----------------------------------
+    1. LRU: A DLL with nodes in the front meaning most recently used and back means least recently used, so we EVICT the keys from back
+            list<pair<int, int>> dll; unordered_map<int, list<pair<int, int>>::iterator> map;
 
-// Ways to represent graphs
-// ------------------------
-// Directed Graph:
-//  1. unordered_map<string, vector<string>> graph                  ||  A->B, A->C means map[A]=[B,C]
-//  2. unordered_map<string, unordered_map<string, double>> graph;  ||  Graph: {a: {b: 2}, b: {a: 0.5, c: 3}, c: {b: 0.33}}
+    2. LFU:
 
-// Graph Problems
-// --------------
-// 1. Number of connected nodes in a graph: DFS, UnionFind
-// 2. Check if there exists a path between two nodes in a weighted directed graph & return product of weights: Backtracking
-// 3. 
+        // Map to store the key and value. Also, as a part of the value, we will be storing the address of the DLL node which contains the key.
+        unordered_map<Key_t, Node> m_values;
+        // Map to store the frequency of each key
+        unordered_map<Key_t, Count_t> m_counts;
+        // Map to store the frequencies as keys and a DLL associated to them which are keys for that frequency.
+        // In this DLL, the back is least recently used while the front is the most freshly added node.
+        unordered_map<Count_t, list<Key_t>> m_countKeyMap;
+        
+        // This will contain the lowest frequency so that we can refer the m_countKeyMap hash and get the keys for the lowest freq
+        int m_lowestFrequency;
+        int m_maxCapacity;
 
-// Palindromes
-// -----------
-// These types of questions can be of two types: 
-//  1. Checking if X is a palindrome or not? IF X is palindrome by removing Y chars?
-//      Can be solved by using two pointers i and j and traversing from start and end checking if the letters are same.
-//  2. Count the number of Palinromes in X
-//      Expand from middle
+    3. GetRandom(): Vector + HashMap
+    4. First Non-repeating Char in Stream: Queue + Hashmap
+    5. Topological Sort: vector<int> in_degree(g.V, 0); queue<int> q;
+    6. Rate Logger Limiter: unordered_map <string, int> m;
+    7. Design HashMap:
+         a. If the size of numbers are given, then a simple vector can act as a HashMap since it allows O(1) access.
+         b. vector<list<pair<int,int>>> map;
+            size_t m_size = 10000;
+               Accessing elements by key%m_size
 
 
-// BFS
-// ---
-// 1. Binary Tree: Simple traight-forward using a queue.
+Ways to represent graphs
+------------------------
+Directed Graph:
+    1. Normal Graph with Char Nodes:    unordered_map<string, vector<string>> graph  ||  A->B->C means {A: [B], B: [C], C: []}
+    2. Normal Graph with Int Nodes:     vector<vector<int>> graph                    ||  0-->1-->2 means [[1], [2], []]
+    3. Weighted:        unordered_map<string, unordered_map<string, double>> graph;  ||  Graph: {a: {b: 2}, b: {a: 0.5, c: 3}, c: {b: 0.33}}
+
+Undirected Graph:
+    1. Normal Graph with Char Nodes:   unordered_map<string, vector<string>> graph   ||  A--B--C means {A: [B], B: [A,C], C: [B]}
+    2. Normal Graph with Int Nodes:    vector<vector<int>> graph                     ||  0--1--2 means [[1], [0,2], [1]]
+
+
+    * Difference between Adjacency Matrix vector<vector<int>> and Adjacency List vector<vector<int>>
+            0----1
+            |
+            |--2
+
+        Adjacency Matrix: 
+           [[0, 1, 1],
+            [1, 0, 0],
+            [1, 0, 0]]
+
+        Adjacency List:
+            [[1,2], [0], [0]]
+
+        So basically, Adjacency MAtrix will store 0s for no edge and 1 for edge but Adjacency List will store only the nodes to which the index i has edge
+
+
+Graph Problems
+--------------
+    1. Number of connected nodes in a graph: DFS, UnionFind
+    2. Check if there exists a path between two nodes in a weighted directed graph & return product of weights: Backtracking
+    3. Check if there exists a path between two nodes in an undirected graph: BFS/DFS/UnionFind
+
+
+UNION FIND Variations
+---------------------
+    1. int count=n initially but then each union decreases count. Finally this count tells number of connected components (graph) / number of islands (matrix)
+    2. vector<int> size(n,1) tells the size of each component. On every union, we make increase the sizes of the leader node by an amount of "size of non-leader node".
+        We can return this size from the Union method and it will be telling us the size of the component after Union. 
+        This is helpful in finding Max Area of a component / Largest Graph of Connected Components.
+    3. Union Function returning TRUE/FALSE if the nodes belong to the different/same groups. 
+        This can help us figure out if there exists a cycle in the graph. On adding which edge will the graph turn cyclic. The removal of this edge will make the graph non-cyclic.
+        This can also help in telling "Is node X reachable from node Y"
+
+Matrix / Island Questions:
+--------------------------     
+1. Number of Islands: DFS (Changing 1 to 0 so we dont need visited[])
+
+    void DFS(vector<vector<char>>& grid, int r, int c){        
+        if(r<0 || r==grid.size() || c<0 || c==grid[0].size() || grid[r][c]=='0')
+               return;
+           grid[r][c] = '0';
+           DFS(grid, r-1, c); DFS(grid, r+1, c); DFS(grid, r, c+1); DFS(grid, r, c-1);
+    }
+    for(int i=0; i<m;i++){
+       for(int j=0;j<n;j++){
+           if(grid[i][j]=='1'){
+               ans++;
+               DFS(grid, i, j);
+           }
+       }
+    }
+    return ans;
+
+2. Max Area of an Island: DFS with visited returning area
+
+    int dfs (vector<vector<int>>& grid, vector<vector<int>>& visited, int i, int j) {
+        if(i<0 || i==grid.size() || j<0 || j==grid[0].size() || visited[i][j] == 1 || grid[i][j] == 0)
+            return 0;
+        visited[i][j] = 1;
+        return 1+dfs(grid, visited, i+1, j)+dfs(grid, visited, i-1, j)+dfs(grid, visited, i, j+1)+dfs(grid, visited, i, j-1);
+    }
+    for(int i=0; i<m; i++) {
+        for(int j=0; j<n; j++) {
+            if (grid[i][j] == 1 &&  visited[i][j]==0){
+                area = dfs(grid, visited, i, j);
+                maxArea = max(area, maxArea);
+            }
+        }
+    }
+    return maxArea;
+
+====================================================================================================================
+====================================================================================================================
+====================================================================================================================
+
+BFS
+---
+1. Binary Tree: Simple straight-forward using a queue. (Level Order Traversal - 3)
+
     vector<vector<int>> levelOrder(TreeNode* root) {
         vector<vector<int>> ans;
         if (root == NULL)
@@ -137,7 +222,8 @@ Paradigm:
         return ans;
     }
 
-// 2. Matrix: Must use a visited[] array + queue
+2. Matrix: Must use a visited[] array + queue (Shortest Path between two nodes in a matrix - 28)
+
     int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
         int n = grid.size();
         
@@ -179,13 +265,76 @@ Paradigm:
         return -1;
     }
 
-// 3. 
+3. Undirected Graph (Adjacency Matrix): We iterate over each row and check if not visited, we do BFS and insert all elements in its row (94)
+
+    class Solution {
+    public:
+        int findCircleNum(vector<vector<int>>& isConnected) {
+            int n = isConnected.size();
+            vector<int> visited(n, 0);
+            queue<int> q;
+            int ans=0;
+            for(int i=0; i<n; i++){
+                if(visited[i] == 0){
+                    q.push(i);
+                    while(!q.empty()) {
+                        int top = q.front();
+                        q.pop();
+                        visited[top] = 1;
+                        for(int j=0; j<n; j++){
+                            if(isConnected[top][j]==1 && visited[j]==0)
+                                q.push(j);
+                        }
+                    }
+                    ans++;
+                }
+            }
+            return ans;
+        }
+    };
+
+4. Undirected Graph (Adjacency List): Usual BFS with visited[] array. (Check if a path exists between two given nodes in a graph) (184)
+
+    class Solution {
+    public:
+        bool validPath(int n, vector<vector<int>>& edges, int start, int end) {
+            vector<vector<int>> graph(n);
+
+            for(int i=0; i<edges.size(); i++) {
+                graph[edges[i][0]].push_back(edges[i][1]);
+                graph[edges[i][1]].push_back(edges[i][0]);
+            }
+            
+            queue<int> q;
+            vector<int> visited(n, 0);
+            q.push(start);
+            visited[start] = 1;
+            while(!q.empty()){
+                int top = q.front();
+                q.pop();
+                if(top == end)
+                    return true;
+
+                for(int i=0; i<graph[top].size(); i++){
+                    if(visited[graph[top][i]] == 0){
+                        q.push(graph[top][i]);
+                        visited[graph[top][i]] = 1;
+                    }
+                }
+            }
+            return false;
+        }
+    };
 
 
-// DFS
-// ---
+====================================================================================================================
+====================================================================================================================
+====================================================================================================================
 
-// 1. 4 Way DFS with visited returning the area it covered.
+DFS
+---
+1. MATRIX: 4 Way DFS with visited[][] returning the area it covered.
+    
     class Solution {
         
         int dfs (vector<vector<int>>& grid, vector<vector<int>>& visited, int i, int j) {
@@ -212,11 +361,209 @@ Paradigm:
         }
     };
 
+2. Undirected Graph (Adjacency Matrix): Check number of provinces (94)
+
+    class Solution {
+    public:
+        void dfs(vector<vector<int>>& grid, vector<int>& visited, int i){
+            for(int j=0; j< grid.size(); j++){
+                if(i!=j && grid[i][j] == 1 && visited[j] == 0){
+                    visited[j] = 1;
+                    dfs(grid, visited, j);
+                }
+            }
+        }
+        
+        int findCircleNum(vector<vector<int>>& grid) {
+            int n = grid.size();
+            int count = 0;
+            vector<int> visited(n,0);
+            
+            for(int i=0; i<n; i++){
+                if(visited[i] == 0) {
+                    dfs(grid, visited, i);
+                    count++;
+                }
+            }
+            return count;
+        }
+    };
+
+3. Undirected Graph (Adjacency List): DFS with visited[] on an undirected graph (Check if a valid path is present between two nodes-184)
+
+    class Solution {
+    public:
+        
+        bool dfs(vector<vector<int>>& graph, vector<int>& visited, int current, int end) {
+            if(current == end)
+                return true;
+            if(visited[current])
+                return false;
+            
+            visited[current] = 1;
+            
+            for(int i=0; i<graph[current].size(); i++){
+                if(dfs(graph, visited, graph[current][i], end))
+                    return true;
+            }
+            
+            return false;
+        }
+        
+        bool validPath(int n, vector<vector<int>>& edges, int start, int end) {
+            vector<vector<int>> graph(n);
+            for(int i=0; i<edges.size(); i++) {
+                graph[edges[i][0]].push_back(edges[i][1]);
+                graph[edges[i][1]].push_back(edges[i][0]);
+            }
+            vector<int> visited(n, 0);
+            return dfs(graph, visited, start, end);
+        }
+    };
 
 
 
+====================================================================================================================
+====================================================================================================================
+====================================================================================================================
+
+Backtracking
+------------
+
+1. MATRIX: Classic Backtracking in Sudoku: Both loops present together
+
+    bool solve(vector<vector<char>>& board){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j] == '.'){
+                    for(int k=0;k<9;k++){
+                        if(isValidPlacement(board, i, j, k+'1')){
+                            board[i][j] = '1'+k;
+                            if(solve(board))
+                                return true;
+                            else
+                                board[i][j] = '.';
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+2. MATRIX: Classic Backtracking in NQueen: 1 loops present and other by argument
+
+    void solve(vector<vector<int>>& board, vector<vector<string>>& res, int col){
+        int n = board.size();
+        if(col == n) {
+            vector<string> s = convertAns(board);
+            res.push_back(s);
+            return;
+        }
+        
+        for(int i=0; i<n; i++){
+            if(board[i][col] == 0 && isValid(board, i, col)) {
+                board[i][col] = 1;
+                solve(board, res, col+1);
+                board[i][col] = 0;
+            }
+        }
+    }
+
+    solve(board, res, 0);
+
+3. MATRIX: DFS with backtracking in a matrix on chars looking for a special "WORD"
+
+    bool dfs(vector<vector<char>>&board, vector<vector<bool>>&visited, string word, int i, int j, int word_i ) {
+        int m = board.size(); int n = board[0].size();
+
+        if (i<0 || i>=m || j<0 || j>=n || visited[i][j] == true || board[i][j] != word[word_i])
+            return false;
+        
+        visited[i][j] = true;
+        
+        if(word_i == word.size()-1)
+            return true;
+        else if (dfs(board, visited, word, i+1, j, word_i+1) || dfs(board, visited, word, i-1, j, word_i+1) || dfs(board, visited, word, i, j+1, word_i+1) || dfs(board, visited, word, i, j-1, word_i+1))
+            return true;
+
+        visited[i][j] = false;
+        return false;
+    }
+    
+    bool exist(vector<vector<char>>& board, string word) {
+        int m = board.size();
+        int n = board[0].size();
+        
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                vector<bool> tmp(n, false);
+                vector<vector<bool>> visited (m, tmp);
+                if(dfs(board, visited, word, i, j, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+ 
+4. Vector: DFS with Backtracking for balancing out the balance of money one needs to pay other in minimum number of transactions
+
+    class Solution {
+    public:
+        vector<int> debt;
+        
+        int minTransfers(vector<vector<int>>& transactions) {
+            vector<int> balance(21, 0); // max 21 people involved.
+            int ans = 0;
+            for(auto t: transactions){
+                balance[t[0]] -= t[2];
+                balance[t[1]] += t[2];
+            }
+            
+            for(auto b: balance){
+                if(b != 0)
+                    debt.push_back(b);
+            }
+            return dfs(0);
+        }
+        
+        // Returns the minimum number of transactions needed to settle the debt
+        int dfs(int s){
+            // Skip the debts if they are 0
+            while(s < debt.size() && debt[s] == 0)
+                s++;
+            
+            int res = INT_MAX;
+            // Iterate i from s+1 till the end looking for the perfect match of this debt[s]
+            // If we have a perfect match (+5, -5), then it will be considered in our soln otherwise
+            // near perfect will be taken since we have "min" func. written
+            for(int i=s+1; i<debt.size(); i++){
+                // If the signs are opposite, then try to balance them
+                if(debt[i]*debt[s] < 0){
+                    // Try to balance debt[i] and debt[s]. It may/maynot be perfect & get the min from this
+                    debt[i] += debt[s];
+                    res = min(res, 1+dfs(s+1));
+                    // Backtrack and then try for other i's looking for a better answer.
+                    debt[i] -= debt[s];
+                }
+            }
+            return res == INT_MAX ? 0 : res;
+        }
+    };
+
+====================================================================================================================
+====================================================================================================================
+====================================================================================================================
 
 
+
+// ====================================================================================================================
+// ====================================================================================================================
+// ====================================================================================================================
+
+*/
 
 #include<bits/stdc++.h>
 using namespace std;
@@ -244,6 +591,31 @@ struct LLNode{
 };
 typedef struct LLNode LLNode;
 
+
+// TrieNode
+#define ALPHABETSIZE 26
+class TrieNode {
+public: 
+    TrieNode* children[ALPHABETSIZE];
+    bool isEndOfWord;
+    TrieNode(){
+        for(int i=0; i<ALPHABETSIZE; i++)
+            this->children[i] = NULL;
+        this->isEndOfWord = false;
+    }
+};
+class Trie {
+public:
+    TrieNode* root;
+    Trie() {
+        root = new TrieNode();
+    }
+};
+
+
+// ====================================================================================================================
+// ====================================================================================================================
+// ====================================================================================================================
 
 // Sort one array according to another array. Modifies the array a and b.
 //  Can be used to sort an array with increasing size of elements (string)

@@ -12,7 +12,28 @@ Solution: We will use Heapification to help us do HeapSort. The solution is:
     - We make a maxHeap of the array and thus have the largest element at 0th index.
     - Then we move that index to the last and then make maxHeap of 1st n-1 elements.
 
+    What is a maxHeap?
+    >> A complete Binary tree where all the parents are greater than their right and left child. This property is recursively true for all the nodes.
+        Firstly, we want to sort the array into a max_heap which is done in the 1st loop of the heapSort function(). The loop starts from n/2-1 till 0 because 
+        we know that all the elements after it would be the children of some parent nodes. There is no point in having the child nodes compared to nothing 
+        and then just returning the function. This makes the initial array sorted by calling heapify(). This first heapify is to be done in bottom-up manner 
+        and hence we have heapify(arr,n,i) and NOT heapify(arr,n,0).
+
+    Now, we have a maxHeap to start with. In the second loop from n-1 to 0, we are fixing the elements towards the end and then starting to make a maxHeap 
+        of the (n-1) elements remaining.
+
+    Lets try to understand the heapify() function. What does it do? It converts your normal array into a maxHeap. heapify() takes the array, its size and 
+        the root node as input. Now, how to make it a maxHeap? we have the root node given to the function. We can calculate its left child and right child. 
+        Comparing these, we get the largest out of these three. If root is the largest out of all three, then we are sure that the current array is already 
+        a maxHeap (because we have already made the array as maxHeap in the n/2-1 loop before). If, now, then lets say the left child is maximum, then we 
+        swap root and left child to make it a maxHeap and then recursively check the left child's tree to ensure it is also a maxHeap.
+
+    heapify(0 moves in speed of 2x and hence its complexity is log(n). The swapping of maxElement to the last one and fixing it happens in a loop of O(n). 
+        These are nested and hence the complexity is O(nlogn).
+
+
 Time Complexity: O(nlogn)
+Space Complexity: O(1)
 
 */
 

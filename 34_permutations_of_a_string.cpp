@@ -20,6 +20,14 @@ Similar Problems:
         - Input may contain duplicate elements but the output should be unique.
         - We use a set<vector<int>> instead of v of v and then convert it into v of v to return.
 
+    2. https://leetcode.com/problems/group-anagrams/
+        - Given an array of strings strs, group the anagrams together.
+        -   Input: strs = ["eat","tea","tan","ate","nat","bat"]
+            Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+        - Keep the sorted string as key and others which are same after sorting as the value of the map
+        - Iterate over the map and for all the values, insert in a new vector.
+
+Note: MindTickle
 */
 
 // Initially we have N choices, and in each choice we have (N - 1) choices, and so on. Notice that at the end when adding the list to the result list, it takes O(N).
@@ -102,3 +110,56 @@ int main()
     permutations(s,0,n-1);
     return 0; 
 } 
+
+// ----------------------------------------------
+// SIMILAR PROBLEM - 1 (Array contains Duplicates)
+// ----------------------------------------------
+
+class Solution {
+private:
+    set<vector<int>> result;    
+public:
+    
+    void permuteHelper(vector<int> nums, int l){
+        int n = nums.size()-1;
+        if(l == n){
+            result.insert(nums);
+            return;
+        }
+        
+        for(int i=l; i<=n; i++){
+            swap(nums[i], nums[l]);
+            permuteHelper(nums, l+1);
+            swap(nums[l], nums[i]);
+        }
+        
+    }
+    
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        permuteHelper(nums, 0);
+        vector<vector<int>>v (result.begin(), result.end());
+        return v;
+    }
+};
+
+
+
+// ----------------------------------
+// Similar Question 2- Group Anagrams
+// ----------------------------------
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& s) {
+        vector<vector<string>> ans;
+        unordered_map<string, vector<string>> M;
+        
+        for(int  i = 0; i < s.size(); i++) {
+            string str = s[i];
+            sort(s[i].begin(), s[i].end()); // Sorting the string
+            M[s[i]].push_back(str);  // Sorted string is the key and the value is the initial string
+        }
+        for(auto i : M)
+            ans.push_back(i.second);  // Traversing the map and adding the vectors of string to ans
+        return ans;
+    }
+};

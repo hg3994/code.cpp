@@ -20,7 +20,7 @@ Solution: 1. Start with a base and check if you have a mountain ahead of you.
     2. To check for a mountain, you must travel upwards to reach a peak
     3. Then travel downwards.
     4. The length of a montain would be (end-start+1)
-    3. Get the largest mountain.
+    5. Get the largest mountain.
 
 TC: O(n)
 SC: O(1)

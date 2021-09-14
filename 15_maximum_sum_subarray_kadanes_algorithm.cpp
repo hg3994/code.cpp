@@ -37,7 +37,7 @@ Similar Questions:
     3. https://leetcode.com/problems/maximum-product-subarray/
         - This talks about the Maximum Product Subarray, it may not be very simple since 
             0s, -ves play a very important role in the problem.
-        - 
+        - Asked in Mindtickle
 */
 
 #include <bits/stdc++.h>

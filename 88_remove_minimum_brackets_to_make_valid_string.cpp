@@ -3,7 +3,7 @@
 Harshit Gupta | 23rd May, 2021
 ---------------------------------
 
-C++ program for "Remove minimum number of brackets to make the input a valid string"
+C++ program for "Remove minimum Parentheses (number of brackets) to make the input a valid string"
 https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/
 
 Example 1:
@@ -37,8 +37,11 @@ Solution: We will use stack to implement the solution.
 Time Complexity: O(n)
 Space Complexity: O(n): stack, other temp strings
 ---
-  NOTE: 
+    NOTE: 
 
+    Similar Questions:
+        1. https://leetcode.com/problems/valid-parentheses/
+            - Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 */
 
 
@@ -106,5 +109,37 @@ public:
             return b;
         }
         
+    }
+};
+
+// ------------------------------------------
+// SIMILAR QUESTION 1 - Is Valid Parentheses
+// ------------------------------------------
+
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+        int n=s.size();
+        int i=0;
+        while(i!=n){
+            if(s[i] == '(' || s[i] == '{' || s[i] == '[') {
+                st.push(s[i]);
+            }
+            else {
+                if ((s[i] == ')' && !st.empty() && st.top() == '(') || 
+                    (s[i] == '}' && !st.empty() && st.top() == '{') || 
+                    (s[i] == ']' && !st.empty() && st.top() == '[')){
+                        st.pop();
+                }
+                else
+                    return false;
+            }
+            i++;
+        }
+        if(st.size()==0)
+            return true;
+        else
+            return false;
     }
 };

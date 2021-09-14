@@ -32,6 +32,11 @@ Solution:
     This approach can be easily implemented using recursion. We call this method "Fast Power", 
         because we only need at most O(logn) computations to get x ^ n
 
+    Eg: 
+        1. ODD: 2^5 = 2^2 * 2^2 * 2 = so if we know 2^2, we can calculate 2^5.
+        2. EVEN: 2^6 = 2^3 * 2^3 = so if we know w^3, we can calc 2^6
+
+
   TC: O(logN)
   SC: O(logN) For each computation, we need to store the result of X^(n/2)
 

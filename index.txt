@@ -1,4 +1,3 @@
-
 INDEX
 =====
 
@@ -8,6 +7,22 @@ INDEX
 2. Level Order Traversal Normal/ZigZag:	BFS/Deque
 
 3. Left/Right View of a Binary Tree: Inorder Traversal (VLR, VRL)
+	a. ALGO:
+		void helper(TreeNode* root, int currentLevel, int &maxLevel, vector<int>& res) {
+	        if(root == NULL)
+	            return;
+	        if(currentLevel > maxLevel){
+	            res.push_back(root->val);
+	            maxLevel = currentLevel;
+	        }
+	        helper(root->right, currentLevel+1, maxLevel, res);
+	        helper(root->left, currentLevel+1, maxLevel, res);
+	    }
+	    vector<int> rightSideView(TreeNode* root) {
+	        int maxLevel = -1; vector<int> res;
+	        helper(root, 0, maxLevel, res);
+	        return res;
+	    }
 
 4. Lowest Common Ancestor of a Binary Tree:
 	a. When both nodes always exists: Check for nodes, find left & right LCA, return root, left or right on basis of left and right LCA.
@@ -19,6 +34,26 @@ INDEX
 	b. Always move to the current =current->children[index] and then do stuff.
 	c. Don't forget accessing index like this: index = word[i]-'a';
 	d. The first thing to do in a function is to take a current node.
+	e. ALGO:
+		#define ALPHABETSIZE 26
+		class TrieNode {
+		public: 
+		    TrieNode* children[ALPHABETSIZE];
+		    bool isEndOfWord;
+		    TrieNode(){
+		        for(int i=0; i<ALPHABETSIZE; i++)
+		            this->children[i] = NULL;
+		        this->isEndOfWord = false;
+		    }
+		};
+		class Trie {
+		public:
+		    TrieNode* root;
+		    Trie() {
+		        root = new TrieNode();
+		    }
+		};
+
 
 6. Connect Nodes at same Level: BFS
 
@@ -26,7 +61,7 @@ INDEX
 	a. Subsequence: 
 		i. Go for i[0:n] and j[0:i] and keep calc LIS for every i. O(n2)
 		ii. if(arr[j]<=arr[i]){
-              L[i] = max(L[i],arr[i]+ L[j]);
+              L[i] = max(L[j]+1, L[i]);
             }
 	b. Subarray: Simply keep iterating till increasing and cal length till it decreases where you start again. O(n)
 
@@ -42,7 +77,7 @@ INDEX
                 maxLen = max(maxLen, dp[i][j]);
             }
 
-9. Add two numbers in a Linked List: Calculate sum=x+y+carry and create nodes with sum%10 till both nodes become NULL. 
+9. [OBSOLETE] Add two numbers in a Linked List: Calculate sum=x+y+carry and create nodes with sum%10 till both nodes become NULL. 
 	Check for a final carry
 
 10. Next Greater Element: Stack
@@ -74,7 +109,7 @@ INDEX
 	a. low=starting of 1s, mid=starting of UNKNOWNS, high=ending of UNKNOWNS
 	b. Keep putting elements in correct place till mid<=high
 
-20. Heap Sort: heapify() the arrya first and then keep putting the largest element in the end.
+20. Heap Sort: heapify() the array first and then keep putting the largest element in the end.
 
 21. Coin Changing 2: Number of ways to create a sum from limited supplies of some numbers:	
 	dp[i][j] = dp[i-1][j] || dp[i-1][j-coins[i-1]]; 
@@ -142,8 +177,21 @@ INDEX
 		iii. Swap arr[i] and arr[l] back
 	c. When l==n, it means one permuation is made, push it in result.
 	d. The third backtrack would swap this instance back and then try for increased i
+	e. ALGO:
+		void permuteHelper(vector<int> nums, int l){
+	        int n = nums.size()-1;
+	        if(l == n){
+	            result.push_back(nums);
+	            return;
+	        }
+	        for(int i=l; i<=n; i++) {
+	            swap(nums[i], nums[l]);
+	            permuteHelper(nums, l+1);
+	            swap(nums[i], nums[l]);
+	        }
+	    }
 
-35. Doubly Linked List: Usual Stuff.
+35. [OBSOLETE] Doubly Linked List: Usual Stuff.
 
 36. Largest Region in Boolean Matrix / Max Area of an Island: Union Find with sizes / DFS with visited array
 
@@ -169,16 +217,42 @@ INDEX
 
 41. Intersection of two linked list:
 	a. Travel the current nodes till the end then start from the other LL's head. They will meet at the intersecting index
+	b. ALGO:
+		if(headA == NULL || headB == NULL)
+            return NULL;
+        ListNode *cA = headA;
+        ListNode *cB = headB;
+        while (cA != cB){
+            cA = (cA == NULL) ? headB : cA->next;
+            cB = (cB == NULL) ? headA : cB->next;
+        }
+        return cA;
 
 42. inorder, Pre-Order, Post-Order traversals: DFS, Stack
 
 43. Maximum Sum of a Subarray of size K: Sliding Window of size K
+	a. ALGO:
+		int currentSum = 0;
+	    int maxSum = INT_MIN;
+	    int i = 0;
+
+	    for(int j=0; j<arr.size() ; j++){
+	        currentSum += arr[j];
+	        int lengthOfWindow = j-i+1;
+	        if(lengthOfWindow == k){
+	            maxSum = max(maxSum, currentSum);
+	            currentSum -= arr[i++];
+	        }
+	    }
+	    return maxSum;
 
 44. Maximum Number of all subarrays of size K: Deque
 	a. Pop the elements from back of deque if arr[i] > arr[d.back()]
     b. When we've iterated >= k elements, then push the front of deque into ans
     c. While the front elements are going out of window, remove them.
     d. Push the current index in deque.
+    	vector<int> ans;
+        deque<int> d;
     	for(int i=0; i<arr.size();i++){
             while(!d.empty() && arr[i]>arr[d.back()])
                 d.pop_back();
@@ -321,10 +395,11 @@ INDEX
 54. Trapping Rain Water:
 	a. Calculate the max bar to the left of every element: left[i] = max(left[i-1], arr[i])
 	b. Calculate the max bar to the right of every element: right[i] = max(right[i-1], arr[i])
-	c. Water arr[i] can store =min (max bar on left and right) - my own height = water += min(left[i],right[i]) - arr[i]
+	c. Water arr[i] can store =min (max bar on left and right) - my own height => water += min(left[i],right[i]) - arr[i]
 	d. Space Optimized Solution is to find the peak bar and calc water on left and right of it
 
 55. Kth largest Integer in a BST: Reverse Inoder Traversal gives Kth largest element in O(k) time.
+	a. Kth Smallest Integer in a BST is given by a normal inorder traversal in O(k) time.
 
 56. Best time to buy and sell stoack - I in one transaction
 	a. Keep calculating minimum till today(minTillNow) & profit today = arr[i]-minTillNow
@@ -335,7 +410,7 @@ INDEX
             maxProfit = max(maxProfit, prices[i]-minTillNow);
         }
 
-57. Add two numbers in Linked List: Calculate sum=x+y+carry and create nodes with sum%10 till both nodes become NULL. 
+57. [DUPLICATE-9]: Add two numbers in Linked List: Calculate sum=x+y+carry and create nodes with sum%10 till both nodes become NULL. 
 	Check for a final carry
 
 58. Longest Substring with no repeating Character: Sliding Window & a map to store the contents of window.
@@ -346,6 +421,7 @@ INDEX
 	Subarray:
 		a. We check for palindromes with center at i,i and center at i,i+1 and expand around teh center.
 		b. We keep checking if elements are same or not in the string.
+		c. This algo is O(n2) but Manachers Algo does it in O(n)
 
 	Subsequence:
 		a. It will be the longest common subsequence between S and Reverse(S)
@@ -363,9 +439,49 @@ INDEX
 62. Merge Intervals: Sort and then Keep checking for overlapping. If overlapping, update the end index. if not, then insert
 
 63. Evaluating Division: DFS with Backtracking. Using the visited array as well.
+	a. The problem can also be thought as: Given two nodes in a graph, we are asked to check if there exists a 
+		path between them. If so, we should return the cumulative products along the path as the result.
+	b. ALGO:
+		
+		if(!graph.count(Qdividend) || !graph.count(Qdivisor))
+            results[i] = -1.0;
+        else if (Qdividend == Qdivisor)
+            results[i] = 1.0;
+        else {
+            unordered_set<string> visited;
+            results[i] = backtrackEvaluate(graph, Qdividend, Qdivisor, 1, visited);
+        }
 
-64. Nuumber of subarrays where Product of elements < K
+
+        double backtrackEvaluate(unordered_map<string, unordered_map<string, double>>& graph, string& currentNode, string& targetNode, double accProduct, unordered_set<string>& visited) {
+	        visited.insert(currentNode);
+	        double ret = -1.0;
+	        unordered_map<string, double> neighbours = graph[currentNode];
+
+	        if(neighbours.count(targetNode)){
+	            ret = accProduct * neighbours[targetNode];
+	        }
+	        else {
+	            for(auto n: neighbours){
+	                string Nnode    = n.first;
+	                double Nweight  = n.second;
+	                if(visited.count(Nnode))
+	                    continue;
+	                ret = backtrackEvaluate(graph, Nnode, targetNode, accProduct*Nweight, visited);
+	                if(ret != -1.0)
+	                    break;
+	            }
+	        }
+	        visited.erase(currentNode);
+	        return ret;
+	    }
+
+
+
+64. Number of subarrays where Product of elements < K
 	a. Algo:
+		int result = 0, start = 0, end = 0, n = nums.size();
+        int product = 1;
 		while(end<n){
 	        product *= nums[end];
 	        while (start < end && product >= k)  
@@ -468,7 +584,8 @@ INDEX
         }
 
 76. Best Time to Buy and Sell Stock 3: Given stock prices and with K transactions, maximize the profit. DP.
-	a.
+	a.	dp[i][j] represents the max profit one can make with at most i transactions in j days
+
 		dp[i][j] = max( 
 	        1. Not transacting on jth day = dp[i][j-1]
 	        2. Selling on jth day and buying on m=0..(j-1) th day + 
@@ -476,6 +593,7 @@ INDEX
 	                =(price[j]-price[m]+dp[i-1][m])
 	                =(dp[i-1][m]-price[m]+price[j])
         )
+
 	b. ALGO:
 		long int dp[k+1][d];
 		for(long int i=0;i<d;i++)
@@ -491,22 +609,42 @@ INDEX
         }
 		return dp[k][d-1];
 
-77. Clone an Undirected Graph: DFS/BFS
-	a. NULL Check
-	b. Visited Check.
-	c. Create new Node.
-	d. Update visited,
-	e. Iterate over all neighbours and assign the node to the neighbours. Return the cloned Node.
-	f. ALGO:
-		if(node == NULL)
-            return NULL;
-        if(visited.count(node))
-            return visited[node];
-        Node* cloneNode = new Node(node->val);
-        visited[node] = cloneNode;
-        for(auto nbr : node->neighbors)
-            cloneNode->neighbors.push_back(cloneGraph(nbr));
-        return cloneNode;
+77. Clone an Undirected Graph:
+	DFS: 
+		a. NULL Check
+		b. Visited Check.
+		c. Create new Node.
+		d. Update visited,
+		e. Iterate over all neighbours and assign the node to the neighbours. Return the cloned Node.
+		f. ALGO:
+			if(node == NULL)
+	            return NULL;
+	        if(visited.count(node))
+	            return visited[node];
+	        Node* cloneNode = new Node(node->val);
+	        visited[node] = cloneNode;
+	        for(auto nbr : node->neighbors)
+	            cloneNode->neighbors.push_back(cloneGraph(nbr));
+	        return cloneNode;
+
+	BFS:
+		a. ALGO:
+			unordered_map<Node*, Node*> visited;
+		    visited[node] = new Node(node->val); // (1->1*)
+		    queue<Node*> q;
+		    q.push(node);
+		    while(!q.empty()){
+		        Node* top = q.front();
+		        q.pop();
+		        for(auto &nbr: top->neighbors){ // 1->[2,3]
+		            if(!visited[nbr]){
+		                visited[nbr] = new Node(nbr->val);
+		                q.push(nbr);
+		            }
+		            (visited[top]->neighbors).push_back(visited[nbr]); // 1* -> [2*, 3*]
+		        }
+		    }
+
 
 78. Print all nodes at a distance K from target: BFS with visited since the tree has become some what like a graph
 	a. Create a hashmap for child->parent traversal.
@@ -602,8 +740,1290 @@ INDEX
         }
         return cache[i][j];
 
-85. Range Sum Query: Segment Tree.
+85. Range Sum Query - Mutable (Update can happen): Segment Tree.
+	Range Sum Query - Immutable (No update, only sum): Prefix Sum.
 
 86. K-Closest points to the origin: Max Heap of size K.
 	
-87. 
+87. Median of Two Sorted Arrays X & Y: Binary search to find the middle elements and then cal the median.
+	a. Find the cut using Binary search in the smaller array X
+	b. Find the corresponding cut in Y: ((x+y+1)/2 - cutX)
+	c. Calc the elements leftX, leftY, rightX, rightY which are beside the cuts
+	d. If leftX <= rightY && leftY <= rightX, then we calc the median and return since we found the cut.
+	e. If leftX > rightY, we shift left, otherwise if leftY > rightX shift right
+	f. If x+y = odd len, then left has the median as max(leftX, leftY)
+	g. If x+y = even len, then median = avg(max(leftX, leftY), min(rightX, rightY))
+	h. ALGO:
+		if (nums1.size() > nums2.size())
+            return findMedianSortedArrays(nums2, nums1);
+        int x = nums1.size(); int y = nums2.size();
+        int low = 0; int high = x;
+        while(low <= high){
+            int partX = (low+high)/2;
+            int partY = (x+y+1)/2 - partX;
+
+            int LeftX = (partX==0)? INT_MIN : nums1[partX-1];
+            int RightX = (partX==x)? INT_MAX : nums1[partX];
+            int LeftY = (partY==0)? INT_MIN : nums2[partY-1];
+            int RightY = (partY==y)? INT_MAX : nums2[partY];
+            
+            if (LeftX <= RightY && LeftY <= RightX)
+                if( (x+y)%2 == 0)
+                    return (double) (max(LeftX, LeftY)+min(RightX,RightY))/2;
+                else
+                    return (double) max(LeftX, LeftY);
+            else if (LeftX > RightY)
+                high = partX-1;
+            else // LeftY > RightX
+                low = partX+1;
+        }
+
+88. Remove Minimum Parentheses to Make Valid String: Stack
+	a. We use stack to store the INDEXES of '(' and when we see a ')', we pop a '(' from our stack.
+	b. If we get a ')' and the stack is empty, we remove this '(' from our final string.
+	c. If we have remaining '(' in our stack after the whole string is parsed, we ignore them from final string.
+
+89. Insert an item, Delete an item, & GetRandom Element from set in O(1) time: 
+	a. Use vector to store the elements and hashmap to check if it is already present
+	b. Insert it in O(1) time in vector and update map with val->index
+	c. Remove it in O(1) time by copying last element to val's index and then pop_back()
+	d. Get random in O(1) by choosing a random number from 0 to vector.size()
+
+90. Count Number of Subarrays with sum=K
+	a. We use a hash map to store the cumulative sum till now and it's freqeuncy.
+	b. We check if sum-k is already in the map, then it means that the sum "sum-k" has already been encountered 
+		map[sum-k] number of times and from there till i, we can make the sum "k", so ans += map[sum-k]
+	c. ALGO:
+		int ans=0, sum=0;
+        unordered_map<int, int> freq = {{0, 1}};
+        
+        for(int i=0; i<nums.size(); i++){
+            sum+= nums[i];
+            if(freq.count(sum-k))
+                ans+= freq[sum-k];
+            freq[sum]++;
+        }
+        return ans;
+	d. Similar Prob: Calc Max Length of array with sum=K. Here we store the indexes of elements instead of freq of sum.
+	e. ALGO:
+		int ans=0, sum=0;
+        unordered_map<int, int> map;
+        map[0] = -1;
+        for(int i=0; i<a.size(); i++){
+            sum+=a[i];
+            if(map.count(sum-k))
+                ans = max(ans, i-map[sum-k]);
+            if(!map.count(sum))
+                map[sum] = i;
+        }
+        return ans;
+
+91. Add two strings without using the inbuilt functions.
+	a. We use the generic method of adding with help of carry
+	b. By taking two pointers from string's (n-1)th index till 0, we keep adding it with carry.
+	c. ALGO:
+		int carry = 0;
+		int p1 = nums1.size()-1;
+		int p2 = nums2.size()-1;
+		while(p1>=0 || p2>=0) {
+			int x = (p1 >= 0 ? nums1[p1]-'0' : 0);
+			int y = (p2 >= 0 ? nums1[p2]-'0' : 0);
+			int value = (x+y+carry)%10;
+			carry = (x+y+carry)/10;
+			ans += to_string(value);
+			p1--; p2--;
+		}
+		if(carry !=0)
+			ans += to_string(1);
+		reverse(ans.begin(), ans.end());
+        return ans;
+
+92. LFU Cache: TODO
+
+93. Search in a rotated sorted array: Binary Search
+	a. B.Search for the index of the lowest element. (TRICKY to remember this variation of Binary Search)
+	b. Check in which sorted side we need to search for target.
+	c. B.Search for the target in the sorted array.
+	d. ALGO:
+		int low = 0, high = n-1;
+        while(low < high){
+            int mid = low + (high-low)/2;
+            if (v[mid] > v[high])
+                low = mid+1;
+            else
+                high = mid;
+        }
+        int index_lowest = low;
+        if (target == v[index_lowest])
+            return index_lowest;
+
+        if (index_lowest == 0)
+            low=0, high=n-1;
+        else if (target >= v[0])
+            low=0, high=index_lowest-1;
+        else if (target < v[0])
+            low=index_lowest, high=n-1;
+        
+        while(low <= high){
+            int mid = low + (high-low)/2;
+            if(v[mid] == target)
+                return mid;
+            else if (v[mid] > target)
+                high = mid-1;
+            else 
+                low = mid+1;
+        }
+        return -1;
+
+94. Number of Connected Nodes in a Graph: DFS/BFS/UnionFind
+	DFS:
+	a. The input is an adjacency matrix. We take a visited array of size n
+	b. We iterate over for i from 0 .. n and check if it is not visited, call the dfs()
+	c. In DFS, we iterate for j over the ith row again and then check if we have not visited and grid is 1, then visit it and call dfs on that j
+	d. ALGO:
+	    void dfs(vector<vector<int>>& grid, vector<int>& visited, int i){
+	        for(int j=0; j< grid.size(); j++){
+	            if(i!=j && grid[i][j] == 1 && visited[j] == 0){
+	                visited[j] = 1;
+	                dfs(grid, visited, j);
+	            }
+	        }
+	    }
+	    
+	    for(int i=0; i<n; i++){
+	        if(visited[i] == 0) {
+	            dfs(grid, visited, i);
+	            count++;
+	        }
+	    }
+	    return count;
+    
+    BFS:
+    a. We iterate over the row and if the node is not visited, we push it in queue and then do BFS over it.
+    b. ALGO:
+        vector<int> visited(n, 0);
+        queue<int> q;
+        int ans=0;
+        for(int i=0; i<n; i++){
+            if(visited[i] == 0){
+                q.push(i);
+                while(!q.empty()) {
+                    int top = q.front();
+                    q.pop();
+                    visited[top] = 1;
+                    for(int j=0; j<n; j++){
+                        if(isConnected[top][j]==1 && visited[j]==0)
+                            q.push(j);
+                    }
+                }
+                ans++;
+            }
+        }
+        return ans;
+
+95. House Robber: You can rob alternate houses present in a row stacked with some money. Calc max money
+	a. ALGO:
+		dp[0] = nums[0];
+        dp[1] = max(nums[0], nums[1]);
+        for(int i=2;i<n;i++)
+            dp[i] = max(dp[i-1], dp[i-2]+nums[i]);
+        return dp[n-1];
+    b. Variation: What if H1 is connected with Hn in a circular way. Houses arranged in a circle.
+    	i. Consider two house robber problems: (House[1] to House[n-1]) or (House[2] to House[n])
+    	ii. ALGO:
+			dp[0] = nums[0];
+			dp[1] = max(nums[0], nums[1]);
+			for(int i=2;i<n-1;i++)
+			  dp[i] = max(dp[i-1], dp[i-2]+nums[i]);
+			int ans1 = dp[n-2];
+
+			dp.clear();
+			dp[0] = nums[1];
+			dp[1] = max(nums[1], nums[2]);
+			// Robbing house 1 to n-1 (loop is same just accessing nums[i+1] instead of nums[i])
+			for(int i=2;i<n-1;i++)
+			  dp[i] = max(dp[i-1], dp[i-2]+nums[i+1]);
+			int ans2 = dp[n-2];
+
+			return max(ans1, ans2);
+
+96. Convert Integer to Roman:
+	a. ALGO:
+		vector<int> values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};    
+		vector<string> symbols = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+
+		string intToRoman(int num) {
+		    string ans;
+		    for(int i=0; i<values.size() && num > 0; i++){
+		        while(values[i] <= num) {
+		            num -= values[i];
+		            ans += symbols[i];
+		        }
+		    }
+		    return ans;
+		}
+
+97. Find Minimum/Maximum in a stack:
+	a. We need to store the minimum at every point of time in the stack so that we can output it in O(1) time.
+		Hence, instead of stack<int>, we will have a stack<pair<int, int>>
+	b. While pushing we can check this value and last min value and decide on the current min value.
+	c. popMIN()/ popMAX() - You have to pop the minimum here 
+		- Till the num and the min become equal, we keep popping the pairs and push it in another temp stack.
+		- Once they are equal, we pop it and then push the nums from temp stack to original stack.
+		- We need to recalculate the min for all of them again, so we use the PUSH method that we defined
+			which actually checks the current min and element value to select the current min and then push
+
+98. First Missing Positive in the given unsorted array:
+	a. Check for 1 in the array, if not, 1 is the answer.
+	b. Convert all the 0s, -ves, and numbers > n to be 1 since they can not be FMP. It must lie between 1 to n+1
+	c. Iterate over the elements and convert nums[nums[i]] to be negative. Use index 0 for n since index n is not available.
+		int a = abs(nums[i]);
+        nums[a] = -abs(nums[a]);
+    d. Iterate and see if a number > 0, then that index is the FMP. If not, then n+1 is FMP.
+    e. TC: O(n)
+    f. ALGO:
+    	for(int i=0;i<n;i++){
+            if(nums[i] == 1){
+                found1 = true;
+                break;
+            }
+        }
+        if (found1){
+            for(int i=0;i<n;i++){
+                if(nums[i] <= 0 || nums[i] > n)
+                    nums[i] = 1; 
+
+            for(int i=0;i<n;i++){
+                int a = abs(nums[i]);
+                if(a == n)
+                    nums[0] = -abs(nums[0]);
+                else
+                    nums[a] = -abs(nums[a]);
+            }
+            for(int i=1;i<n;i++)
+                if(nums[i] > 0)
+                    return i;
+
+            if(nums[0] > 0)
+                return n;
+
+            return n+1;
+        }
+        else
+            return 1;
+
+
+99. Print Matrix in Spiral Order:
+	a. Imagine 4 rods (m_start, m_end) in rows (n_start, n_end) in columns
+    b. Just keep walking on the rods
+    c. Once walked, bring the rods closer to each other and keep doing this till they overlap
+    d. When m_start and m_end are overlapping, do not traverse the same thing left->right 
+        and then right->left. Similarly, for n_start and n_end
+    e. ALGO:
+    	int m_start = 0, m_end   = m-1, n_start = 0, n_end   = n-1;
+        vector<int> ans;
+        while(m_start <= m_end && n_start <= n_end){
+            
+            for(int i=n_start;i<=n_end;i++)
+                ans.push_back(matrix[m_start][i]);
+
+            for(int i=m_start+1; i<=m_end-1; i++)
+                ans.push_back(matrix[i][n_end]);
+            
+            if (m_start != m_end)
+                for(int i=n_end; i>=n_start; i--)
+                    ans.push_back(matrix[m_end][i]);
+            
+            if (n_start != n_end)
+                for(int i=m_end-1; i>=m_start+1; i--)
+                    ans.push_back(matrix[i][n_start]);
+            
+            m_start++; m_end--;
+            n_start++; n_end--;
+        }
+        return ans;
+
+100. Sudoku Solver: Classic Backtracking
+	a. PseudoCode:
+	solve(board)
+		Iterate over matrix both loops in row(i), col(j)
+			if empty cell (grid[i][j] = '.')
+				Iterate over all chars possible(k->1..9)
+					Check if valid palcement 
+						Place k in grid[i][j]
+						if (solve(board))
+							return true;
+						else
+							grid[i][j] = '.'
+				return false since none of the 'k' worked for us here. Some other placement was wrong, backtrack.
+		return true if we are able to reach here after placing everything.
+
+	b. ALGO:
+	    bool isValidPlacement(vector<vector<char>>& board, int row, int col, char c){
+	        for(int i=0;i<9;i++)
+	            if(board[row][i] == c) return false;
+	        for(int i=0;i<9;i++)
+	            if(board[i][col] == c) return false;
+	        
+	        for(int i=0;i<3;i++)
+	            for(int j=0;j<3;j++)
+	                if(board[row/3*3 + i][col/3*3 + j] == c)
+	                    return false;
+	        return true;
+	    }
+	    
+	    
+	    bool solve(vector<vector<char>>& board){
+	        for(int i=0;i<9;i++){
+	            for(int j=0;j<9;j++){
+	                if(board[i][j] == '.'){
+	                    for(int k=0;k<9;k++){
+	                        if(isValidPlacement(board, i, j, k+'1')){
+	                            board[i][j] = '1'+k;
+	                            if(solve(board))
+	                                return true;
+	                            else
+	                                board[i][j] = '.';
+	                        }
+	                    }
+	                    return false;
+	                }
+	            }
+	        }
+	        return true;
+	    }
+
+	c. Time complexity is constant here since the board size is fixed and there is no N-parameter 
+    to measure. Though let's discuss the number of operations needed.
+	    Let's consider one row, i.e. not more than 9 cells to fill. 
+	    There are not more than 9 possibilities for the first number to put, 
+	    not more than 9×8 for the second one, not more than 9×8×7 for the third one etc. 
+	    In total that results in not more than 9! possibilities for a just one row, that means 
+	    not more than (9!)^9 operations in total.
+
+101. Letter Combination of a Phone Number:
+	a. Have a map of numbers -> string mapping
+	b. Iterate over all the digits of input numbers and get the corresponding string of that letter from the map.
+	c. Iterate over the already present answer vector and then over the new set of letters from this digit
+	d. Concatenate the new letters with all the answers already present and make a new array out of it.
+	e. This new set becomes your answer. Iterate over this referring as ans for all the other numbers.
+	f. ALGO:
+		for(int i=0;i<n;i++){
+            string letters = map[digits[i]];
+            if(ans.empty()) {
+                for(int j=0;j<letters.size();j++){
+                    string s; s += letters[j];
+                    ans.push_back(s);
+                }
+            }
+            else {
+                vector<string> new_ans;
+                for(int j=0;j<letters.size();j++)
+                    for(int k=0;k<ans.size(); k++)
+                        new_ans.push_back(ans[k]+letters[j]);
+                ans = new_ans;
+            }
+        }
+        return ans;
+    g. TC: O(4^N * N) (1 number: 4 paths, 2 numbers 16 paths, 3 numbers 64 paths... so 4^N) and then if join taken O(n) time, consider that as well.
+
+102. [DUPLICATE-62] Merge Intervals
+
+103. Pythagorean Triplets: Return true if an array has Pythagaurean Tripet in it (a2+b2=c2)
+	a. Square all the elements of the array
+	b. Store all the squared numbers in a map to know if a number n is present in array or not. Value would be the index.
+		- The problem now reduces to a Two sum problem with target present inside the array itself.
+	c. We iterate over the array twice and check if arr[i]+arr[j] is present in map and map[arr[i]+arr[j]] !=i && !=j, then return true.
+	d. ALGO:
+		for(int i=0; i<n; i++){
+	        arr[i] = arr[i]*arr[i];
+	        map[arr[i]] = i;
+	    }
+
+	    for(int i=0; i<n-1; i++)
+	        for(int j=i+1; j<n; j++)
+	            if (map.count(arr[i] + arr[j]) && map[arr[i]+arr[j]] != i && map[arr[i]+arr[j]] != j)
+	                return true;
+
+	    return false;
+	e. TC: O(n2), SC: O(n)
+
+104. Verifying Alien Dict: Given a new order of chars, check if some words are sorted int in that order.
+	a. Get the new order into a map and map every letter to 1->26 in the new order
+	b. Then iterate for each word[i] and word[i+1] checking if they are in the "new order"
+	c. ALGO:
+		unordered_map<int, int> map;
+        for(int i=0; i<order.size(); i++){
+            map[order[i]] = i+1;
+        }
+        
+        for(int i=0;i<words.size()-1; i++){
+            if(!checkLexographic(words[i], words[i+1], map))
+                return false;
+        }
+        return true;
+
+        bool checkLexographic(string a, string b, unordered_map<int, int> map){
+	        int i=0, j=0;
+	        while(i!=a.size() && j!=b.size() && a[i]==b[j])
+	            i++; j++;
+	        
+	        if( (i== a.size()) || (i!=a.size() && j!=b.size() && map[a[i]] < map[b[j]]) )
+	            return true;
+	        else
+	            return false;
+	    }
+
+105. Convert Integer to English word.
+	a. Have functions one,twoLessThan20, ten, two, three which return the relevant spellings.
+	b. Call these functions and try to convert the whole number.
+
+106. Check is a string is a valid palindrome after at most 1 deletion.
+	a. Two Pointers: i and j and traverse the string from start and end.
+	b. While the chars keep matching, i++, j--
+	c. Once the letters dont match, check for isPalindrome(i+1, j) || isPalindrome(i, j-1)
+	d. If any of them returns true, then return true, else false.
+	e. ALGO:
+		int i=0, j=n-1;
+        while(i<j){
+            if(s[i]!=s[j])
+                return isPalin(s, i+1, j) || isPalin(s, i, j-1);
+            i++; j--;
+        }
+        return true;
+
+        bool isPalin(string s, int l, int r){
+	        int i=l, j=r;
+	        while(i<j){
+	            if(s[i] != s[j])
+	                return false;
+	            i++; j--;
+	        }
+	        return true;
+	    }
+
+107. Check if an array is a permutation of 1 to n.
+	a. Keep iterating and converting the numbers present index of current num to be negative.
+		for(int i=0;i<n;i++){
+			int abs_vi = abs(v[i]);
+			v[abs_vi] = -v[abs_vi];
+		}
+	b. Finally if there is any number > 0, then it means that array is not a perm, otherwise true.
+
+108. Maximum Level Sum of a Binary Tree: BFS 
+	a. Simple BFS in which we keep calc sum of each level and then maxSum out of the all level sums.
+
+109. Skyline Problem: TODO
+
+110. Shortest Distance between 2 islands: FloodFill, DFS.
+	a. Iterate over one island and convert all 1s to 2s, then exit.
+	b. Iterate over the 2s and create a boundary of 3s beside it, then iterate over 3s to create a boundary of 4s
+		(we call this color)... till we reach an island of 1s
+		- We use the expand() function to color WITH 2s, 3s...
+	c. When we reach an island of 1s, the color for example is c, then c-2 is the minimum distance between 2 islands.
+	d. ALGO:
+
+    int dfs(vector<vector<int>>& grid, int i, int j){
+        if (i<0 || j<0 || i==grid.size() || j==grid.size() || grid[i][j]!= 1) 
+            return 0;
+        grid[i][j] = 2;
+        return 1 + dfs(grid, i+1, j) + dfs (grid, i-1, j)+ dfs(grid, i, j+1) + dfs(grid, i, j-1);
+    }
+    
+    bool expand(vector<vector<int>>& grid, int i, int j, int cl) {
+        if (i<0 || j<0 || i==grid.size() || j==grid.size()) 
+        	return false;
+        if (grid[i][j] == 0) 
+            grid[i][j] = cl+1;
+        return grid[i][j] == 1;
+    }
+    
+    for(int i=0; !found && i<grid.size(); i++)
+        for(int j=0; !found && j<grid.size(); j++)
+            found = dfs(grid, i, j);
+    for (int cl = 2; ; ++cl)
+        for(int i=0; i<grid.size(); i++)
+            for(int j=0; j<grid.size(); j++)
+                if (grid[i][j] == cl && (expand(grid, i - 1, j, cl) || expand(grid, i, j - 1, cl) || expand(grid, i + 1, j, cl) || expand(grid, i, j + 1, cl)))
+                    return cl-2;
+    
+111. Rectangles Overlap: Check if two given rectangles overlap with each other.
+	a. Instead of overlap, check for conditions on when they will not overlap.
+	b. ALGO:
+		// x2 <= x3 when R1 is on the left of R2 and they do not intersect
+        // x4 <= x1 when R2 is on the left of R1 and they do not intersect
+        if(x2 <= x3 || x4 <= x1)
+            return false;
+        
+        // y2 <= y3 when R2 is above R1 and they do not intersect
+        // y4 <= y1 when R1 is above R2 and they do not intersect
+        if (y2 <= y3 || y4 <= y1)
+             return false;
+
+112. Reverse Nodes in a LinkedList in groups of size K
+	a. 
+			 head-> 1->2 -> 3->4 -> 5 (k=2)
+    Step#1:  head-> 2->1 -> 3->4 -> 5
+    Step#2:  head-> 2->1 -> 4->3 -> 5
+
+        1. Check if K nodes are present from the current node so that we can reverse them.
+        2. Reverse the set of K nodes.
+        3. After reversing each set, we have to do two more things:
+             b. Connect THIS reversed set to the following node (1->3 in step#1, 3->5 in step#2)
+                 This is done in the reverseKNodes() with the line (firstCurrent->next = nextNode)
+             a. Connect the prev reversed set's last node to THIS reversed set (head->2 in step #1, 1->4 in step#2)
+                 This is done in the reverseKGroup() with the line (lastNodeInPrevKNodeSet->next = newCurrentNode)
+
+113. Merge Sorted Arrays: arr1 has m+n space but m elements, arr2 has n elements. Both are sorted. Merge into arr1.
+	a. Iterate from pointers m-1(i) of arr1 and n-1(j) of arr2.
+	b. Compare these iterators and save the max at arr1s m+n-1(k)
+	c. Increase/Decrease the iterators i/j and k.
+	d. ALGO: (TC: O(n+m), SC: O(1))
+		int i=m-1, j=n-1, k=n+m-1;
+        while(i>=0 && j>=0)
+            if(nums1[i] > nums2[j])
+                nums1[k--] = nums1[i--];
+            else
+                nums1[k--] = nums2[j--];
+        while(j>=0)
+            nums1[k--] = nums2[j--];
+
+114. Add two Binary Numbers:
+	a. Take two iterators(i=m-1, j=n-1) from the end of two binary numbers and we have to go towards the front.
+	b. Till we have either i, j or carry available, we keep iterating
+	c. Add A[i], B[j] to carry if they are not exhausted yet.
+	d. value would be carry & 1 and the upated value of carry would be carry >> 1
+	e. Reverse the final outcome.
+	f. ALGO:
+		string res;
+        int carry = 0, sum, i = A.size() - 1, j = B.size() - 1;
+        while (i >= 0 || j >= 0 || carry) {
+            sum=0;
+            if (i >= 0) 
+                 sum += A[i--]-'0';
+            if (j >= 0) 
+                 sum += B[j--]-'0';
+            sum += carry;
+            res += to_string(sum&1);
+            carry = (sum >> 1);
+        }
+        reverse(res.begin(), res.end());
+        return res;
+
+115. Text Justification: TODO
+
+116. Accounts Merge: Given name and array of emails, merge them.
+	a. We create a graph of emails. Draw two edges between the two related emails, if they belong to the same person.
+	b. We also try to keep track of each email to name map.
+	c. Then we iterate over the graph of emails in a DFS way. We use a visited[emails] to prevent infinite loop.
+	d. ALGO:
+		unordered_map<string, vector<string>> graph;
+	    unordered_map<string,string> email_to_name;
+	    unordered_set<string> visited;
+	    
+	    
+	    void dfs(string email, set<string> &email_set) {
+	        if(visited.count(email))
+	            return;
+	        visited.insert(email);
+	        email_set.insert(email);
+	        for(auto email : graph[email])
+	            dfs(email, email_set);
+	    }
+
+	    void buildGraph(vector<vector<string>>& accounts){
+	        for(int i = 0; i < accounts.size(); ++i) {
+	            string name = accounts[i][0];
+	            string first_email = accounts[i][1];
+	            
+	            for(int j = 1; j < accounts[i].size(); ++j) {
+	                string email = accounts[i][j];
+	                graph[first_email].push_back(email);
+	                graph[email].push_back(first_email);
+	                if(!email_to_name.count(email))
+	                    email_to_name[email] = name;
+	            }
+	        }
+	    }
+
+	    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+	        vector<vector<string>> res;
+	        buildGraph(accounts);
+	        
+	        for(auto [email, _] : graph) {
+	            if(!visited.count(email)) {
+	                set<string> email_set; // due to this, the email list remain sorted (its a set)
+	                dfs(email, email_set);
+	                
+	                vector<string> account(email_set.begin(), email_set.end());
+	                string name = email_to_name[email];
+	                account.insert(account.begin(), name);
+	                res.push_back(account);
+	            }
+	        }
+	        return res;
+	    }
+
+117. Longest String without aaa, bbb and ccc given some freq of a,b and c.
+	a. Create a max heap of the form pair<int,char> to store the count of each character(a,b & c).
+    b. while (pq.size()>1) Pop out the first 2 pair who have the max frequency.
+    c. Add greedily the occurances of the first pair to the ans and update it's count.
+    d. For the second pair, compare it's occurances with the first pair and add accordingly (either 1 or 2)
+    e. Finally add the pairs back to the Max Heap if their count>0.
+    f. If pq.empty() return ans, else add the leftover character 
+        to the ans according to the remaining counts and return the ans.
+    g. ALGO:
+    	priority_queue<pair<int,char>>pq;
+        if(a) pq.push({a,'a'});
+        if(b) pq.push({b,'b'});
+        if(c) pq.push({c,'c'});
+        
+        string ans="";
+    
+        while(pq.size()>1){
+            pair<int,char>one = pq.top();pq.pop();
+            pair<int,char>two = pq.top();pq.pop();
+
+            if(one.first>=2){
+                ans+=one.second; ans+=one.second;
+                one.first-=2;
+            }
+            else{
+                ans+=one.second;
+                one.first-=1;
+            }
+            if(two.first>=2 && two.first>=one.first){
+                ans+=two.second;
+                ans+=two.second;
+                two.first-=2;
+            }
+            else{
+                ans+=two.second;
+                two.first-=1;
+            }
+            if(one.first>0) pq.push(one);
+            if(two.first>0) pq.push(two);
+        }
+        if(pq.empty())
+            return ans;
+        if(pq.top().first>=2){
+            ans+=pq.top().second; ans+=pq.top().second;
+        }
+        else{
+            ans+=pq.top().second;
+        }
+        return ans;
+	
+118. Power Set of an Array:
+	a. Iterating over all the nums(i) and at each step one takes new integer into consideration 
+		and generates new subsets from the existing ones in ans. Then push the new subset into the ans 
+		so that the next integer can use it to form new subsets as well.
+	b. Start with an empty set since it is always present in a power set.
+	c. 	Arr: 1 2 3
+		     [[]]
+		 i:1 [[],[1]]
+		 i:2 [[],[1],[2],[1,2]]
+		 i:3 [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+	d. TC: O(Nx2^N)
+	e. ALGO:
+	    vector<vector<int>> ans;
+	    ans.push_back({});
+	    for(int i=0; i<nums.size(); i++){
+	        vector<vector<int>> new_subsets;
+	        for(int j=0; j<ans.size(); j++){
+	            vector<int> x = ans[j];
+	            x.push_back(nums[i]);
+	            new_subsets.push_back(x);
+	        }
+	        for(auto subs: new_subsets)
+	            ans.push_back(subs);
+	    }
+	    return ans;
+
+119. Remove the minimum number of invalid parentheses to make the input string valid & return all possible results: Backtracking
+	a. TODO
+
+120. Flatten a multi-level doubly linked list:
+	a. Keep track of prev and current. Prev is required so that we can return the last node of the LL for this level.
+	b. When the current's child is NULL, this node is fine, move ahead.
+	c. When the current's child is Not NULL, then we need to fix it and connect it to current's next.
+	d. ALGO:
+		Node* helper(Node* current){
+		    Node *pre;
+		    
+		    while(current != NULL){
+		        if(current->child == NULL){
+		            pre = current;
+		            current = current->next;
+		        }
+
+		        // If the child pointer is not null, we do:
+		        // - connect child's prev to itself (current)
+		        // - save the current's next because it will be lost when we connect current's next to current's child
+		        // - current next will not point to the child
+		        // - call the same function for the child node recursively so it does all this too. This should return the last node of the child's DLL
+		        // - after child traversal is done, we make current's child to be NULL
+		        // - the last node of the child must be connected to the saved_node's prev
+		        // - update pre and move current looking for the next node
+		        else{
+		            current->child->prev = current;
+		            Node* saved_next = current->next;
+		            current->next = current->child;
+		            Node* last_node = helper(current->child);
+		            current->child = NULL;
+		            last_node->next = saved_next;
+		            if(saved_next)
+		                saved_next->prev = last_node;
+		            pre = current;
+		            current = current->next;
+		        }
+		    }
+		    return pre;
+		}
+
+121. Strobogrammatic Number is a number that looks the same when rotated 180 degrees. Check if the given num is a SN.
+	a. Since 2,3,4,5,7 don't form any digit when rotated, simply return false if you see them.
+	b. have a map of rotated numbers for the rest and use it when traversing the string.
+	c. Form the rotated number and check if it is same. Return true/false.
+	d. ALGO:
+		string rotatedString="";
+        unordered_map<char, char> map = {{'1','1'},{'0','0'},{'8','8'},{'6','9'},{'9','6'}};
+        for(int i=0; i<nums.size(); i++){
+            if(nums[i] == 2 || nums[i] == 3 || nums[i] == 4 || nums[i] == 5 || nums[i] == 7 )
+                return false;
+            rotatedString = map[nums[i]] + rotatedString;
+        }
+        return (rotatedString == nums);
+
+122. Non-Overlapping Intervals: Given an array of intervals intervals return the min number of intervals you need to remove to make the rest of them non-overlapping.
+	a. Sort the intervals on start time.
+	b. There can be only 3 cases in a prev interval and the next interval
+	    i. no overlap: we update the prev and nothing is removed
+	    ii. total overlap: we choose the smaller one & remove the bigger one since the same area 
+	        can accomodate more intervals now. We update prev and since we do not consider the other 
+	        interval now, we update removedCount.
+	    iii. partial overlap: we choose the prev over current and update the removeCount.
+	c. TC: O(nlogn)
+	d. ALGO:
+		if(intervals.size() <= 1)
+            return 0;
+        
+        sort(intervals.begin(), intervals.end());
+        
+        int n= intervals.size(), prev=0, removeCount=0;
+        
+        for(int i=1;i<intervals.size(); i++){
+            if(intervals[prev][1] > intervals[i][0]){ 		// overlapping
+                if(intervals[prev][1] > intervals[i][1]) 	// total overlap, move ahead & removeCount++
+                    prev = i;   
+                removeCount++;    							// partial overlap, only removeCount++; (no need to move ahead)
+            }
+            else 											// no overlap, just move ahead, no change remove count
+                prev = i;
+        }
+        return removeCount;
+
+123. Maximum Points by removing K cards from Front and Back: Sliding Window
+	a. We must draw exactly k cards from the array in such a way that the score (sum of the cards) is maximized. 
+		After drawing k cards from the array cardPoints.length - k cards will remain in the array.
+	b. Another way that we could view the problem is that our objective is to choose cards from the beginning or end of
+		array in such a way that the sum of the remaining cards is minimized.
+	c. We can use a sliding window to find the subarray of size cardPoints.length - k that has the minimal sum. 
+		Subtracting this value from the total sum of all the cards will give us our answer.
+	d. TC: O(n), VERY SIMILAR TO MAXIMUM SUM OF ALL SUBARRAYS OF SIZE K (43)
+	e. ALGO:
+		for(auto e : cardPoints)
+            totalScore+= e;
+        if (k == n)
+            return totalScore;
+        int minSum = totalScore;
+        
+        for(int j=0; j<n; j++) {
+            currentSum += cardPoints[j];
+            int lengthOfWindow = j - i + 1;
+            if(lengthOfWindow == n-k) {
+                minSum = min(minSum, currentSum);
+                currentSum -= cardPoints[i++];
+            }
+        }
+        return totalScore-minSum;
+
+124. Longest Repeating Character after K replacements: Sliding Window
+	a. We iterate over the string like sliding window and for all possible substrings we check for the condition:
+        (length of substring - freq of maximum occuring character in THIS substring) <= k 
+    b. If this condition holds true, then we can replace the OTHER characters to max freq character to get the same character in the substring,
+    c. Then, we increase the window by 1 size and check if this condition still holds true, if yes, then increase the max same character result.
+    d. After some time, the condition will not hold true since the number of OTHER chars > k and then we cant replace all of them to max freq since they are > k
+    	Then, we shorten the window from the start and keep checking if the cond. holds true now?
+   	e. ALGO:
+   		int i=0; // start of sliding window (i.. j-1)
+        int j=0; // next char of the window
+        int maxCharCount=0, result=0;
+        unordered_map<char, int> freq;
+        while(j!=s.size()){
+            freq[s[j]]++;
+            maxCharCount = max(maxCharCount, freq[s[j]]);
+            while(j-i-maxCharCount+1 > k){
+                freq[s[i]]--;
+                i++;
+                for(auto m: freq)
+                    maxCharCount = max(maxCharCount, m.second);
+            }
+            result = max(result, j-i+1);
+            j++;
+        }
+        return result;
+
+125. Minimum Length Subarray with Sum >= Target (Only Positive Integers) Sliding Window
+	a. Slide Window and keep checking the sum of all elements in the window with the length of window
+    b. If at any point, we get the sum is lesser length, update it.
+    c. Outer loop expands the window
+    d. Inner loop shortens it till the condition sum>=target holds true
+    e. ALGO:
+        while(j!=nums.size()){
+            sum += nums[j];
+            currentLen++;
+            while(sum >= target){
+                minlen = min(minlen, currentLen);
+                sum -= nums[i];
+                currentLen--;
+                i++;
+            }
+            j++;
+        }
+        return minlen == nums.size()+1 ? 0 : minlen;
+
+126. FLAMES Game:
+	a. Input both the names in set1, set2.
+	b. Calculate Intersection of those sets => This will give us what is common in them
+	c. Calculate Union of those sets => This will give us total unique elements.
+	d. DiffSet = (UnionSet-Intersection) will give us the chars which are not CUT OFF since they were not common.
+	e. Elements in this set's size % 6 can give us the wanted result.
+	f. ALGO:
+		for(int i=0;i<s1.size();i++)
+			set1.insert(s1[i]);
+		for(int i=0;i<s2.size();i++)
+			set2.insert(s2[i]);
+
+		set_intersection(set1.begin(), set1.end(), set2.begin(), set2.end(), back_inserter(intersectionSet));
+		set_union(set1.begin(), set1.end(), set2.begin(), set2.end(), back_inserter(unionSet));
+		set_difference(unionSet.begin(), unionSet.end(), intersectionSet.begin(), intersectionSet.end(), back_inserter(diffSet));
+		
+		if(diffSet.size()%6 == 0)
+			return flames_map[5];
+		else
+			return flames_map[diffSet.size()%6 - 1];
+
+127. Largest Mountain in an array:
+	a. Start with a base and check if you have a mountain ahead of you.
+    b. To check for a mountain, you must travel upwards to reach a peak
+    	while(end+1 < N && arr[end]<arr[end+1])
+            end++;
+    c. Then travel downwards.
+    	while(end+1<N && arr[end]>arr[end+1])
+            end++;
+    d. The length of a montain would be (end-start+1)
+    e. Get the largest mountain.
+    f. ALGO:
+    	while(base < N) {
+            // Start end with the base and try to keep growing it
+            end = base;
+            
+            // we do NOT want the flow to reach the next if loop of travelling 
+            // down the mountain without travelling up so we need this condition
+            if(end+1 < N && arr[end]<arr[end+1]){
+                
+                // travelling upwards to reach the peak of the mountain
+                while(end+1 < N && arr[end]<arr[end+1])
+                    end++;
+
+                // we want to update the ans only when we have travelled to the 
+                // end of the mountain, so we need this if condition check
+                if(end+1<N && arr[end]>arr[end+1]) {
+                    
+                    // travelling downwards to reach the end of the mountain
+                    while(end+1<N && arr[end]>arr[end+1])
+                        end++;
+                    
+                    // Now we have reached the bottom of the mountain
+                    // Check if this is the largest mountain we have?
+                    ans = max(ans, end-base+1);
+                }
+            }
+            
+            // If there was a mountian, update base to the end of it.. to search for a new mountain
+            // Otherwise increase base by 1 and check.
+            base = max(end, base+1);
+        }
+        return ans;
+
+128. Minimum Window Substring: Calculate the minimum length window in string s which has all the chars of string t.
+	a. Save the freq of chars of t in a map1.
+	b. Iterate over the string s with two pointers(i, j) like a sliding window till the latter reaches the end of string s.
+	c. Have a map to store the characters which are present in the window between i and j.
+	d. The number of characters required with correct freq in the window is map1.size() and we have 'formed' 0 out of them.
+	e. We keep including the chars in window till we dont have formed==required. Then we shorten the window since we want min size window
+	f. ALGO:
+        if (s==t)
+            return s;
+        if(s.length() == 0  || t.length() == 0 || t.size()> s.size())
+            return "";
+
+        unordered_map<char, int> umap;
+        for(int i=0; i<t.size(); i++)
+            umap[t[i]]++;
+        
+        unordered_map<char, int> window;
+        int required=umap.size(), formed=0, i=0, j=0;
+        string ans;
+        
+        while(j<s.size()){
+            window[s[j]]++;
+            if(umap.count(s[j]) && umap[s[j]] == window[s[j]])
+                formed++;
+            
+            while(i<=j && formed == required){
+                if(ans.empty() || j-i+1 < ans.size())
+                    ans = s.substr(i, j-i+1);
+                window[s[i]]--;
+                if(umap.count(s[j]) && window[s[i]] < umap[s[i]])
+                    formed--;
+                i++;
+            }
+            j++;
+        }
+        return ans;
+
+129. Task Schedueler: TODO
+
+130. Find K closest Elements to X in a sorted array. (X may not be there in the array): Binary Search
+	a. Search for the element closest to X with lower_bound(). Set that as R. L=R-1
+	b. We expand from these pointers on a condition x - arr[L] <= arr[R] - x
+	c. ALGO:
+        int n= arr.size();
+        int R = lower_bound(arr.begin(), arr.end(), x) - arr.begin(); // LB returns an iterator but we need the index so iterator - begin() gives us the index
+        int L =R-1;
+        
+        while(k--){
+            if(R>=n || L>=0 && x-arr[L] <= arr[R]-x ) L--;
+            else R++;
+        }
+        return vector(arr.begin()+L+1, arr.begin()+R); // L, R would remain just outside the window so taking L+1, R (since index starts from 0)
+
+131. Word Search: Search for a word in a matrix of chars: Backtracking
+	a. Iterate over all the elements checking if this is the starting of the word.
+    b. If we find the start, we iterate on the rest of the board looking for more letters in the word
+    c. If we are able to reach the end, return true. If we cant reach the end, then we backtrack.
+    d. We use a visited array to keep check of where we have already travelled
+    e. ALGO:
+    	bool dfs(vector<vector<char>>&board, vector<vector<bool>>&visited, string word, int i, int j, int word_i ) {
+	        int m = board.size();
+	        int n = board[0].size();
+	        if (i<0 || i>=m || j<0 || j>=n || visited[i][j] == true || board[i][j] != word[word_i])
+	            return false;
+	        
+	        visited[i][j] = true;
+	       	
+	        if(word_i == word.size()-1)
+	            return true;
+	        else if (dfs(board, visited, word, i+1, j, word_i+1) || dfs(board, visited, word, i-1, j, word_i+1) || dfs(board, visited, word, i, j+1, word_i+1) || dfs(board, visited, word, i, j-1, word_i+1))
+	            return true;
+
+	        visited[i][j] = false;
+	        return false;
+	    }
+
+    	for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                vector<bool> tmp(n, false);
+                vector<vector<bool>> visited (m, tmp);
+                if(dfs(board, visited, word, i, j, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+132. Number of Islands: DFS/Union Find.
+	a. Normal DFS
+	b. UF: Use count integer which would first be the number of 1s but will decrease on each union of 2 ones. Return count finally.
+	c. Check this file and look for the SIMILAR QUESTION 1 - NUMBER OF CONNECTED COMPONENTS OF A GRAPH which can 
+		also be solved with a similar 'count' approach for UF.
+
+133. Redundant Connection: One Extra edge is added in the graph which makes it cyclic. Return that edge whose removal will make it noncyclic: Union Find.
+	a. Simple union find where UNION returns true/false if the nodes belong to same/different groups.
+	b. While processing an edge, if UNION returns that they belong to same edge, then adding this edge will cause a cycle and we return it.
+
+134. Making a Large Island by changing at most one 0 to 1 in a matrix: Union Find with parent, rank and size vectors.
+	a. Create a UF from the matrix
+	b. Iterate over the matrix and look for 0s, check if we convert it, then will we be joining different groups, if yes then add their sizes and return the max size.
+	c. Note that a 1 on left and 1 on right may actually belong to the same group, then we should not add the size since they belong to the same group.
+
+135. Largest Rectangle in a Histogram: Stack
+	a. We take a stack and iterate over the heights array
+	b. If we have an empty stack or increasing/equal value compared to stack top, just push the index in the stack and move on.
+	c. If we have decreasing value at any point of time, we pop the elements from stack and keep calculating the area = arr[top]*(i-st.top()-1) and maxArea.
+	d. If the iteration completes and we still have items remaining in the stack, we calculate their area till stack is empty.
+	e. ALGO:
+		int largestRectangleArea(vector<int>& arr) {
+	        stack<int> st; // stack to store indexes
+	        int area, maxArea = -1;
+	        int i;
+	        for(i=0; i<arr.size();){
+	            if(st.empty() || arr[st.top()] <= arr[i] ){
+	                st.push(i);
+	                i++;
+	            }
+	            else {
+	                int top = st.top();
+	                st.pop();
+	                if(st.empty())
+	                    area = arr[top] * i;
+	                else
+	                    area = arr[top]* (i-st.top()-1);
+	                maxArea = max(area, maxArea);
+	            }
+	        }
+	        
+	        while(!st.empty()) {
+	            int top = st.top();
+	            st.pop();
+	            if(st.empty())
+	                area = arr[top] * i;
+	            else
+	                area = arr[top]* (i-st.top()-1);
+	            maxArea = max(area, maxArea);
+	        }
+	        
+	        return maxArea;
+	    }
+
+136. Largest Rectangle in Matrix of 0s and 1s: Stack
+	a. We just iterate row by row and try to create a histogram like thing in an array
+    	- If the value is a 0, we make the height 0, if it is 1, we add it to the prior height
+    b. At each point, we find the max Area of rectangle in histogram - in O(n) time.
+    c. The max of all areas is the largest rectangle in the matrix.
+    d. ALGO:
+    	int maximalRectangle(vector<vector<char>>& matrix) {
+	        if(matrix.size() == 0)
+	            return 0;
+	        int m = matrix.size(), n = matrix[0].size();
+	        int area = 0, maxArea = 0;
+	        vector<int> dp(n,0);
+
+	        for(int i=0; i<m; i++){
+	            for(int j=0; j<n; j++)
+	                if (matrix[i][j] == '0')
+	                    dp[j] = 0;
+	                else
+	                    dp[j] += 1;
+	            area = maxAreaInHistogram(dp);
+	            maxArea = max(area, maxArea);
+	        }
+	        return maxArea;
+	    }
+
+	a. SIMILAR: Largest Square in Matrix of 0s and 1s: DP
+	b. First row and colm remain the same: dp[i][0] =  grid[i][0],  dp[0][i] = grid[0][i]
+	c. For others, we check for the max sq we can make by checking dp[i-1][j], dp[i][j-1], dp[i-1][j-1]
+	d. ALGO:
+		for(int i=0;i<m; i++)
+            for(int j=0;j<n;j++)
+                if(i==0 || j==0)
+                    dp[i][j] = matrix[i][j]-'0';
+                else if(matrix[i][j] == '1'){
+                    if(dp[i-1][j]!=0 && dp[i][j-1]!=0 && dp[i-1][j-1]!=0)
+                        dp[i][j] = min(min(dp[i-1][j],dp[i-1][j-1]),dp[i][j-1])+1;
+                    else
+                        dp[i][j] = 1;
+
+        int max = INT_MIN;
+        for(int i=0;i<m; i++)
+            for(int j=0;j<n;j++)
+                    max = max(max, dp[i][j]);
+        return max*max;
+
+137. Top K Frequent Elements: Priority Queue
+	a. Create a map of frequencies.
+	b. Create a PQ with frequncy,elements.
+	c. Pop out K frequent letters.
+	d. ALGO:
+		priority_queue<pair<int, int>> pq;
+        unordered_map<int, int> freq;
+        vector<int> ans;
+        
+        for(int i=0;i<nums.size(); i++)
+            freq[nums[i]]++;
+        
+        for(auto k: freq)
+            pq.push({k.second, k.first});
+        
+        while(k--){
+            pair<int, int> front = pq.top();
+            ans.push_back(front.second);
+            pq.pop();
+        }
+        return ans;
+
+138. For each element in the array, we have to find the distance with all the 1s in the array: Left to Right and RIght to Left Parsing
+	a. For each element, calculate the number of 1s on its left and 1s on its right
+	b. For each element, calculate the cost of 1s from the elements on its left & on its right
+	c. Add the leftCost & rightCost for each i & that would be the final cost.
+	d. Example:
+        boxes      11010
+        leftCount  01223 (How many 1s are to the left of your index)
+        leftCost   01358 (What is the cost of 1s to the left of your index)
+        rightCount 21100 (How many 1s are to the right of your index)
+        rightCost  42100 (What is the cost of 1s to the right of your index)
+        ans        43458 (Total cost of 1s to the left + right)
+    e. ALGO:
+    	for(int i=1; i<n; i++){
+            if(boxes[i-1] == '1')
+                leftCount[i] = leftCount[i-1]+1;
+            else 
+                leftCount[i] = leftCount[i-1];
+            leftCost[i] = leftCost[i-1]+leftCount[i];
+        }
+        
+        for(int i=n-2; i>=0; i--){
+            if(boxes[i+1] == '1')
+                rightCount[i] = rightCount[i+1]+1;
+            else 
+                rightCount[i] = rightCount[i+1];
+            rightCost[i] = rightCost[i+1]+rightCount[i];
+        }
+        
+        for(int i=0; i<n; i++){
+            res.push_back(leftCost[i]+rightCost[i]);
+        }
+        
+        return res;
+
+
+139. Sort an array on the basis of the ordering given from a different array
+	a. Create a map of frequencies of letters in arr1
+	b. Iterate over arr2 and add the letters with their frequencies number of times in the result & erase them from map
+	c. Iterate over the remaining map and add the letters with their freq num. of times in the result
+	d. ALGO:
+		map<int, int> map;
+        vector<int> res;
+        for(auto a: arr1)
+            map[a]++;
+        for(auto a: arr2){
+            for(int i=0; i<map[a]; i++)
+                res.push_back(a);
+            map.erase(a);
+        }
+        for(auto a: map){
+            for(int i=0; i<a.second; i++)
+                res.push_back(a.first);
+            map.erase(a.first);
+        }
+        return res;
+
+140. Isomorphic Strings: Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+	a. We can map a character only to itself or to one other character.
+	b. No two character should map to same character.
+	c. Replacing each character in string s with the character it is mapped to results in string t.
+	d. ALGO:
+		vector<int> StoT(256, -1);
+        vector<int> TtoS(256, -1);
+        for(int i=0; i<s.size(); i++){
+            // Case 1: No mapping exists in either of the dictionaries
+            if(StoT[s[i]] == -1 && TtoS[t[i]] == -1){
+                StoT[s[i]] = t[i];
+                TtoS[t[i]] = s[i];
+            }
+            // Case 2: Either mapping doesn't exist in one of the dictionaries or Mapping exists and
+            // it doesn't match in either of the dictionaries or both 
+            else if (StoT[s[i]]!=t[i] || TtoS[t[i]]!=s[i]){
+                return false;
+            }
+        }
+        return true;
+    e. NOTE:
+    	We cant do it with 1 map because consider:
+        s = "bad"
+	    t = "bab"
+
+	    "b" is mapped with "b", "a" is mapped with "a" and "d" is not mapped, so we map "d" with "b"
+	    But this is wrong since no two chars can be mapped to same character. To keep track of what is 
+	    mapped to, we will need another map and when that map says "This "b" is already mapped to, then 
+	    it raises a red flag.
+
+141. Kth Missing Positive Number in a sorted array: Binary Search
+	a. The number of positive integers which are missing before the arr[idx] is equal to arr[idx] - idx - 1.
+	b. Apply binary search to find the arr[i] after which Kth positive integer lie
+	c. Then the Kth missing positive will be:
+		arr[i] + k - (arr[i] - i - 1). Here var right is used instead of 'i', left = right+1
+		arr[right] + k - (arr[right] - right - 1) = k + right + 1 = k+ left
+	d. ALGO:
+		int left =0, right = arr.size()-1;
+        while(left <= right){
+            int mid = left+(right-left)/2;
+            if(arr[mid]-mid-1 < k){
+                left = mid+1;
+            }
+            else{
+                right = mid-1;
+            }
+        }
+        return left + k;
+
+142. Pow() function:
+	a. ALGO:
+		double fastPow(double x, long long  n){
+        	if(n==0)
+	            return 1.0;
+	        double half = fastPow(x, n/2);
+	        if(n%2 == 0)
+	            return half*half;
+	        else
+	            return half*half*x;
+	    }
+	    
+	    double myPow(double x, int n) {
+	        long long N = n;
+	        if (N < 0) {
+	            x = 1 / x;
+	            N = -N;
+	        }
+	        return fastPow(x, n);
+	    }
+
+143. Triangle Number: From an array how many numbers exists where a+b>c
+	a. Brute force would be O(n3) of which a better version is there O(n2logn) but a smarter solution exists in O(n2)
+	b. Choose i 'n' times and for each i, choose j n times, but k would move and stay there for all values of j. 
+		k will be reinitialized only when i is incremented. so for each i, we have n js and for each i we have n ks, so O(n2)
+	c. ALGO:
+		int triangleNumber(vector<int>& nums) {
+	        int count = 0;
+	        int n = nums.size();
+	        sort(nums.begin(), nums.end());
+	        
+	        for(int i=0; i<n-2; i++){
+	            int k = i+2;
+	            for(int j=i+1; j<n-1 && nums[i]!=0; j++){
+	                while(k < n && nums[i] + nums[j] > nums[k])
+	                    k++;
+	                count += k-j-1;
+	            }
+	        }
+	        return count;
+	    }
+
+144. Two Sum Variants: HashMap, Two Pointer
+
+145. Playing with Bits: 
+	a. Check if num is a pow of 2: (n&(n-1)) == 0
+	b. Counting number of set bits:
+		unsigned int count = 0;
+        while(n){
+            count += n&1;
+            n = n>>1;
+        }
+        return count;
+
+146. Three Sum / K Sum: HaspMap, Two Pointer
+
+147. 

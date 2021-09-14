@@ -32,8 +32,8 @@ i = 2, maxArea = 2,st = [1]      => arr[st.top]=arr[1]=1 <= arr[2]=2 so we inser
 i = 3, maxArea = 2,st = [1,2]    => arr[st.top]=arr[2]=2 <= arr[3]=3 so we insert it in stack & increase i
 i = 4, maxArea = 2,st = [1,2,3]  => Now arr[st.top]=arr[3]=3 > arr[4]=1 so we pop it and calc area = 3*(4-2-1) = 3
 i = 4, maxArea = 3,st = [1,2]    => Now arr[st.top]=arr[2]=2 > arr[4]=1 so we pop it and calc area = 2*(4-1-1) = 4, i remains 4
-i = 4, maxArea = 4,st = [1]      => arr[st.top]=arr[1]=1 <= arr[1]=1 so we insert it in stack & increase i. i=5 1st loop exits
-i = 5, maxArea = 4,st = [1,1]    => Now we pop it and calc area = 1*(5-1-1) = 3
+i = 4, maxArea = 4,st = [1]      => arr[st.top]=arr[1]=1 <= arr[4]=1 so we insert it in stack & increase i. i=5 1st loop exits
+i = 5, maxArea = 4,st = [1,4]    => Now we pop it and calc area = 1*(5-1-1) = 3
 i = 5, maxArea = 4,st = [1]      => Now we pop it and calc area = 1*(5) = 5
 i = 5, maxArea = 5,st = []       => Stack is empty so loop exits
 

@@ -43,7 +43,7 @@ Path: [5->4->11->2]
 
 7. https://leetcode.com/problems/binary-tree-maximum-path-sum/
 
-8. https://leetcode.com/problems/minimum-path-sum/
+8. https://leetcode.com/problems/minimum-path-sum/: 174__ done.
 
 9. https://leetcode.com/problems/binary-tree-paths/
 

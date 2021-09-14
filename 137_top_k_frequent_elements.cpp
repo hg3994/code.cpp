@@ -49,7 +49,7 @@ Similar Question:
         - Given a string s, sort it in decreasing order based on the frequency 
             of characters, and return the sorted string.
 
-    3. https://leetcode.com/problems/sort-array-by-increasing-frequency/submissions/
+    3. https://leetcode.com/problems/sort-array-by-increasing-frequency/
         - Sort the array in increasing order based on the frequency of the values. 
         - If multiple values have the same frequency, sort them in decreasing order.
         - The second point is the trick which requires a custom comparator function since by default

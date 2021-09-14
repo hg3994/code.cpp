@@ -54,7 +54,7 @@ If you notice, for all m=0..j-1, the term price[j] is constant and never changes
 so basically we need to maximize the term = dp[i-1][m]-price[m] and that will increase
 my profit by selling on jth day and buying on some mth day.
 
-So basically for m=1..j-1,we maximize (dp[i-1][m]-price[m])
+So basically for m=1..j-1,we maximize (dp[i-1][m]-price[m]) (excluding m=0 since we will init the variable with it)
     maximize(   dp[i-1][1]-price[1],
                 dp[i-1][2]-price[2],
                 ...,
@@ -79,15 +79,16 @@ we only need to check max(6,7) and not the whole array again.
 We call this term which we need to maximize as max_diff and for every j, we just need to 
 update max_diff with max(max_diff, dp[i-1][j]-price[j])
 
-Also, when we start, the max_diff is just one term = profit[0][0]-prices[0];
+Also, when we start, the max_diff is just one term = dp[0][0]-prices[0];
 --
 Also for example, when j completes and we go on for the next i=i+1 which means we have one more transaction
 then also we need to calculate the max_diff again for that i, so for every i, we need to have:
-    max_diff = profit[i][0]-prices[0];
+    max_diff = dp[i][0]-prices[0];
 
+Just because we are initializing max_diff with m=0, we are starting the loop of j from 1 to d-1
 ---
 
-max_diff is going to take care of the term "dp[i-1][m]-price[m]" but what about the remaining "prices[j]"".
+max_diff is going to take care of the term "dp[i-1][m]-price[m]" but what about the remaining "prices[j]".
 We still need it in our calculations, so
     max_diff = max(max_diff, dp[i-1][j] - prices[j]);
     dp[i][j] = max(dp[i][j-1], max_diff + prices[j]);
@@ -102,6 +103,8 @@ Space Complexity: O(n2)
 
 Resources:
     1. Amazing Video https://www.youtube.com/watch?v=oDhu5uGq_ic
+    2. Dealing with all Stock Questions:
+        https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/discuss/108870/most-consistent-ways-of-dealing-with-the-series-of-stock-problems
 
 Similar Questions:
     1. https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
@@ -131,6 +134,8 @@ public:
             }
             return ans;
         }
+
+        // dp[i][j] represents the max profit one can make with at most i transactions in j days
         long int dp[k+1][d];
         
         // In 1st day only, we will have 0 profit by buying-selling same day (irrepective of k)

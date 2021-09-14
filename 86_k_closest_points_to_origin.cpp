@@ -20,7 +20,7 @@ https://leetcode.com/problems/k-closest-points-to-origin
 Solution: 
     1. Calculate the distance of all points from origin and then sort them to find the minimum K points.
 
-Time Complexity: O(nlogk)
+Time Complexity: O(nlogn)
 Space Complexity: O(n)
 
     2. Insert Points in a MAX HEAP (Priority Queue) of size K. After processing 

@@ -1,13 +1,6 @@
-
-Google
-======
-1. https://leetcode.com/discuss/interview-question/1111646/google-onsite-software-engineer
-2. https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/
-
 TO-DO-NEXT
 ==========
 * https://www.geeksforgeeks.org/longest-palindrome-substring-set-1/
-*	AVL TO LINKED LIST: https://www.youtube.com/watch?v=rbg7Qf8GkQ4  
 *	https://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/
 * https://www.geeksforgeeks.org/water-drop-problem/
 * https://www.geeksforgeeks.org/counting-sort/
@@ -15,39 +8,58 @@ TO-DO-NEXT
 * https://www.geeksforgeeks.org/bucket-sort-2/
 * https://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
 * https://www.geeksforgeeks.org/iterative-postorder-traversal/
-* Median of Two sorted arrays of different sizes.
 * Convex Hull
 * Distributed Merge and Distributed Quick Sort.
 
-* https://leetcode.com/problems/sum-of-two-integers/
-* https://leetcode.com/problems/add-to-array-form-of-integer/
-* https://leetcode.com/problems/design-in-memory-file-system/
+
+RANDOM LEETCODE
+===============
 * https://leetcode.com/problems/jump-game-vi/
 * https://leetcode.com/problems/paint-house-ii/
 * https://leetcode.com/problems/binary-tree-maximum-path-sum/
-* https://leetcode.com/problems/subsets/
-* 
-* 
-* Bit manipulation:
+* https://leetcode.com/problems/strobogrammatic-number-ii/
+* https://leetcode.com/problems/max-consecutive-ones-ii/
+* https://leetcode.com/problems/remove-boxes/
+* https://leetcode.com/problems/knight-dialer/
+* https://leetcode.com/problems/burst-balloons/ (similar to rmove-boxes)
+* https://leetcode.com/problems/all-paths-from-source-to-target/ : BFS
+* https://leetcode.com/problems/min-cost-to-connect-all-points : MST
+* https://leetcode.com/problems/network-delay-time/: Dijkstra
+* https://leetcode.com/problems/cheapest-flights-within-k-stops/: Bellman Ford
+* https://leetcode.com/problems/find-if-path-exists-in-graph/
+* https://leetcode.com/problems/search-suggestions-system/
+* https://leetcode.com/problems/maximum-units-on-a-truck/
+* https://leetcode.com/problems/design-search-autocomplete-system/
+* https://leetcode.com/problems/critical-connections-in-a-network/
+* Check if string contains the exact same number of repetitions of every character. I.e. "aabb" - true, "aabbc" - false. Then check if removing a single character from the string can make it valid, i.e. "aabbc" - true, "aaabbbcc" - false
+	https://ideone.com/qq2SOX - Wrong!
+
+
+Bit manipulation:
+=================
 * https://leetcode.com/problems/single-number-ii/
 * https://leetcode.com/problems/single-number-iii/
 * https://leetcode.com/problems/maximum-xor-of-two-numbers-in-an-array/
 * https://leetcode.com/problems/repeated-dna-sequences/
 * https://leetcode.com/problems/maximum-product-of-word-lengths/
-* given a list of email, convert it to list of gmail lables
 * 
-* 
-* https://leetcode.com/problems/strobogrammatic-number-ii/
-* https://leetcode.com/problems/reorganize-string/
-* https://leetcode.com/problems/binary-tree-maximum-path-sum/
-* https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iii/
-* https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/
 
 Intervals
 =========
-* 
 * https://leetcode.com/problems/insert-interval/
 * https://leetcode.com/problems/employee-free-time/
+
+
+StartUps
+========
+Glowroad
+Sense
+Urban
+InkPaper
+MindTickle
+Swiggy
+Rippling
+Udaan
 
 
 
@@ -90,13 +102,12 @@ Theory
 * Blobstore (s3)
 * Map Reduce
 
+* How does hashmap work internally?
 
 
 DESIGN
 ======
 * Facebook Messenger/ Whatsapp
-* Uber/Lyft
-* TinyURL
 * Swiggy/Zomato
 
 

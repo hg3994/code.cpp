@@ -46,6 +46,19 @@ Paradigm:
         interval now, we update removedCount.
     c. partial overlap: we choose the prev over current and update the removeCount.
     
+        The reason behind choosing prev is the fact that if we remove prev we are not saving space 
+            but if we remove current, we have some space in which more intervals can be adjusted.
+        
+                        |  B |
+        prev:   --------
+        current:    ---------
+        next:            ---
+                | A |    
+            
+        Eg: In this case, if we remove prev, we will save space A ... but there won't be any interval 
+            in there since intervals are sorted on start time. But if we remove current, space B is 
+            saved and then we can have some other interval(next) which can be inserted at that place.
+        
     TC: O(nlogn)
     SC: O(1)
 */

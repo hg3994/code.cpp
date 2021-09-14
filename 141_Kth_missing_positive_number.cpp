@@ -37,6 +37,8 @@ Similar Questions:
         - We just need to add Kstart = arr[0]-1 to the ans of prev solution
             & introduce K+Kstart in Binary Search condition.
         - Solution given below
+    2. 1st Missing positive number in an unsorted array:
+        - Solved in 98_.. => O(n)
 
 */
 
