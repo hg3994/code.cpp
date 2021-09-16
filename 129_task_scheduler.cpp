@@ -39,7 +39,7 @@ Example 3:
 
 Solution: 
     1. The total number of CPU intervals we need consists of busy and idle slots. Number of busy slots is 
-        defined by the number of tasks to execute: len(tasks). The problem is to compute a number of idle slots.
+        defined by the number of tasks to execute: len(tasks). The problem is to compute the minimum number of idle slots.
     2. Maximum possible number of idle slots is defined by the frequency of the most frequent task: 
         idle_time <= (f_max - 1) * n.
     3. This maximum idle time could be decreased because one doesn't need to keep the CPU idle during 

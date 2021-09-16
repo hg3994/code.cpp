@@ -75,6 +75,8 @@ NOTE:
 			similar sliding window algo and check if the window contains all the characters of s2 with required
 			frequencies? Return true if it is present, else false.
 
+        - Agoda
+
 
 	Another Similar Question: https://leetcode.com/problems/find-all-anagrams-in-a-string/
 		- Here we just need to return all the STARTING indexes of all permutations present in the string.
@@ -90,19 +92,16 @@ class Solution {
 public:
   string minWindow(string s, string t) {
     if (s==t)
-      	return s;
+        return s;
     
     if(s.length() == 0  || t.length() == 0 || t.size()> s.size()){
-      	return "";
+        return "";
     }
     
     // Dictionary which keeps a count of all the unique characters in t & their freq
     unordered_map<char, int> dictT;
     for(int i=0;i<t.size();i++){
-		if (dictT.count(t[i]))
-			dictT[t[i]] += 1;
-		else
-			dictT[t[i]] = 1;
+        dictT[t[i]]++;
     }
     
     // Number of unique characters in t, which need to be present in the desired window.
@@ -123,44 +122,40 @@ public:
     string ans = "";
     
     while(r < s.length()){
-		// Trying to add s[r] into the current window
-		// Update the frquency of the current character in the window.
-		if(window.count(s[r])){
-			window[s[r]] = window[s[r]]+1;
-		}
-		else{
-			window[s[r]] = 1;
-		}
+        // Trying to add s[r] into the current window
+        // Update the frquency of the current character in the window.
+        window[s[r]]++;
 
-		// If the frequency of the current character added equals to the
-		// desired count in t then increment the formed count by 1.
-		if(dictT.count(s[r]) && window[s[r]] == dictT[s[r]])
-			formed++;
+        // If the frequency of the current character added equals to the
+        // desired count in t then increment the formed count by 1.
+        if(dictT.count(s[r]) && window[s[r]] == dictT[s[r]])
+            formed++;
 
-		// Try and contract the window to get the minimum length ... till the point where it ceases to be 'desirable'.
-		while (l<=r && formed == required) {
-			  
-			// Save the smallest window until now.
-			if(ans == "" || (r-l+1) < ans.size() ) {
-			    ans = s.substr(l, r-l+1);
-			}
+        // Try and contract the window to get the minimum length ... till the point where it ceases to be 'desirable'.
+        while (l<=r && formed == required) {
+              
+            // Save the smallest window until now.
+            if(ans == "" || (r-l+1) < ans.size() ) {
+                ans = s.substr(l, r-l+1);
+            }
 
-			// The character at the position pointed by the
-			// `Left` pointer is no longer a part of the window.
-			window[s[l]] =  window[s[l]] - 1;
+            // The character at the position pointed by the
+            // `Left` pointer is no longer a part of the window.
+            window[s[l]] =  window[s[l]] - 1;
 
-			if(dictT.count(s[l]) && window[s[l]] < dictT[s[l]] ) {
-			    formed--;
-			}
+            if(dictT.count(s[l]) && window[s[l]] < dictT[s[l]] ) {
+                formed--;
+            }
 
-			l++;
-		}
-		r++;
+            l++;
+        }
+        r++;
     }
     
     return ans;
   }
 };
+
 
 
 

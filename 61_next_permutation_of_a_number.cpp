@@ -50,7 +50,7 @@ public:
     void nextPermutation(vector<int>& nums) {
         int n = nums.size();
         int i=n-1;
-        // 547532
+        // 54'7'532
         while(i>0 && nums[i-1]>= nums[i])
             i--;
         // 54(7)532, i= index 2(7)

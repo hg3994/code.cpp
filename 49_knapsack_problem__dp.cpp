@@ -41,6 +41,8 @@ or don’t pick it (0-1 property)."
 		for(j=0; j<=W; j++)
 			if(j>=wt[i-1])
 				dp[i][j] = max(dp[i-1][j], val[i-1] + dp[i-1][j-wt[i-1]]);
+			else
+				dp[i][j] = dp[i-1][j];
 	return dp[n][W];
 
 
@@ -65,6 +67,7 @@ Similar Problems:
 			subsets such that the sum of elements in both subsets is equal.
 			- If sum is odd, it can never be true
 			- Similar to knapsack problem with sum/2 as goal
+			- More similar to coin changing where question is Can we get a sum from some coins?
 	2. https://leetcode.com/problems/coin-change-2/
 		- You are given an integer array coins representing coins of different denominations and an integer amount 
 			representing a total amount of money. Return the number of combinations that make up that amount. 

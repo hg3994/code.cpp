@@ -4,8 +4,8 @@ Harshit Gupta | 1st October, 2020
 ---------------------------------
 
 C++ program for 
-  Merge two sorted linked lists and return it as a new sorted list. 
-  The new list should be made by splicing together the nodes of the first two lists.
+    Merge two sorted linked lists and return it as a new sorted list. 
+    The new list should be made by splicing together the nodes of the first two lists.
 
 https://leetcode.com/problems/merge-two-sorted-lists/
 
@@ -24,8 +24,8 @@ Solution: https://leetcode.com/problems/merge-two-sorted-lists/solution/
           SC: O(n+m)
 
 NOTE: 
-  1. This program can not be compiled since I didn't have time to write the LL creation methods.
-  2. Recursive Solution is so so simple. Just look at it.
+    1. This program can not be compiled since I didn't have time to write the LL creation methods.
+    2. Recursive Solution is so so simple. Just look at it.
 */
 
 
@@ -52,6 +52,20 @@ class Solution {
     //   cout<<endl;
     // }
   
+    // We are doing this inplace just by moving and updating the pointers without any extra space.
+    // prehead is a new node which we take and then we keep making it point to the right node from
+    //      either of the linked lists & move their pointers(l1/l2) one ahead.
+    // l1 & l2 will keep pointing to the next nodes in the LL (init they point to the head)
+
+    // Init:
+    // 1->3->6
+    // 2->4->5
+
+    // Result:
+    //      1   3      6
+    // -1 -/ \ / \    /
+    //        2   4->5
+
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
         if(l1 == NULL) return l2;
         if(l2 == NULL) return l1;
@@ -97,21 +111,20 @@ class Solution {
 // 1->3 , 2->4 | return 1->2->3->4
 class Solution {
 public:
-  ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-      
-    if(l1==NULL)
-      return l2;
-    if(l2==NULL)
-      return l1;
-    
-    if(l1->val < l2->val) {
-      l1->next = mergeTwoLists(l1->next,l2);
-      return l1;
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(l1==NULL)
+            return l2;
+        if(l2==NULL)
+            return l1;
+        
+        if(l1->val < l2->val) {
+            l1->next = mergeTwoLists(l1->next,l2);
+            return l1;
+        }
+        else {
+            l2->next = mergeTwoLists(l1,l2->next);
+            return l2;
+        }
     }
-    else {
-      l2->next = mergeTwoLists(l1,l2->next);
-      return l2;
-    }
-  }
 };
 

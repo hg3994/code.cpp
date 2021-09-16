@@ -27,6 +27,7 @@ Space Complexity: O(1)
 
     Similar Questions:
         1. https://leetcode.com/problems/longest-palindromic-subsequence/
+            - Here we are asked the "length" of the longest palindromic subsequence (not the subsequence itself)
             - Approach 1: Check if the chars are same or not and apply dp
             - Approach 2: Reverse s. LCP will be LCS of s and reverse s.
 */
@@ -78,7 +79,8 @@ public:
 // b 2 1 0 0 
 // b 3 2 1 0 
 // b 4 3 2 1       
-      
+
+// We use only half of the 2D DP matrix
 class Solution {
 public:
     int longestPalindromeSubseq(string s) {

@@ -135,7 +135,7 @@ TRACKING
 Things to do in the checklist
 =============================
 - Design Patterns
-
+- Publisher-Subscriber over Queue
 
 Behavioural
 ===========

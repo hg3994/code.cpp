@@ -49,24 +49,17 @@ https://repl.it/repls/PoisedVisibleApplicationpackage#main.rb
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* c1=l1, c2=l2;
+        ListNode* c1=l1;
+        ListNode* c2=l2;
         ListNode* l3head = new ListNode(0); //create this fake node 0 and in the end return l3head->next;
         ListNode* c3 = l3head;
         int carry = 0;
         while(c1!= NULL || c2!=NULL){
             int x = (c1 != NULL) ? c1->val : 0;
             int y = (c2 != NULL) ? c2->val : 0;
-            int sum = x+y+carry;
-            int v;
-            if(sum > 9){
-                v = sum%10;
-                carry = 1;
-            }
-            else{
-                v = sum;
-                carry = 0;
-            }
-            c3->next = new ListNode(v);
+            int sum = (x+y+carry)%10;
+            carry = (x+y+carry)/10;
+            c3->next = new ListNode(sum);
             c3 = c3->next;
             if (c1!=NULL) 
                 c1 = c1->next;

@@ -35,6 +35,8 @@ Similar Questions:
 #include <bits/stdc++.h>
 using namespace std; 
 
+// TODO: Instead of cout, save it into the map, then iterate over array and access map to create an ans vector.
+// That would be a better solution.
 void nextGreaterElement(vector <int> arr){
     stack <int> s;
     

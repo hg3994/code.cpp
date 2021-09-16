@@ -141,8 +141,8 @@ public:
         //      We add new element in front and its address in the map
 
         if(map.find(key) == map.end()){
-            pair<int, int> last_element = dll.back();
             if(dll.size() == cache_size){
+            	pair<int, int> last_element = dll.back();
                 dll.pop_back();
                 map.erase(last_element.first); // THIS IS VERY IMPORTANT !!! DONT FORGET !!!
             }

@@ -3,7 +3,7 @@
 Harshit Gupta | 1st July, 2021
 ---------------------------------
 
-C++ program for "Largest Moutain"
+C++ program for "Longest Moutain"
 
 You may recall that an array arr is a mountain array if and only if:
     1. arr.length >= 3
@@ -13,7 +13,7 @@ You may recall that an array arr is a mountain array if and only if:
 
 Given an integer array arr, return the length of the longest subarray, which is a mountain. 
 Return 0 if there is no mountain subarray.
-
+https://leetcode.com/problems/longest-mountain-in-array/
 ------
 
 Solution: 1. Start with a base and check if you have a mountain ahead of you.
@@ -35,7 +35,7 @@ Paradigm: Two Pointers
 class Solution {
 public:
     int longestMountain(vector<int>& arr) {
-        int base=0, N=arr.size();
+        int base=0, end=0, N=arr.size();
         int ans=0;
         
         // Till we reach the end of the mountain

@@ -65,10 +65,15 @@ Subarray Problems:
 
 Coin Changing
 -------------
-    1. Number of ways you can create a sum :         dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
-    2. List the ways you can create a sum :          dp[i][j] = dp[i-1][j] + dp[i][j-coins[i]]; +  Backtracking
-    3. Can we create a sum? :                        dp[i][j] = dp[i-1][j] || dp[i-1][j-coins[i-1]]; 
-    4. Fewest number of coins used to create a sum : dp[i][j] = min(dp[i][j-coins[i]]+1, dp[i-1][j]);
+Given some numbers and a sum...
+    1. ( 1) Number of ways you can make a sum with Infinite supplies of some Coins:               dp[i][j] = dp[i-1][j] + dp[i][j-coins[i-1]];
+    2. (69) List the ways you can make a sum with Infinite supplies of some Coins:                dp[i][j] = dp[i-1][j] + dp[i][j-coins[i]]; + Backtracking /  Only Backtracking.
+    3. (21) Can we make a sum with a single coin of some given coins :                            dp[i][j] = dp[i-1][j] || dp[i-1][j-coins[i-1]]; 
+    4. (80) Minimum number of coins used to make a sum with Infinite supplies of some Coins:      dp[i][j] = min(dp[i][j-coins[i]]+1, dp[i-1][j]);
+    5. (09) Minimum number of coins used to make a sum with a single coin of some coins:          Only Backtracking.
+    6. (49) Knapsack (maximize val with single items of wt & :                                    dp[i][j] = max(dp[i-1][j], val[i-1]+dp[i][j-weight[i-1]])
+                val with total Weight of Knapsack W)
+
 
 Palindromes
 -----------
@@ -111,9 +116,18 @@ Data Structures for common problems
 Ways to represent graphs
 ------------------------
 Directed Graph:
-    1. Normal Graph with Char Nodes:    unordered_map<string, vector<string>> graph  ||  A->B->C means {A: [B], B: [C], C: []}
-    2. Normal Graph with Int Nodes:     vector<vector<int>> graph                    ||  0-->1-->2 means [[1], [2], []]
-    3. Weighted:        unordered_map<string, unordered_map<string, double>> graph;  ||  Graph: {a: {b: 2}, b: {a: 0.5, c: 3}, c: {b: 0.33}}
+    1. Normal Graph with Char Nodes:    
+                                        unordered_map<string, vector<string>> graph  ||  A->B->C means {A: [B], B: [C], C: []}
+    2. Normal Graph with Int Nodes:     
+                                        vector<vector<int>> graph                    ||  0-->1-->2 means [[1], [2], []]
+    3. Weighted Graph with Char Nodes:        
+                        unordered_map<string, unordered_map<string, double>> graph;  ||  
+
+                                                              a/b=2     b/c=3
+                                                           a-------->b-------->c     ||  Graph: {a: {b: 2}, b: {a: 0.5, c: 3}, c: {b: 0.33}}
+                                                           a<--------b<--------c     ||
+                                                             b/a=1/2   c/b=1/3
+
 
 Undirected Graph:
     1. Normal Graph with Char Nodes:   unordered_map<string, vector<string>> graph   ||  A--B--C means {A: [B], B: [A,C], C: [B]}
@@ -452,7 +466,7 @@ Backtracking
         return true;
     }
 
-2. MATRIX: Classic Backtracking in NQueen: 1 loops present and other by argument
+2. MATRIX: Classic Backtracking in NQueen: 1 loops present and other by argument. Permutations of a string also very similar (except it runs for 1D string)
 
     void solve(vector<vector<int>>& board, vector<vector<string>>& res, int col){
         int n = board.size();
@@ -470,8 +484,22 @@ Backtracking
             }
         }
     }
-
     solve(board, res, 0);
+
+    ---
+
+    void permuteHelper(vector<int> nums, int l){
+        int n = nums.size()-1;
+        if(l == n){
+            result.push_back(nums);
+            return;
+        }
+        for(int i=l; i<=n; i++) {
+            swap(nums[i], nums[l]);
+            permuteHelper(nums, l+1);
+            swap(nums[i], nums[l]);
+        }
+    }
 
 3. MATRIX: DFS with backtracking in a matrix on chars looking for a special "WORD"
 

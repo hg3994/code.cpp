@@ -81,8 +81,60 @@ INDEX
 	Check for a final carry
 
 10. Next Greater Element: Stack
+	a. ALGO:
+		void nextGreaterElement(vector <int> arr){
+		    stack <int> s;
+		    for(int i=0;i<arr.size();i++){
+		        while(!s.empty() && arr[i]>s.top()){
+		            cout<<s.top()<<"-->"<<arr[i]<<endl;
+		            s.pop();
+		        }
+		        s.push(arr[i]);
+		    }
+		    while(!s.empty()){
+		        cout<<s.top()<<"-->-1"<<endl;
+		        s.pop();
+		    }
+		}
 
 11. Mirror Tree: Recursion.
+	a. Invert a Binary Tree:
+		class Solution {
+		public:
+		    TreeNode* invertTree(TreeNode* root) {
+		        if(root == NULL)
+		            return NULL;
+		        
+		        TreeNode* right = invertTree(root->right);
+		        TreeNode* left = invertTree(root->left);
+		        
+		        root->left = right;
+		        root->right = left;
+		        
+		        return root;
+		    }
+		};
+
+	b. Is Mirror Tree?
+		bool isMirror(node *t1, node* t2){
+		    if(t1 == NULL && t2 == NULL) return true;
+		    if(t1 == NULL || t2 == NULL) return false;
+		    return (t1->data == t2->data) && isMirror(t1->left, t2->right) && isMirror(t1->right, t2->left);
+		}
+
+	c. Is Flip Equivalent?
+		class Solution {
+		public:
+			bool flipEquiv(TreeNode* root1, TreeNode* root2) {
+			    if(root1 == NULL && root2 == NULL)
+			        return true;
+			    if(root1 == NULL || root2 == NULL)
+			        return false;
+			    return  (root1->val == root2->val) && 
+			            ((flipEquiv(root1->left, root2->left) && flipEquiv(root1->right, root2->right) ) || // nodes are not mirror
+			             (flipEquiv(root1->left, root2->right) && flipEquiv(root1->right, root2->left) ) ); // nodes are mirror
+			}
+		};
 
 12. Connect N ropes with minimum cost: Priority Queue to select 2 minimum and insert their sum
 
@@ -92,6 +144,21 @@ INDEX
 	Keep adding max freq char in ans and temporarily move it out of PQ adjusting its freq.
 
 15. Largest Sum Subarray: Kadane's Algorithm (At each point, decide whether I am alone greater or with the older sum)
+	a. ALGO:
+		class Solution {
+		public:
+		    int maxSubArray(vector<int>& nums) {
+		        int n = nums.size();
+		        int currentMax = nums[0];
+		        int maxSoFar = nums[0];
+		        
+		        for(int i=1;i<n;i++){
+		            currentMax = max(nums[i], currentMax+nums[i]);
+		            maxSoFar = max(maxSoFar, currentMax);
+		        }
+		        return maxSoFar;
+		    }
+		};
 
 16. Search Element in a sorted matrix: Search from top-right / Binary Search in 2D(row=mid/n, col=mid%n)
 
@@ -104,40 +171,123 @@ INDEX
         else if(pattern[i-1]=='*'){
             dp[i][j] = dp[i-1][j] || dp[i][j-1];
         }
+        else{
+            dp[i][j] = 0;
+        }
 
 19. Sort an array of 0s, 1s and 2s: Take pointers: 
 	a. low=starting of 1s, mid=starting of UNKNOWNS, high=ending of UNKNOWNS
 	b. Keep putting elements in correct place till mid<=high
+	c. ALGO:
+		int low = 0; int mid = 0; int high = n-1;
+	    while(mid<=high){ 
+	        if(arr[mid]==0){
+	            swap(&arr[mid],&arr[low]);
+	            low++;
+	            mid++;
+	        }
+	        else if(arr[mid]==1){
+	            mid++;
+	        }
+	        else{
+	            swap(&arr[high],&arr[mid]);
+	            high--;
+	        }
+	    }
 
 20. Heap Sort: heapify() the array first and then keep putting the largest element in the end.
 
 21. Coin Changing 2: Number of ways to create a sum from limited supplies of some numbers:	
 	dp[i][j] = dp[i-1][j] || dp[i-1][j-coins[i-1]]; 
 
-22. Lowest Common Ancestor of a Binary Tree with root node not given: Traverse both nodes till root & start again from one 
+22. [DUPLICATE-4]: Lowest Common Ancestor of a Binary Tree with root node not given: Traverse both nodes till root & start again from one 
 	another till they meet at LCA.
 
 23. Lowest Common Ancestor of a BST: Check if one val is at left and one is at right, this is the LCA. Otherwise choose the side.
+	a. ALGO:
+		node* lowestCommonAncestorBST(node *root, node *n1, node *n2){
+		    if (root==NULL)
+		        return NULL;
+		    if(root->data > n1->data && root->data > n2->data)
+		        return lowestCommonAncestorBST(root->left, n1, n2);
+		    else if(root->data < n1->data && root->data < n2->data)
+		        return lowestCommonAncestorBST(root->right, n1, n2);
+		    else
+		        return root;
+		}
 
 24. Kth largest integer in a stream of Integers: Min Heap
 	a. If heap size < k, push the element.
 	b. If this element < top of heap, ignore.
 	c. If this element > top && heap size == k, pop the top and insert this one.
+	d. ALGO:
+	    int findKthLargest(vector<int>& nums, int k) {    
+	        priority_queue <int,vector <int>,greater <int> > pq;
+	        for(int i=0;i<nums.size();i++){
+	            if(pq.size()<k){
+	                pq.push(nums[i]);
+	            }
+	            else{
+	                if(pq.top()<nums[i]){
+	                    pq.pop();
+	                    pq.push(nums[i]);
+	                }
+	            }
+	        }
+	        return pq.top();      
+	    }
 
 25. Check if all leaves are at same level: 
 	a. Set a var to the current level for the 1st leaf. All others should be that, if otherwise, return false.
+	b. ALGO:
+		bool checkLeavesSameLevel(node *root, int level, int *leaf_level){
+		    if(root==NULL)
+		        return true;
+		    if(root->left == NULL && root->right==NULL){
+		        if(*leaf_level==INT_MIN){
+		            *leaf_level = level;
+		            return true;
+		        }
+		        else if(*leaf_level == level)
+		            return true;
+		        else
+		            return false;
+		    }
+		    else
+		        return checkLeavesSameLevel(root->left, level+1, leaf_level) && checkLeavesSameLevel(root->right, level+1, leaf_level);
+		}
 
 26. Check if a Binary Tree is a BST or not
 	a. For each node, there's a MAX val and MIN val. If your node doesn't follow that, return false.
 	b. Check isBST for left and right child with proper min and max vals.
+	c. ALGO:
+		bool isBST(node *root, int mini, int maxi){
+		    if (root==NULL)
+		        return true;
+		    if(root->data < mini || root->data > maxi)
+		        return false;
+		    return isBST(root->left, mini, root->data-1) && isBST(root->right, root->data+1, maxi);
+		}
 
-27. N-Queen Problem:
-	a. Call the solve function with col=0 
-	b. Iterate over all the rows and try to place a queen at grid[i][col] by checking if this move is valid.
-	c. If is valid, Place the queen and solve for col=col+1
-	e. If you can not place a queen, back track and unplace the queen. Try for other rows.
-	f. If you reach the col=N by placing queen it means you have placed all and (0..N-1) queens so return true.
-	d. If it is not valid/ you tried placing and nothing worked for all the rows(If no row is valid), return false.
+27. N-Queen Problem: Given n, print ALL possibilitites of placing n queens.
+	a. ALGO:
+		void solve(vector<vector<int>>& board, vector<vector<string>>& res, int col){
+	        int n = board.size();
+	        if(col == n) {
+	            vector<string> s = convertAns(board);
+	            res.push_back(s);
+	            return;
+	        }
+	        
+	        for(int i=0; i<n; i++){
+	            if(board[i][col] == 0 && isValid(board, i, col)) {
+	                board[i][col] = 1;
+	                solve(board, res, col+1);
+	                board[i][col] = 0;
+	            }
+	        }
+	    }
+
 
 28. Shortest Distance between two cells in a matrix: BFS with visited matrix.
 
@@ -160,10 +310,25 @@ INDEX
 31. Diameter of a Binary Tree: Number of EDGES(not nodes) in the Longest Path between two nodes.
 	a. Write the code for calculating the max Height of a tree.
 	b. Introduce a variable called diameter which will calculate max(diameter, leftHeight+rightHeight) in all instances of recursion.
+	c. ALGO:
+	    int longestPath(TreeNode* node){
+	        if(node == NULL)
+	            return 0;
+	        int leftPath = longestPath(node->left);
+	        int rightPath = longestPath(node->right);
+
+	        diameter = max(diameter, leftPath+rightPath);
+
+	        return max(leftPath,rightPath)+1;
+	    }
 
 32. Count the frequency of an Element in a Sorted Array: Binary Search
 	a. Calculate the Starting Index (Mid is target but mid-1 is not)& Ending Index(Mid is target but mid+1 is not)
 	b. Calculate the difference between them.
+	c. ALGO:
+		int frequencyOfKey(vector<int> A, int K){
+			return upper_bound(A.begin(),A.end(),K)-lower_bound(A.begin(),A.end(),K); //O(log(n))
+		}
 
 33. Merge Two sorted Arrays of size m and n into the first array which has size allocated as m+n
 	a. Start from m-1 and n-1 of both arrays and keep allocating chars to m+n-1
@@ -194,6 +359,22 @@ INDEX
 35. [OBSOLETE] Doubly Linked List: Usual Stuff.
 
 36. Largest Region in Boolean Matrix / Max Area of an Island: Union Find with sizes / DFS with visited array
+	a. ALGO:
+		int dfs (vector<vector<int>>& grid, vector<vector<int>>& visited, int i, int j) {
+		    if(i<0 || i==grid.size() || j<0 || j==grid[0].size() || visited[i][j] == 1 || grid[i][j] == 0)
+		        return 0;
+		    visited[i][j] = 1;
+		    return 1+dfs(grid, visited, i+1, j)+dfs(grid, visited, i-1, j)+dfs(grid, visited, i, j+1)+dfs(grid, visited, i, j-1);
+		}
+		for(int i=0; i<m; i++) {
+		    for(int j=0; j<n; j++) {
+		        if (grid[i][j] == 1 &&  visited[i][j]==0){
+		            area = dfs(grid, visited, i, j);
+		            maxArea = max(area, maxArea);
+		        }
+		    }
+		}
+		return maxArea;
 
 37. Median in a running Stream of Integers:
 	a. Have a min heap for storing the max half of elements
@@ -258,7 +439,7 @@ INDEX
                 d.pop_back();
             if(i>=k) {
                 ans.push_back(arr[d.front()]);
-                while(!d.empty() && d.front() <= i-k)
+                if(!d.empty() && d.front() <= i-k)
                     d.pop_front();
             }
             d.push_back(i);
@@ -267,6 +448,40 @@ INDEX
 45. Minimize the number of transactions (Splitwise Problem): 
 	a. For disconnected graphs, we can apply DFS with backtracking to see all possible results and we choose the best fit (min transactions)
 	b. Choose the transactions smartly, When they have opposite signs!
+	c. ALGO:
+		class Solution {
+		public:
+		    vector<int> debt;
+		    int minTransfers(vector<vector<int>>& transactions) {
+		        vector<int> balance(21, 0); // max 21 people involved.
+		        int ans = 0;
+		        for(auto t: transactions){
+		            balance[t[0]] -= t[2];
+		            balance[t[1]] += t[2];
+		        }
+		        
+		        for(auto b: balance)
+		            if(b != 0)
+		                debt.push_back(b);
+		        return dfs(0);
+		    }
+		    
+		    // Returns the minimum number of transactions needed to settle the debt
+		    int dfs(int s){
+		        while(s < debt.size() && debt[s] == 0)
+		            s++;
+		        int res = INT_MAX;
+		        for(int i=s+1; i<debt.size(); i++){
+		            if(debt[i]*debt[s] < 0){
+		                debt[i] += debt[s];
+		                res = min(res, 1+dfs(s+1));
+		                debt[i] -= debt[s];
+		            }
+		        }
+		        return res == INT_MAX ? 0 : res;
+		    }
+		    
+		};
 
 46. Sorting.
 	a. HeapSort gives us O(nlogn) for all cases with O(1) space.
@@ -397,36 +612,218 @@ INDEX
 	b. Calculate the max bar to the right of every element: right[i] = max(right[i-1], arr[i])
 	c. Water arr[i] can store =min (max bar on left and right) - my own height => water += min(left[i],right[i]) - arr[i]
 	d. Space Optimized Solution is to find the peak bar and calc water on left and right of it
+	e. ALGO:
+		int findWater(vector<int> arr){
+		    int n = arr.size();
+			vector<int> left(n), right(n);
+			int water = 0;
+			
+			left[0] = arr[0];
+			for(int i=1;i<n;i++)
+				left[i] = max({arr[i], left[i-1]});
+
+			right[n-1] = arr[n-1];
+			for(int i=n-2;i>=0;i--)
+				right[i] = max(right[i+1], arr[i]);
+		    
+			for(int i=0;i<n;i++)
+				water += (min({left[i],right[i]}) - arr[i]);
+
+			return water;
+		}
 
 55. Kth largest Integer in a BST: Reverse Inoder Traversal gives Kth largest element in O(k) time.
 	a. Kth Smallest Integer in a BST is given by a normal inorder traversal in O(k) time.
+	b. ALGO:
+		void KthLargestIntegerInBST(node* root, int k, int &count) {
+			if(root== NULL || count>k)
+			    return;
+			KthLargestIntegerInBST(root->right, k, count);
+			count++;
+			if (k== count){
+				cout<<"The Kth largest integer in the BST is: "<<root->data<<" ";
+				return;
+			}
+			KthLargestIntegerInBST(root->left, k, count);
+		}
 
 56. Best time to buy and sell stoack - I in one transaction
 	a. Keep calculating minimum till today(minTillNow) & profit today = arr[i]-minTillNow
 	b. Max Profit = max of all such profits.
 	c. Algo:
-		for(int i=0; i<prices.size(); i++){
-            minTillNow = min(minTillNow, prices[i]);
-            maxProfit = max(maxProfit, prices[i]-minTillNow);
-        }
+		int maxProfit(vector<int>& prices) {
+		    if(prices.size() <=1)
+		        return 0;
+		    int minTillNow = prices[0];
+		    int maxProfit = 0;
+		    
+		    for(int i=0; i<prices.size(); i++){
+		        minTillNow = min(minTillNow, prices[i]);
+		        maxProfit = max(maxProfit, prices[i]-minTillNow);
+		    }
+		    return maxProfit;
+		}
 
-57. [DUPLICATE-9]: Add two numbers in Linked List: Calculate sum=x+y+carry and create nodes with sum%10 till both nodes become NULL. 
+57. Add two numbers in Linked List: Calculate sum=x+y+carry and create nodes with sum%10 till both nodes become NULL. 
 	Check for a final carry
+	a. ALGO:
+		ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+	        ListNode* c1=l1;
+	        ListNode* c2=l2;
+	        ListNode* l3head = new ListNode(0); //create this fake node 0 and in the end return l3head->next;
+	        ListNode* c3 = l3head;
+	        int carry = 0;
+	        while(c1!= NULL || c2!=NULL){
+	            int x = (c1 != NULL) ? c1->val : 0;
+	            int y = (c2 != NULL) ? c2->val : 0;
+	            int sum = (x+y+carry)%10;
+	            carry = (x+y+carry)/10;
+	            c3->next = new ListNode(sum);
+	            c3 = c3->next;
+	            if (c1!=NULL) 
+	                c1 = c1->next;
+	            if (c2!=NULL)
+	                c2 = c2->next;
+	        }
+	        if(carry > 0)
+	            c3->next = new ListNode(carry);
+	        return l3head->next;
+	    }
 
 58. Longest Substring with no repeating Character: Sliding Window & a map to store the contents of window.
 	a. If char is not already present in the map, we include it in map
 	b. If it is present, we shorten the window from back and keep checking till we eliminate the char at j.
+	c. ALGO:
+		int lengthOfLongestSubstring(string s) {
+		    if (s == "")
+		        return 0;
+		    unordered_map<char, bool> map;
+		    int i = 0; // i is the starting of the flexi window
+		    int j = 1; // j is the next element of the flexi window
+		    int maxLen = 1;
+		    map[s[0]] = true;
+		    while(j != s.size()) {
+		        if(map.find(s[j]) == map.end()){
+		            map[s[j]] = true;
+		            maxLen = max(maxLen, j-i+1);
+		            j++;
+		        }
+		        else {
+		            while(s[i]!=s[j]){
+		                map.erase(s[i]);
+		                i++;
+		            }
+		            map.erase(s[i]);
+		            i++;
+		        }
+		    }
+		    return maxLen;
+		}
+	d. VARIATION: Find the longest substring with at most K distinct characters
+		int lengthOfLongestSubstringKDistinct(string s, int k) {
+		    if(k == 0)
+		        return 0;
+		    unordered_map<char, int> map;
+		    int i=0, j=1, maxLen=1;
+		    map[s[i]]=1;
+		    while(j<s.size()){
+		        if(map.count(s[j])){
+		            map[s[j]]++;
+		            maxLen = max(maxLen, j-i+1);
+		            j++;
+		        }
+		        else if(map.size() < k){
+		            map[s[j]]++;
+		            maxLen = max(maxLen, j-i+1);
+		            j++;
+		        }
+		        else {
+		            while(i<j) {
+		                map[s[i]]--;
+		                if(map[s[i]] == 0){
+		                    map.erase(s[i]);
+		                    i++;
+		                    break;
+		                }
+		                i++;
+		            }
+		            map[s[j]] = 1;
+		            j++;
+		        }
+		    }
+		    return maxLen;
+		}
 
 59. Longest Palindromic Subarray/Subsequence: 
-	Subarray:
+	Longest Palindromic Subarray:
 		a. We check for palindromes with center at i,i and center at i,i+1 and expand around teh center.
 		b. We keep checking if elements are same or not in the string.
 		c. This algo is O(n2) but Manachers Algo does it in O(n)
+		d. ALGO:
+			string longestPalindrome(string s) {
+			    if(s.size()<= 1)
+			        return s;
+			    int i = 0;
+			    string lps = "";
+			    while(i<s.size()){
+			        string s1 = expandFromMiddle(s, i, i);
+			        string s2 = expandFromMiddle(s, i, i+1);
+			        
+			        string str = s1.size() > s2.size() ? s1 : s2;
+			        if(str.size() > lps.size())
+			            lps = str;
+			        
+			        i++;
+			    }
+			    return lps;
+			}
+			
+			string expandFromMiddle(string s, int left, int right){
+			    while(left>=0 && right<s.size() && s[left]==s[right]){
+			        left--;
+			        right++;
+			    }
+			    return s.substr(left+1, right-left-1); // right-1-(left+1) +1
+			}
 
-	Subsequence:
-		a. It will be the longest common subsequence between S and Reverse(S)
+	Longest Palindromic Subsequence:
+		a. ALGO:
+			int longestPalindromeSubseq(string s) {
+			    int n = s.size();
+			    vector<vector<int>> dp(n, vector<int>(n));
+			    
+			    for(int i=0; i<n; i++){
+			        dp[i][i] = 1;
+			        for(int j=i-1; j>=0; j--){
+			            if(s[i] == s[j])
+			                dp[i][j] = 2 + dp[i-1][j+1];
+			            else
+			                dp[i][j] = max(dp[i-1][j], dp[i][j+1]);
+			        }
+			    }
+			    
+			    return dp[n-1][0];
+			}
 
 60. Maximum water in a container: Two-Pointer. Keep two indexes left and right and keep calculating the area between them till they meet.
+	a. ALGO:
+		class Solution {
+		public:
+		    int maxArea(vector<int>& arr) {
+		        int n = arr.size();
+		        int left=0, right=n-1;
+		        int maxWater=0;
+		        while(left<right){
+		            int area = min(arr[left], arr[right])*(right-left);
+		            maxWater = max(area, maxWater);
+		            if(arr[left] < arr[right])
+		                left++;
+		            else
+		                right--;
+		        }
+		        return maxWater;
+		    }
+		};
 
 61. Next Permutation of a Number:
 	a. Find the largest index i such that arr[i-1] < arr[i] (0125330 -> 012'5'330, a[i]->5) [Upward Slope]
@@ -1614,7 +2011,7 @@ INDEX
 		else
 			return flames_map[diffSet.size()%6 - 1];
 
-127. Largest Mountain in an array:
+127. Longest Mountain in an array:
 	a. Start with a base and check if you have a mountain ahead of you.
     b. To check for a mountain, you must travel upwards to reach a peak
     	while(end+1 < N && arr[end]<arr[end+1])

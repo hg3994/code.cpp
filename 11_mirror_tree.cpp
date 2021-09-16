@@ -74,6 +74,8 @@ void printTree(node *root){
     cout<<endl;
 }
 
+// ----------------------------------------------------------------------------------------
+
 void MirrorNodes(node *root1, node *root2){
     
     // If the root1's right child is not NULL, 
@@ -107,6 +109,7 @@ void makeMirrorTree(node *root1){
     cout<<"Mirror Tree: "<<endl;printTree(root2);
 }
 
+// ----------------------------------------------------------------------------------------
 
 void InPlaceMirrorTree(node* root){
     // This will modify the existing tree to its mirror tree
@@ -131,6 +134,8 @@ void InPlaceMirrorTree(node* root){
     // NOTE: This method uses Pre-Order kind of traversal but it is equally good to use Post order traversal here
     // PreOrder is Top-Bottom while PostOrder would be Bottom-Top.
 }
+
+// ----------------------------------------------------------------------------------------
 
 // OR INVERT BINARY TREE IN LEETCODE. SAME PROBLEM AS InPlaceMirrorTree
 class Solution {

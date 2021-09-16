@@ -14,6 +14,14 @@ Solution: This is the Backtracking question with an approach of choose, Explore,
 Paradigm: Backtracking
 
 Time Complexity: O(n*n!)
+    Initially we have N choices, and in each choice we have (N - 1) choices, and so on. Notice that at the end 
+        when adding the list to the result list, it takes O(N).
+        O(n): push_back will copy or move the argument. Copying a vector is O(n), moving it is O(1). In this case, 
+            the argument is nums, which does not allow a move. It will be copied.
+    Second, the space complexity should also be N x N! since we have N! solutions and each of them requires 
+        N space to store elements.
+
+    https://cs.stackexchange.com/questions/128095/time-complexity-of-inserting-a-vector-to-a-vector-of-vectors-in-c
 
 Similar Problems:
     1. https://leetcode.com/problems/permutations-ii/
@@ -27,7 +35,7 @@ Similar Problems:
         - Keep the sorted string as key and others which are same after sorting as the value of the map
         - Iterate over the map and for all the values, insert in a new vector.
 
-Note: MindTickle
+Note: MindTickle, Agoda
 */
 
 // Initially we have N choices, and in each choice we have (N - 1) choices, and so on. Notice that at the end when adding the list to the result list, it takes O(N).

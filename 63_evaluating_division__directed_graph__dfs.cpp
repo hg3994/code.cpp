@@ -3,7 +3,7 @@
 Harshit Gupta | 28th September, 2020
 -------------------------------------
 
-Ruby program for "You are given equations in the format A / B = k, where A and B are variables represented 
+C++ program for "You are given equations in the format A / B = k, where A and B are variables represented 
   as strings, and k is a real number (floating-point number). 
 	Given some queries, return the answers. If the answer does not exist, return -1.0."
 
@@ -36,12 +36,12 @@ Solution:
         6. Special Case 1: If the nodes does not exists, then no path exist
            Special Case 2: If the origin and destination are same node, then a/a=1, so return 1.
 
-    TC: O(MN)
         First of all, we iterate through the equations to build a graph. Each equation takes O(1) time 
             to process. Therefore, this step will take O(N) time in total.
         For each query, we need to traverse the graph. In the worst case, we might need to traverse 
             the entire graph, which could take O(N). Hence, in total, the evaluation of queries could 
-            take O(M⋅N).
+            take O(M⋅N) for M queries.
+    TC: O(MN)
     SC: O(N): graph, Visited, Backtracking recursion all take O(n) space.
     
     ----
@@ -125,8 +125,8 @@ public:
             }
         }
         
-        // Remove from the visited array
-        visited.erase(currentNode);
+        // Remove from the visited array (THIS IS NOT REQUIRED. A SIMPLE DFS WORKS AS WELL!)
+        // visited.erase(currentNode);
         return ret;
     }
 };
