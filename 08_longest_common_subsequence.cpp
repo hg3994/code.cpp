@@ -30,11 +30,12 @@ Similar Problem:
             point is 0. THIS IS THE ONLY DIFFERENCE from SUBSEQUENCE QUESTION.
         - We use another variable to keep maxSubarray Length
         - Ex: 
-            For Subsequence:    For Subarray:
-                      a b x             a b x
-                    b 0 1 1           b 0 1 0
-                    a 1 1 1           a 1 0 0
-                    x 1 1 2           x 0 0 1
+            For Subsequence:     For Subarray:
+                  - a b x             - a b x
+                - 0 0 0 0           - 0 0 0 0
+                b 0 0 1 1           b 0 0 1 0
+                a 0 1 1 1           a 0 1 0 0
+                x 0 1 1 2           x 0 0 0 1
 
 */
 
@@ -94,15 +95,15 @@ int main(){
 // 32147
 // LC Subarray: 3 2 1
 
-// BottomUP DP        Top-Bottom DP
-//    3 2 1 4 7 -    //    - 3 2 1 4 7
-// --------------    // --------------
-// 1 |0 0 1 0 0 0    // - |0 0 0 0 0 0  
-// 2 |0 1 0 0 0 0    // 1 |0 0 0 1 0 0  
-// 3 |3 0 0 0 0 0    // 2 |0 0 1 0 0 0  
-// 2 |0 2 0 0 0 0    // 3 |0 1 0 0 0 0  
-// 1 |0 0 1 0 0 0    // 2 |0 0 2 0 0 0  
-// - |0 0 0 0 0 0    // 1 |0 0 0 3 0 0 
+//  Top-Bottom DP           BottomUP DP       
+//    - 3 2 1 4 7              3 2 1 4 7 -    
+// --------------           --------------    
+// - |0 0 0 0 0 0           1 |0 0 1 0 0 0    
+// 1 |0 0 0 1 0 0           2 |0 1 0 0 0 0    
+// 2 |0 0 1 0 0 0           3 |3 0 0 0 0 0    
+// 3 |0 1 0 0 0 0           2 |0 2 0 0 0 0    
+// 2 |0 0 2 0 0 0           1 |0 0 1 0 0 0    
+// 1 |0 0 0 3 0 0           - |0 0 0 0 0 0    
 
 
 class Solution {

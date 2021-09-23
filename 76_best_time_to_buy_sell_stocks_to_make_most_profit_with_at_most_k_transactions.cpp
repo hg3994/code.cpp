@@ -138,11 +138,11 @@ public:
         // dp[i][j] represents the max profit one can make with at most i transactions in j days
         long int dp[k+1][d];
         
-        // In 1st day only, we will have 0 profit by buying-selling same day (irrepective of k)
+        // For 0 transactions, we can never buy-sell so 0 profit.
         for(long int i=0;i<d;i++)
             dp[0][i] = 0;
         
-        // For 0 transactions, we can never buy-sell so 0 profit.
+        // In 1st day only, we will have 0 profit by buying-selling same day (irrepective of k)
         for(long int i=0;i<k+1;i++)
             dp[i][0] = 0;
         

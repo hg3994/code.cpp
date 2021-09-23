@@ -76,6 +76,31 @@ Space Complexity: O(N). The extra space is used by the recursion call stack. In 
 // word: "bda",     maxLength = 3, memo { "a" -> 1, "b" -> 1, "ba"-> 2, "bca" -> 3, "bda" -> 3}
 // word: "bdca",    maxLength = 4, memo { "a" -> 1, "b" -> 1, "ba"-> 2, "bca" -> 3, "bda" -> 3, "bdca" -> 4}
 
+// dfs: a
+//   memo: 
+// dfs: b
+//   memo: a -> 1 
+// dfs: ba
+//   memo: b -> 1 a -> 1 
+// dfs: a
+//   memo: b -> 1 a -> 1 
+// dfs: b
+//   memo: b -> 1 a -> 1 
+// dfs: bca
+//   memo: b -> 1 ba -> 2 a -> 1 
+// dfs: ba
+//   memo: b -> 1 ba -> 2 a -> 1 
+// dfs: bda
+//   memo: bca -> 3 b -> 1 ba -> 2 a -> 1 
+// dfs: ba
+//   memo: bca -> 3 b -> 1 ba -> 2 a -> 1 
+// dfs: bdca
+//   memo: bda -> 3 bca -> 3 b -> 1 ba -> 2 a -> 1 
+// dfs: bca
+//   memo: bda -> 3 bca -> 3 b -> 1 ba -> 2 a -> 1 
+// dfs: bda
+//   memo: bda -> 3 bca -> 3 b -> 1 ba -> 2 a -> 1 
+
 class Solution {
     
     int dfs(unordered_map<string, bool>& wordsPresent, unordered_map<string, int>& memo, string currentWord){

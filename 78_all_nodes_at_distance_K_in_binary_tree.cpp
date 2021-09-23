@@ -19,6 +19,8 @@ Solution 1: BFS
 		distance of K nodes. We can now easily traverse upwards (thanks to the hash above)
     3. For travelling upwards, we can just refer to the map and whatever node it gives, we can add it to bfs q.
 	3. We keep a visited map as well so that we dont traverse a node more than once.
+        - This may happen when we go to a child node from target and then when we process the child node
+            again it tries to go to its parent (target). It may fall in an infinite loop with this.
 
 https://www.youtube.com/watch?v=nPtARJ2cYrg
 

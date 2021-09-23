@@ -51,8 +51,13 @@ Similar Questions:
         - It reduces to two house-robber problems and max of them would be the ans.
 
     2. https://leetcode.com/problems/house-robber-iii/
-        - TODO
-        - HARD but very interesting problem
+        - Besides the root, each house has one and only one parent house. After a tour, the smart thief 
+            realized that all houses in this place form a binary tree. It will automatically contact the 
+            police if two directly-linked houses were broken into on the same night.
+            Given the root of the binary tree, return the maximum amount of money the thief can rob without alerting the police.
+        - Check link for Graphical Examples
+        - VERY interesting problem
+        
 
 ---
   NOTE: 
@@ -119,4 +124,56 @@ public:
     
     return max(ans1, ans2);
   }
+};
+
+
+// --------------------------------------------------
+// SIMILAR PROBLEM 2  - HOUSE ROBBER IN A BINARY TREE
+// --------------------------------------------------
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+
+// Time complexity: O(N) since we run the helper function for all nodes once, and saved the results to prevent the second calculation.
+// Space complexity: O(N) since we need two maps with the size of O(N) to store the results, and O(N) space for stacks to start recursion.
+class Solution {
+public:
+    // memoization maps
+    unordered_map<TreeNode*, int> robResult; // if parent was robbed
+    unordered_map<TreeNode*, int> notRobResult; // if parent was not robbed
+    
+    int helper(TreeNode* node, bool parentRobbed){
+        if(node == NULL)
+            return 0;
+        
+        if(parentRobbed){
+            if(robResult.count(node))
+                return robResult[node];
+            int result = helper(node->left, false) + helper(node->right, false);
+            robResult[node] = result;
+            return result;
+        }
+        else {
+            if(notRobResult.count(node))
+                return notRobResult[node];
+            int rob = node->val + helper(node->left, true) + helper(node->right, true);
+            int notRob = helper(node->left, false) + helper(node->right, false);
+            int result = max(rob, notRob);
+            notRobResult[node] = result;
+            return result;
+        }
+    }
+    
+    int rob(TreeNode* root) {
+        return helper(root, false);
+    }
 };

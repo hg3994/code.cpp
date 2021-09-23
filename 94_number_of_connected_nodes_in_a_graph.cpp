@@ -16,7 +16,7 @@ Return the total number of provinces.
 https://leetcode.com/problems/number-of-provinces/
 ------
 
-Solution: Use DFS to traverse for the matrix and use visited[] to avoid being in infinite loop.
+Solution: Use DFS to traverse for the adjacency matrix and use visited[] to avoid being in infinite loop.
 
 Time Complexity: O(n2)
 Space Complexity: O(n)
@@ -47,8 +47,7 @@ public:
     int findCircleNum(vector<vector<int>>& grid) {
         int n = grid.size();
         int count = 0;
-        // visited init to 0
-        // we need only 1D visited since finally there are only N nodes, the matrix is just N*N
+        // "we need only 1D visited" since finally there are only N nodes, the matrix is just N*N
         // If we visit a node once, it's fine, no need to come back to this node again.
         vector<int> visited(n,0);
         
@@ -66,6 +65,7 @@ public:
 
 
 // Using BFS
+// "we need only 1D visited" since finally there are only N nodes, the matrix is just N*N
 class Solution {
 public:
     int findCircleNum(vector<vector<int>>& isConnected) {

@@ -70,18 +70,84 @@ Given some numbers and a sum...
     2. (69) List the ways you can make a sum with Infinite supplies of some Coins:                dp[i][j] = dp[i-1][j] + dp[i][j-coins[i]]; + Backtracking /  Only Backtracking.
     3. (21) Can we make a sum with a single coin of some given coins :                            dp[i][j] = dp[i-1][j] || dp[i-1][j-coins[i-1]]; 
     4. (80) Minimum number of coins used to make a sum with Infinite supplies of some Coins:      dp[i][j] = min(dp[i][j-coins[i]]+1, dp[i-1][j]);
-    5. (09) Minimum number of coins used to make a sum with a single coin of some coins:          Only Backtracking.
+    5. ( 9) Minimum number of coins used to make a sum with a single coin of some coins:          Backtracking to find the coin sets which make the sum and then get the minimum size from them.
     6. (49) Knapsack (maximize val with single items of wt & :                                    dp[i][j] = max(dp[i-1][j], val[i-1]+dp[i][j-weight[i-1]])
                 val with total Weight of Knapsack W)
+
+
+Stock Buy-Sell
+--------------
+Best Time to Buy and Sell Stock to make most profit with:
+    1. (54) 1 Transaction:
+            for(int i=0; i<prices.size(); i++){
+                minTillNow = min(minTillNow, prices[i]);
+                maxProfit = max(maxProfit, prices[i]-minTillNow);
+            }
+
+    2. (75) Infinite Transactions:
+            for(int i=1;i<prices.size();i++){
+                profit += max(prices[i]-prices[i-1] ,0);
+            }
+
+    3. (76) K transactions / 2 Transactions (k=2)
+            for(long int i=0;i<d;i++)
+                dp[0][i] = 0;
+            for(long int i=0;i<k+1;i++)
+                dp[i][0] = 0;
+            for(long int i=1;i<k+1;i++){
+                long int max_diff = dp[i][0] - prices[0];
+                for(long int j=1; j<d; j++){
+                    max_diff = max(max_diff, dp[i-1][j]-prices[j]);
+                    dp[i][j] = max(dp[i][j-1], max_diff+prices[j]);
+                }
+            }
+            return dp[k][d-1];
 
 
 Palindromes
 -----------
     These types of questions can be of two types: 
      1. Checking if X is a palindrome or not? IF X is palindrome by removing Y chars?
-        Can be solved by using two pointers i and j and traversing from start and end checking if the letters are same.
+            Can be solved by using two pointers i and j and traversing from start and end checking if the letters are same.
      2. Count the number of Palinromes in X
-        Expand from middle
+        - (82) Number of Palindromic Substrings in a String
+            Expand from middle
+
+Binary Search Problems
+----------------------
+    1. (93)  Find the index of a target element in a sorted rotated array + Find the index of the lowest element in a sorted rotated array.
+        // Find index of the lowest element first
+        int low = 0, high = n-1;
+    
+        // Finding the index of the lowest element
+        while(low < high){
+            int mid = low + (high-low)/2;
+            if (v[mid] > v[high])
+                low = mid+1;
+            else
+                high = mid;
+        }
+        // Now low = high = index of the lowest element
+
+        if (index_lowest == 0)
+            low=0, high=n-1;
+        else if (target >= v[0])
+            low=0, high=index_lowest-1;
+        else if (target < v[0])
+            low=index_lowest, high=n-1;
+        
+        // Now do binary search from low to high
+        while(low <= high){
+            int mid = low + (high-low)/2;
+            if(v[mid] == target)
+                return mid;
+            else if (v[mid] > target)
+                high = mid-1;
+            else 
+                low = mid+1;
+        }
+
+    2. 
 
 Data Structures for common problems
 -----------------------------------
@@ -557,29 +623,44 @@ Backtracking
             return dfs(0);
         }
         
-        // Returns the minimum number of transactions needed to settle the debt
         int dfs(int s){
-            // Skip the debts if they are 0
             while(s < debt.size() && debt[s] == 0)
                 s++;
             
             int res = INT_MAX;
-            // Iterate i from s+1 till the end looking for the perfect match of this debt[s]
-            // If we have a perfect match (+5, -5), then it will be considered in our soln otherwise
-            // near perfect will be taken since we have "min" func. written
             for(int i=s+1; i<debt.size(); i++){
-                // If the signs are opposite, then try to balance them
                 if(debt[i]*debt[s] < 0){
-                    // Try to balance debt[i] and debt[s]. It may/maynot be perfect & get the min from this
                     debt[i] += debt[s];
                     res = min(res, 1+dfs(s+1));
-                    // Backtrack and then try for other i's looking for a better answer.
                     debt[i] -= debt[s];
                 }
             }
             return res == INT_MAX ? 0 : res;
         }
     };
+
+5. Classic Coin Changing dfs for getting coins(infinite) that form a sum (69):
+    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> tempAns;
+        backtrack(candidates, ans, tempAns, target, 0);
+        return ans;
+    }
+
+    void backtrack(vector<int> candidates, vector<vector<int>>& ans, vector<int> tempAns, int remain, int start){
+        if(remain < 0)
+            return;
+        if(remain == 0){
+            ans.push_back(tempAns);
+            return;
+        }
+        for(int i=start; i<candidates.size();i++){
+            tempAns.push_back(candidates[i]);
+            backtrack(candidates, ans, tempAns, remain-candidates[i], i);
+            tempAns.pop_back();
+        }
+    }
 
 ====================================================================================================================
 ====================================================================================================================

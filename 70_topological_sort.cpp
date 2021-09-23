@@ -93,6 +93,73 @@ Resources:
 
 */
 
+
+
+// Solution 3: Graph is represented by vector of vectors.
+// THIS SHOULD BE THE PREFERRED SOLUTION FOR TOPOLOGICAL SORT
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        int n = numCourses;
+        vector<int> ans;
+        queue<int> q;
+        vector<vector<int>> graph(n);
+        vector<int> indegree(n, 0);
+        
+        for(auto& p: prerequisites){
+            graph[p[1]].push_back(p[0]);
+            indegree[p[0]]++;
+        }
+        
+        for(int i=0; i<n; i++){
+            if(indegree[i] == 0)
+                q.push(i);
+        }
+        
+        while(!q.empty()){
+            int top = q.front();
+            ans.push_back(top);
+            q.pop();
+            
+            for(auto &e: graph[top]){
+                if(--indegree[e] == 0)
+                    q.push(e);
+            }
+        }
+        if(n == ans.size())
+            return ans;
+        else
+            return {};
+    }
+};
+
+
+// Solution 4 (by lee215): Concise and Amazing. Similar to above
+bool canFinish(int n, vector<vector<int>>& prerequisites) {
+    vector<vector<int>> G(n);
+    vector<int> degree(n, 0), bfs;
+    for (auto& e : prerequisites) {
+        G[e[1]].push_back(e[0]);
+        degree[e[0]]++;
+    }
+    for (int i = 0; i < n; ++i) 
+        if (!degree[i]) 
+            bfs.push_back(i);
+
+    for (int i = 0; i < bfs.size(); ++i)
+        for (int j: G[bfs[i]])
+            if (--degree[j] == 0) 
+                bfs.push_back(j);
+
+    return bfs.size() == n;
+}
+
+
+
+
+
+
+
 // Adjacency List representation of a graph
 // Contains the number of nodes and an array of "pointers to linked lists"
 class Graph {
@@ -187,66 +254,6 @@ public:
         return topologicalSort(g);
     }
 };
-
-
-// Solution 3: Graph is represented by vector of vectors.
-// THIS SHOULD BE THE PREFERRED SOLUTION FOR TOPOLOGICAL SORT
-class Solution {
-public:
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        int n = numCourses;
-        vector<int> ans;
-        queue<int> q;
-        vector<vector<int>> graph(n);
-        vector<int> indegree(n, 0);
-        
-        for(auto& p: prerequisites){
-            graph[p[1]].push_back(p[0]);
-            indegree[p[0]]++;
-        }
-        
-        for(int i=0; i<n; i++){
-            if(indegree[i] == 0)
-                q.push(i);
-        }
-        
-        while(!q.empty()){
-            int top = q.front();
-            ans.push_back(top);
-            q.pop();
-            
-            for(auto &e: graph[top]){
-                if(--indegree[e] == 0)
-                    q.push(e);
-            }
-        }
-        if(n == ans.size())
-            return ans;
-        else
-            return {};
-    }
-};
-
-
-// Solution 4 (by lee215): Concise and Amazing. Similar to above
-bool canFinish(int n, vector<vector<int>>& prerequisites) {
-    vector<vector<int>> G(n);
-    vector<int> degree(n, 0), bfs;
-    for (auto& e : prerequisites) {
-        G[e[1]].push_back(e[0]);
-        degree[e[0]]++;
-    }
-    for (int i = 0; i < n; ++i) 
-        if (!degree[i]) 
-            bfs.push_back(i);
-
-    for (int i = 0; i < bfs.size(); ++i)
-        for (int j: G[bfs[i]])
-            if (--degree[j] == 0) 
-                bfs.push_back(j);
-
-    return bfs.size() == n;
-}
 
 
 // --------------------------------------------------------------------------------

@@ -94,6 +94,8 @@ Similar Questions:
 // ------------------
 // Approach 1: Greedy
 // ------------------
+// Time Complexity: O(n)
+// Space Complexity: O(1) 
 class Solution {
 public:
     int jump(vector<int>& nums) {

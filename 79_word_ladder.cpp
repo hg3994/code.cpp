@@ -87,33 +87,25 @@ public:
         while(!todo.empty()){
             int n = todo.size();
             
-            // For the "size" number of elements in the queue..
             for(int i=0; i<n; i++){
-            	// Get the front word
                 string word = todo.front();
                 todo.pop();
-                // If it is the end word, then return the shortest distance variable
-                if(word == endWord){
+                if(word == endWord)
                     return ladder;
-                }
                 
                 // Erase the word from dict since it has been accessed 
                 dict.erase(word);
 
-                // For all the letters of the word
                 for(int j=0;j<word.size(); j++){
-                	// Get the j'th character
                     char c = word[j];
                     // Replace this character with all the 26 letters
                     for(int k=0; k<26; k++){
                         word[j] = 'a' + k;
                         // If this modified word exists in the dictionary, then we push it.
                         if (dict.find(word) != dict.end()){
-                            // cout<<"Pushing: "<<word<<endl;
                             todo.push(word);
                         }
                     }
-                    // Get the original jth letter in place so that we can start replcing the j+1 th letter.
                     word[j] = c;
                 }
             }

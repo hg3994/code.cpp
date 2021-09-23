@@ -50,6 +50,10 @@ node* lowestCommonAncestor(node *root, node *node1, node *node2){
     
     // Returns the root node when it is equal to any of the node.
     // Keeping this condition here returns as soon as we find one node
+    // We can write this condition here and prevent iterating over the whole tree because we know 
+    //      that the other node will exist and if not anywhere it MUST be below this node.
+    // We can't write this condition if we are not sure that the node exists or not (Q2) since then
+    //      we must traverse the whole tree to check if it really exists or not.
     if(root==node1 || root==node2){
         return root;
     }

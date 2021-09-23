@@ -35,9 +35,9 @@ Solution:
         
         Index:   [0, 1,  2,  3, 4, 5,  6, 7, 8, 9]
         Element: [3, 4, -1, -2, 1, 5, 16, 0, 2, 0]
-                 [3, 4,  1,  2, 1, 5,  1, 1, 2, 1]
+                 [3, 4,  1,  1, 1, 5,  1, 1, 2, 1]
         
-        Hash:    { 1: 6, 2: 2, 3: 1, 4: 1, 5: 1 }
+        Hash:    { 1: 6, 2: 1, 3: 1, 4: 1, 5: 1 }
         
     b. Another idea is to use index in array as a hash key and sign of the element as a hash value which is presence detector. This is O(1) space solution.
          - The array (which after clean up contains only positive numbers), check each element value elem and change the sign of element nums[elem] to negative 
@@ -55,8 +55,8 @@ Solution:
     
     Index:   [0, 1,  2,  3, 4, 5,  6, 7, 8, 9]
     Element: [3, 4, -1, -2, 1, 5, 16, 0, 2, 0]
-             [3, 4,  1,  2, 1, 5,  1, 1, 2, 0]
-             [3,-4, -1, -2,-1,-5,  1, 1, 2, 0]
+             [3, 4,  1,  1, 1, 5,  1, 1, 2, 1]
+             [3,-4, -1, -1,-1,-5,  1, 1, 2, 1]
     
     Index: 6 has first positive from 1 to 9 so i=6 is our First Missing Positive.
 
@@ -110,7 +110,7 @@ public:
                     nums[a] = -abs(nums[a]);
             }
             
-            // Any number which is >0 means that the index is not referred adn was not made to change to negative. Hence, that index is our "First Missing Positive" 
+            // Any number which is >0 means that the index is not referred and was not made to change to negative. Hence, that index is our "First Missing Positive" 
             for(int i=1;i<n;i++){
                 if(nums[i] > 0){
                     return i;

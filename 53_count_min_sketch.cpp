@@ -68,6 +68,13 @@ Count-Min Sketch
 	* The correct output of this probable output wouldn't be lesser than what is predicted. It would always be equal or more 
 		than the given output.
 
+	Issue with Count-min sketch and its solution: 
+	---------------------------------------------
+	What if one or more elements got the same hash values and then they all incremented. So, in that case, the value would have 
+	been increased because of the hash collision. Thus sometimes (in very rare cases) Count-min sketch overcounts the frequencies 
+	because of the hash functions. So the more hash function we take there will be less collision. The fewer hash functions we take 
+	there will be a high probability of collision. Hence it always recommended taking more number of hash functions. 
+
 Solution: 
 
 Paradigm: 

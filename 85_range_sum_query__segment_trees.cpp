@@ -25,7 +25,7 @@ https://www.youtube.com/watch?v=ZBHKZF5w4YU
 Solution: 
     1. One way to solve would simply be by a for loop and it will do the SUM in O(n) time and UPDATE in O(1) time.
     2. Another way would be solve using Segment Trees which would do the SUM in O(logn) and UPDATE in O(logn) time. 
-        However, weee will have to build a Segment Tree first which will require O(n) time.
+        However, we will have to build a Segment Tree first which will require O(n) time.
 
     https://leetcode.com/problems/range-sum-query-mutable/solution/
 

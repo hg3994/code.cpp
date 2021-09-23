@@ -105,6 +105,36 @@ Similar Questions:
 */
 
 
+
+// -----------------
+// LEETCODE SOLUTION
+// -----------------
+
+
+class Solution {
+public:
+    int minMeetingRooms(vector<vector<int>>& intervals) {
+        if (intervals.size() <=1)
+            return intervals.size();
+
+        sort(intervals.begin(), intervals.end());
+
+        // min heap
+        priority_queue<int, vector<int>, std::greater<int>> pq;
+        pq.push(intervals[0][1]);
+
+        for(int i=1;i<intervals.size();i++){
+            if(intervals[i][0] >= pq.top())
+                pq.pop();
+            pq.push(intervals[i][1]);
+        }
+        return pq.size();
+    }
+};
+
+
+
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -192,30 +222,3 @@ int main() {
   cout<<s.minMeetingRooms(v)<<endl;
   cout<<s2.minMeetingRooms(v)<<endl;
 }
-
-
-// -----------------
-// LEETCODE SOLUTION
-// -----------------
-
-
-class Solution {
-public:
-    int minMeetingRooms(vector<vector<int>>& intervals) {
-        if (intervals.size() <=1)
-            return intervals.size();
-
-        sort(intervals.begin(), intervals.end());
-
-        // min heap
-        priority_queue<int, vector<int>, std::greater<int>> pq;
-        pq.push(intervals[0][1]);
-
-        for(int i=1;i<intervals.size();i++){
-            if(intervals[i][0] >= pq.top())
-                pq.pop();
-            pq.push(intervals[i][1]);
-        }
-        return pq.size();
-    }
-};

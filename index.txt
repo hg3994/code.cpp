@@ -77,8 +77,8 @@ INDEX
                 maxLen = max(maxLen, dp[i][j]);
             }
 
-9. [OBSOLETE] Add two numbers in a Linked List: Calculate sum=x+y+carry and create nodes with sum%10 till both nodes become NULL. 
-	Check for a final carry
+9.  Given a set of coins which are NOT INFINITE in number, how many minimum coins would you select to form a target sum?
+	a. Backtracking to find the coin sets which make the sum and then get the minimum size from them.
 
 10. Next Greater Element: Stack
 	a. ALGO:
@@ -142,6 +142,34 @@ INDEX
 
 14. Rearrange characters so no two adjacent characters are same: 
 	Keep adding max freq char in ans and temporarily move it out of PQ adjusting its freq.
+	a. ALGO:
+		string reorganizeString(string s) {
+		    priority_queue<pair<int, char> > pq;
+		    unordered_map<char, int> umap;
+		    for(int i=0; i<s.size(); i++){
+		        umap[s[i]]++;
+		    }
+		    
+		    for(auto &m: umap)
+		        pq.push({m.second, m.first});
+		    
+		    pair<int, char> temp = {-1, '#'};
+		    string ans;
+		    while(pq.size() > 0){
+		        pair<int, char> t = pq.top();
+		        pq.pop();
+		        ans += t.second;
+		        t.first--;
+		        
+		        if(temp.first > 0)
+		            pq.push(temp);
+		        
+		        // Always assign the current t as temp, if it has freq 0, then temp wont be pushed next time.
+		        temp = t;
+		    }
+		    
+		    return ans.size()==s.size() ? ans : "";
+		}
 
 15. Largest Sum Subarray: Kadane's Algorithm (At each point, decide whether I am alone greater or with the older sum)
 	a. ALGO:
@@ -165,15 +193,23 @@ INDEX
 17. Minimum Platforms required for Trains: Priority Queue
 
 18. Wildcard Pattern Matching: DP (Similar to Longest Common Subsequence)
-	a. if(text[j-1] == pattern[i-1] || pattern[i-1]=='?'){
+	a. ALGO:
+		bool dp[n+1][m+1];
+		dp[0][0]=1;
+		for(int i=1;i<m+1;i++)
+		    dp[0][i] = 0;
+		for(int i=1;i<n+1;i++)
+		    dp[i][0] = 0;
+		for(int i=1;i<n+1;i++)
+		    if(pattern[i-1]=='*')
+		        dp[i][0] = dp[i-1][0];
+
+		if(text[j-1] == pattern[i-1] || pattern[i-1]=='?')
             dp[i][j] = dp[i-1][j-1];
-        }
-        else if(pattern[i-1]=='*'){
+        else if(pattern[i-1]=='*')
             dp[i][j] = dp[i-1][j] || dp[i][j-1];
-        }
-        else{
+        else
             dp[i][j] = 0;
-        }
 
 19. Sort an array of 0s, 1s and 2s: Take pointers: 
 	a. low=starting of 1s, mid=starting of UNKNOWNS, high=ending of UNKNOWNS
@@ -196,8 +232,32 @@ INDEX
 	    }
 
 20. Heap Sort: heapify() the array first and then keep putting the largest element in the end.
+	a. ALGO:
+		void heapify(int *arr, int n, int i){
+		    int left_child = 2*i+1, right_child = 2*i+2, largest = i;
+		    if(left_child<n && arr[left_child] > arr[largest])
+		        largest = left_child;
+		    if(right_child<n && arr[right_child] > arr[largest])
+		        largest = right_child;
+		    if(i!=largest){
+		        swap(arr[i], arr[largest]);
+		        heapify(arr,n,largest);
+		    }
+		    
+		}
 
-21. Coin Changing 2: Number of ways to create a sum from limited supplies of some numbers:	
+		void heapSort(int *arr, int n){
+		    for(int i=(n/2)-1;i>=0;i--)
+		        heapify(arr,n,i);
+
+		    for(int i=n-1;i>=1;i--){
+		        swap(arr[0], arr[i]);
+		        heapify(arr,i,0);
+		    }
+		}
+
+
+21. Coin Changing 2: Can create a sum from limited supplies of some numbers?	
 	dp[i][j] = dp[i-1][j] || dp[i-1][j-coins[i-1]]; 
 
 22. [DUPLICATE-4]: Lowest Common Ancestor of a Binary Tree with root node not given: Traverse both nodes till root & start again from one 
@@ -288,6 +348,16 @@ INDEX
 	        }
 	    }
 
+	    vector<vector<string>> solveNQueens(int n) {
+	        vector<int> t(n,0);
+	        vector<vector<int>> board(n,t);
+	        
+	        vector<vector<string>> res;
+	        solve(board, res, 0);
+	        
+	        return res;
+	    }
+
 
 28. Shortest Distance between two cells in a matrix: BFS with visited matrix.
 
@@ -305,7 +375,22 @@ INDEX
     	i. Maintain a prev node since we need to connect prev to current now (instead of head)
     	ii. Maintain the first current since we need to attach it to the end.
 
-30. Peak Element in the array: Binary Search
+30. Peak Element in the array: Binary search
+	a. ALGO:
+		int findPeakElement(vector<int>& arr) {
+		    int n = arr.size();
+		    int left=0, right=n-1;
+		    while(left<=right){
+		        int mid = left+(right-left)/2;
+		        if( (mid == n-1 || arr[mid] > arr[mid+1])&& (mid==0 || arr[mid] > arr[mid-1]) )
+		            return mid;
+		        else if (mid <n && arr[mid] > arr[mid+1])
+		            right = mid-1;
+		        else
+		            left = mid+1;
+		    }
+		    return -1;
+		}
 
 31. Diameter of a Binary Tree: Number of EDGES(not nodes) in the Longest Path between two nodes.
 	a. Write the code for calculating the max Height of a tree.
@@ -356,6 +441,11 @@ INDEX
 	        }
 	    }
 
+	    vector<vector<int>> permute(vector<int>& nums) {
+	        permuteHelper(nums, 0);
+	        return result;
+	    }
+
 35. [OBSOLETE] Doubly Linked List: Usual Stuff.
 
 36. Largest Region in Boolean Matrix / Max Area of an Island: Union Find with sizes / DFS with visited array
@@ -381,8 +471,88 @@ INDEX
 	b. Have a max heap for storing the min half of elements
 	c. Keep them balance while inserting the elements
 	d. If num count is even, return average of both heaps. If odd, return the heap having more's top.
+	e. ALGO:
+		class MedianFinder {
+		public:
+		    priority_queue<int> max_heap;
+		    priority_queue<int, vector<int>, greater<int>> min_heap;
+		    double median;
+
+		    MedianFinder() {
+		        median = 0;
+		    }
+		    
+		    void addNum(int num) {
+		        if(max_heap.size() > min_heap.size()) {
+		            if(num < median) {
+		                min_heap.push(max_heap.top());
+		                max_heap.pop();
+		                max_heap.push(num);
+		            }
+		            else{
+		                min_heap.push(num);
+		            }
+		            median = (double)(min_heap.top() + max_heap.top()) / 2.0;
+		        }
+		        else if (max_heap.size() < min_heap.size()){
+		            if(num > median){
+		                max_heap.push(min_heap.top());
+		                min_heap.pop();
+		                min_heap.push(num);
+		            }
+		            else{
+		                max_heap.push(num);
+		            }
+		            median = (double)(min_heap.top() + max_heap.top()) / 2.0;
+		        }
+		        else {
+		            if( num < median){
+		                max_heap.push(num);
+		                median = (double)max_heap.top();
+		            }
+		            else{
+		                min_heap.push(num);
+		                median = (double)min_heap.top();
+		            }
+		        }
+		        
+		    }
+		    
+		    double findMedian() {
+		        return median;
+		    }
+		};
 
 38. Reach the edge of the matrix in shortest distance: BFS with visited array
+	a. ALGO:
+		int moves = 0;
+		queue<pair<int, int>> q;
+		q.push({entrance[0], entrance[1]});
+		visited[entrance[0]][entrance[1]] = 1;
+		
+		while(!q.empty()){
+		    int size = q.size();
+		    for(int k=0; k<size; k++) {
+		        pair<int, int> f = q.front();
+		        q.pop();
+		        if((f.first == 0 || f.first == m-1 || f.second == 0 || f.second == n-1) && (moves!=0)){
+		            return moves;
+		        }
+		        
+		        vector<int> row = {1,-1,0,0};
+		        vector<int> col = {0,0,1,-1};
+		        
+		        for(int i=0; i<4; i++){
+		            if(f.first+row[i] >=0  && f.first+row[i] < m && f.second+col[i] >=0 && f.second+col[i] <n && 
+		            	visited[f.first+row[i]][f.second+col[i]] == 0 && maze[f.first+row[i]][f.second+col[i]] == '.') {
+		                visited[f.first+row[i]][f.second+col[i]] = 1;
+		                q.push({f.first+row[i], f.second+col[i]});
+		            }
+		        }
+		    }
+		    moves++;
+		}
+		return -1;
 
 39. Clone Doubly Linked List with random pointer
 	a. start traversing and insert duplicate nodes in between (current->next = new Node(current->val);)
@@ -538,7 +708,7 @@ INDEX
 	a. Cons: You can not delete an element from Bloom Filters.
 	b. TC: O(K) where K is the number of hash functions.
 
-52. Stack:
+52. [HardToRemember] Stack:
 	a. Reverse a Stack (using Recursion): 
 		i. We keep popping the top elements using recursion and then pushing the top element in bottom. 
 		ii. Pushing an element to the bottom is again a recursive function which keeps popping till its empty and then pushes the element. 
@@ -606,6 +776,7 @@ INDEX
 		}
 
 53. Count-Min-Sketch: Count the frequency of a letter in a stream of Integers.
+	- It may overcounts the frequencies because of the hash functions. So the more hash function we take there will be less collision. 
 
 54. Trapping Rain Water:
 	a. Calculate the max bar to the left of every element: left[i] = max(left[i-1], arr[i])
@@ -834,8 +1005,21 @@ INDEX
 
 
 62. Merge Intervals: Sort and then Keep checking for overlapping. If overlapping, update the end index. if not, then insert
+	a. ALGO:
+		vector<vector<int>> merge(vector<vector<int>>& intervals) {
+		    int m = intervals.size();
+		    vector<vector<int>> merged;
+		    sort(intervals.begin(), intervals.end());
+		    
+		    for(auto interval : intervals)
+		        if(merged.empty() || merged.back()[1] < interval[0])
+		            merged.push_back(interval);
+		        else
+		            merged.back()[1] = max(merged.back()[1], interval[1]);
+		    return merged;
+		}
 
-63. Evaluating Division: DFS with Backtracking. Using the visited array as well.
+63. [HardToRemember] Evaluating Division: DFS with Backtracking. Using the visited array as well.
 	a. The problem can also be thought as: Given two nodes in a graph, we are asked to check if there exists a 
 		path between them. If so, we should return the cumulative products along the path as the result.
 	b. ALGO:
@@ -902,24 +1086,37 @@ INDEX
 		4 5 6  =>  4 5 6  =>  8 5 2
 		7 8 9      1 2 3      9 6 3
 
-66. Word Break Problem: Recursion + Memoization
+66. [HardToRemember] Word Break Problem: Recursion + Memoization
 	a. If my dictionary contains s[start..end] and s[end..n] can also be solved, return true
 	b. memo[] will contain whether a word 'w' can be solved or not. -1 = UNKNOWN, 0=CANNOT, 1=CAN
 	c. Algo:
-		if (memo[start]!= -1)
-      		return memo[start];
+		bool wordBreakHelper(string s,  unordered_map<string, int> dictMap, int start,  vector<int>& memo) {
+		    int n = s.length();
+		    if (start == n)
+		        return true;
+		    if (memo[start]!= -1)
+		        return memo[start];
 
-		for(int end=start+1;end<=n;end++){
-	      	if (dictMap.find(s.substr(start,end-start)) != dictMap.end()  && wordBreakHelper(s, dictMap, end, memo)){
-	        	memo[start] = 1;
-	        	return true;
-	      	}
-	    }
+		    for(int end=start+1;end<=n;end++){
+		        if (dictMap.find(s.substr(start,end-start)) != dictMap.end()  && wordBreakHelper(s, dictMap, end, memo)){
+		            memo[start] = 1;
+		            return true;
+		        }
+		    }
+		    memo[start] = 0;
+		    return false;
+		}
+		
+		bool wordBreak(string s, vector<string>& wordDict) {
+		    vector<int> memo(s.size(), -1);
+		    unordered_map<string, int> dictMap;
+		    for (int i = 0; i < wordDict.size(); ++i)
+		        dictMap[wordDict[i]] = true;
+		    
+		    return wordBreakHelper(s, dictMap, 0, memo);
+		}
 
-	    memo[start] = 0;
-	    return false;
-
-67. Longest Substring with at most 2 distinct characters: Sliding Window
+67. [SIMILAR-58] Longest Substring with at most 2 distinct characters: Sliding Window
 
 68. Merge Two Sorted Linked Lists:
 	a. Algo:
@@ -937,6 +1134,28 @@ INDEX
 
 69. Coin Changing 3 : Given infinite coins, print the ways in which we can make a sum s.
 	a. Iterate the DP array and try to calculate it.
+	b. OR use backtracking to check for every possibility.
+	c. ALGO:
+		vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+		    vector<vector<int>> ans;
+		    vector<int> tempAns;
+		    backtrack(candidates, ans, tempAns, target, 0);
+		    return ans;
+		}
+
+		void backtrack(vector<int> candidates, vector<vector<int>>& ans, vector<int> tempAns, int remain, int start){
+		    if(remain < 0)
+		        return;
+		    if(remain == 0){
+		        ans.push_back(tempAns);
+		        return;
+		    }
+		    for(int i=start; i<candidates.size();i++){
+		        tempAns.push_back(candidates[i]);
+		        backtrack(candidates, ans, tempAns, remain-candidates[i], i);
+		        tempAns.pop_back();
+		    }
+		}
 
 70. Topological Sort: BFS on nodes with indegree 0
 	a. Calculate the indegree for all the vertices.
@@ -944,6 +1163,39 @@ INDEX
 	c. Till the queue is empty, for all the adjacent nodes of the popped node, decrease the indegree & if it is 0, push it in queue
 	d. Keep pushing the popped nodes in the ans. This will be the TOPOLOGICAL SORT of the graph.
 	e. Keep maintaining the number of nodes that are visited & if that is not equal to total vertices, there are cycles.
+	f. ALGO:
+		vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+		    int n = numCourses;
+		    vector<int> ans;
+		    queue<int> q;
+		    vector<vector<int>> graph(n);
+		    vector<int> indegree(n, 0);
+		    
+		    for(auto& p: prerequisites){
+		        graph[p[1]].push_back(p[0]);
+		        indegree[p[0]]++;
+		    }
+		    
+		    for(int i=0; i<n; i++){
+		        if(indegree[i] == 0)
+		            q.push(i);
+		    }
+		    
+		    while(!q.empty()){
+		        int top = q.front();
+		        ans.push_back(top);
+		        q.pop();
+		        
+		        for(auto &e: graph[top]){
+		            if(--indegree[e] == 0)
+		                q.push(e);
+		        }
+		    }
+		    if(n == ans.size())
+		        return ans;
+		    else
+		        return {};
+		}
 
 71. Serialize and Deserialize a BST
 	a. Save it in Pre-Order Traversal
@@ -951,10 +1203,31 @@ INDEX
 
 72. Minimize arrows to burst balloons.
 	a. Sort them on start time.
-	b. Iterate over the balloons and if they overlap (lastIntervalEndtime > NewIntervalStartTime, then keep only overlapping intervals.
+	b. Iterate over the balloons and if they overlap (lastIntervalEndtime >= NewIntervalStartTime, then keep lastIntervalEndTime = min(lastIntervalEndTime, NewIntervalStartTime);
 	c. If they do not overlap, then keep current intervals end time as the last interval end time.
+	d. ALGO:
+		int findMinArrowShots(vector<vector<int>>& p) {
+		    if (p.size() <= 1)
+		        return p.size();
+		  
+		    sort(p.begin(), p.end());
+		    int ans=0, lastIntervalEndTime = p[0][1];
+
+		    for(auto currentInterval: p){
+		        if(lastIntervalEndTime >= currentInterval[0])
+		            lastIntervalEndTime = min(lastIntervalEndTime, currentInterval[1]);
+		        else {
+		            ans++;
+		            lastIntervalEndTime = currentInterval[1];
+		        }
+		    }
+		    ans++;
+		    return ans;
+		}
 
 73. Sort a Linked List: Using Merge Sort here.
+	a. Find the middle point of the list and make it point to NULL. Now we have two sorted lists.
+	b. Merge them using 68_.. which is very simple.
 
 74. Minimum Number of Meeting Rooms: Priority Queue.
 	a. Sort the meetings on start time.
@@ -980,7 +1253,7 @@ INDEX
             profit += max(prices[i]-prices[i-1] ,0);
         }
 
-76. Best Time to Buy and Sell Stock 3: Given stock prices and with K transactions, maximize the profit. DP.
+76. [HardToRemember] Best Time to Buy and Sell Stock 3: Given stock prices and with K transactions, maximize the profit. DP.
 	a.	dp[i][j] represents the max profit one can make with at most i transactions in j days
 
 		dp[i][j] = max( 
@@ -1048,48 +1321,105 @@ INDEX
 	b. Write BFS, just we need to insert the parent node as well by checking from the hashmap.
 	c. When you reach K level break, all nodes in the queue will be of level K.
 	d. ALGO:
-		queue<TreeNode*> q;
-        int currentLevel = 0;
-        q.push(target);
-        visited[target] = true;
-        while(!q.empty()){
-        	if (currentLevel == K)
-                break;
-            currentLevel++;
-            int size = q.size();
-            for(int i=0; i<size; i++) {
-                TreeNode* front = q.front();
-                visited[front] = true;
-                q.pop();
-                if (front->left && !visited[front->left])
-                    q.push(front->left);
-                if (front->right && !visited[front->right])
-                    q.push(front->right);
-                if (parents[front] && !visited[parents[front]])
-                    q.push(parents[front]);
-            }
-        }
-        vector<int> res;
-        while(!q.empty()){
-            TreeNode *f = q.front();
-            q.pop();
-            res.push_back(f->val);
+
+		void fill_parents(unordered_map <TreeNode*, TreeNode*>& parents, TreeNode* node){    
+		    if (node == NULL)
+		        return;
+		    if(node->left != NULL){
+		        parents[node->left] = node;
+		        fill_parents(parents, node->left);
+		    }
+		    if(node->right != NULL){
+		        parents[node->right] = node;
+		        fill_parents(parents, node->right);
+		    }
+		}
+
+		vector<int> distanceK(TreeNode* root, TreeNode* target, int K) {
+		    if (root == NULL)
+		        return {};
+		    unordered_map <TreeNode*, TreeNode*> parents;
+		    fill_parents(parents, root);
+		    
+		    unordered_map<TreeNode*, bool> visited;
+			queue<TreeNode*> q;
+	        int currentLevel = 0;
+	        q.push(target);
+	        visited[target] = true;
+	        while(!q.empty()){
+	        	if (currentLevel == K)
+	                break;
+	            currentLevel++;
+	            int size = q.size();
+	            for(int i=0; i<size; i++) {
+	                TreeNode* front = q.front();
+	                visited[front] = true;
+	                q.pop();
+	                if (front->left && !visited[front->left])
+	                    q.push(front->left);
+	                if (front->right && !visited[front->right])
+	                    q.push(front->right);
+	                if (parents[front] && !visited[parents[front]])
+	                    q.push(parents[front]);
+	            }
+	        }
+	        vector<int> res;
+	        while(!q.empty()){
+	            TreeNode *f = q.front();
+	            q.pop();
+	            res.push_back(f->val);
+	        }
+	        return res;
         }
 
-79. Word Ladder: Transform a word from startWord to endWord from a wordlist by making one change at a time. BFS
+79. [HardToRemember] Word Ladder: Transform a word from startWord to endWord from a wordlist by making one change at a time. BFS
 	a. Add startWord to queue.
 	b. Try to change all its letters and check if you have it in dict. If you have, insert it in queue.
 	c. Keep doing this till you find endWord
 	d. Keep erasing the words that yu have made form dict since otherwise you may fall in an infinite loop.
 	e. Since it is BFS, it will give you the shortest way to arrive from beginWord to endWord.
+	f. ALGO:
+		int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+		    unordered_set<string> dict(wordList.begin(), wordList.end());
 
-80. Coin Changing 4: Minimum number of coins required to create a sum.
+		    queue<string> todo;
+		    todo.push(beginWord);
+		    int ladder = 1;
+		    
+		    while(!todo.empty()){
+		        int n = todo.size();
+		        
+		        for(int i=0; i<n; i++){
+		            string word = todo.front();
+		            todo.pop();
+		            if(word == endWord)
+		                return ladder;
+		            dict.erase(word);
+
+		            for(int j=0;j<word.size(); j++){
+		                char c = word[j];
+		                for(int k=0; k<26; k++){
+		                    word[j] = 'a' + k;
+		                    if (dict.find(word) != dict.end()){
+		                        todo.push(word);
+		                    }
+		                }
+		                word[j] = c;
+		            }
+		        }
+		        ladder++;
+		    }
+		    return 0;
+		}
+
+80. Coin Changing 4: Given some coins infnite in number, Minimum number of coins required to create a sum.
 	a. dp[j] = min(dp[j], dp[j-coins[i]]+1);
 
 81. Minimum Number of Jumps to reach the end of array.
 	a. Start from 0 till currentEnd(0 init) and keep calculating the currentFarthest you can reach.
 	b. Once you reach the end, make currentEnd = currentFarthest and increase a jump.
 	c. Algo:
+		int n=nums.size(), currEnd=0, currFarthest=0, jumps=0;
 		for(int i=0; i<n-1;i++) {
             currFarthest = max(currFarthest, i+nums[i]);
             if (i == currEnd){
@@ -1099,11 +1429,33 @@ INDEX
                     break;
             }
         }
+        return jumps;
 
 82. Number of palindromic Substrings:
 	a. Use the same logic of expand_from_middle and this time, return the number of strings instea of the boolean.
+	b. ALGO:
+	    int expand_from_middle (string s, int left, int right){
+	        int palin = 0;
+	        while(left>=0 && right < s.length() && s[left] == s[right]){
+	            palin++;
+	            left--;
+	            right++;
+	        }
+	        return palin;
+	    }
+	    int countSubstrings(string s) {
+	        int n=s.size(), i=0, num_of_palindromes = 0;
+	        while(i<n){
+	            int n1 = expand_from_middle(s, i, i);
+	            int n2 = expand_from_middle(s, i, i+1);
+	            num_of_palindromes += n1+n2;
+	            i++;
+	        }
+	        return num_of_palindromes;
+	    }
+	c. Time Complexity: O(n2)
 
-83. Longest String Chain: DFS + Backtracking
+83. [HardToRemember] Longest String Chain: DFS + Backtracking
 	a. ALGO:
 		if (memo.find(currentWord) != memo.end())
             return memo[currentWord];
@@ -1137,10 +1489,46 @@ INDEX
         }
         return cache[i][j];
 
-85. Range Sum Query - Mutable (Update can happen): Segment Tree.
+85. [HardToRemember] Range Sum Query - Mutable (Update can happen): Segment Tree.
 	Range Sum Query - Immutable (No update, only sum): Prefix Sum.
 
 86. K-Closest points to the origin: Max Heap of size K.
+	a. ALGO:
+		struct comp {
+		    bool operator() (pair<int, int>& p1, pair<int, int>& p2) {
+		        int x1 = p1.first;
+		        int y1 = p1.second;
+		        int d1 = x1*x1 + y1*y1;
+		        
+		        int x2 = p2.first;
+		        int y2 = p2.second;
+		        int d2 = x2*x2 + y2*y2;
+		        
+		        return d1 < d2;
+		    }
+		};
+		
+		vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+		    
+		    priority_queue<pair<int,int>, vector<pair<int, int>>, comp> pq;
+		    
+		    for(auto p: points){
+		        // Push the point in the PQ
+		        pq.push({p[0], p[1]});
+		        // If the size of the PQ becomes > k, then pop one of them
+		        if (pq.size()>k){
+		            pq.pop();
+		        }
+		    }
+		    
+		    vector<vector<int>> res;
+		    while(!pq.empty()){
+		        res.push_back({pq.top().first, pq.top().second});
+		        pq.pop();
+		    }
+		    
+		    return res;
+		}
 	
 87. Median of Two Sorted Arrays X & Y: Binary search to find the middle elements and then cal the median.
 	a. Find the cut using Binary search in the smaller array X
@@ -1235,7 +1623,7 @@ INDEX
 		reverse(ans.begin(), ans.end());
         return ans;
 
-92. LFU Cache: TODO
+92. [HardToRemember] LFU Cache: TODO
 
 93. Search in a rotated sorted array: Binary Search
 	a. B.Search for the index of the lowest element. (TRICKY to remember this variation of Binary Search)
@@ -2421,6 +2809,6 @@ INDEX
         }
         return count;
 
-146. Three Sum / K Sum: HaspMap, Two Pointer
+146. Three Sum / K Sum: HashMap, Two Pointer
 
 147. 

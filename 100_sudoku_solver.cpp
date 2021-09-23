@@ -49,7 +49,7 @@ public:
         
         for(int i=0;i<3;i++)
             for(int j=0;j<3;j++)
-                if(board[row/3*3 + i][col/3*3 + j] == c)
+                if(board[(row/3)*3 + i][(col/3)*3 + j] == c)
                     return false;
         return true;
     }

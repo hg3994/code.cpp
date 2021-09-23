@@ -137,7 +137,6 @@ public:
 // BFS SOLUTION
 // ------------
 class Solution {
-    unordered_map<Node*, Node*> mp;
 public:
   
     Node* cloneGraph(Node* node) {
@@ -156,8 +155,8 @@ public:
             
             for(auto &nbr: top->neighbors){ // 1->[2,3]
                 if(!visited[nbr]){
-                    // Create Cloned nodes.
-                    visited[nbr] = new Node(nbr->val);
+                    // Create Cloned nodes (2->2*), (3->3*)
+                    visited[nbr] = new Node(nbr->val); 
                     q.push(nbr);
                 }
                 // MOST IMPORTANT: Add the neighbours to the cloned nodes.

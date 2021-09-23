@@ -17,10 +17,14 @@ Time Complexity: O(m+n)
 Space Complexity: O(1)
 
 ---
-  NOTE: BOTH THE WHILE LOOPS CAN BE MERGED INTO ONE BUT I HAVE KEPT BOTH OF THEM JUST FOR THE SAKE OF BETTER READABILITY AND UNDERSTANDING!
 
 
 */
+
+
+// ------------------
+// ONE LOOP SOLUTION 
+// ------------------
 
 class Solution {
     
@@ -29,6 +33,42 @@ class Solution {
     //    7 7
     // ------
     // 10 3 3
+    
+public:
+    string addStrings(string num1, string num2) {
+        string ans;
+        
+        int carry = 0;
+        int p1 = num1.length() - 1;
+        int p2 = num2.length() - 1;
+        while (p1 >= 0 || p2 >= 0) {
+            int x1 = p1 >= 0 ? num1[p1]-'0': 0;
+            int x2 = p2 >= 0 ? num2[p2]-'0': 0;
+            int value = (x1 + x2 + carry) % 10;
+            carry = (x1 + x2 + carry) / 10;
+            ans += to_string(value);
+            p1--;
+            p2--;  
+        }
+        
+        if (carry != 0)
+            ans += to_string(carry);
+        
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
+
+
+class Solution {
+    
+    //  1 1
+    //  9 5 6
+    //    7 7
+    // ------
+    // 10 3 3
+    
+    // NOTE: BOTH THE WHILE LOOPS CAN BE MERGED INTO ONE BUT I HAVE KEPT BOTH OF THEM JUST FOR THE SAKE OF BETTER READABILITY AND UNDERSTANDING!
     
 public:
     string addStrings(string num1, string num2) {
@@ -80,39 +120,3 @@ public:
 };
 
 
-// ------------------
-// ONE LOOP SOLUTION 
-// ------------------
-
-class Solution {
-    
-    //  1 1
-    //  9 5 6
-    //    7 7
-    // ------
-    // 10 3 3
-    
-public:
-    string addStrings(string num1, string num2) {
-        string ans;
-        
-        int carry = 0;
-        int p1 = num1.length() - 1;
-        int p2 = num2.length() - 1;
-        while (p1 >= 0 || p2 >= 0) {
-            int x1 = p1 >= 0 ? num1[p1]-'0': 0;
-            int x2 = p2 >= 0 ? num2[p2]-'0': 0;
-            int value = (x1 + x2 + carry) % 10;
-            carry = (x1 + x2 + carry) / 10;
-            ans += to_string(value);
-            p1--;
-            p2--;  
-        }
-        
-        if (carry != 0)
-            ans += to_string(carry);
-        
-        reverse(ans.begin(), ans.end());
-        return ans;
-    }
-};

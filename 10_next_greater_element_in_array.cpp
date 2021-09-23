@@ -77,7 +77,9 @@ int main(){
 // -------------------
 // SIMILAR QUESTION -1
 // -------------------
-
+// [5,4,3,2,1]
+// [5,4,3,2,1,5,4,3,2,1]
+// {4->5, 3->5, 2->5, 1->5, 5->-1}
 vector<int> nextGreaterElements(vector<int>& A) {
     int n = A.size();
     vector<int> stack, res(n, -1);

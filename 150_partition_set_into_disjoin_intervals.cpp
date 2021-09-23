@@ -30,7 +30,7 @@ Solution:
 
 	1. Create the maxLeft array which tells the maximum to the left of every element
 	2. Create the minRight array which tells the minimum to the right of every element.
-	3. Any element which has maxleft > minright is what we are looking for
+	3. Any element which has maxleft <= minright is what we are looking for
 
   TC: O(n)
   SC: O(n)
@@ -45,7 +45,7 @@ Paradigm:
 // arr:     [5,0,3,8,6]
 // maxleft: [5,5,5,8,8]
 // minright:[0,0,3,6,6]
-// At i=2, maxleft (5) >= minright(6), so that is the ans
+// At i=2, maxleft (5) <= minright(6), so that is the ans
 class Solution {
 public:
     int partitionDisjoint(vector<int>& nums) {

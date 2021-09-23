@@ -26,13 +26,17 @@ Solution: We will use DFS to traverse the matrix and whenever an element is smal
 	- We also used a cache[][] which is initialized with all 1's.
 	- If cache already contains a result, we dont compute it and get the result straightaway.
 
+    Why we don't need a visited[] array here? Won't it fall in an infinite loop?
+    - The reason is the fact that we are checking for a strict a > b and if in dfs(a) a>b
+        and we call dfs(b), then b>a will never be possible and we won't fall in for 
+        an infinite loop.
 
 Time Complexity: O(mn)
 Space Complexity: O(mn)
 
 Paradigm: DFS, Memoization
 ---
-  NOTE: 
+  NOTE: 1. Asked in BOLT
 
 */
 
