@@ -55,7 +55,7 @@ SC: O(L) for recursion stack of the backtracking function.
 
 Paradigm: Backtracking
 ---
-  NOTE: 
+  NOTE: 1. Asked in BOLT.
 
 */
 
