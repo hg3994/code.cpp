@@ -45,7 +45,7 @@ Paradigm:
 // arr:     [5,0,3,8,6]
 // maxleft: [5,5,5,8,8]
 // minright:[0,0,3,6,6]
-// At i=2, maxleft (5) <= minright(6), so that is the ans
+// At i=3, (maxLeft[i-1] <= minRight[i]) maxleft (5) <= minright(6), so that is the ans
 class Solution {
 public:
     int partitionDisjoint(vector<int>& nums) {

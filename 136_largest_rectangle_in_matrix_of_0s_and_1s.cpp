@@ -29,7 +29,7 @@ Paradigm: DP, Stack
             - Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
             - Init dp[i][0] and dp[0][i] with the same nums
             - If the grid[i][j] == 1, 
-                - Check for the dp[i-1][j], dp[i][j-1], dp[i-1][j-1] and if they are not 0, the min of them+1 is the alrgest sq I can make here
+                - Check for the dp[i-1][j], dp[i][j-1], dp[i-1][j-1] and if they are not 0, the min of them+1 is the largest sq I can make here
                     if(dp[i-1][j]!=0 && dp[i][j-1]!=0 && dp[i-1][j-1]!=0)
                         dp[i][j] = min(min(dp[i-1][j],dp[i-1][j-1]),dp[i][j-1])+1;
                 - Otherwise dp[i][j] = 1

@@ -1989,14 +1989,61 @@ INDEX
 
 107. Check if an array is a permutation of 1 to n.
 	a. Keep iterating and converting the numbers present index of current num to be negative.
-		for(int i=0;i<n;i++){
-			int abs_vi = abs(v[i]);
-			v[abs_vi] = -v[abs_vi];
-		}
 	b. Finally if there is any number > 0, then it means that array is not a perm, otherwise true.
+	c. ALGO:
+		bool checkPermutations(vector<int> v){
+			int n= v.size();
+			for(int i=0;i<n;i++){
+				if(v[i]>=n || v[i]<0)
+					return false;
+			}
+			
+			for(int i=0;i<n;i++){
+				int abs_vi = abs(v[i]);
+				v[abs_vi] = -v[abs_vi];
+			}
+			
+			for(int i=0;i<n;i++){
+				if(v[i] > 0)
+				return false;
+			}
+			
+			return true;
+		}
 
 108. Maximum Level Sum of a Binary Tree: BFS 
 	a. Simple BFS in which we keep calc sum of each level and then maxSum out of the all level sums.
+	b. ALGO:
+		int maxLevelSum(TreeNode* root) {
+		    if(root->left == NULL && root->right == NULL)
+		        return 1;
+		    int max_sum=INT_MIN, sum_of_this_level=0, max_level=0;
+		    queue<pair<TreeNode*, int>> q;
+		    q.push({root,1});
+		    q.push({NULL, 1});
+		    while(!q.empty()){
+		        pair<TreeNode*, int> front = q.front();
+		        q.pop();
+		        if(front.first == NULL ){
+		            if(sum_of_this_level > max_sum){
+		                max_sum = sum_of_this_level;
+		                max_level = front.second;
+		            }
+		            if(q.size() == 0)
+		                break;
+		            q.push({NULL, front.second+1});
+		            sum_of_this_level = 0;
+		        }
+		        else{
+		            sum_of_this_level += front.first->val;
+		            if(front.first->left)
+		                q.push({front.first->left, front.second+1});
+		            if(front.first->right)
+		                q.push({front.first->right, front.second+1});   
+		        }
+		    }
+		    return max_level;
+		}
 
 109. Skyline Problem: TODO
 
@@ -2007,43 +2054,40 @@ INDEX
 		- We use the expand() function to color WITH 2s, 3s...
 	c. When we reach an island of 1s, the color for example is c, then c-2 is the minimum distance between 2 islands.
 	d. ALGO:
+	    int dfs(vector<vector<int>>& grid, int i, int j){
+	        if (i<0 || j<0 || i==grid.size() || j==grid.size() || grid[i][j]!= 1) 
+	            return 0;
+	        grid[i][j] = 2;
+	        return 1 + dfs(grid, i+1, j) + dfs (grid, i-1, j)+ dfs(grid, i, j+1) + dfs(grid, i, j-1);
+	    }
+	    
+	    bool expand(vector<vector<int>>& grid, int i, int j, int cl) {
+	        if (i<0 || j<0 || i==grid.size() || j==grid.size()) 
+	        	return false;
+	        if (grid[i][j] == 0) 
+	            grid[i][j] = cl+1;
+	        return grid[i][j] == 1;
+	    }
+	    
+	    for(int i=0; !found && i<grid.size(); i++)
+	        for(int j=0; !found && j<grid.size(); j++)
+	            found = dfs(grid, i, j);
 
-    int dfs(vector<vector<int>>& grid, int i, int j){
-        if (i<0 || j<0 || i==grid.size() || j==grid.size() || grid[i][j]!= 1) 
-            return 0;
-        grid[i][j] = 2;
-        return 1 + dfs(grid, i+1, j) + dfs (grid, i-1, j)+ dfs(grid, i, j+1) + dfs(grid, i, j-1);
-    }
-    
-    bool expand(vector<vector<int>>& grid, int i, int j, int cl) {
-        if (i<0 || j<0 || i==grid.size() || j==grid.size()) 
-        	return false;
-        if (grid[i][j] == 0) 
-            grid[i][j] = cl+1;
-        return grid[i][j] == 1;
-    }
-    
-    for(int i=0; !found && i<grid.size(); i++)
-        for(int j=0; !found && j<grid.size(); j++)
-            found = dfs(grid, i, j);
-    for (int cl = 2; ; ++cl)
-        for(int i=0; i<grid.size(); i++)
-            for(int j=0; j<grid.size(); j++)
-                if (grid[i][j] == cl && (expand(grid, i - 1, j, cl) || expand(grid, i, j - 1, cl) || expand(grid, i + 1, j, cl) || expand(grid, i, j + 1, cl)))
-                    return cl-2;
+	    for (int cl = 2; ; ++cl)
+	        for(int i=0; i<grid.size(); i++)
+	            for(int j=0; j<grid.size(); j++)
+	                if (grid[i][j] == cl && (expand(grid, i - 1, j, cl) || expand(grid, i, j - 1, cl) || expand(grid, i + 1, j, cl) || expand(grid, i, j + 1, cl)))
+	                    return cl-2;
     
 111. Rectangles Overlap: Check if two given rectangles overlap with each other.
 	a. Instead of overlap, check for conditions on when they will not overlap.
 	b. ALGO:
-		// x2 <= x3 when R1 is on the left of R2 and they do not intersect
-        // x4 <= x1 when R2 is on the left of R1 and they do not intersect
         if(x2 <= x3 || x4 <= x1)
             return false;
-        
-        // y2 <= y3 when R2 is above R1 and they do not intersect
-        // y4 <= y1 when R1 is above R2 and they do not intersect
         if (y2 <= y3 || y4 <= y1)
              return false;
+
+        return true;
 
 112. Reverse Nodes in a LinkedList in groups of size K
 	a. 
@@ -2105,8 +2149,7 @@ INDEX
 		unordered_map<string, vector<string>> graph;
 	    unordered_map<string,string> email_to_name;
 	    unordered_set<string> visited;
-	    
-	    
+
 	    void dfs(string email, set<string> &email_set) {
 	        if(visited.count(email))
 	            return;
@@ -2226,7 +2269,49 @@ INDEX
 	    return ans;
 
 119. Remove the minimum number of invalid parentheses to make the input string valid & return all possible results: Backtracking
-	a. TODO
+	a. READ THE SOLUTION FROM FILE.
+	b. ALGO:
+		unordered_set<string> validExpressions = {};
+		
+		void recurse(string s, int index, int leftCount, int rightCount, int leftRem, int rightRem, string expression){
+		    if(index == s.size()) {
+		        if(leftRem == 0 && rightRem == 0)
+		            validExpressions.insert(expression);
+		    }
+		    else {
+		        char currentCharacter = s[index];
+		        if(currentCharacter == '(' && leftRem>0 )
+		            recurse(s, index+1, leftCount, rightCount, leftRem-1, rightRem, expression);
+		        else if(currentCharacter == ')' && rightRem>0)
+		            recurse(s, index+1, leftCount, rightCount, leftRem, rightRem-1, expression);
+
+		        expression += currentCharacter;
+		        if(currentCharacter != '(' && currentCharacter != ')' )
+		            recurse(s, index+1, leftCount, rightCount, leftRem, rightRem, expression);
+		        else if(currentCharacter == '(')
+		            recurse(s, index+1, leftCount+1, rightCount, leftRem, rightRem, expression);
+		        else if (rightCount < leftCount)
+		            recurse(s, index+1, leftCount, rightCount+1, leftRem, rightRem, expression);
+		        expression.pop_back();
+		    }
+		}
+		
+		vector<string> removeInvalidParentheses(string s) {
+		    int leftUnmatched = 0, rightUnmatched = 0;
+		    for(int i=0; i<s.size(); i++){
+		        if(s[i] == '(')
+		            leftUnmatched++;
+		        else if(s[i] == ')'){
+		            if(leftUnmatched == 0)
+		                rightUnmatched++;
+		            else if(leftUnmatched > 0)
+		                leftUnmatched--;
+		        }
+		    }
+		    recurse(s, 0, 0, 0, leftUnmatched, rightUnmatched, "");
+		    vector<string> v(validExpressions.begin(), validExpressions.end());
+		    return v;
+		}
 
 120. Flatten a multi-level doubly linked list:
 	a. Keep track of prev and current. Prev is required so that we can return the last node of the LL for this level.
@@ -2298,12 +2383,12 @@ INDEX
         int n= intervals.size(), prev=0, removeCount=0;
         
         for(int i=1;i<intervals.size(); i++){
-            if(intervals[prev][1] > intervals[i][0]){ 		// overlapping
-                if(intervals[prev][1] > intervals[i][1]) 	// total overlap, move ahead & removeCount++
-                    prev = i;   
-                removeCount++;    							// partial overlap, only removeCount++; (no need to move ahead)
+            if(intervals[prev][1] > intervals[i][0]){
+                if(intervals[prev][1] > intervals[i][1])
+                    prev = i;
+                removeCount++;
             }
-            else 											// no overlap, just move ahead, no change remove count
+            else
                 prev = i;
         }
         return removeCount;
@@ -2411,33 +2496,16 @@ INDEX
     e. Get the largest mountain.
     f. ALGO:
     	while(base < N) {
-            // Start end with the base and try to keep growing it
             end = base;
-            
-            // we do NOT want the flow to reach the next if loop of travelling 
-            // down the mountain without travelling up so we need this condition
             if(end+1 < N && arr[end]<arr[end+1]){
-                
-                // travelling upwards to reach the peak of the mountain
                 while(end+1 < N && arr[end]<arr[end+1])
                     end++;
-
-                // we want to update the ans only when we have travelled to the 
-                // end of the mountain, so we need this if condition check
                 if(end+1<N && arr[end]>arr[end+1]) {
-                    
-                    // travelling downwards to reach the end of the mountain
                     while(end+1<N && arr[end]>arr[end+1])
                         end++;
-                    
-                    // Now we have reached the bottom of the mountain
-                    // Check if this is the largest mountain we have?
                     ans = max(ans, end-base+1);
                 }
             }
-            
-            // If there was a mountian, update base to the end of it.. to search for a new mountain
-            // Otherwise increase base by 1 and check.
             base = max(end, base+1);
         }
         return ans;
@@ -2479,7 +2547,30 @@ INDEX
         }
         return ans;
 
-129. Task Schedueler: TODO
+129. Task Schedueler:
+	a. ALGO:
+		int leastInterval(vector<char>& tasks, int n) {
+		    if(n==0)
+		        return tasks.size();
+		    
+		    vector<int> freq(26,0);
+		    for(auto c: tasks)
+		        freq[c-'A']++;
+		    
+		    sort(freq.begin(), freq.end());
+		    
+		    int fmax = freq[25];
+		    int idle_time = (fmax - 1)*n;
+		    
+		    for(int i=freq.size()-2; i>=0 && idle_time>0; --i){
+		        idle_time -= min(fmax-1, freq[i]);
+		        if(idle_time <= 0){
+		            idle_time = 0;
+		            break;
+		        }
+		    }
+		    return idle_time+tasks.size();
+		}
 
 130. Find K closest Elements to X in a sorted array. (X may not be there in the array): Binary Search
 	a. Search for the element closest to X with lower_bound(). Set that as R. L=R-1
@@ -2534,10 +2625,92 @@ INDEX
 	b. UF: Use count integer which would first be the number of 1s but will decrease on each union of 2 ones. Return count finally.
 	c. Check this file and look for the SIMILAR QUESTION 1 - NUMBER OF CONNECTED COMPONENTS OF A GRAPH which can 
 		also be solved with a similar 'count' approach for UF.
+	d. ALGO:
+		void DFS(vector<vector<char>>& grid, int r, int c){        
+		    int m = grid.size();
+		    int n = grid[0].size();
+		    
+		    if(r<0 || r==m || c<0 || c==n|| grid[r][c]=='0')
+		        return;
+		    
+		    grid[r][c] = '0';
+		    DFS(grid, r-1, c);
+		    DFS(grid, r+1, c);
+		    DFS(grid, r, c+1);
+		    DFS(grid, r, c-1);
+		}
+		
+		int numIslands(vector<vector<char>>& grid) {  
+		    if (grid.size() == 0)
+		        return 0;
+		    int m = grid.size();
+		    int n = grid[0].size();
+		    
+		    int ans = 0;
+		    for(int i=0; i<m;i++){
+		        for(int j=0;j<n;j++){
+		            if(grid[i][j]=='1'){
+		                ans++;
+		                DFS(grid, i, j);
+		            }
+		        }
+		    }
+		    return ans;
+		}
 
 133. Redundant Connection: One Extra edge is added in the graph which makes it cyclic. Return that edge whose removal will make it noncyclic: Union Find.
 	a. Simple union find where UNION returns true/false if the nodes belong to same/different groups.
 	b. While processing an edge, if UNION returns that they belong to same edge, then adding this edge will cause a cycle and we return it.
+	c. ALGO:
+		class DSU {
+		public: 
+		    vector<int> parent, rank;
+		    
+		    DSU(int n) {
+		        parent.resize(n);
+		        rank.resize(n);
+		        // initializes each node's parent to be itself - fills as [0,1,2,3,...,n], now each node is a parent of itself (self loop)
+		        iota(begin(parent), end(parent), 0);
+		    }
+		    
+		    int find (int x) {
+		        // x is itself the parent of this component, then return, 
+		        // else recurse for parent of x.
+		        if (x == parent[x])
+		            return x;
+		        parent[x] = find(parent[x]); // PATH COMPRESSION
+		        return parent[x];
+		    }
+		    
+		    bool Union (int x, int y){      // since union is already a keyword, so Union.
+		        int xp = find(x);           // find parents of x and y, i.e, representatives of components that x and y belong to
+		        int yp = find(y);
+		        if (xp == yp)               // x and y already belong to same component - not possible to union
+		            return false;
+		        if (rank[xp] > rank[yp])    // union by rank - join smaller ranked to bigger one
+		            parent[yp] = parent[xp];
+		        else if (rank[yp] > rank[xp])
+		            parent[xp] = parent[yp];
+		        else {                      // same rank - join either to other and increment rank of final parent
+		            parent[xp] = yp;        // union x and y by making parent common
+		            rank[yp]++;
+		        }
+		        return true;
+		    }
+		};
+
+
+		class Solution {
+		public:
+		    vector<int> findRedundantConnection(vector<vector<int>>& e) {
+		        DSU ds(e.size() + 1);
+		        for (auto& E: e){
+		            if(! ds.Union(E[0], E[1]))
+		                return E;
+		        }
+		        return {}; // Will never reach here.
+		    }
+		};
 
 134. Making a Large Island by changing at most one 0 to 1 in a matrix: Union Find with parent, rank and size vectors.
 	a. Create a UF from the matrix
@@ -2650,7 +2823,7 @@ INDEX
         }
         return ans;
 
-138. For each element in the array, we have to find the distance with all the 1s in the array: Left to Right and RIght to Left Parsing
+138. For each element in the array, we have to find the distance with all the 1s in the array: Left to Right and Right to Left Parsing
 	a. For each element, calculate the number of 1s on its left and 1s on its right
 	b. For each element, calculate the cost of 1s from the elements on its left & on its right
 	c. Add the leftCost & rightCost for each i & that would be the final cost.
@@ -2811,4 +2984,66 @@ INDEX
 
 146. Three Sum / K Sum: HashMap, Two Pointer
 
-147. 
+147. Three Equal Parts of a Binary Array
+
+148. Group Anagrams:
+	a. ALGO:
+		vector<vector<string>> groupAnagrams(vector<string>& s) {
+
+		    vector<vector<string>> ans;
+		    unordered_map<string, vector<string>> M;
+		    
+		    for(int  i = 0; i < s.size(); i++) {
+		        string str = s[i];
+		        sort(s[i].begin(), s[i].end()); // Sorting the string
+		        M[s[i]].push_back(str);  // Sorted string is the key and the value is the initial string
+		    }
+		    for(auto i : M)
+		        ans.push_back(i.second);  // Traversing the map and adding the vectors of string to ans
+		    return ans;
+
+		}
+
+149. Sort an almost sorted Array in O(n) time:
+		Array: [1, 3, 5, 6, 4, 2, 12] (it might be changed from [1, 3, 5, 6, 7, 8, 12] with k = 2).
+		Important to know is that k is unknown and k is much smaller than n. The task is to re-sort the entire array.
+	a. Find elements which are not sorted by traversing the array.
+	b. If an element was found which is larger than the next one, then either it or the following one 
+		are out of order (or both).
+	c. Keep both of them aside, and remove them from the array.
+	d. Continue traversing on the newly obtained array (after removal), from the index which comes before 
+		the found element.
+	e. This will put aside 2k elements in O(n) time.
+	f. Sort 2k elements O(klogk)
+	g. Merge two sorted lists which have total n elements, O(n)
+		Total O(n + klogk)
+	h. For the above array, the resulting arrays will be - [1, 3, 12] and [5, 6, 4, 2] ( 2k elements ). 
+		I think the above will give O(n) in worst case if (k << n).
+
+150. Partition array such tht each element in left part is less than equal to each element in right part
+	a. ALGO:
+		// arr:     [5,0,3,8,6]
+		// maxleft: [5,5,5,8,8]
+		// minright:[0,0,3,6,6]
+		// At i=3, (maxLeft[i-1] <= minRight[i]) maxleft (5) <= minright(6), so that is the ans
+		class Solution {
+		public:
+		    int partitionDisjoint(vector<int>& nums) {
+		        int n = nums.size();
+		        vector<int> maxLeft(n,0), minRight(n,0);
+		        
+		        maxLeft[0] = nums[0];
+		        for (int i = 1; i < n; ++i)
+		            maxLeft[i] = max(maxLeft[i-1], nums[i]);
+		        
+		        minRight[n-1] = nums[n-1];
+		        for(int i=n-2; i>=0; i--)
+		            minRight[i] = min(minRight[i+1], nums[i]);
+
+		        for (int i = 1; i < n; ++i)
+		            if(maxLeft[i-1] <= minRight[i])
+		                return i;
+		        
+		        return -1;
+		    }
+		};
