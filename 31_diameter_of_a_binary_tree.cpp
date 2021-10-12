@@ -54,8 +54,9 @@ struct TreeNode {
 
 
  Similar Problem:
-  1. https://leetcode.com/problems/maximum-depth-of-binary-tree/
-    - Max Height of the Tree
+    1. https://leetcode.com/problems/maximum-depth-of-binary-tree/
+        - Max Height of the Tree
+    2. Print the elements forming the max Height of the Tree
 
 */ 
 
@@ -110,3 +111,21 @@ public:
         return max(leftPath, rightPath)+1;
     }
 };
+
+// SIMILAR QUESTION 2
+
+vector<int> result;
+bool elementInMaxDepth(TreeNode* node, vector<int>& temp){
+    int n = temp.size();
+    if(node == NULL){
+        if(temp.size() > result.size()){
+            result = temp;
+            return;
+        }
+    }
+    temp.push_back(node->val);
+    elementInMaxDepth(node->left, temp);
+    elementInMaxDepth(node->right, temp);
+    temp.pop_back();
+}
+

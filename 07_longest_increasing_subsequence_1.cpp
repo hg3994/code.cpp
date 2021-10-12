@@ -5,6 +5,7 @@ C++ program for calculating length of longest increasing subsequence length in O
 
 https://www.youtube.com/watch?v=CE2b_-XfVDk
 https://www.geeksforgeeks.org/longest-increasing-subsequence-dp-3/
+https://leetcode.com/problems/longest-increasing-subsequence/
 
 Solution: We will use very basic dynamic Programming to solve this.
     * At every point, if a number arr[i] such that arr[j] < arr[i], j<i, 
@@ -37,6 +38,7 @@ Similar Question:
         - dp[i] = max(dp[j]+arr[i], dp[i]); (Add arr[i] instead of 1)
 
     2.  https://www.geeksforgeeks.org/longest-increasing-subarray/
+        https://leetcode.com/problems/longest-continuous-increasing-subsequence/
         - Same question for subarrays
 */
 
@@ -158,34 +160,46 @@ public:
 // SOLUTION FOR SIMILAR PROBLEM 2 - LONGEST INCREASING SUBARRAY
 // ------------------------------------------------------------
 
-int lenOfLongIncSubArr(int arr[], int n)
-{
-    // 'max' to store the length of longest increasing subarray
-    // 'len' to store the lengths of longest increasing subarray
-    int max = 1, len = 1;
-     
-    // traverse the array from the 2nd element
-    for (int i=1; i<n; i++)
-    {
-        // if current element if greater than previous element, then this element helps in building
-        // up the previous increasing subarray encountered so far
-        if (arr[i] > arr[i-1])
-            len++;
-        else {
-            // check if 'max' length is less than the length of the current increasing subarray. If true,
-            // then update 'max'
-            if (max < len)   
-                max = len;
-                 
-            // reset 'len' to 1 as from this element again the length of the new increasing subarray is being calculated   
-            len = 1;   
-        }   
+class Solution {
+public:
+    int findLengthOfLCIS(vector<int>& arr) {
+        int max = 1, len = 1, n = arr.size();
+
+        // traverse the array from the 2nd element
+        for (int i=1; i<n; i++)
+        {
+            // if current element if greater than previous element, then this element helps in building
+            // up the previous increasing subarray encountered so far
+            if (arr[i] > arr[i-1])
+                len++;
+            else {
+                // check if 'max' length is less than the length of the current increasing subarray. If true,
+                // then update 'max'
+                if (max < len)   
+                    max = len;
+
+                // reset 'len' to 1 as from this element again the length of the new increasing subarray is being calculated   
+                len = 1;   
+            }   
+        }
+
+        // comparing the length of the last increasing subarray with 'max'
+        if (max < len)
+            max = len;
+
+        // required maximum length
+        return max;
     }
-     
-    // comparing the length of the last increasing subarray with 'max'
-    if (max < len)
-        max = len;
-     
-    // required maximum length
-    return max;
+};
+
+
+class Solution {
+    public int findLengthOfLCIS(int[] nums) {
+        int ans = 0, anchor = 0;
+        for (int i = 0; i < nums.length; ++i) {
+            if (i > 0 && nums[i-1] >= nums[i]) anchor = i;
+            ans = Math.max(ans, i - anchor + 1);
+        }
+        return ans;
+    }
 }

@@ -17,21 +17,21 @@ Explanation: 342 + 465 = 807.
 
 Solution: 
 
-  We calculate the numbers in the given Linked lists with help of recursion. 
-  The numbers are stored in reverse order and so we can use the position of node(level) to create the number.
-  We have the level of each node and then we multiply the number in node with 10^level to get the actual number.
-    2 -> 4 -> 3
-    2*(0^10) + 4*(1^10) + 3 (2^10)
-    2 + 40 + 300
-    342
+    We calculate the numbers in the given Linked lists with help of recursion. 
+    The numbers are stored in reverse order and so we can use the position of node(level) to create the number.
+    We have the level of each node and then we multiply the number in node with 10^level to get the actual number.
+        2 -> 4 -> 3
+        2*(0^10) + 4*(1^10) + 3 (2^10)
+        2 + 40 + 300
+        342
 
-  We just have to create a new List with the number as SUM of two numbers in reverse order.
-  - We will do num%10 to get the unit digit and then create a node.
-  - We will get the remaining number by removing the unit digit and then dividing the number by 10 (num = num - num%10 ; num = num / 10)
-  - We do the same thing with the remaining number.
-    807
-    7 + 00 + 800
-    7*(0^10) + 0*(1^10) + 8*(2^10)
+    We just have to create a new List with the number as SUM of two numbers in reverse order.
+        - We will do num%10 to get the unit digit and then create a node.
+        - We will get the remaining number by removing the unit digit and then dividing the number by 10 (num = num - num%10 ; num = num / 10)
+        - We do the same thing with the remaining number.
+            807
+            7 + 00 + 800
+            7*(0^10) + 0*(1^10) + 8*(2^10)
 
   We keep maintaining the list through recursion and then finally send it to main()
 
