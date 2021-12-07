@@ -81,3 +81,13 @@ public:
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+
+// ListNode(){
+//     this->val = 0;
+//     this->next = NULL;
+// };
+
+// ListNode(int x){
+//     this->val = x;
+//     this->next = NULL;
+// };
